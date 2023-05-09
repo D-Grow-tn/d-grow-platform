@@ -1,1 +1,1 @@
-# d-grow-plateform
+# d-grow-platform
