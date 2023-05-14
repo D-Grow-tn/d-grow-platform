@@ -18,6 +18,8 @@ const Profile = React.lazy(() => import('./../pages/Profile'));
 
 const Chat = React.lazy(() => import('./../pages/Chat'));
 
+const Contact = React.lazy(() => import('./../pages/Contact'));
+
 
 
 function Router() {
@@ -31,7 +33,7 @@ function Router() {
             <Route path="sign-up" element={<LoadComponent Component={SignUp}/>} />
             <Route path="profile" element={<LoadComponent Component={Profile}/>} />
             <Route path="about-us" element={<LoadComponent Component={AboutUs}/>} />
-        
+            <Route path="contact" element={<LoadComponent Component={Contact}/>} />
             <Route path="*" element={<LoadComponent Component={ComingSoon}/>} />
             <Route path="chat" element={<LoadComponent Component={Chat}/>} />
           </Route>
