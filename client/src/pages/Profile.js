@@ -25,9 +25,9 @@ const UserProfile = () => {
         status: "Ongoing",
         timeline: "Jan 2023 - Dec 2023",
         team: [
-          { name: "John Doe", role: "Project Manager" },
-          { name: "Jane Smith", role: "Developer" },
-          { name: "Jane Smith", role: "Designer" },
+          { name: "John ", role: "Project Manager" },
+          { name: "Jane ", role: "Consultant" },
+       
         ],
       },
 
@@ -40,9 +40,9 @@ const UserProfile = () => {
         status: "Completed",
         timeline: "Mar 2022 - Nov 2022",
         team: [
-          { name: "Alex Brown", role: "Project Manager" },
-          { name: "Emily Davis", role: "Developer" },
-          { name: "Micha Wilson", role: "Designer" },
+          { name: "Alex ", role: "Project Manager" },
+          { name: "Emily ", role: "Consultant" },
+       
         ],
       },
       {
@@ -54,10 +54,9 @@ const UserProfile = () => {
         status: "Ongoing",
         timeline: "Jan 2023 - Present",
         team: [
-          { name: "Alex Brown", role: "Project Manager" },
-          { name: "Sarah Will", role: "iOS Developer" },
-          { name: "Michael ", role: " Developer" },
-          { name: "Emily Joh", role: "UI/UX " },
+          { name: "Alex ", role: "Project Manager" },
+          { name: "Sarah ", role: "Consultant" },
+       
         ],
       },
       {
@@ -69,9 +68,8 @@ const UserProfile = () => {
         status: "Completed",
         timeline: "Apr 2022 - Jul 2022",
         team: [
-          { name: "John Doe", role: "Project Manager" },
-          { name: "Jane Smith", role: " Developer" },
-          { name: "Mark Joh", role: " Developer" },
+          { name: "John", role: "Project Manager" },
+          { name: "Jane ", role: " Consultant" }
         ],
       },
 
@@ -84,10 +82,9 @@ const UserProfile = () => {
         status: "Ongoing",
         timeline: "TBD",
         team: [
-          { name: "David Smith", role: "Project Manager" },
-          { name: "Rachel ", role: " Developer" },
-          { name: "Oliver ", role: "Administrator" },
-          { name: "Emma ", role: "UI/UX " },
+          { name: "David ", role: "Project Manager" },
+          { name: "Rachel ", role: "Consultant" }
+         
         ],
       },
       {
@@ -99,9 +96,8 @@ const UserProfile = () => {
         status: "onHold",
         timeline: "Mar 2022 - Nov 2022",
         team: [
-          { name: "Alex Brown", role: "Project Manager" },
-          { name: "Emily Davis", role: "Developer" },
-          { name: "Micha Wilson", role: "Designer" },
+          { name: "Alex", role: "Project Manager" },
+          { name: "Emily ", role: "Consultant" }
         ],
       },
     ],
@@ -207,7 +203,7 @@ const UserProfile = () => {
         </p>
       </div>
 
-      <Card className="text-center">
+      <Card className="text-center " style={{paddingBottom:"20px"}}>
         <Card.Header style={{ height: "57px" }}>
           <Nav variant="tabs" activeKey={activeTab} onSelect={handleTabChange}>
             <Nav.Item>
@@ -277,7 +273,7 @@ const UserProfile = () => {
                 {user.projects.map((project, i) => (
                   <div className="   mt-3 " key={i}>
                     <Card
-                      style={{ width: "21rem", height: "500px" }}
+                      style={{ width: "19rem", height: "500px" }}
                       className="shadow proCard"
                     >
                       <Card.Img

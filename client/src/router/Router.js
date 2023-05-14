@@ -44,6 +44,10 @@ function Router() {
               path="about-us"
               element={<LoadComponent Component={AboutUs} />}
             />
+              <Route
+              path="contact"
+              element={<LoadComponent Component={Contact} />}
+            />
 
             <Route
               path="*"

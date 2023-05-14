@@ -63,16 +63,15 @@ function Naavbar() {
               </NavDropdown.Item>
             </NavDropdown>
             <Nav.Link
-              href="#action2"
+              href="/about-us"
               className="hover-bleu"
-              onClick={() => navigate("about-us")}
+        
             >
               About Us
             </Nav.Link>
             <Nav.Link
-              href="#action2"
+              href="/contact"
               className="hover-bleu"
-              onClick={() => navigate("contact")}
             >
               Contact{" "}
             </Nav.Link>
