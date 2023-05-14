@@ -15,9 +15,13 @@ const ResetPassword = React.lazy(() => import("../pages/auth/ResetPassword"));
 
 const AboutUs = React.lazy(() => import("../pages/AboutUs"));
 
-const Profile = React.lazy(() => import("./../pages/Profile"));
+const Profile = React.lazy(() => import('./../pages/Profile'));
 
-const Chat = React.lazy(() => import("./../pages/Chat"));
+const Chat = React.lazy(() => import('./../pages/Chat'));
+
+const Contact = React.lazy(() => import('./../pages/Contact'));
+
+
 
 function Router() {
   return (
