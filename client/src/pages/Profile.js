@@ -112,30 +112,16 @@ const UserProfile = () => {
           style={{ marginTop: "5rem" }}
         >
           <div
-            className="card"
-            style={{ width: "90rem", position: "relative" }}
+            className="card rounded-5"
+            style={{ width: "60rem", position: "relative" }}
           >
             <div className="d-flex">
               <div
-                className="bg-dark"
-                style={{ width: "50%", height: "40px", borderRadius: "2px" }}
+                style={{ width: "100%", height: "40px", borderRadius: "2px" , backgroundColor: "#070f4e" }}
               ></div>
-              <div
-                className="bg-light"
-                style={{ width: "50%", height: "40px", borderRadius: "2px" }}
-              ></div>
+             
             </div>
-            <div className="d-flex">
-              <div
-                className="bg-light"
-                style={{ width: "50%", height: "40px", borderRadius: "2px" }}
-              ></div>
-
-              <div
-                className="bg-dark"
-                style={{ width: "50%", height: "40px", borderRadius: "2px" }}
-              ></div>
-            </div>
+         
 
             <div className="card-body d-flex flex-column align-items-center">
               <img
@@ -144,7 +130,7 @@ const UserProfile = () => {
                 style={{
                   width: "150px",
                   position: "absolute",
-                  top: "-15%",
+                  top: "-20%",
                 }}
                 alt="Avatar"
               />
