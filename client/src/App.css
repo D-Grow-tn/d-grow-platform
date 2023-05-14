@@ -1,3 +1,52 @@
+.divider:after,
+.divider:before {
+  content: "";
+  flex: 1;
+  height: 1px;
+  background: #eee;
+}
+.h-custom {
+  height: calc(100% - 50px); /* Adjust the subtraction value as needed */
+}
+
+@media (max-width: 700px) {
+  .h-custom {
+  height: 100%;
+  }
+}
+.proCard {
+  overflow: hidden;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+  transition: all 0.3s ease;
+}
+
+.proCard:hover {
+  transform: scale(1.05);
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
+ 
+}
+
+.proCard:hover .cardTitle {
+  text-decoration: underline;
+}
+
+
+ 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 .App {
   text-align: center;
 }

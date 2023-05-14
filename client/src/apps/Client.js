@@ -4,11 +4,14 @@ import Footer from './../layouts/Footer';
 import { Outlet } from 'react-router-dom';
 
 function Client() {
+
+
+
   return (
     <div>
-      <Navbar />
+    <Navbar />
       <Outlet />
-      <Footer/>
+     <Footer />
     </div>
   );
 }
