@@ -5,7 +5,7 @@ import Nav from "react-bootstrap/Nav";
 import Navbar from "react-bootstrap/Navbar";
 import NavDropdown from "react-bootstrap/NavDropdown";
 import { useNavigate } from "react-router-dom";
-import { FcSearch } from "react-icons/fc";
+// import { FcSearch } from "react-icons/fc";
 import "bootstrap/dist/css/bootstrap.min.css";
 
 
@@ -63,15 +63,16 @@ function Naavbar() {
               </NavDropdown.Item>
             </NavDropdown>
             <Nav.Link
-              href="/about-us"
+              href="#action2"
               className="hover-bleu"
-        
+              onClick={() => navigate("about-us")}
             >
               About Us
             </Nav.Link>
             <Nav.Link
-              href="/contact"
+              href="#action2"
               className="hover-bleu"
+              onClick={() => navigate("contact")}
             >
               Contact{" "}
             </Nav.Link>
@@ -95,7 +96,7 @@ function Naavbar() {
                 borderColor: " #f5ebeb",
               }}
             />
-            <FcSearch style={{ height: "30px", width: "30px" }} />
+            {/* <FcSearch style={{ height: "30px", width: "30px" }} /> */}
           </Form>
         </Navbar.Collapse>
       </Container>

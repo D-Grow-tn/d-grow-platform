@@ -1,4 +1,38 @@
+.divider:after,
+.divider:before {
+  content: "";
+  flex: 1;
+  height: 1px;
+  background: #eee;
+}
+.h-custom {
+  height: calc(100% - 50px); /* Adjust the subtraction value as needed */
+}
 
+@media (max-width: 700px) {
+  .h-custom {
+  height: 100%;
+  }
+}
+.proCard {
+  overflow: hidden;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+  transition: all 0.3s ease;
+}
+
+.proCard:hover {
+  transform: scale(1.05);
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
+ 
+}
+
+.proCard:hover .cardTitle {
+  text-decoration: underline;
+}
+
+.App {
+  text-align: center;
+}
 @import url('../src/assets/vendor/bootstrap-icons/bootstrap-icons.css');
 @import url("https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Raleway:300,300i,400,400i,600,600i,700,700i");
 
