@@ -4,13 +4,11 @@ import Form from "react-bootstrap/Form";
 import Nav from "react-bootstrap/Nav";
 import Navbar from "react-bootstrap/Navbar";
 import NavDropdown from "react-bootstrap/NavDropdown";
-import { useNavigate } from "react-router-dom";
 import { FcSearch } from "react-icons/fc";
 import "bootstrap/dist/css/bootstrap.min.css";
-
-
+import TextHoverUnderline from "../components/TextHoverUnderline";
 function Naavbar() {
-  const navigate = useNavigate();
+
   const [scroll, setScroll] = useState(0);
 
   useEffect(() => {
@@ -40,11 +38,11 @@ function Naavbar() {
             navbarScroll
           >
             <Nav.Link
-              href="#action1"
-              className="hover-bleu"
-              onClick={() => navigate("home")}
+              href="/"
+              className="d-flex justify-content-center align-items-center"
+              
             >
-              Home
+              <TextHoverUnderline bgColor='blue' duration='300' type='linear' content='Home' width={50}/>
             </Nav.Link>
             <NavDropdown
               title="Sevices"
@@ -62,23 +60,16 @@ function Naavbar() {
                 Something else here
               </NavDropdown.Item>
             </NavDropdown>
-            <Nav.Link
-              href="/about-us"
-              className="hover-bleu"
-        
-            >
+            <Nav.Link href="/about-us" className="hover-bleu">
               About Us
             </Nav.Link>
-            <Nav.Link
-              href="/contact"
-              className="hover-bleu"
-            >
+            <Nav.Link href="/contact" className="hover-bleu">
               Contact{" "}
             </Nav.Link>
             <Nav.Link
-              href="#action2"
+              href="/auth"
               className="hover-bleu"
-              onClick={() => navigate("login")}
+              
             >
               Account{" "}
             </Nav.Link>
