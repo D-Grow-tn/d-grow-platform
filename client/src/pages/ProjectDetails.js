@@ -1,13 +1,13 @@
 import React, { useState } from "react";
-import {
-  Gantt,
-  Task,
-  EventOption,
-  StylingOption,
-  ViewMode,
-  DisplayOption,
-} from "gantt-task-react";
-import "gantt-task-react/dist/index.css";
+// import {
+//   Gantt,
+//   Task,
+//   EventOption,
+//   StylingOption,
+//   ViewMode,
+//   DisplayOption,
+// } from "gantt-task-react";
+// import "gantt-task-react/dist/index.css";
 import { MySvgComponent } from "../components/Svg";
 import { useParams } from "react-router-dom";
 import projectData from "../constants/ProjectsData";
