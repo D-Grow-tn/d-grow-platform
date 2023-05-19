@@ -1,23 +1,31 @@
 import React, { useEffect, useState } from "react";
 import Container from "react-bootstrap/Container";
-import Form from "react-bootstrap/Form";
 import Nav from "react-bootstrap/Nav";
 import Navbar from "react-bootstrap/Navbar";
 import NavDropdown from "react-bootstrap/NavDropdown";
-import { useNavigate } from "react-router-dom";
-import { FcSearch } from "react-icons/fc";
+import PersonAddTwoToneIcon from "@mui/icons-material/PersonAddTwoTone";
 import "bootstrap/dist/css/bootstrap.min.css";
-
+import TextHoverUnderline from "../components/TextHoverUnderline";
+import { useNavigate } from "react-router-dom";
 
 function Naavbar() {
-  const navigate = useNavigate();
   const [scroll, setScroll] = useState(0);
+  const [dropdownOpen, setDropdownOpen] = useState(false);
+  const navigate = useNavigate();
 
   useEffect(() => {
     window.addEventListener("scroll", function () {
       setScroll(window.scrollY);
     });
   }, []);
+
+  const handleDropdownToggle = () => {
+    setDropdownOpen(!dropdownOpen);
+  };
+
+  const handleDropdownClose = () => {
+    setDropdownOpen(false);
+  };
 
   return (
     <Navbar
@@ -33,23 +41,33 @@ function Naavbar() {
           D-Grow{" "}
         </Navbar.Brand>
         <Navbar.Toggle aria-controls="navbarScroll" />
-        <Navbar.Collapse id="navbarScroll">
-          <Nav
-            className="me-auto my-2 my-lg-0 px-5 mx-5 gap-3"
-            style={{ maxHeight: "100px" }}
-            navbarScroll
-          >
+        <Navbar.Collapse id="navbarScroll" className="justify-content-between">
+          <div style={{ marginLeft: -120 }}></div>
+          <Nav className=" " style={{ maxHeight: "200px" }} navbarScroll>
             <Nav.Link
-              href="#action1"
-              className="hover-bleu"
-              onClick={() => navigate("home")}
+              href="/home"
+              className="d-flex  align-items-center nav-font px-3 "
+              style={{ fontSize: "40px" }}
             >
-              Home
+              <TextHoverUnderline
+                bgColor="blue"
+                duration="300"
+                type="linear"
+                content="Home"
+                width={50}
+                fontSize={22}
+              />
             </Nav.Link>
+
             <NavDropdown
               title="Sevices"
-              className="hover-drop"
+              className="px-3"
               id="navbarScrollingDropdown"
+              style={{ color: "#213764", fontSize: "22px" }}
+              show={dropdownOpen}
+              onMouseEnter={handleDropdownToggle}
+              onMouseLeave={handleDropdownClose}
+              onClick={() => navigate("/about-us")}
             >
               <NavDropdown.Item href="#action3">
                 Website applications
@@ -62,41 +80,43 @@ function Naavbar() {
                 Something else here
               </NavDropdown.Item>
             </NavDropdown>
+
             <Nav.Link
               href="/about-us"
-              className="hover-bleu"
-        
+              className="d-flex  align-items-center px-3"
+              style={{ color: "#213764" }}
             >
-              About Us
+              <TextHoverUnderline
+                bgColor="blue"
+                duration="300"
+                type="linear"
+                content="About"
+                width={60}
+                fontSize={22}
+              />
             </Nav.Link>
             <Nav.Link
               href="/contact"
-              className="hover-bleu"
+              className="d-flex  align-items-center px-3"
+              style={{ color: "#213764" }}
             >
-              Contact{" "}
-            </Nav.Link>
-            <Nav.Link
-              href="#action2"
-              className="hover-bleu"
-              onClick={() => navigate("login")}
-            >
-              Account{" "}
+              <TextHoverUnderline
+                bgColor="blue"
+                duration="300"
+                type="linear"
+                content="Contact"
+                width={60}
+                fontSize={22}
+              />
             </Nav.Link>
           </Nav>
-          <Form className="d-flex">
-            <input
-              type="text"
-              placeholder="  Search..."
-              name="search"
-              style={{
-                borderRadius: 5,
-                width: 250,
-                height: 35,
-                borderColor: " #f5ebeb",
-              }}
-            />
-            <FcSearch style={{ height: "30px", width: "30px" }} />
-          </Form>
+          <Nav.Link
+            href="/auth"
+            className="d-flex    align-items-center"
+            style={{ color: "#213764" }}
+          >
+            <PersonAddTwoToneIcon style={{ color: "#213764" }} />
+          </Nav.Link>
         </Navbar.Collapse>
       </Container>
     </Navbar>

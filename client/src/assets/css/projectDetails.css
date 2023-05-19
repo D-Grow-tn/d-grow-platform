@@ -1,0 +1,12 @@
+
+
+/* .objective {
+   
+  } */
+  
+  .objective.active {
+    /* styles for the active/selected objective */
+    background-color: blue;
+    color: white;
+    /* additional styles */
+  }

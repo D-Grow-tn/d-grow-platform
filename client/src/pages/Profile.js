@@ -6,6 +6,8 @@ import tick from "../constants/tick.json";
 import onHold from "../constants/onHold.json";
 import { Fade } from "react-reveal";
 import { Nav } from "react-bootstrap";
+import projects from './../constants/ProjectsData';
+import { useNavigate } from "react-router-dom";
 
 const UserProfile = () => {
   const [activeTab, setActiveTab] = useState("tab1");
@@ -13,95 +15,8 @@ const UserProfile = () => {
   const handleTabChange = (tab) => {
     setActiveTab(tab);
   };
-  const [user, setUser] = useState({
-    name: "John Doe",
-    projects: [
-      {
-        cover:
-          "https://novakdjokovicfoundation.org/wp-content/uploads/2016/02/designing-new-projects1.jpg",
-        name: "Go Manga",
-        description:
-          "Commenting System: Engage with readers through the integrated commenting system. Encourage discussions, receive feedback, and build a community around your blog posts.",
-        status: "Ongoing",
-        timeline: "Jan 2023 - Dec 2023",
-        team: [
-          { name: "John ", role: "Project Manager" },
-          { name: "Jane ", role: "Consultant" },
-       
-        ],
-      },
-
-      {
-        cover:
-          "https://kemptonexpress.co.za/wp-content/uploads/sites/30/2022/09/KemptonExpress-GS-image-780x470.jpg",
-        name: "Web Application",
-        description:
-          "Commenting System: Engage with readers through the integrated commenting system. Encourage discussions, receive feedback, and build a community around your blog posts.Commenting System: Engage with readers through the integrated commenting system. Encourage discussions, receive feedback, and build a community around your blog posts",
-        status: "Completed",
-        timeline: "Mar 2022 - Nov 2022",
-        team: [
-          { name: "Alex ", role: "Project Manager" },
-          { name: "Emily ", role: "Consultant" },
-       
-        ],
-      },
-      {
-        cover:
-          "https://st3.depositphotos.com/6235482/19053/i/600/depositphotos_190537880-stock-photo-people-discussing-at-table-over.jpg",
-        name: "Mobile App Development",
-        description:
-          "Create a mobile application for tracking fitness goals and providing workout plans.",
-        status: "Ongoing",
-        timeline: "Jan 2023 - Present",
-        team: [
-          { name: "Alex ", role: "Project Manager" },
-          { name: "Sarah ", role: "Consultant" },
-       
-        ],
-      },
-      {
-        cover:
-          "https://blog.bulldozair.com/wp-content/uploads/sites/2/2020/09/what-makes-successful-construction-project-1200x750.jpg",
-        name: "E-commerce Website",
-        description:
-          "Build an online store to sell products and accept payments securely.",
-        status: "Completed",
-        timeline: "Apr 2022 - Jul 2022",
-        team: [
-          { name: "John", role: "Project Manager" },
-          { name: "Jane ", role: " Consultant" }
-        ],
-      },
-
-      {
-        cover:
-          "https://www.rcgt.com/app/uploads/2022/09/gestion_projet_entreprise_reussi_1200x630_logo.jpg",
-        name: "Content Management System",
-        description:
-          "Develop a CMS to manage and publish articles, blogs, and multimedia content.",
-        status: "Ongoing",
-        timeline: "TBD",
-        team: [
-          { name: "David ", role: "Project Manager" },
-          { name: "Rachel ", role: "Consultant" }
-         
-        ],
-      },
-      {
-        cover:
-          "https://www.simplilearn.com/ice9/free_resources_article_thumb/What_Is_a_Project.jpg",
-        name: "Design",
-        description:
-          "Commenting System: Engage with readers through the integrated commenting system. Encourage discussions, receive feedback, and build a community around your blog posts.",
-        status: "onHold",
-        timeline: "Mar 2022 - Nov 2022",
-        team: [
-          { name: "Alex", role: "Project Manager" },
-          { name: "Emily ", role: "Consultant" }
-        ],
-      },
-    ],
-  });
+  const [user, setUser] = useState(projects);
+  const navigate=useNavigate()
 
   return (
     <div className="container mt-5 ">
@@ -255,9 +170,9 @@ const UserProfile = () => {
               } mt-5`}
               id="tab1"
             >
-              <div className="d-flex flex-wrap gap-5 justify-content-center">
-                {user.projects.map((project, i) => (
-                  <div className="   mt-3 " key={i}>
+              <div className="d-flex flex-wrap gap-5 justify-content-center" >
+                {user.map((project, i) => (
+                  <div className="   mt-3 " key={i} onClick={() => navigate(`/profile/${i}-details`)}    style={{ cursor: "pointer" }}>
                     <Card
                       style={{ width: "19rem", height: "500px" }}
                       className="shadow proCard"
@@ -356,7 +271,7 @@ const UserProfile = () => {
               id="tab2"
             >
               <div className="d-flex flex-wrap gap-5 justify-content-center">
-                {user.projects
+                {user
                   .filter((project) => project.status === "Ongoing")
                   .map((project, i) => (
                     <div className="   mt-3 " key={i}>
@@ -459,7 +374,7 @@ const UserProfile = () => {
               id="tab3"
             >
               <div className="d-flex flex-wrap gap-5 justify-content-center">
-                {user.projects
+                {user
                   .filter((project) => project.status === "Completed")
                   .map((project, i) => (
                     <div className="   mt-3 " key={i}>
@@ -562,7 +477,7 @@ const UserProfile = () => {
               id="tab4"
             >
               <div className="d-flex flex-wrap gap-5 justify-content-center">
-                {user.projects
+                {user
                   .filter((project) => project.status === "onHold")
                   .map((project, i) => (
                     <div className="   mt-3 " key={i}>

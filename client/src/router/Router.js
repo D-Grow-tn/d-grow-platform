@@ -15,12 +15,12 @@ const ResetPassword = React.lazy(() => import("../pages/auth/ResetPassword"));
 
 const AboutUs = React.lazy(() => import("../pages/AboutUs"));
 
-const Profile = React.lazy(() => import('./../pages/Profile'));
+const Profile = React.lazy(() => import("./../pages/Profile"));
 
-const Chat = React.lazy(() => import('./../pages/Chat'));
+const Chat = React.lazy(() => import("./../pages/Chat"));
 
-const Contact = React.lazy(() => import('./../pages/Contact'));
-
+const Contact = React.lazy(() => import("./../pages/Contact"));
+const ProjectDetails = React.lazy(() => import('./../pages/ProjectDetails'));
 
 
 function Router() {
@@ -28,13 +28,12 @@ function Router() {
     <div>
       <BrowserRouter>
         <Routes>
-        <Route path="/auth" element={<LoadComponent Component={Auth} />}>
-              <Route exact path="login" element={<LoginPage />} />
-              <Route exact path="reset-password" element={<ResetPassword />} />
-            </Route>
+          <Route path="/auth" element={<LoadComponent Component={Auth} />}>
+            <Route exact index element={<LoginPage />} />
+            <Route exact path="reset-password" element={<ResetPassword />} />
+          </Route>
           <Route path="/" element={<Client />}>
-            <Route path="home" element={<LoadComponent Component={Home} />} />
-           
+            <Route index element={<LoadComponent Component={Home} />} />
 
             <Route
               path="profile"
@@ -44,11 +43,15 @@ function Router() {
               path="about-us"
               element={<LoadComponent Component={AboutUs} />}
             />
-              <Route
+            <Route
               path="contact"
               element={<LoadComponent Component={Contact} />}
             />
 
+            <Route
+              path="profile/:projectId-details"
+              element={<LoadComponent Component={ProjectDetails} />}
+            />
             <Route
               path="*"
               element={<LoadComponent Component={ComingSoon} />}
