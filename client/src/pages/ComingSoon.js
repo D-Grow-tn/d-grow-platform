@@ -53,25 +53,8 @@ useEffect(()=>{
               <h4>Seconds</h4>
             </div>
           </div>
-          <div className="subscribe">
-            <h4>Subscribe now to get the latest updates!</h4>
-            <form action="forms/notify.php" method="post" role="form" className="php-email-form">
-              <div className="subscribe-form">
-                <input type="email" name="email" /><input type="submit" defaultValue="Subscribe" />
-              </div>
-              <div className="mt-2">
-                <div className="loading">Loading</div>
-                <div className="error-message" />
-                <div className="sent-message">Your notification request was sent. Thank you!</div>
-              </div>
-            </form>
-          </div>
-          <div className="social-links text-center">
-            <a href="#" className="twitter"><i className="bi bi-twitter" /></a>
-            <a href="#" className="facebook"><i className="bi bi-facebook" /></a>
-            <a href="#" className="instagram"><i className="bi bi-instagram" /></a>
-            <a href="#" className="linkedin"><i className="bi bi-linkedin" /></a>
-          </div>
+         
+        
         </div>
       </div>
       <main id="main">
@@ -88,8 +71,8 @@ useEffect(()=>{
                D-Grow is a leading provider of innovative digital solutions, specializing in the development of websites and mobile applications. With a team of highly skilled professionals and a wealth of industry expertise, we offer comprehensive services to help businesses establish a strong online presence and drive their success in the digital realm.
                 </p>
                 <ul>
-                  <li><i className="bi bi-check" /> Mobile Application Development </li>
-                  <li><i className="bi bi-check" /> Web Development </li>
+                  <li><i className="bi bi-check" />Mobile Application Development </li>
+                  <li><i className="bi bi-check" />Web Development </li>
                   <li><i className="bi bi-check" /> Digital Strategy Consulting</li>
                 </ul>
                 <p className="fst-italic">

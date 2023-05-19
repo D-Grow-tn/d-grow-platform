@@ -6,7 +6,7 @@ function Contact() {
       <section id="contact" className="contact">
           <div className="container">
             <div className="section-title">
-              <h2>Contact Us</h2>
+              <h2 style={{color:'#213764'}}>Contact Us</h2>
             </div>
             <div className="row justify-content-center">
               <div className="col-lg-10">
