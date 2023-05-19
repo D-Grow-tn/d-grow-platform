@@ -18,7 +18,6 @@
   right: 0;
   top: 0;
   bottom: 0;
-  /* background: rgba(255, 255, 255, 0.8) !important; */
   background: rgba(250, 255, 245, 0.8) !important;
 
 }
@@ -91,7 +90,7 @@ h6 {
 #header {
   position: relative;
   width: 100%;
-  padding: 100px 0;
+  padding-top: 140px ;
   /* countdown */
 }
 
@@ -189,6 +188,7 @@ h6 {
 --------------------------------------------------------------*/
 section {
   padding: 60px 0;
+  margin-bottom: -100px;
 }
 
 .section-bg {
@@ -203,7 +203,7 @@ section {
 .section-title h2 {
   font-size: 32px;
   font-weight: bold;
-  margin-bottom: 20px;
+  margin-bottom: 30px;
   position: relative;
 }
 
@@ -413,7 +413,7 @@ section {
 }
 
 .contact .php-email-form button[type=submit] {
-  background:rgb(152 164 168);
+  background-color:#47bdea;
  border-radius: 5px;;
   padding: 10px 24px;
   color:#fff ;
@@ -423,8 +423,9 @@ section {
 }
 
 .contact .php-email-form button[type=submit]:hover {
-  background:#47bdea;
-  color: #fff;
+  background:#fff;
+  color: #f05748;
+  font-weight: bold;
 }
 
 @keyframes animate-loading {
