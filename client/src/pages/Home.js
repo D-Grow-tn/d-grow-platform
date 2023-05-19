@@ -124,14 +124,13 @@ function Home() {
       </Carousel>
 
       <div
-        className=" d-flex mx-5 p-5 gap-5 justify-content-between align-items-center "
-        style={{ color: "#213764",textAlign:"center" }}
+        className=" d-flex mx-5 p-5 gap-5 justify-content-between align-items-center dark-bleu"
+        style={{ textAlign:"center" }}
       >
         <div>
           <h2
             style={{
               fontWeight: "bold",
-              color: "#213764",
               paddingBottom: "30px",
             }}
           >

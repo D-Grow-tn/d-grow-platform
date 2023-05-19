@@ -31,12 +31,12 @@ function Naavbar() {
     <Navbar
       bg="white"
       expand="lg"
-      className={`d-flex justify-content-between align-items-center  px-5 ${
+      className={`d-flex justify-content-between align-items-center  px-5  ${
         scroll > 40 && "fixed-top"
       } `}
     >
       <Container fluid>
-        <Navbar.Brand href="#" id="logo">
+        <Navbar.Brand href="#" id="logo" className="dark-bleu">
           {" "}
           D-Grow{" "}
         </Navbar.Brand>

@@ -27,7 +27,8 @@ function ComingSoon() {
 
   return (
     <div className="body dark-bleu">
-      <div id="header" className="d-flex align-items-center">
+      <section className="header">
+      <div id="header" className="d-flex align-items-center ">
         <div className="container d-flex flex-column align-items-center dark-bleu">
           <h1>ComingSoon</h1>
           <h2>
@@ -35,7 +36,7 @@ function ComingSoon() {
             after
           </h2>
           <div
-            className="countdown d-flex justify-content-center"
+            className="countdown d-flex justify-content-center "
             data-count="2023/12/5"
           >
             <div>
@@ -57,21 +58,22 @@ function ComingSoon() {
           </div>
         </div>
       </div>
+      </section>
       <main id="main">
         {/* ======= About Us Section ======= */}
-        <section id="about" className="about">
+        <section id="about" className="about ">
           <div className="container">
             <div className="row content">
               <div className="col-lg-6 pt-4 pt-lg-0 mt-5">
                 <h2>D-Grow</h2>
 
-                <p>
+                <p style={{ color: "#213764"}}>
                   D-Grow is a leading provider of innovative digital solutions,
                   specializing in the development of websites and mobile
                   applications. With a team of highly skilled professionals and
                   a wealth of industry expertise.
                 </p>
-                <ul>
+                <ul style={{ color: "#213764"}}>
                   <li>
                     <i className="bi bi-check" />
                     Mobile Application Development{" "}
@@ -84,7 +86,7 @@ function ComingSoon() {
                     <i className="bi bi-check" /> Digital Strategy Consulting
                   </li>
                 </ul>
-                <p className="fst-italic">
+                <p className="fst-italic" style={{ color: "#213764"}}>
                   we pride ourselves on delivering high-quality solutions that
                   combine cutting-edge technology, aesthetic design, and
                   user-centric functionality. We offer comprehensive services to
