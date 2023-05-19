@@ -5,8 +5,8 @@ function Contact() {
     <div className="bg-light">
       <section id="contact" className="contact">
           <div className="container">
-            <div className="section-title">
-              <h2 style={{color:'#213764'}}>Contact Us</h2>
+            <div className="section-title dark-bleu">
+              <h2 >Contact Us</h2>
             </div>
             <div className="row justify-content-center">
               <div className="col-lg-10">
@@ -31,7 +31,7 @@ function Contact() {
                 </div>
               </div>
             </div>
-            <div className="row justify-content-center">
+            <div className="row justify-content-center" style={{paddingBottom:"50px"}}>
               <div className="col-lg-10">
                 <form action="forms/contact.php" method="post" role="form" className="php-email-form">
                   <div className="row">
@@ -59,6 +59,7 @@ function Contact() {
             </div>
           </div>
         </section>{/* End Contact Us Section */}
+        <div> </div>
     </div>
   )
 }

@@ -43,10 +43,10 @@ nav {
 }
 #logo{
   font-weight: bolder;
-  color:  #213764;
   padding: 5px;
   font-size: 30px; 
   /* margin-right: 180px; */
+  color: #1a408c
 }
 .hover-bleu{
     font-size: 20px !important;
@@ -104,4 +104,13 @@ border-bottom: 3px solid #2772db;
   /* background: rgba(255, 255, 255, 0.8) !important; */
 
 
+}
+.bg-darkbleu{
+  background-color: #1a408c;
+}
+.bg-lightbleu{
+  background-color:rgb(218 234 240);
+}
+.dark-bleu{
+  color: #1a408c;
 }

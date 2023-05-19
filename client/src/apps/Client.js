@@ -15,9 +15,9 @@ function Client() {
 
   return (
     <div>
-      {/* <div
-        style={{ height: "40px", backgroundColor: "#213764", color: "white" }}
-        className="d-flex justify-content-between align-items-center  px-5 w-100"
+     <div
+        style={{ height: "40px", color: "white" }}
+        className="d-flex justify-content-between align-items-center  px-5 w-100 bg-darkbleu"
       >
         <div>
           <BsTelephone /> +2165862555
@@ -39,8 +39,8 @@ function Client() {
           </div>
         </div>
       </div>
-      <Naavbar/>
-      <Outlet /> */}
+      {/* <Naavbar/> */}
+      {/* <Outlet />  */}
 <ComingSoon/>
       {/* <Footer /> */}
     </div>

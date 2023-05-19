@@ -12,13 +12,12 @@ export default function App() {
     <div
       style={{
         minHeight: "60vh",
-        backgroundColor: "#070f4e",
         marginTop: "50px",
       }}
+      className="bg-darkbleu"
     >
       <MDBFooter
-        className="text-center text-lg-start text-muted"
-        style={{ width: "100%", backgroundColor: "#070f4e" }}
+        style={{ width: "100%" }}
       >
         <section className="">
           <MDBContainer className="text-center text-md-start mt-5">
@@ -151,8 +150,8 @@ export default function App() {
         </section>
 
         <div
-          className="text-center p-4"
-          style={{ backgroundColor: "#070f4e", color: "white" }}
+          className="text-center p-5 m-5 bg-darkbleu"
+          style={{ color: "white" }}
         >
           © 2023 Company, Inc. All rights reserved.
         </div>
