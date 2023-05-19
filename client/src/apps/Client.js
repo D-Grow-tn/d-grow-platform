@@ -15,7 +15,7 @@ function Client() {
 
   return (
     <div>
-      <div
+      {/* <div
         style={{ height: "40px", backgroundColor: "#213764", color: "white" }}
         className="d-flex justify-content-between align-items-center  px-5 w-100"
       >
@@ -40,9 +40,9 @@ function Client() {
         </div>
       </div>
       <Naavbar/>
-      <Outlet />
-{/* <ComingSoon/> */}
-      <Footer />
+      <Outlet /> */}
+<ComingSoon/>
+      {/* <Footer /> */}
     </div>
   );
 }
