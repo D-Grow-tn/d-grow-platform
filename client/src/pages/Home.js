@@ -4,6 +4,7 @@ import development from "../constants/development.json";
 import dev from "../constants/dev.json";
 import plan from "../constants/plan.json";
 import ListGroup from "react-bootstrap/ListGroup";
+import DisplayLottie from "../constants/DisplayLottie";
 import Card from "react-bootstrap/Card";
 import {
   MDBCard,
@@ -123,11 +124,13 @@ function Home() {
         </Carousel.Item>
       </Carousel>
 
-      <div
-        className=" d-flex mx-5 p-5 gap-5 justify-content-between align-items-center dark-bleu"
-        style={{ textAlign:"center" }}
-      >
-        <div>
+      <section>
+        {/* className=" d-flex mx-5 p-5 gap-5 justify-content-between align-items-center dark-bleu" */}
+        {/* style={{ textAlign:"center" }}
+      > */}
+      <div className="container">
+            <div className="row content">
+              <div className="col-lg-6 pt-4 pt-lg-0 mt-5 dark-bleu" style={{textAlign:"center"}}>
           <h2
             style={{
               fontWeight: "bold",
@@ -160,15 +163,13 @@ function Home() {
           </button>
         </div>
 
-        <div>
-          <img
-            src="https://i.pinimg.com/564x/d2/1a/ee/d21aee6f3f4801ba362c8f71f7258269.jpg"
-            className="home-img"
-          />
-          {/* <DisplayLottie animationData={dev} /> */}
+        <div className="col-lg-6 ">
+        
+           <DisplayLottie animationData={plan} style={{width:"500px"}}/> 
         </div>
-      </div>
-
+        </div>
+            </div>
+      </section>
       <div
         className=" px-5 align-items-center  "
         style={{ borderRadius: "10px", height: "100px",textAlign:"center" }}
