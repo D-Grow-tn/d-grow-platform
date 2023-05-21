@@ -59,7 +59,7 @@ function ComingSoon() {
         </div>
       </div>
       </section>
-      <main id="main">
+      <main id="main" style={{backgroundColor:"#f3fcf6"}}>
         {/* ======= About Us Section ======= */}
         <section id="about" className="about ">
           <div className="container">

@@ -10,7 +10,7 @@ function TextHeader({title,description}) {
     <div style={{ maxWidth: "1000px" }}>
             <h2
               style={{
-                color: "#181f38",
+                color: "#1a408c",
                 fontSize: "36px",
                 lineHeight: "44px",
                 fontWeight: 700,
@@ -23,7 +23,7 @@ function TextHeader({title,description}) {
                 fontWeight: "400px",
                 fontSize: "18px",
                 lineHeight: "26px",
-                color: "#2b3857",
+                color: "#1a408c",
                 textAlign: "justify",
                 textAlignLast: "center",
               }}

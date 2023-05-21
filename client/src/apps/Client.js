@@ -39,10 +39,10 @@ function Client() {
           </div>
         </div>
       </div>
-      {/* <Naavbar/> */}
-      {/* <Outlet />  */}
-<ComingSoon/>
-      {/* <Footer /> */}
+      <Naavbar/>
+       <Outlet /> 
+{/* <ComingSoon/> */}
+      <Footer />
     </div>
   );
 }
