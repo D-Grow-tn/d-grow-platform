@@ -45,28 +45,26 @@ function Home() {
 
   return (
     <div className="bg-light">
-      <Carousel variant="dark">
+      <Carousel fade>
         <Carousel.Item>
-          <Carousel.Caption
-            style={{ color: "#213764", paddingBottom: "180px" }}
-          >
+          <Carousel.Caption style={{ paddingBottom: "80px" }}>
             <h3
+              className="dark-bleu"
               style={{
-                fontSize: "60px",
+                fontSize: "50px",
                 fontWeight: "bold",
                 paddingBottom: "20px",
               }}
             >
-              {" "}
-              Unleash the Power of Digital Innovation!"
+              Transforming Ideas into Stunning Websites and Mobile Apps
             </h3>
-            <p style={{ fontSize: "30px" }}>
-              Transforming Ideas into Stunning Websites and Mobile Apps{" "}
+            <p style={{ fontSize: "30px" }} className="dark-bleu">
+              Unleash the Power of Digital Innovation!"{" "}
             </p>
           </Carousel.Caption>
           <img
             className="d-block w-100 "
-            src=""
+            src="https://i.pinimg.com/564x/f1/2a/22/f12a222abac962182c5c0b9999a88fa2.jpg"
             alt="First slide"
             style={{ height: "500px" }}
           />
@@ -74,7 +72,7 @@ function Home() {
         <Carousel.Item>
           <img
             className="d-block w-100"
-            src=""
+            src="https://i.pinimg.com/564x/f1/2a/22/f12a222abac962182c5c0b9999a88fa2.jpg"
             alt="Second slide"
             style={{ height: "500px" }}
           />
@@ -83,6 +81,7 @@ function Home() {
             style={{ color: "#213764", paddingBottom: "180px" }}
           >
             <h3
+              className="dark-bleu"
               style={{
                 fontSize: "60px",
                 fontWeight: "bold",
@@ -99,7 +98,7 @@ function Home() {
         <Carousel.Item>
           <img
             className="d-block w-100"
-            src=""
+            src="https://i.pinimg.com/564x/f1/2a/22/f12a222abac962182c5c0b9999a88fa2.jpg"
             alt="Third slide"
             style={{ height: "500px" }}
           />
@@ -108,13 +107,14 @@ function Home() {
             style={{ color: "#213764", paddingBottom: "180px" }}
           >
             <h3
+              className="dark-bleu"
               style={{
-                fontSize: "60px",
+                fontSize: "50px",
                 fontWeight: "bold",
                 paddingBottom: "20px",
               }}
             >
-              Crafting Seamless User Experiences{" "}
+              Crafting Seamless User Experiences
             </h3>
             <p style={{ fontSize: "30px" }}>
               {" "}
@@ -128,54 +128,56 @@ function Home() {
         {/* className=" d-flex mx-5 p-5 gap-5 justify-content-between align-items-center dark-bleu" */}
         {/* style={{ textAlign:"center" }}
       > */}
-      <div className="container">
-            <div className="row content">
-              <div className="col-lg-6 pt-4 pt-lg-0 mt-5 dark-bleu" style={{textAlign:"center"}}>
-          <h2
-            style={{
-              fontWeight: "bold",
-              paddingBottom: "30px",
-            }}
-          >
-            Unleash Your Digital Potential
-          </h2>
-          <h4>
-            Transforming Businesses with Exquisite Websites and Powerful Mobile
-            Applications <br />{" "}
-          </h4>
-          <p>
-            we pride ourselves on delivering high-quality solutions that combine
-            cutting-edge technology, aesthetic design, and user-centric
-            functionality.
-          </p>
-          <button
-            type="button"
-            class="btn mt-5"
-            style={{
-              width: "170px",
-              height: "40px",
-              background: "#47bdea",
-              color: "white",
-            }}
-            onClick={() => navigate("/about-us")}
-          >
-            Read more <i class="fa-solid fa-play fa-fade px-2"></i>
-          </button>
-        </div>
-
-        <div className="col-lg-6 ">
-        
-           <DisplayLottie animationData={plan} style={{width:"500px"}}/> 
-        </div>
-        </div>
+        <div className="container">
+          <div className="row content">
+            <div
+              className="col-lg-6 pt-4 pt-lg-0 mt-5 dark-bleu"
+              style={{ textAlign: "center" }}
+            >
+              <h2
+                style={{
+                  fontWeight: "bold",
+                  paddingBottom: "30px",
+                }}
+              >
+                Unleash Your Digital Potential
+              </h2>
+              <h4>
+                Transforming Businesses with Exquisite Websites and Powerful
+                Mobile Applications <br />{" "}
+              </h4>
+              <p>
+                we pride ourselves on delivering high-quality solutions that
+                combine cutting-edge technology, aesthetic design, and
+                user-centric functionality.
+              </p>
+              <button
+                type="button"
+                class="btn mt-5"
+                style={{
+                  width: "170px",
+                  height: "40px",
+                  background: "#47bdea",
+                  color: "white",
+                }}
+                onClick={() => navigate("/about-us")}
+              >
+                Read more <i class="fa-solid fa-play fa-fade px-2"></i>
+              </button>
             </div>
+
+            <div className="col-lg-6 ">
+              <DisplayLottie animationData={plan} style={{ width: "500px" }} />
+            </div>
+          </div>
+        </div>
       </section>
-      <div
+      {/* <div
         className=" px-5 align-items-center  "
         style={{ borderRadius: "10px", height: "100px",textAlign:"center" }}
       >
         {" "}
-      </div>
+      </div> */}
       {/* <div
           style={{
             borderRadius: "10px",
@@ -197,68 +199,54 @@ function Home() {
         src="https://i.pinimg.com/564x/ab/3f/5a/ab3f5a328f0c37e7ae2287c8c66f6209.jpg"
         className="home-g"
       /> */}
+      <section>
+        <div className="container">
+          <div className="row content">
+            <div className="col-lg-5 ">
+              <DisplayLottie animationData={dev} />
+            </div>
+            <div
+              className="col-lg-6 pt-4  mt-5 dark-bleu"
+              style={{ textAlign: "center" }}
+            >
+              <h2
+                style={{
+                  fontWeight: "bold",
+                  paddingBottom: "30px",
+                }}
+              >
+                Elevate your digital presence
+              </h2>
 
-      <div className=" d-flex mx-5 p-5 justify-content-between align-items-center  ">
-        {/* <div>
-          <DisplayLottie
-            animationData={plan}
-            style={{ with: "150px", height: "100" }}
-          />
-        </div> */}
-        <div
-          style={{
-            color: "#213764",
-            paddingTop: "200px",
-          }}
-        >
-          <img
-            src="https://i.pinimg.com/564x/57/55/dd/5755ddfceb95a3ae151bed168615f2a7.jpg"
-            className="home-img"
-            style={{ with: "150px", height: "100" }}
-          />
+              <p>
+                Contact us today to unlock the full potential of your
+                <br /> business with our expert web and mobile development
+                services.
+              </p>
+              <button
+                type="button"
+                class="btn mt-5"
+                style={{
+                  width: "150px",
+                  height: "40px",
+                  background: "#47bdea",
+                  color: "white",
+                }}
+                onClick={() => navigate("/contact")}
+              >
+                Contact-us <i class="fa-solid fa-play fa-fade px-2"></i>
+              </button>
+            </div>
+          </div>
         </div>
-        <div
-          style={{
-            color: "#213764",
-            paddingRight: "100px",
-          }}
-        >
-          <h2
-            style={{
-              fontWeight: "bold",
-              paddingTop: "200px",
-            }}
-          >
-            Elevate your digital presence
-          </h2>
-
-          <p>
-            Contact us today to unlock the full potential of your
-            <br /> business with our expert web and mobile development services.
-          </p>
-          <button
-            type="button"
-            class="btn mt-5"
-            style={{
-              width: "150px",
-              height: "40px",
-              background: "#47bdea",
-              color: "white",
-            }}
-            onClick={() => navigate("/contact")}
-          >
-            Contact-us <i class="fa-solid fa-play fa-fade px-2"></i>
-          </button>
-        </div>
-      </div>
-
+      </section>
       <div>
         <h1
           style={{
             fontWeight: "bold",
             color: "#213764",
             paddingTop: "100px",
-            textAlign:"center"
+            textAlign: "center",
           }}
         >
           Services
@@ -329,7 +317,7 @@ function Home() {
               position: "relative",
               marginLeft: "80%",
             }}
-            onClick={() => navigate("")}
+            onClick={() => navigate("/services")}
           >
             See more <i class="fa-solid fa-play fa-fade px-2"></i>
           </button>

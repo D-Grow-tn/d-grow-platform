@@ -10,7 +10,6 @@ import { useNavigate } from "react-router-dom";
 
 function Naavbar() {
   const [scroll, setScroll] = useState(0);
-  const [dropdownOpen, setDropdownOpen] = useState(false);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -19,13 +18,7 @@ function Naavbar() {
     });
   }, []);
 
-  const handleDropdownToggle = () => {
-    setDropdownOpen(!dropdownOpen);
-  };
 
-  const handleDropdownClose = () => {
-    setDropdownOpen(false);
-  };
 
   return (
     <Navbar
@@ -43,7 +36,7 @@ function Naavbar() {
         <Navbar.Toggle aria-controls="navbarScroll" />
         <Navbar.Collapse id="navbarScroll" className="justify-content-between">
           <div style={{ marginLeft: -120 }}></div>
-          <Nav className=" " style={{ maxHeight: "200px" }} navbarScroll>
+          <Nav className="gap-3 " style={{ maxHeight: "200px" }} navbarScroll>
             <Nav.Link
               href="/home"
               className="d-flex  align-items-center nav-font px-3 "
@@ -55,31 +48,9 @@ function Naavbar() {
                 type="linear"
                 content="Home"
                 width={50}
-                fontSize={22}
+                fontSize={21}
               />
             </Nav.Link>
-
-            <NavDropdown
-              title="Sevices"
-              className="px-3"
-              id="navbarScrollingDropdown"
-              style={{ color: "#213764", fontSize: "22px" }}
-              show={dropdownOpen}
-              onMouseEnter={handleDropdownToggle}
-              onMouseLeave={handleDropdownClose}
-              onClick={() => navigate("/about-us")}
-            >
-              <NavDropdown.Item href="#action3">
-                Website applications
-              </NavDropdown.Item>
-              <NavDropdown.Item href="#action4">
-                Mobile applications
-              </NavDropdown.Item>
-              <NavDropdown.Divider />
-              <NavDropdown.Item href="#action5">
-                Something else here
-              </NavDropdown.Item>
-            </NavDropdown>
 
             <Nav.Link
               href="/about-us"
@@ -92,7 +63,7 @@ function Naavbar() {
                 type="linear"
                 content="About"
                 width={60}
-                fontSize={22}
+                fontSize={21}
               />
             </Nav.Link>
             <Nav.Link
@@ -106,13 +77,35 @@ function Naavbar() {
                 type="linear"
                 content="Contact"
                 width={60}
-                fontSize={22}
+                fontSize={21}
               />
             </Nav.Link>
+            <Nav.Link
+              href="/services"
+              className="d-flex  align-items-center px-3"
+              style={{ color: "#213764" }}
+            >
+              <div class="dropdown">
+                <TextHoverUnderline
+                  bgColor="blue"
+                  duration="300"
+                  type="linear"
+                  content="Services"
+                  width={60}
+                  fontSize={21}
+                />
+                <div class="dropdown-content">
+                  <a href="#"> Website applications</a>
+                  <a href="#"> Mobile applications</a>
+                  <a href="#"> Something else</a>
+                </div>
+              </div>
+            </Nav.Link>
           </Nav>
+
           <Nav.Link
             href="/auth"
-            className="d-flex    align-items-center"
+            className="d-flex  align-items-center"
             style={{ color: "#213764" }}
           >
             <PersonAddTwoToneIcon style={{ color: "#213764" }} />

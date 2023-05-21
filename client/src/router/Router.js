@@ -18,6 +18,7 @@ const AboutUs = React.lazy(() => import("../pages/AboutUs"));
 const Profile = React.lazy(() => import("./../pages/Profile"));
 
 const Chat = React.lazy(() => import("./../pages/Chat"));
+const Services = React.lazy(() => import("./../pages/Services"));
 
 const Contact = React.lazy(() => import("./../pages/Contact"));
 const ProjectDetails = React.lazy(() => import('./../pages/ProjectDetails'));
@@ -55,6 +56,10 @@ function Router() {
             <Route
               path="*"
               element={<LoadComponent Component={ComingSoon} />}
+            />
+                <Route
+              path="/services"
+              element={<LoadComponent Component={Services} />}
             />
             <Route path="chat" element={<LoadComponent Component={Chat} />} />
           </Route>
