@@ -3,9 +3,9 @@ import { IsNotEmpty } from "class-validator";
 
 
 export class User {}
-export class UserSignin {
+export class UserLogin {
     @ApiProperty()
     @IsNotEmpty ()  email:string;
     @ApiProperty()
-    @IsNotEmpty ()  userPassword:string;
+    @IsNotEmpty ()  password:string;
 }

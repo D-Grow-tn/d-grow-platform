@@ -80,17 +80,17 @@ model Project {
   duration            String
   createdAt           DateTime            @default(now())
   updatedAt           DateTime            @updatedAt
-  clientId            String
-  client              Client              @relation(fields: [clientId], references: [id])
-  teamId              String
-  team                Team                @relation(fields: [teamId], references: [id])
-  startAt             DateTime
-  endAt               DateTime
+  clientId            String?
+  client              Client?              @relation(fields: [clientId], references: [id])
+  teamId              String?
+  team                Team ?               @relation(fields: [teamId], references: [id])
+  startAt             DateTime?
+  endAt               DateTime?
   status              Status              @default(pending)
-  projectManagerId    String
-  projectManager      Employee            @relation(fields: [projectManagerId], references: [id], name: "projectManager")
-  consultantId        String
-  consultant          Employee            @relation(fields: [consultantId], references: [id], name: "consultant")
+  projectManagerId    String?
+  projectManager      Employee ?           @relation(fields: [projectManagerId], references: [id], name: "projectManager")
+  consultantId        String?
+  consultant          Employee?            @relation(fields: [consultantId], references: [id], name: "consultant")
   interaction         Interaction[]
   objective           Objective[]
   projectTechnologies ProjectTechnology[]
@@ -142,8 +142,8 @@ model Stage {
   id          String   @id @default(uuid())
   name        String
   porcentage  String
-  startAt     DateTime
-  endAt       DateTime
+  startAt     DateTime?
+  endAt       DateTime?
   createdAt   DateTime @default(now())
   updatedAt   DateTime @updatedAt
   objectiveId String

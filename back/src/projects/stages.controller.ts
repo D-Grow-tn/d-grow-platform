@@ -19,16 +19,16 @@ export class StagesController {
 
   @Get(':id')
   findOne(@Param('id') id: string) {
-    return this.stagesService.findOne(+id);
+    return this.stagesService.findOne(id);
   }
 
   @Patch(':id')
   update(@Param('id') id: string, @Body() updateStageDto: UpdateStageDto) {
-    return this.stagesService.update(+id, updateStageDto);
+    return this.stagesService.update(id, updateStageDto);
   }
 
   @Delete(':id')
   remove(@Param('id') id: string) {
-    return this.stagesService.remove(+id);
+    return this.stagesService.remove(id);
   }
 }
