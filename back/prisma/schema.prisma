@@ -11,7 +11,421 @@ datasource db {
 }
 
 model User {
-  id String @id @default(uuid())
-  name String 
-  lastName String
+  id          String        @id @default(uuid())
+  name        String
+  email       String
+  clientId    String?
+  client      Client?       @relation(fields: [clientId], references: [id])
+  employeeId  String?
+  employee    Employee?     @relation(fields: [employeeId], references: [id])
+  password    String
+  isClient    Boolean       @default(false)
+  interaction Interaction[]
+  Media       Media?        @relation(fields: [mediaId], references: [id])
+  mediaId     String?
+  MediaUser   MediaUser[]
+}
+
+model Client {
+  id          String        @id @default(uuid())
+  name        String
+  email       String
+  phone       String
+  address     String
+  createdAt   DateTime      @default(now())
+  updatedAt   DateTime      @updatedAt
+  project     Project[]
+  User        User[]
+  MediaClient MediaClient[]
+}
+
+model Employee {
+  id               String             @id @default(uuid())
+  name             String
+  avatar           String
+  bio              String
+  email            String
+  departmentId     String?
+  department       Department?        @relation(fields: [departmentId], references: [id], name: "department")
+  directManegerId  String
+  directManeger    Employee           @relation(fields: [directManegerId], references: [id], name: "directManeger")
+  phone            String
+  createdAt        DateTime           @default(now())
+  updatedAt        DateTime           @updatedAt
+  User             User[]
+  task             Task[]
+  request          Request[]
+  employeeTest     EmployeeTest[]
+  event            Event[]
+  decision         Decision[]
+  teamMembership   TeamMembership[]
+  projectManager   Project[]          @relation("projectManager")
+  consultant       Project[]          @relation("consultant")
+  sender           Behavior[]         @relation("sender")
+  reciever         Behavior[]         @relation("reciever")
+  headDepartment   Department[]       @relation("headDepartment")
+  employee         Employee[]         @relation("directManeger")
+  EmployeeQuiz     EmployeeQuiz[]
+  EmployeeChatRoom EmployeeChatRoom[]
+  Message          Message[]
+  Media            Media?             @relation(fields: [mediaId], references: [id])
+  mediaId          String?
+  MediaEmployee    MediaEmployee[]
+}
+
+model Project {
+  id                  String              @id @default(uuid())
+  name                String
+  description         String
+  duration            String
+  createdAt           DateTime            @default(now())
+  updatedAt           DateTime            @updatedAt
+  clientId            String
+  client              Client              @relation(fields: [clientId], references: [id])
+  teamId              String
+  team                Team                @relation(fields: [teamId], references: [id])
+  startAt             DateTime
+  endAt               DateTime
+  status              Status              @default(pending)
+  projectManagerId    String
+  projectManager      Employee            @relation(fields: [projectManagerId], references: [id], name: "projectManager")
+  consultantId        String
+  consultant          Employee            @relation(fields: [consultantId], references: [id], name: "consultant")
+  interaction         Interaction[]
+  objective           Objective[]
+  projectTechnologies ProjectTechnology[]
+  MediaProject        MediaProject[]
+}
+
+model Technology {
+  id                  String              @id @default(uuid())
+  name                String
+  description         String
+  createdAt           DateTime            @default(now())
+  updatedAt           DateTime            @updatedAt
+  projectTechnologies ProjectTechnology[]
+}
+
+model ProjectTechnology {
+  projectId    String
+  project      Project    @relation(fields: [projectId], references: [id])
+  technologyId String
+  technologies Technology @relation(fields: [technologyId], references: [id])
+
+  @@unique([technologyId, projectId])
+}
+
+model Objective {
+  id           String         @id @default(uuid())
+  name         String
+  decription   String
+  projectId    String
+  createdAt    DateTime       @default(now())
+  updatedAt    DateTime       @updatedAt
+  status       Status         @default(pending)
+  project      Project        @relation(fields: [projectId], references: [id])
+  subobjective Subobjective[]
+}
+
+model Subobjective {
+  id          String    @id @default(uuid())
+  name        String
+  description String
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+  status      Status    @default(pending)
+  objectiveId String
+  objective   Objective @relation(fields: [objectiveId], references: [id])
+}
+
+model Stage {
+  id          String   @id @default(uuid())
+  name        String
+  porcentage  String
+  startAt     DateTime
+  endAt       DateTime
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+  objectiveId String
+  status      Status   @default(pending)
+  task        Task[]
+}
+
+model Task {
+  id         String   @id @default(uuid())
+  points     Int
+  name       String
+  duration   String
+  level      String
+  status     Status   @default(pending)
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
+  stageId    String
+  stage      Stage    @relation(fields: [stageId], references: [id])
+  employeeId String
+  employee   Employee @relation(fields: [employeeId], references: [id])
+}
+
+model Team {
+  id             String           @id @default(uuid())
+  name           String
+  project        Project[]
+  teamMembership TeamMembership[]
+}
+
+model TeamMembership {
+  teamId     String
+  team       Team     @relation(fields: [teamId], references: [id])
+  employeeId String
+  employee   Employee @relation(fields: [employeeId], references: [id])
+
+  @@unique([employeeId, teamId])
+}
+
+model Interaction {
+  id        String  @id @default(uuid())
+  content   String
+  projectId String
+  project   Project @relation(fields: [projectId], references: [id])
+  UserId    String
+  User      User    @relation(fields: [UserId], references: [id])
+}
+
+model Test {
+  id           String         @id @default(uuid())
+  title        String
+  content      String
+  correction   String
+  score        Int
+  employeeTest EmployeeTest[]
+}
+
+model EmployeeTest {
+  employeeId String
+  employee   Employee @relation(fields: [employeeId], references: [id])
+  testId     String
+  test       Test     @relation(fields: [testId], references: [id])
+  score      Int
+
+  @@unique([employeeId, testId])
+}
+
+model Quiz {
+  id           String         @id @default(uuid())
+  content      String
+  score        Int
+  employeeQuiz EmployeeQuiz[]
+}
+
+model EmployeeQuiz {
+  employeeId String
+  employee   Employee @relation(fields: [employeeId], references: [id])
+  quizId     String
+  quiz       Quiz     @relation(fields: [quizId], references: [id])
+  score      Int
+
+  @@unique([employeeId, quizId])
+}
+
+model Request {
+  id           String         @id @default(uuid())
+  subject      String
+  content      String
+  createdAt    DateTime       @default(now())
+  updatedAt    DateTime       @updatedAt
+  employeeId   String
+  employee     Employee       @relation(fields: [employeeId], references: [id])
+  MediaRequest MediaRequest[]
+}
+
+model Event {
+  id          String       @id @default(uuid())
+  name        String
+  description String
+  startAt     DateTime
+  endAt       DateTime
+  createdAt   DateTime     @default(now())
+  updatedAt   DateTime     @updatedAt
+  employeeId  String
+  employee    Employee     @relation(fields: [employeeId], references: [id])
+  MediaEvent  MediaEvent[]
+}
+
+model Behavior {
+  id         String   @id @default(uuid())
+  content    String
+  senderId   String
+  createdAt  DateTime @default(now())
+  sender     Employee @relation(fields: [senderId], references: [id], name: "sender")
+  recieverId String
+  reciever   Employee @relation(fields: [recieverId], references: [id], name: "reciever")
+}
+
+model Decision {
+  id         String   @id @default(uuid())
+  content    String
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
+  employeeId String
+  employee   Employee @relation(fields: [employeeId], references: [id])
+}
+
+model Product {
+  id          String        @id @default(uuid())
+  name        String
+  createdAt   DateTime      @default(now())
+  updatedAt   DateTime      @updatedAt
+  type        String
+  productType ProductType[]
+}
+
+model ProductType {
+  id          String   @id @default(uuid())
+  name        String
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+  description String
+  ProductId   String
+  Product     Product  @relation(fields: [ProductId], references: [id])
+}
+
+model Branches {
+  id          String    @id @default(uuid())
+  name        String
+  description String
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+  offices     Offices[]
+}
+
+model Department {
+  id               String     @id @default(uuid())
+  name             String
+  description      String
+  createdAt        DateTime   @default(now())
+  updatedAt        DateTime   @updatedAt
+  headDepartmentId String
+  headDepartment   Employee   @relation(fields: [headDepartmentId], references: [id], name: "headDepartment")
+  employee         Employee[] @relation("department")
+}
+
+model Offices {
+  id          String   @id @default(uuid())
+  name        String
+  description String
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+  branchesId  String
+  branches    Branches @relation(fields: [branchesId], references: [id])
+}
+
+model ChatRoom {
+  id               String             @id @default(uuid())
+  content          String
+  createdAt        DateTime           @default(now())
+  updatedAt        DateTime           @updatedAt
+  employeeChatRoom EmployeeChatRoom[]
+  Message          Message[]
+}
+
+model Message {
+  id         String   @id @default(uuid())
+  content    String
+  createdAt  DateTime @default(now())
+  employeeId String
+  chatRoomId String
+  chatRoom   ChatRoom @relation(fields: [chatRoomId], references: [id])
+  employee   Employee @relation(fields: [employeeId], references: [id])
+}
+
+model EmployeeChatRoom {
+  id         String   @id @default(uuid())
+  employeeId String
+  chatRoomId String
+  chatRoom   ChatRoom @relation(fields: [chatRoomId], references: [id])
+  employee   Employee @relation(fields: [employeeId], references: [id])
+}
+
+model Media {
+  id            String          @id @default(uuid())
+  path          String
+  type          String
+  alt           String?
+  extension     String
+  description   String?
+  MediaUser     MediaUser[]
+  User          User[]
+  MediaClient   MediaClient[]
+  Employee      Employee[]
+  MediaEmployee MediaEmployee[]
+  MediaEvent    MediaEvent[]
+  MediaRequest  MediaRequest[]
+  MediaProject  MediaProject[]
+}
+
+model MediaUser {
+  media   Media  @relation(fields: [mediaId], references: [id])
+  mediaId String
+  user    User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+  userId  String
+
+  @@unique(fields: [mediaId, userId], name: "userMedia")
+}
+
+model MediaClient {
+  media    Media  @relation(fields: [mediaId], references: [id])
+  mediaId  String
+  client   Client @relation(fields: [clientId], references: [id], onDelete: Cascade)
+  clientId String
+
+  @@unique(fields: [mediaId, clientId], name: "clientMedia")
+}
+
+model MediaEmployee {
+  media      Media    @relation(fields: [mediaId], references: [id])
+  mediaId    String
+  employee   Employee @relation(fields: [employeeId], references: [id], onDelete: Cascade)
+  employeeId String
+
+  @@unique(fields: [mediaId, employeeId], name: "userMedia")
+}
+
+model MediaEvent {
+  media   Media  @relation(fields: [mediaId], references: [id])
+  mediaId String
+  event   Event  @relation(fields: [eventId], references: [id], onDelete: Cascade)
+  eventId String
+
+  @@unique(fields: [mediaId, eventId], name: "eventMedia")
+}
+
+model MediaRequest {
+  media     Media   @relation(fields: [mediaId], references: [id])
+  mediaId   String
+  request   Request @relation(fields: [requestId], references: [id], onDelete: Cascade)
+  requestId String
+
+  @@unique(fields: [mediaId, requestId], name: "requestMedia")
+}
+
+model MediaProject {
+  media     Media   @relation(fields: [mediaId], references: [id])
+  mediaId   String
+  project   Project @relation(fields: [projectId], references: [id], onDelete: Cascade)
+  projectId String
+
+  @@unique(fields: [mediaId, projectId], name: "projectMedia")
+}
+
+// join table
+
+enum Status {
+  pending
+  in_progress
+  completed
+  on_hold
+  cancelled
+  reviewed
+  refused
+  accepted
 }

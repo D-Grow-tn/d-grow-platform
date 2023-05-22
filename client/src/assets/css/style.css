@@ -5,12 +5,11 @@
 --------------------------------------------------------------*/
 .body {
   font-family: "Open Sans", sans-serif;
-  color: #070f4e;
-  background: url("../img/bcg.png") top center no-repeat;
-  background-size: cover;
+  color: #1a408c;
   position: relative;
+  
 } 
-
+/* 
  .body::before {
   content: "";
   position: absolute;
@@ -18,11 +17,12 @@
   right: 0;
   top: 0;
   bottom: 0;
-  background: rgba(143, 143, 156, 0.8) !important;
-}
+  background: rgba(250, 255, 245, 0.8) !important;
+
+} */
 
 @media (min-width: 1024px) {
-  body {
+ #header {
     background-attachment: fixed;
   }
 }
@@ -89,20 +89,39 @@ h6 {
 #header {
   position: relative;
   width: 100%;
-  padding: 100px 0;
-  /* countdown */
+  padding: 100px ;
+  height: 100%;
+
+
 }
+.header {
+  font-family: "Open Sans", sans-serif;
+  color: #1a408c;
+  position: relative;
+  background: url("../img/bg.jpg")  no-repeat;
+  background-size:100% 100%;
+} 
+.header::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  background: rgba(250, 255, 245, 0.8) !important;
+
+} 
 
 #header h1 {
   margin: 0 0 10px 0;
   font-size: 50px;
   font-weight: 700;
   line-height: 56px;
-  color:#070f4e;
+
 }
 
 #header h2 {
-  color: #070f4e;
+ 
   margin-bottom: 40px;
   font-size: 22px;
 }
@@ -116,21 +135,21 @@ h6 {
   margin: 10px;
   width: 100px;
   padding: 15px 0;
-  background:#f5ebeb;
-  border-top: 5px solid#3ab1c8;
+  background:#e9f7fc;
+  border-top: 5px solid#38b7e9;
+  border-radius: 3px;
 }
 
 #header .countdown div h3 {
   font-weight: 700;
   font-size: 44px;
-  margin-bottom: 15px;
-  color: #2772db;
+ 
 }
 
 #header .countdown div h4 {
   font-size: 16px;
   font-weight: 600;
-  color: #3ab1c8;
+  color: #38b7e9;
 }
 
 @media (max-width: 575px) {
@@ -149,87 +168,6 @@ h6 {
     font-size: 14px;
     font-weight: 500;
   }
-}
-
-#header .subscribe {
-  font-size: 15px;
-  text-align: center;
-}
-
-#header .subscribe h4 {
-  font-size: 20px;
-  font-weight: 600;
-  color: #070f4e;
-  position: relative;
-  padding-bottom: 12px;
-}
-
-#header .subscribe .subscribe-form {
-  min-width: 300px;
-  margin-top: 10px;
-  background:#f5ebeb;
-  padding: 6px 10px;
-  position: relative;
-  text-align: left;
-}
-
-#header .subscribe .subscribe-form input[type=email] {
-  border: 0;
-  padding: 4px 8px;
-  width: calc(100% - 100px);
-}
-
-#header .subscribe .subscribe-form input[type=submit] {
-  position: absolute;
-  top: 0;
-  right: -2px;
-  bottom: 0;
-  border: 0;
-  background-color:#f5ebeb;
-  font-size: 16px;
-  padding: 0 20px;
-  background:#2772db;
-  color: #f5ebeb;
-  transition: 0.3s;
-  box-shadow: 0px 2px 15px rgba(0, 0, 0, 0.1);
-}
-
-#header .subscribe .subscribe-form input[type=submit]:hover {
-  background: #2772db;
-}
-
-#header .subscribe .error-message {
-  display: none;
-  color: #ed3c0d;
-  text-align: center;
-  padding: 15px;
-  font-weight: 600;
-}
-
-#header .subscribe .sent-message {
-  display: none;
-  color: #18d26e;
-  text-align: center;
-  padding: 15px;
-  font-weight: 600;
-}
-
-#header .subscribe .loading {
-  display: none;
-  text-align: center;
-  padding: 15px;
-}
-
-#header .subscribe .loading:before {
-  content: "";
-  display: inline-block;
-  border-radius: 50%;
-  width: 24px;
-  height: 24px;
-  margin: 0 10px -6px 0;
-  border: 3px solid #18d26e;
-  border-top-color: #eee;
-  animation: animate-loading-notify 1s linear infinite;
 }
 
 @keyframes animate-loading-notify {
@@ -255,6 +193,7 @@ h6 {
   margin: 0 10px;
   text-align: center;
   transition: 0.3s;
+  border-radius: 5px;
 }
 
 #header .social-links a:hover {
@@ -266,6 +205,7 @@ h6 {
 --------------------------------------------------------------*/
 section {
   padding: 60px 0;
+  
 }
 
 .section-bg {
@@ -280,7 +220,7 @@ section {
 .section-title h2 {
   font-size: 32px;
   font-weight: bold;
-  margin-bottom: 20px;
+  margin-bottom: 30px;
   position: relative;
 }
 
@@ -331,11 +271,14 @@ section {
 # Contact Us
 --------------------------------------------------------------*/
 #contact h4 {
-  color: #070f4e;
+  color: #213764;
 }
 .contact .info-wrap {
-  background:rgba(98, 95, 103, 0.327);
+  background:rgb(218 234 240);
   padding: 30px;
+  border-top-right-radius: 10px;
+  border-top-left-radius:10px ;
+  box-shadow: rgba(97, 96, 96, 0.35) 5px 5px 5px;
 }
 
 .contact .info i {
@@ -344,7 +287,7 @@ section {
   float: left;
   width: 44px;
   height: 44px;
-  background:rgba(228, 226, 231, 0.327);
+  background:rgb(255,255,255);
   display: flex;
   justify-content: center;
   align-items: center;
@@ -404,7 +347,8 @@ section {
   width: 100%;
   padding: 30px;
   padding-top: 0;
-  background: rgba(98, 95, 103, 0.327);
+  background: rgb(218 234 240);
+  box-shadow: rgba(97, 96, 96, 0.35) 5px 5px 5px;
 }
 
 .contact .php-email-form .form-group {
@@ -461,19 +405,20 @@ section {
   border-radius: 0;
   box-shadow: none;
   font-size: 15px;
-  background: rgba(247, 241, 241, 0.1);
-  border: 1px solid rgba(255, 255, 255, 0.2);
-  color:#070f4e;
+  background: rgb(255,255,255);
+  border: 1px solid rgb(192, 213, 221);
+  color:#213764;
+  border-radius: 5px;
 }
 
 .contact .php-email-form input::-moz-placeholder,
 .contact .php-email-form textarea::-moz-placeholder {
-  color: rgba(255, 255, 255, 0.4);
+  color: rgb(46,67,109);
 }
 
 .contact .php-email-form input::placeholder,
 .contact .php-email-form textarea::placeholder {
-  color: rgba(255, 255, 255, 0.4);
+  color: rgb(139,140,145);
 }
 
 .contact .php-email-form input {
@@ -485,15 +430,19 @@ section {
 }
 
 .contact .php-email-form button[type=submit] {
-  background:#2772db;
-  border: 0;
+  background-color:#47bdea;
+ border-radius: 5px;;
   padding: 10px 24px;
-  color: #fff;
+  color:#fff ;
   transition: 0.4s;
+  font-size: bold;
+  border:0;
 }
 
 .contact .php-email-form button[type=submit]:hover {
-  background:#2772db;
+  background:#fff;
+  color: #f05748;
+  font-weight: bold;
 }
 
 @keyframes animate-loading {
@@ -506,28 +455,3 @@ section {
   }
 }
 
-/*--------------------------------------------------------------
-# Footer
---------------------------------------------------------------*/
-#footer {
-  background: rgba(19, 19, 19, 0.4);
-  padding: 30px 0;
-  color: #fff;
-  font-size: 14px;
-  position: relative;
-}
-
-#footer .copyright {
-  text-align: center;
-}
-
-#footer .credits {
-  padding-top: 10px;
-  text-align: center;
-  font-size: 13px;
-  color: #fff;
-}
-
-#footer .credits a {
-  color: #ff3333;
-}
