@@ -1,7 +1,7 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
-import config from "../configs";
 
+import config from "../configs";
 
 
 
@@ -30,6 +30,7 @@ export const login = createAsyncThunk(
     );
     let aux = JSON.stringify(response.data);
     localStorage.setItem("token", aux);
+
     dispatch(me(response.data.Authorization));
     return response.data;
   }
