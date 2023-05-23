@@ -9,6 +9,7 @@
   height: calc(100% - 50px); /* Adjust the subtraction value as needed */
 }
 
+
 @media (max-width: 700px) {
   .h-custom {
   height: 100%;
