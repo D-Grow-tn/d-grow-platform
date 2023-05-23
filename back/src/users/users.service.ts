@@ -15,9 +15,9 @@ export interface FormatLogin extends Partial<User> {
   name: string;
   email: string;
   clientId: string;
-  employeeId: string ;
+  employeeId: string;
   isClient: boolean;
-  mediaId: string ;
+  mediaId: string;
 }
 
 @Injectable()
@@ -55,6 +55,7 @@ export class UsersService {
   async findByLogin({ email, password }: UserLogin): Promise<FormatLogin> {
     const user = await this.prisma.user.findFirst({
       where: { email },
+      include: { client: true, employee: true },
     });
 
     if (!user) {
@@ -66,10 +67,10 @@ export class UsersService {
       throw new HttpException('invalid_credentials', HttpStatus.BAD_REQUEST);
     }
 
-    const {password:p, ...rest } = user;
+    const { password: p, ...rest } = user;
     return rest;
   }
-  
+
   async findByPayload({ email }: any): Promise<any> {
     let user = {};
     user = await this.prisma.user.findFirst({

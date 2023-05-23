@@ -13,7 +13,7 @@ datasource db {
 model User {
   id          String        @id @default(uuid())
   name        String
-  email       String
+  email       String        @unique
   clientId    String?
   client      Client?       @relation(fields: [clientId], references: [id])
   employeeId  String?
@@ -42,16 +42,17 @@ model Client {
 model Employee {
   id               String             @id @default(uuid())
   name             String
-  avatar           String
   bio              String
   email            String
-  departmentId     String?
-  department       Department?        @relation(fields: [departmentId], references: [id], name: "department")
-  directManegerId  String
-  directManeger    Employee           @relation(fields: [directManegerId], references: [id], name: "directManeger")
   phone            String
+  departmentId     String?
   createdAt        DateTime           @default(now())
   updatedAt        DateTime           @updatedAt
+  avatar           Media?             @relation(fields: [avatarId], references: [id])
+  avatarId         String?
+  department       Department?        @relation(fields: [departmentId], references: [id], name: "department")
+  directManegerId  String?
+  directManeger    Employee?          @relation(fields: [directManegerId], references: [id], name: "directManeger")
   User             User[]
   task             Task[]
   request          Request[]
@@ -68,8 +69,6 @@ model Employee {
   EmployeeQuiz     EmployeeQuiz[]
   EmployeeChatRoom EmployeeChatRoom[]
   Message          Message[]
-  Media            Media?             @relation(fields: [mediaId], references: [id])
-  mediaId          String?
   MediaEmployee    MediaEmployee[]
 }
 
@@ -81,16 +80,16 @@ model Project {
   createdAt           DateTime            @default(now())
   updatedAt           DateTime            @updatedAt
   clientId            String?
-  client              Client?              @relation(fields: [clientId], references: [id])
+  client              Client?             @relation(fields: [clientId], references: [id])
   teamId              String?
-  team                Team ?               @relation(fields: [teamId], references: [id])
+  team                Team?               @relation(fields: [teamId], references: [id])
   startAt             DateTime?
   endAt               DateTime?
   status              Status              @default(pending)
   projectManagerId    String?
-  projectManager      Employee ?           @relation(fields: [projectManagerId], references: [id], name: "projectManager")
+  projectManager      Employee?           @relation(fields: [projectManagerId], references: [id], name: "projectManager")
   consultantId        String?
-  consultant          Employee?            @relation(fields: [consultantId], references: [id], name: "consultant")
+  consultant          Employee?           @relation(fields: [consultantId], references: [id], name: "consultant")
   interaction         Interaction[]
   objective           Objective[]
   projectTechnologies ProjectTechnology[]
@@ -124,10 +123,10 @@ model Objective {
   updatedAt    DateTime       @updatedAt
   status       Status         @default(pending)
   project      Project        @relation(fields: [projectId], references: [id])
-  subobjective Subobjective[]
+  subobjective SubObjective[]
 }
 
-model Subobjective {
+model SubObjective {
   id          String    @id @default(uuid())
   name        String
   description String
@@ -139,15 +138,15 @@ model Subobjective {
 }
 
 model Stage {
-  id          String   @id @default(uuid())
+  id          String    @id @default(uuid())
   name        String
   porcentage  String
   startAt     DateTime?
   endAt       DateTime?
-  createdAt   DateTime @default(now())
-  updatedAt   DateTime @updatedAt
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
   objectiveId String
-  status      Status   @default(pending)
+  status      Status    @default(pending)
   task        Task[]
 }
 
@@ -347,20 +346,20 @@ model EmployeeChatRoom {
 }
 
 model Media {
-  id            String          @id @default(uuid())
-  path          String
-  type          String
-  alt           String?
-  extension     String
-  description   String?
-  MediaUser     MediaUser[]
-  User          User[]
-  MediaClient   MediaClient[]
-  Employee      Employee[]
-  MediaEmployee MediaEmployee[]
-  MediaEvent    MediaEvent[]
-  MediaRequest  MediaRequest[]
-  MediaProject  MediaProject[]
+  id             String          @id @default(uuid())
+  path           String
+  type           String
+  alt            String?
+  extension      String
+  description    String?
+  MediaUser      MediaUser[]
+  User           User[]
+  MediaClient    MediaClient[]
+  MediaEmployee  MediaEmployee[]
+  avatarEmployee Employee[]
+  MediaEvent     MediaEvent[]
+  MediaRequest   MediaRequest[]
+  MediaProject   MediaProject[]
 }
 
 model MediaUser {
