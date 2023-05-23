@@ -97,7 +97,7 @@ const UserProfile = () => {
       {/* Information section */}
 
       {/* Projects section */}
-      <div className="py-5">
+      <div className="py-5 d-flex flex-column justify-content-center align-items-center">
         <h3 >Projects</h3>
         <p>
           "Rely on our expertise,and watch as your dreams turn into reality"
