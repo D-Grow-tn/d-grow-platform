@@ -1,6 +1,8 @@
 const projects = [
   {
-    id: 1,
+    id:0,
+    owner: "John Doe",
+  contract: "ABC-123",
     cover:
       "https://novakdjokovicfoundation.org/wp-content/uploads/2016/02/designing-new-projects1.jpg",
     name: "Go Manga",
@@ -20,6 +22,8 @@ const projects = [
           { name: "UI Design", status: "In progress" },
           { name: "Frontend Development", status: "In progress" },
           { name: "Backend Development", status: "Pending" },
+          { name: "Backend Development", status: "Pending" },
+          { name: "Backend Development", status: "Pending" },
         ],
       },
       {
@@ -33,7 +37,9 @@ const projects = [
     ],
   },
   {
-    id: 2,
+    id: 1,
+    owner: "John Doe",
+  contract: "ABC-123",
     cover:
       "https://kemptonexpress.co.za/wp-content/uploads/sites/30/2022/09/KemptonExpress-GS-image-780x470.jpg",
     name: "Web Application",
@@ -111,7 +117,9 @@ const projects = [
     ],
   },
   {
-    id: 3,
+    id: 2,
+    owner: "John Doe",
+  contract: "ABC-123",
     cover:
       "https://st3.depositphotos.com/6235482/19053/i/600/depositphotos_190537880-stock-photo-people-discussing-at-table-over.jpg",
     name: "Mobile App Development",
@@ -152,7 +160,9 @@ const projects = [
     ],
   },
   {
-    id: 4,
+    id: 3,
+    owner: "John Doe",
+  contract: "ABC-123",
     cover:
       "https://blog.bulldozair.com/wp-content/uploads/sites/2/2020/09/what-makes-successful-construction-project-1200x750.jpg",
     name: "E-commerce Website",
@@ -174,7 +184,7 @@ const projects = [
         ],
       },
       {
-        name: "Frontend Design",
+        name: "Payment Integration",
         status: "Completed",
         subobjects: [
           { name: "UI Development", status: "Completed" },
@@ -192,7 +202,9 @@ const projects = [
     ],
   },
   {
-    id: 5,
+    id: 4,
+    owner: "John Doe",
+  contract: "ABC-123",
     cover:
       "https://www.rcgt.com/app/uploads/2022/09/gestion_projet_entreprise_reussi_1200x630_logo.jpg",
     name: "Content Management System",
@@ -224,7 +236,9 @@ const projects = [
     ],
   },
   {
-    id: 6,
+    id: 5,
+    owner: "John Doe",
+  contract: "ABC-123",
     cover:
       "https://www.simplilearn.com/ice9/free_resources_article_thumb/What_Is_a_Project.jpg",
     name: "Design",
