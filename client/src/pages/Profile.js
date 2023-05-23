@@ -8,10 +8,13 @@ import { Fade } from "react-reveal";
 import { Nav } from "react-bootstrap";
 import projects from './../constants/ProjectsData';
 import { useNavigate } from "react-router-dom";
+import {  useSelector } from "react-redux";
 
 const UserProfile = () => {
   const [activeTab, setActiveTab] = useState("tab1");
 
+  
+  
   const handleTabChange = (tab) => {
     setActiveTab(tab);
   };

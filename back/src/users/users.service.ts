@@ -54,7 +54,7 @@ export class UsersService {
 
   async findByLogin({ email, password }: UserLogin): Promise<FormatLogin> {
     const user = await this.prisma.user.findFirst({
-      where: { email },
+      where: {email}
     });
 
     if (!user) {

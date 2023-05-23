@@ -2,8 +2,7 @@ import React, { useEffect, useState } from "react";
 import Container from "react-bootstrap/Container";
 import Nav from "react-bootstrap/Nav";
 import Navbar from "react-bootstrap/Navbar";
-import NavDropdown from "react-bootstrap/NavDropdown";
-import PersonAddTwoToneIcon from "@mui/icons-material/PersonAddTwoTone";
+import PersonOutlineIcon from "@mui/icons-material/PersonOutline";
 import "bootstrap/dist/css/bootstrap.min.css";
 import TextHoverUnderline from "../components/TextHoverUnderline";
 import { useNavigate } from "react-router-dom";
@@ -17,8 +16,6 @@ function Naavbar() {
       setScroll(window.scrollY);
     });
   }, []);
-
-
 
   return (
     <Navbar
@@ -105,10 +102,18 @@ function Naavbar() {
 
           <Nav.Link
             href="/auth"
-            className="d-flex  align-items-center"
+            className="d-flex gap-2 align-items-center"
             style={{ color: "#213764" }}
           >
-            <PersonAddTwoToneIcon style={{ color: "#213764" }} />
+            <PersonOutlineIcon style={{ color: "#213764" }} />
+            <TextHoverUnderline
+              bgColor="blue"
+              duration="300"
+              type="linear"
+              content="Login"
+              width={60}
+              fontSize={21}
+            />
           </Nav.Link>
         </Navbar.Collapse>
       </Container>
