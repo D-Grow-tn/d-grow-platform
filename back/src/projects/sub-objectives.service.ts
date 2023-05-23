@@ -7,25 +7,25 @@ import { CreateSubObjectiveDto } from './dto/create-sub-objective.dto';
 export class SubObjectivesService {
   constructor(private readonly prisma:PrismaService) {}
  async create(data: CreateSubObjectiveDto) {
-    return await this.prisma.subobjective.create({data});
+    return await this.prisma.subObjective.create({data});
   }
 
   findAll() {
-    return this.prisma.subobjective.findMany({});
+    return this.prisma.subObjective.findMany({});
   }
 
   findOne(id: string) {
-    return this.prisma.subobjective.findUnique({where:{id}});
+    return this.prisma.subObjective.findUnique({where:{id}});
   }
 
   update(id: string, data: UpdateSubObjectiveDto) {
-    return this.prisma.subobjective.update({
+    return this.prisma.subObjective.update({
       data,
       where:{id}
     });
   }
 
   remove(id: string) {
-    return this.prisma.subobjective.delete({where:{id}});
+    return this.prisma.subObjective.delete({where:{id}});
   }
 }

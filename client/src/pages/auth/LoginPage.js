@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import {
   MDBContainer,
   MDBCol,
@@ -10,8 +10,34 @@ import {
 } from "mdb-react-ui-kit";
 import { Link } from "react-router-dom";
 import { Button } from "react-bootstrap";
+import { useNavigate } from 'react-router-dom';
+import {useDispatch}   from 'react-redux';
+
+import { login } from "../../store/auth";
+
+
 
 function LoginPage() {
+
+const dispatch = useDispatch()
+  const navigate = useNavigate()
+
+  const [email, setEmail] = useState("")
+  const [password, setPassword] = useState("")
+  const handelSubmit = async (e) => {
+    e.preventDefault();
+    dispatch(login({ email: email, password: password }))
+      .then(result => {
+        if (result) {
+          navigate(`/profile`)
+        } else {
+          alert("Invalid Credentials")
+          
+        }
+      })
+  }
+
+
   return (
     <MDBContainer
       fluid
@@ -31,6 +57,7 @@ function LoginPage() {
             id="emailInput"
             type="email"
             class="form-control form-control-lg"
+            onChange={(e) => setEmail(e.target.value)}
           />
         </div>
 
@@ -42,6 +69,7 @@ function LoginPage() {
             id="passwordInput"
             type="password"
             class="form-control form-control-lg"
+            onChange={(e) => setPassword(e.target.value)}
           />
         </div>
 
@@ -62,7 +90,7 @@ function LoginPage() {
         </div>
 
         <div className="text-center text-md-start mt-4 pt-2">
-          <Button className="mb-0 px-5" size="lg"  >
+          <Button className="mb-0 px-5" size="lg" onClick={handelSubmit} >
             Login
           </Button>
         </div>

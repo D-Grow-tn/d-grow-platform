@@ -61,6 +61,13 @@ export class AuthService {
     return user;
   }
 
+  async me(token: string) {
+    const payload = this.jwtService.decode(token, {}) as any;
+    return new Promise((resolve, reject) => {
+      resolve(payload);
+    });
+  }
+
 }
 export interface RegistrationStatus {
   success: boolean;

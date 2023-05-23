@@ -1,8 +1,17 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
+import {
+  Controller,
+  Get,
+  Post,
+  Body,
+  Patch,
+  Param,
+  Delete,
+} from '@nestjs/common';
 import { ProjectsService } from './projects.service';
 import { CreateProjectDto } from './dto/create-project.dto';
 import { UpdateProjectDto } from './dto/update-project.dto';
-
+import { ApiTags } from '@nestjs/swagger';
+@ApiTags('projects')
 @Controller('projects')
 export class ProjectsController {
   constructor(private readonly projectsService: ProjectsService) {}
@@ -22,13 +31,10 @@ export class ProjectsController {
     return this.projectsService.findOne(id);
   }
 
-
-   @Get('by_client/:clientId')
-   findAllByClient(@Param('clientId') clientId:string){
+  @Get('by_client/:clientId')
+  findAllByClient(@Param('clientId') clientId: string) {
     return this.projectsService.findAllByClient(clientId);
-   }
-
-
+  }
 
   @Patch(':id')
   update(@Param('id') id: string, @Body() updateProjectDto: UpdateProjectDto) {

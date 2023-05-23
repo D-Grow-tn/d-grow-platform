@@ -26,6 +26,6 @@ async create(data: CreateObjectiveDto) {
   }
 
   remove(id: string) {
-    return this.prisma.subobjective.delete({where:{id}});
+    return this.prisma.objective.delete({where:{id}});
   }
 }
