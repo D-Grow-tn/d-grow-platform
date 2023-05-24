@@ -39,8 +39,7 @@ export class AuthService {
 
 
   }
-  @ApiSecurity('apiKey')
-  @UseGuards(JwtAuthGuard)
+ 
   async login(dto:UserLogin): Promise<any> {
     const user = await this.usersService.findByLogin(dto);
     const token = this._createToken(user)
@@ -57,8 +56,6 @@ export class AuthService {
     };
   }
 
-  @ApiSecurity('apiKey')
-  @UseGuards(JwtAuthGuard)
   async validateUser(payload: JwtPayload): Promise<any> {
     const user = await this.usersService.findByPayload(payload);
     if (!user) {

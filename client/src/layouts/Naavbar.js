@@ -104,7 +104,7 @@ function Naavbar() {
           </Nav>
 
           <Nav.Link
-            href="/auth"
+            href="/auth/login"
             className="d-flex  align-items-center"
             style={{ color: "#213764" }}
           >
