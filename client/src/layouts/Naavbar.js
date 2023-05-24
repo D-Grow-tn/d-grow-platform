@@ -101,8 +101,8 @@ function Naavbar() {
           </Nav>
 
           <Nav.Link
-            href="/auth"
-            className="d-flex gap-2 align-items-center"
+            href="/auth/login"
+            className="d-flex  align-items-center"
             style={{ color: "#213764" }}
           >
             <PersonOutlineIcon style={{ color: "#213764" }} />

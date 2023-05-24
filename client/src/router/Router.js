@@ -31,7 +31,7 @@ function Router() {
       <BrowserRouter>
         <Routes>
           <Route path="/auth" element={<LoadComponent Component={Auth} />}>
-            <Route exact index element={<LoginPage />} />
+            <Route exact path="login" element={<LoginPage />} />
             <Route exact path="reset-password" element={<ResetPassword />} />
           </Route>
           <Route path="/" element={<Client />}>

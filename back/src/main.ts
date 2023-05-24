@@ -1,10 +1,10 @@
 import { NestFactory } from '@nestjs/core';
 import { AppModule } from './app.module';
 import { SwaggerModule, DocumentBuilder } from '@nestjs/swagger';
-// require("dotenv").config();
+
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
-
+  app.setGlobalPrefix('/api/v1');
   const config = new DocumentBuilder()
     .setTitle('Median')
     .setDescription('The Median API description')
