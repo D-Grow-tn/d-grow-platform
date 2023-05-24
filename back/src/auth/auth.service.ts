@@ -1,4 +1,4 @@
-import { HttpException, HttpStatus, Injectable } from "@nestjs/common";
+import { HttpException, HttpStatus, Injectable, UseGuards } from "@nestjs/common";
 import { JwtService } from "@nestjs/jwt";
 import { User } from "@prisma/client";
 import { PrismaService } from "src/prisma/prisma.service";
@@ -6,6 +6,8 @@ import { CreateUserDto } from "src/users/dto/create-user.dto";
 import { UserLogin } from "src/users/entities/user.entity";
 import { FormatLogin, UsersService } from "src/users/users.service";
 import { JwtPayload } from "./jwt.strategy";
+import { ApiSecurity } from "@nestjs/swagger";
+import { JwtAuthGuard } from "./jwt-auth.guard";
 
 
 
@@ -37,7 +39,7 @@ export class AuthService {
 
 
   }
-
+ 
   async login(dto:UserLogin): Promise<any> {
     const user = await this.usersService.findByLogin(dto);
     const token = this._createToken(user)
@@ -53,6 +55,7 @@ export class AuthService {
       Authorization,
     };
   }
+
   async validateUser(payload: JwtPayload): Promise<any> {
     const user = await this.usersService.findByPayload(payload);
     if (!user) {

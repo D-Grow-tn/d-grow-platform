@@ -3,6 +3,9 @@ import { SubObjectivesService } from './sub-objectives.service';
 import { CreateSubObjectiveDto } from './dto/create-sub-objective.dto';
 import { UpdateSubObjectiveDto } from './dto/update-sub-objective.dto';
 
+import { ApiTags } from '@nestjs/swagger';
+
+@ApiTags('Sub-objectives')
 @Controller('sub-objectives')
 export class SubObjectivesController {
   constructor(private readonly subObjectivesService: SubObjectivesService) {}

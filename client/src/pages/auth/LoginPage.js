@@ -2,22 +2,20 @@ import React, { useState } from "react";
 import {
   MDBContainer,
   MDBCol,
-  MDBRow,
-  MDBBtn,
-  MDBIcon,
-  MDBInput,
   MDBCheckbox,
 } from "mdb-react-ui-kit";
 import { Link } from "react-router-dom";
 import { Button } from "react-bootstrap";
 import { useNavigate } from 'react-router-dom';
 import {useDispatch}   from 'react-redux';
-
+import {showErrorToast} from '../../utils/toast.js'
 import { login } from "../../store/auth";
 
 
 
+
 function LoginPage() {
+ 
 
 const dispatch = useDispatch()
   const navigate = useNavigate()
@@ -28,10 +26,11 @@ const dispatch = useDispatch()
     e.preventDefault();
     dispatch(login({ email: email, password: password }))
       .then(result => {
-        if (result) {
+        if (!result.error) {
           navigate(`/profile`)
         } else {
-          alert("Invalid Credentials")
+          showErrorToast(result.error.message)
+        
           
         }
       })
