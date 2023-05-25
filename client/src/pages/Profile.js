@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, {useEffect, useState } from "react";
 import Card from "react-bootstrap/Card";
 import DisplayLottie from "./../constants/DisplayLottie";
 import loading from "../constants/loading.json";
@@ -8,10 +8,14 @@ import { Fade } from "react-reveal";
 import { Nav } from "react-bootstrap";
 import projects from './../constants/ProjectsData';
 import { useNavigate } from "react-router-dom";
-import {  useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import auth from "../store/auth";
 
 const UserProfile = () => {
   const [activeTab, setActiveTab] = useState("tab1");
+  const [client, setClient] = useState({});
+  const dispatch = useDispatch();
+  const authStore = useSelector((state) => state.auth);
 
   
   
@@ -20,6 +24,17 @@ const UserProfile = () => {
   };
   const [user, setUser] = useState(projects);
   const navigate=useNavigate()
+
+  useEffect(() => {
+    if (authStore.me) {
+      setClient(authStore.me);
+    }
+  }, [authStore.me]);
+
+
+
+
+
 
   return (
     <div className="container mt-5 ">
@@ -66,17 +81,18 @@ const UserProfile = () => {
                   add project <i class="fa-solid fa-play fa-fade px-2"></i>
                 </button>
                 <div className="mt-5 d-flex flex-column justify-content-center align-items-center ">
-                  <h5 className="card-title  ">Alex Brown</h5>
+                  <h5 className="card-title  ">{client.name}</h5>
                   <h6 className="card-subtitle mb-2 text-muted my-2">
                     Project Manager
                   </h6>
                   <h6 className="card-subtitle mb-2 text-muted">
-                    <i class="fa-solid fa-location-dot mx-2 my-2"></i> Avenue
-                    Mohamed Melki 1005 El Omrane
+                    <i class="fa-solid fa-location-dot mx-2 my-2"></i> 
+                    {client.client.address}
                   </h6>
                   <h6 className="card-subtitle mb-2 text-muted">
                     {" "}
-                    <i class="fa-solid fa-phone mx-2 my-2"></i>51343854
+                    <i class="fa-solid fa-phone mx-2 my-2"></i>
+                     {client.client.phone}
                   </h6>
                   <p className="card-text">
                     Some quick example text to build on the card title and make
