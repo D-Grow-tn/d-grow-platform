@@ -4,8 +4,14 @@ import React, { useState, useEffect } from "react";
 import { RiEyeFill, RiEyeCloseFill } from "react-icons/ri";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { Modal, Button } from "react-bootstrap";
+import { resetPassword,verificationCode} from "../../store/auth";
+import { useDispatch } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
+
+
 
 function ResetPassword() {
+  const [email, setEmail] = useState('')
   const [showModal, setShowModal] = useState(false);
   const [newPassword, setNewPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
@@ -14,7 +20,7 @@ function ResetPassword() {
   const [verificationCode, setVerificationCode] = useState('');
   const [showPasswordInputs, setShowPasswordInputs] = useState(false);
   const [isCodeValid, setIsCodeValid] = useState(true);
-
+  
   const handleShowModal = () => {
     setShowModal(true);
   };
@@ -102,6 +108,8 @@ function ResetPassword() {
                 placeholder="email address"
                 className="form-control form-control-lg"
                 type="email"
+                value={email}
+                onChange={(event) => setEmail(event.target.value)}
                 style={{ width: "450px" }}
               />
             </div>

@@ -14,6 +14,7 @@ model User {
   id          String        @id @default(uuid())
   name        String
   email       String        @unique
+  confirmkey  String?
   clientId    String?
   client      Client?       @relation(fields: [clientId], references: [id])
   employeeId  String?
