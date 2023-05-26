@@ -11,12 +11,12 @@ import { PugAdapter } from '@nestjs-modules/mailer/dist/adapters/pug.adapter';
         transport:{
           service:'Gmail',
           auth:{
-            user:'testmarouani1@gmail.com',
-            pass:'ijnjmqpvxdxuljuh'
+            user:'inesdebichi1995@gmail.com',
+            pass:'poomhpnsmqpsjpov'
           }
         } ,
         defaults: {
-          from: 'testmarouani1@gmail.com',
+          from: 'inesdebichi1995@gmail.com',
         },
         template: {
           dir: __dirname + '/templates',
