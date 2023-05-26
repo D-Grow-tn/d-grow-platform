@@ -34,6 +34,16 @@ async function main() {
       address: 'tunis',
     },
   });
+
+  let client4 = await prisma.client.create({
+    data: {
+      name: 'd-grow4',
+      email: 'inesdebichi1995@gmail.com',
+      phone: '44444444',
+      address: 'tunis',
+    },
+  });
+  
   let employee1 = await prisma.employee.create({
     data: {
       name: 'khalil',
@@ -79,6 +89,18 @@ async function main() {
       name: 'd-grow3',
       email: 'd-grow3@gmail.com',
       clientId: client3.id,
+      password: await bcrypt.hash('1234', salt),
+      isClient: true,
+      // mediaId   :  media.id,
+    },
+  });
+
+
+  let user4 = await prisma.user.create({
+    data: {
+      name: 'd-grow4',
+      email: 'inesdebichi1995@gmail.com',
+      clientId: client4.id,
       password: await bcrypt.hash('1234', salt),
       isClient: true,
       // mediaId   :  media.id,

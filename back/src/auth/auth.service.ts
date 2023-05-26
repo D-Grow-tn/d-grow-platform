@@ -6,9 +6,9 @@ import { CreateUserDto } from "src/users/dto/create-user.dto";
 import { UserLogin } from "src/users/entities/user.entity";
 import { FormatLogin, UsersService } from "src/users/users.service";
 import { JwtPayload } from "./jwt.strategy";
-import { ApiSecurity } from "@nestjs/swagger";
-import { JwtAuthGuard } from "./jwt-auth.guard";
-
+import { MailService } from "src/mail/mail.service"
+import * as bcrypt from 'bcrypt';
+import { log } from "console";
 
 
 @Injectable()
@@ -17,6 +17,7 @@ export class AuthService {
     private readonly prisma: PrismaService,
     private readonly jwtService: JwtService,
     private readonly usersService: UsersService,
+    private readonly nodeMailerService: MailService,
   ) {}
 
 
@@ -69,6 +70,73 @@ export class AuthService {
     return new Promise((resolve, reject) => {
       resolve(payload);
     });
+  }
+
+  async forgotPassword(email: string) {
+    let result = await this.prisma.user.findUnique({
+      where: {
+        email,
+      },
+    });
+    if (result) {
+      let code = '';
+      for (let i = 0; i < 6; i++) {
+        code += Math.floor(Math.random() * 9);
+      }
+
+      await this.prisma.user.update({
+        data: {
+          confirmkey: code,
+        },
+        where: {
+          email: result.email,
+        },
+      });
+      return {
+        ...(await this.nodeMailerService.mailForgotPassword(email, code)),
+        message: 'check ur mail',
+      };
+    }
+    console.log("result",result)
+  }
+  async verificationCode(code: string, email: string) {
+    const result = await this.prisma.user.findUnique({
+      where: { email },
+   
+    });
+    console.log(result);
+
+    if (result?.confirmkey === code) {
+      const { password: p, confirmkey: k, ...rest } = result;
+      const token = await this._createToken(rest);
+      return token;
+    } else {
+      throw new HttpException('error', HttpStatus.BAD_REQUEST);
+    }
+  }
+  async changePassword(
+    email: string,
+    password: string,
+    confirmPassword: string,
+  ) {
+    if (confirmPassword === password) {
+      const result = await this.prisma.user.findUnique({
+        where: {
+          email,
+        },
+      });
+      if (email) {
+        const salt = await bcrypt.genSalt();
+        const user = await this.prisma.user.update({
+          where: { id: result.id },
+          data: { password: await bcrypt.hash(password, salt) },
+        });
+        const { password: p, confirmkey: k, ...rest } = user;
+        return rest;
+      }
+    } else {
+      throw new HttpException('passwords not match ', HttpStatus.BAD_REQUEST);
+    }
   }
 
 }

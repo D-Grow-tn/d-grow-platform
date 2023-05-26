@@ -15,11 +15,12 @@ import { TechnologiesModule } from './technologies/technologies.module';
 import { AuthService } from './auth/auth.service';
 import { UsersService } from './users/users.service';
 import { JwtService } from '@nestjs/jwt';
+import { MailModule } from './mail/mail.module';
 
 
 
 @Module({
-  imports: [UsersModule, EmployeesModule, ProjectsModule, PrismaModule, MediasModule, ProductsModule, ClientsModule,AuthModule,TechnologiesModule],
+  imports: [UsersModule, EmployeesModule, ProjectsModule, PrismaModule, MediasModule, ProductsModule, ClientsModule,AuthModule,TechnologiesModule,MailModule],
   controllers: [AppController],
   providers: [AppService,PrismaService,MediasService,AuthService,UsersService,JwtService],
 })

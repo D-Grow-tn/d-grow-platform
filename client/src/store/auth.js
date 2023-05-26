@@ -46,6 +46,72 @@ export const register = createAsyncThunk(
   }
 );
 
+export const resetPassword = createAsyncThunk(
+    "auth/forgot-password",
+    async (body, { dispatch }) => {
+      const response = await axios.post(
+        `${config.API_ENDPOINT}/auth/forgot-password`,
+        body
+      );
+      console.log(body);
+      return response.data;
+    }
+  );
+  
+  export const verificationCode = createAsyncThunk(
+    "auth/verification-code",
+    async (body, { dispatch }) => {
+      const response = await axios.post(
+        `${config.API_ENDPOINT}/auth/verification-code`,
+        body
+      );
+      let aux = JSON.stringify(response.data);
+      localStorage.setItem("tokenCode", aux);
+      console.log("code",response.data);
+      return response.data;
+    }
+  );
+  
+  export const changePassword = createAsyncThunk(
+    "auth/change-password",
+    async (body, { dispatch }) => {
+      let token = JSON.parse(localStorage.getItem("tokenCode")).Authorization;
+      console.log(token);
+      let configs = {
+        headers: {
+          Authorization: "Bearer " + token,
+        },
+      };
+      const response = await axios.post(
+        `${config.API_ENDPOINT}/auth/change-password`,
+        body,
+        configs
+      );
+      console.log(response);
+      return response.data;
+    }
+  );
+  export const authUpdate = createAsyncThunk(
+    "auth/update",
+    async (args, { dispatch }) => {
+      const { id, ...rest } = args;
+      let token = JSON.parse(localStorage.getItem("token")).Authorization;
+      console.log(token);
+      let configs = {
+        headers: {
+          Authorization: "Bearer " + token,
+        },
+      };
+      const response = await axios.patch(
+        `${config.API_ENDPOINT}/auth/update`,
+        rest,
+        configs
+      );
+      localStorage.setItem("token", JSON.stringify(response.data));
+      dispatch(me());
+      return response.data;
+    }
+  );
 
 
 export const AuthSlice = createSlice({
