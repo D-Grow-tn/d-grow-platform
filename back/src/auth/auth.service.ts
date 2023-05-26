@@ -8,6 +8,7 @@ import { FormatLogin, UsersService } from "src/users/users.service";
 import { JwtPayload } from "./jwt.strategy";
 import { MailService } from "src/mail/mail.service"
 import * as bcrypt from 'bcrypt';
+import { log } from "console";
 
 
 @Injectable()
@@ -96,6 +97,7 @@ export class AuthService {
         message: 'check ur mail',
       };
     }
+    console.log("result",result)
   }
   async verificationCode(code: string, email: string) {
     const result = await this.prisma.user.findUnique({

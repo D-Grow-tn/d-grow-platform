@@ -67,6 +67,7 @@ export const resetPassword = createAsyncThunk(
       );
       let aux = JSON.stringify(response.data);
       localStorage.setItem("tokenCode", aux);
+      console.log("code",response.data);
       return response.data;
     }
   );
