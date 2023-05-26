@@ -1,6 +1,8 @@
 import React from 'react'
+import { useSelector } from "react-redux";
 
 function Contact() {
+  const state = useSelector((state) => state.client.value);
   return (
     <div className="bg-light">
       <section id="contact" className="contact">
@@ -15,7 +17,7 @@ function Contact() {
                     <div className="col-lg-4 info">
                       <i className="bi bi-geo-alt" />
                       <h4>Location:</h4>
-                      <p>A108 Adam Street<br />New York, NY 535022</p>
+                      <p>{state.address}<br />New York, NY 535022</p>
                     </div>
                     <div className="col-lg-4 info mt-4 mt-lg-0">
                       <i className="bi bi-envelope" />
