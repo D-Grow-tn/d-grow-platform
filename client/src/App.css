@@ -853,6 +853,10 @@ h5 {
   position: relative;
   overflow: hidden;
   box-shadow: 0 0 32px -10px rgba(0, 0, 0, 0.08);
+  /* background-color: #acbad7; */
+  /* background: linear-gradient(170deg, #01E4F8 0%, #1D3EDE 100%) */
+  background-image: url("https://images.unsplash.com/photo-1618477388954-7852f32655ec?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MzR8fHdlYiUyMGRldmVsb3BtZW50fGVufDB8fDB8fHww&auto=format&fit=crop&w=500&q=60");
+  
 }
 .card-hover:has(.card-hover__link:hover) .card-hover__extra {
   transform: translateY(0);
@@ -870,10 +874,10 @@ h5 {
   transform: translate(-50%, 0);
   transition: all 0.3s 0.35s cubic-bezier(0.1, 0.72, 0.4, 0.97);
 }
-.card-hover:hover img {
+/* .card-hover:hover img {
   transform: scale(1);
   transition: 0.35s 0.1s transform cubic-bezier(0.1, 0.72, 0.4, 0.97);
-}
+} */
 .card-hover__content {
   width: 100%;
   text-align: center;
@@ -949,7 +953,9 @@ h5 {
   width: 100%;
   font-size: 1.5rem;
   text-align: center;
-  background-color: #1a408c;
+  font-weight: bold;
+
+  /* background-color: #1a408c; */
   padding: 80px;
   bottom: 0;
   z-index: 0;
@@ -960,7 +966,9 @@ h5 {
 }
 .card-hover__extra span {
   /* color: #2d7f0b; */
-  color: #247642;
+  /* color: #247642; */
+  color: #1a408c;
+  font-weight: bold;
 }
 .card-hover img {
   position: absolute;

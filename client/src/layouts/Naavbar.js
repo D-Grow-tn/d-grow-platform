@@ -6,10 +6,12 @@ import PersonOutlineIcon from "@mui/icons-material/PersonOutline";
 import "bootstrap/dist/css/bootstrap.min.css";
 import TextHoverUnderline from "../components/TextHoverUnderline";
 import { useNavigate } from "react-router-dom";
+import { useSelector } from "react-redux";
 
 function Naavbar() {
   const [scroll, setScroll] = useState(0);
   const navigate = useNavigate();
+  const me =useSelector(state=>state.auth.me)
 
   useEffect(() => {
     window.addEventListener("scroll", function () {
@@ -101,7 +103,7 @@ function Naavbar() {
           </Nav>
 
           <Nav.Link
-            href="/auth/login"
+            href={me?"/profile":"/auth/login"}
             className="d-flex gap-2 align-items-center"
             style={{ color: "#213764" }}
           >
