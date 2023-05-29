@@ -101,7 +101,7 @@ async function main() {
   });
   let project2 = await prisma.project.create({
     data: {
-      name: 'project1',
+      name: 'project2',
       clientId: client1.id,
       description: 'String',
       duration: 'String',
@@ -114,8 +114,8 @@ async function main() {
   });
   let project3 = await prisma.project.create({
     data: {
-      name: 'project1',
-      clientId: client1.id,
+      name: 'project3',
+      clientId: client2.id,
       description: 'String',
       duration: 'String',
       projectManagerId: employee1.id,

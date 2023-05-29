@@ -1,4 +1,4 @@
-import React, {useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import Card from "react-bootstrap/Card";
 import DisplayLottie from "./../constants/DisplayLottie";
 import loading from "../constants/loading.json";
@@ -6,35 +6,32 @@ import tick from "../constants/tick.json";
 import onHold from "../constants/onHold.json";
 import { Fade } from "react-reveal";
 import { Nav } from "react-bootstrap";
-import projects from './../constants/ProjectsData';
+import projects from "./../constants/ProjectsData";
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import auth from "../store/auth";
+import { fetchProjects, fetchProjectbyClient } from "../store/projects";
 
 const UserProfile = () => {
-  const [activeTab, setActiveTab] = useState("tab1");
-  const [client, setClient] = useState({});
+  const navigate = useNavigate();
   const dispatch = useDispatch();
-  const authStore = useSelector((state) => state.auth);
 
-  
-  
+  const me = useSelector((state) => state.auth.me);
+  const projectStore = useSelector((state) => state.projects);
+  const { project, projects } = projectStore;
+
+  const [activeTab, setActiveTab] = useState("tab1");
+
+  useEffect(() => {
+    if (me) {
+      dispatch(fetchProjects());
+      dispatch(fetchProjectbyClient(me.id));
+    }
+  }, [dispatch]);
+
   const handleTabChange = (tab) => {
     setActiveTab(tab);
   };
-  const [user, setUser] = useState(projects);
-  const navigate=useNavigate()
-
-  useEffect(() => {
-    if (authStore.me) {
-      setClient(authStore.me);
-    }
-  }, [authStore.me]);
-
-
-
-
-
 
   return (
     <div className="container mt-5 ">
@@ -50,12 +47,14 @@ const UserProfile = () => {
           >
             <div className="d-flex">
               <div
-                style={{ width: "100%", height: "40px", borderRadius: "2px" , backgroundColor: "#070f4e" }}
+                style={{
+                  width: "100%",
+                  height: "40px",
+                  borderRadius: "2px",
+                  backgroundColor: "#070f4e",
+                }}
               ></div>
-             
             </div>
-         
-
             <div className="card-body d-flex flex-column align-items-center">
               <img
                 src="https://mdbcdn.b-cdn.net/img/new/avatars/2.webp"
@@ -81,18 +80,18 @@ const UserProfile = () => {
                   add project <i class="fa-solid fa-play fa-fade px-2"></i>
                 </button>
                 <div className="mt-5 d-flex flex-column justify-content-center align-items-center ">
-                  <h5 className="card-title  ">{client.name}</h5>
+                  <h5 className="card-title  ">{me?.name}</h5>
                   <h6 className="card-subtitle mb-2 text-muted my-2">
                     Project Manager
                   </h6>
                   <h6 className="card-subtitle mb-2 text-muted">
-                    <i class="fa-solid fa-location-dot mx-2 my-2"></i> 
-                    {client.client.address}
+                    <i class="fa-solid fa-location-dot mx-2 my-2"></i>
+                    {me?.client?.address}
                   </h6>
                   <h6 className="card-subtitle mb-2 text-muted">
                     {" "}
                     <i class="fa-solid fa-phone mx-2 my-2"></i>
-                     {client.client.phone}
+                    {me?.client?.phone}
                   </h6>
                   <p className="card-text">
                     Some quick example text to build on the card title and make
@@ -117,12 +116,19 @@ const UserProfile = () => {
 
       {/* Projects section */}
       <div className="py-5 d-flex flex-column justify-content-center align-items-center">
-        <h3 >Projects</h3>
+        <h3>Projects</h3>
         <p>
           "Rely on our expertise,and watch as your dreams turn into reality"
         </p>
       </div>
 
+      {projects.items.map((project, i) => (
+        <div className="   mt-3 " key={i}>
+          {project.name} {project.description} {project.status}
+        </div>
+      ))}
+
+      {/* 
       <Card className="text-center " style={{paddingBottom:"20px"}}>
         <Card.Header style={{ height: "57px" }}>
           <Nav variant="tabs" activeKey={activeTab} onSelect={handleTabChange}>
@@ -190,7 +196,7 @@ const UserProfile = () => {
               id="tab1"
             >
               <div className="d-flex flex-wrap gap-5 justify-content-center" >
-                {user.map((project, i) => (
+                {project.map((project, i) => (
                   <div className="   mt-3 " key={i} onClick={() => navigate(`/profile/${i}-details`)}    style={{ cursor: "pointer" }}>
                     <Card
                       style={{ width: "19rem", height: "500px" }}
@@ -290,7 +296,7 @@ const UserProfile = () => {
               id="tab2"
             >
               <div className="d-flex flex-wrap gap-5 justify-content-center">
-                {user
+                {project
                   .filter((project) => project.status === "Ongoing")
                   .map((project, i) => (
                     <div className="   mt-3 " key={i}>
@@ -393,7 +399,7 @@ const UserProfile = () => {
               id="tab3"
             >
               <div className="d-flex flex-wrap gap-5 justify-content-center">
-                {user
+                {projects
                   .filter((project) => project.status === "Completed")
                   .map((project, i) => (
                     <div className="   mt-3 " key={i}>
@@ -496,7 +502,7 @@ const UserProfile = () => {
               id="tab4"
             >
               <div className="d-flex flex-wrap gap-5 justify-content-center">
-                {user
+                {projects
                   .filter((project) => project.status === "onHold")
                   .map((project, i) => (
                     <div className="   mt-3 " key={i}>
@@ -594,7 +600,7 @@ const UserProfile = () => {
             </div>
           </div>
         </Card.Body>
-      </Card>
+      </Card> */}
 
       {/* Projects section */}
     </div>

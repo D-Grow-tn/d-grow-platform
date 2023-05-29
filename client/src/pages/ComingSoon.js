@@ -5,7 +5,7 @@ import DisplayLottie from "../constants/DisplayLottie";
 import comingsoon from "../constants/comingsoon.json";
 
 function ComingSoon() {
-  const [datacount, setDatacount] = useState("2023/12/30");
+  const [datacount, setDatacount] = useState("2023/07/23");
   const [day, setDay] = useState("--");
   const [hour, setHour] = useState("--");
   const [minute, setMinute] = useState("--");
