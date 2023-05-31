@@ -38,6 +38,7 @@ model Client {
   project     Project[]
   User        User[]
   MediaClient MediaClient[]
+
 }
 
 model Employee {
