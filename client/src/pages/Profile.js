@@ -6,11 +6,11 @@ import tick from "../constants/tick.json";
 import onHold from "../constants/onHold.json";
 import { Fade } from "react-reveal";
 import { Nav } from "react-bootstrap";
-import projects from "./../constants/ProjectsData";
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import auth from "../store/auth";
-import { fetchProjects, fetchProjectbyClient } from "../store/projects";
+import { fetchProjectbyClient } from "../store/projects";
+
 
 const UserProfile = () => {
   const navigate = useNavigate();
@@ -19,18 +19,23 @@ const UserProfile = () => {
   const me = useSelector((state) => state.auth.me);
   const projectStore = useSelector((state) => state.projects);
   const { project, projects } = projectStore;
-
   const [activeTab, setActiveTab] = useState("tab1");
 
   useEffect(() => {
     if (me) {
-      dispatch(fetchProjects());
-      dispatch(fetchProjectbyClient(me.id));
+      dispatch(fetchProjectbyClient(me.client.id));
     }
   }, [dispatch]);
 
   const handleTabChange = (tab) => {
     setActiveTab(tab);
+  };
+
+  const countProjects = () => {
+    if (projects.items.length <= 1) {
+      return "project";
+    }
+    return "projects";
   };
 
   return (
@@ -45,13 +50,12 @@ const UserProfile = () => {
             className="card rounded-5"
             style={{ width: "60rem", position: "relative" }}
           >
-            <div className="d-flex">
+            <div className="d-flex bg-darkbleu">
               <div
                 style={{
                   width: "100%",
                   height: "40px",
                   borderRadius: "2px",
-                  backgroundColor: "#070f4e",
                 }}
               ></div>
             </div>
@@ -93,7 +97,7 @@ const UserProfile = () => {
                     <i class="fa-solid fa-phone mx-2 my-2"></i>
                     {me?.client?.phone}
                   </h6>
-                  <p className="card-text">
+                  <p className="d- flex justify-content-center align-items-center">
                     Some quick example text to build on the card title and make
                     up the bulk of the card's content.
                   </p>
@@ -104,7 +108,8 @@ const UserProfile = () => {
                     class="btn btn-light"
                     style={{ width: "170px", height: "40px" }}
                   >
-                    3 Projects <i class="fa-solid fa-crown px-2"></i>
+                    {projects.items.length} {countProjects()}
+                    <i class="fa-solid fa-crown px-2"></i>
                   </button>
                 </div>
               </div>
@@ -122,14 +127,7 @@ const UserProfile = () => {
         </p>
       </div>
 
-      {projects.items.map((project, i) => (
-        <div className="   mt-3 " key={i}>
-          {project.name} {project.description} {project.status}
-        </div>
-      ))}
-
-      {/* 
-      <Card className="text-center " style={{paddingBottom:"20px"}}>
+      <Card className="text-center " style={{ paddingBottom: "20px" }}>
         <Card.Header style={{ height: "57px" }}>
           <Nav variant="tabs" activeKey={activeTab} onSelect={handleTabChange}>
             <Nav.Item>
@@ -195,16 +193,21 @@ const UserProfile = () => {
               } mt-5`}
               id="tab1"
             >
-              <div className="d-flex flex-wrap gap-5 justify-content-center" >
-                {project.map((project, i) => (
-                  <div className="   mt-3 " key={i} onClick={() => navigate(`/profile/${i}-details`)}    style={{ cursor: "pointer" }}>
+              <div className="d-flex flex-wrap gap-5 justify-content-center">
+                {projects.items.map((project, i) => (
+                  <div
+                    className="   mt-3 "
+                    key={i}
+                    onClick={() => navigate(`/profile/${i}-details`)}
+                    style={{ cursor: "pointer" }}
+                  >
                     <Card
                       style={{ width: "19rem", height: "500px" }}
                       className="shadow proCard"
                     >
                       <Card.Img
                         variant="top"
-                        src={project.cover}
+                        src="https://i.pinimg.com/564x/03/8e/10/038e10b450624ffcf2a59bdaf3cfc9aa.jpg"
                         style={{
                           height: "200px",
                           width: "432px",
@@ -217,17 +220,17 @@ const UserProfile = () => {
                             {project.name}{" "}
                           </Card.Title>{" "}
                           <Card.Title>
-                            {project.status === "Ongoing" ? (
+                            {project.status === "in_progress" ? (
                               <DisplayLottie
                                 animationData={loading}
                                 style={{ width: "35px", height: "35px" }}
                               />
-                            ) : project.status === "Completed" ? (
+                            ) : project.status === "completed" ? (
                               <DisplayLottie
                                 animationData={tick}
                                 style={{ width: "35px", height: "35px" }}
                               />
-                            ) : project.status === "onHold" ? (
+                            ) : project.status === "pending" ? (
                               <DisplayLottie
                                 animationData={onHold}
                                 style={{ width: "35px", height: "35px" }}
@@ -244,7 +247,8 @@ const UserProfile = () => {
                               maxHeight: "50px",
                             }}
                           >
-                            {project.description}
+                            {" "}
+                            description   {project.description}
                           </span>
 
                           <span className="position-absolute bottom-0 end-0  me-3">
@@ -257,7 +261,7 @@ const UserProfile = () => {
                             className="fa-solid fa-calendar"
                             style={{ marginTop: "4px" }}
                           ></i>
-                          <span> {project.timeline}</span>
+                          <span> duration  {project.duration} </span>
                         </Card.Text>
                         <Card.Text className=" d-flex gap-3 mx--5 my-4">
                           <div className=" d-flex gap-3 mx-1">
@@ -265,22 +269,24 @@ const UserProfile = () => {
                               className="fa-solid fa-people-group"
                               style={{ marginTop: "4px" }}
                             ></i>
-                            <span className="d-flex flex-column align-items-start">
+                            {/* <span className="d-flex flex-column align-items-start">
                               {project.team.map((member, memberIndex) => (
                                 <p key={memberIndex}>{member.name}</p>
                               ))}
-                            </span>
+                            </span> */}
+                            team member
 
                             <i
                               class="fa-solid fa-vest-patches"
                               style={{ marginTop: "4px" }}
                             ></i>
-                            <span className="d-flex flex-column align-items-start ">
-                              {" "}
-                              {project.team.map((member, memberIndex) => (
+                            {/* <span className="d-flex flex-column align-items-start ">
+                               {" "}
+                               {project.team.map((member, memberIndex) => (
                                 <p key={memberIndex}>{member.role}</p>
                               ))}
-                            </span>
+                            </span> */}
+                            role
                           </div>
                         </Card.Text>
                       </Card.Body>
@@ -296,8 +302,8 @@ const UserProfile = () => {
               id="tab2"
             >
               <div className="d-flex flex-wrap gap-5 justify-content-center">
-                {project
-                  .filter((project) => project.status === "Ongoing")
+                {projects.items
+                  .filter((project) => project.status === "in_progress")
                   .map((project, i) => (
                     <div className="   mt-3 " key={i}>
                       <Card
@@ -306,7 +312,7 @@ const UserProfile = () => {
                       >
                         <Card.Img
                           variant="top"
-                          src={project.cover}
+                          src=""
                           style={{
                             height: "200px",
                             width: "432px",
@@ -320,17 +326,17 @@ const UserProfile = () => {
                               {project.name}{" "}
                             </Card.Title>{" "}
                             <Card.Title>
-                              {project.status === "Ongoing" ? (
+                              {project.status === "in_progress" ? (
                                 <DisplayLottie
                                   animationData={loading}
                                   style={{ width: "35px", height: "35px" }}
                                 />
-                              ) : project.status === "Completed" ? (
+                              ) : project.status === "completed" ? (
                                 <DisplayLottie
                                   animationData={tick}
                                   style={{ width: "35px", height: "35px" }}
                                 />
-                              ) : project.status === "onHold" ? (
+                              ) : project.status === "pending" ? (
                                 <DisplayLottie
                                   animationData={onHold}
                                   style={{ width: "35px", height: "35px" }}
@@ -347,7 +353,7 @@ const UserProfile = () => {
                                 maxHeight: "50px",
                               }}
                             >
-                              {project.description}
+                             description  {project.description}
                             </span>
 
                             <span className="position-absolute bottom-0 end-0  me-3">
@@ -360,7 +366,7 @@ const UserProfile = () => {
                               className="fa-solid fa-calendar"
                               style={{ marginTop: "4px" }}
                             ></i>
-                            <span> {project.timeline}</span>
+                            <span> duration  {project.duration}</span>
                           </Card.Text>
                           <Card.Text className=" d-flex gap-3 mx--5 my-4">
                             <div className=" d-flex gap-3 mx-1">
@@ -368,22 +374,24 @@ const UserProfile = () => {
                                 className="fa-solid fa-people-group"
                                 style={{ marginTop: "4px" }}
                               ></i>
-                              <span className="d-flex flex-column align-items-start">
+                              {/* <span className="d-flex flex-column align-items-start">
                                 {project.team.map((member, memberIndex) => (
                                   <p key={memberIndex}>{member.name}</p>
                                 ))}
-                              </span>
+                              </span> */}
+                              Team member
 
                               <i
                                 class="fa-solid fa-vest-patches"
                                 style={{ marginTop: "4px" }}
                               ></i>
-                              <span className="d-flex flex-column align-items-start ">
+                              {/* <span className="d-flex flex-column align-items-start ">
                                 {" "}
                                 {project.team.map((member, memberIndex) => (
                                   <p key={memberIndex}>{member.role}</p>
                                 ))}
-                              </span>
+                              </span> */}
+                              Role
                             </div>
                           </Card.Text>
                         </Card.Body>
@@ -399,8 +407,8 @@ const UserProfile = () => {
               id="tab3"
             >
               <div className="d-flex flex-wrap gap-5 justify-content-center">
-                {projects
-                  .filter((project) => project.status === "Completed")
+                {projects.items
+                  .filter((project) => project.status === "completed")
                   .map((project, i) => (
                     <div className="   mt-3 " key={i}>
                       <Card
@@ -423,17 +431,17 @@ const UserProfile = () => {
                               {project.name}{" "}
                             </Card.Title>{" "}
                             <Card.Title>
-                              {project.status === "Ongoing" ? (
+                              {project.status === "in_progress" ? (
                                 <DisplayLottie
                                   animationData={loading}
                                   style={{ width: "35px", height: "35px" }}
                                 />
-                              ) : project.status === "Completed" ? (
+                              ) : project.status === "completed" ? (
                                 <DisplayLottie
                                   animationData={tick}
                                   style={{ width: "35px", height: "35px" }}
                                 />
-                              ) : project.status === "onHold" ? (
+                              ) : project.status === "in_progress" ? (
                                 <DisplayLottie
                                   animationData={onHold}
                                   style={{ width: "35px", height: "35px" }}
@@ -450,7 +458,7 @@ const UserProfile = () => {
                                 maxHeight: "50px",
                               }}
                             >
-                              {project.description}
+                              description {project.description}
                             </span>
 
                             <span className="position-absolute bottom-0 end-0  me-3">
@@ -463,7 +471,7 @@ const UserProfile = () => {
                               className="fa-solid fa-calendar"
                               style={{ marginTop: "4px" }}
                             ></i>
-                            <span> {project.timeline}</span>
+                            <span> duration {project.duration}</span>
                           </Card.Text>
                           <Card.Text className=" d-flex gap-3 mx--5 my-4">
                             <div className=" d-flex gap-3 mx-1">
@@ -471,22 +479,24 @@ const UserProfile = () => {
                                 className="fa-solid fa-people-group"
                                 style={{ marginTop: "4px" }}
                               ></i>
-                              <span className="d-flex flex-column align-items-start">
+                              {/* <span className="d-flex flex-column align-items-start">
                                 {project.team.map((member, memberIndex) => (
                                   <p key={memberIndex}>{member.name}</p>
                                 ))}
-                              </span>
+                              </span> */}
+                              Team member
 
                               <i
                                 class="fa-solid fa-vest-patches"
                                 style={{ marginTop: "4px" }}
                               ></i>
-                              <span className="d-flex flex-column align-items-start ">
+                              {/* <span className="d-flex flex-column align-items-start ">
                                 {" "}
                                 {project.team.map((member, memberIndex) => (
                                   <p key={memberIndex}>{member.role}</p>
                                 ))}
-                              </span>
+                              </span> */}
+                              Role
                             </div>
                           </Card.Text>
                         </Card.Body>
@@ -502,8 +512,8 @@ const UserProfile = () => {
               id="tab4"
             >
               <div className="d-flex flex-wrap gap-5 justify-content-center">
-                {projects
-                  .filter((project) => project.status === "onHold")
+                {projects.items
+                  .filter((project) => project.status === "pending")
                   .map((project, i) => (
                     <div className="   mt-3 " key={i}>
                       <Card
@@ -526,17 +536,17 @@ const UserProfile = () => {
                               {project.name}{" "}
                             </Card.Title>{" "}
                             <Card.Title>
-                              {project.status === "Ongoing" ? (
+                              {project.status === "in_progress" ? (
                                 <DisplayLottie
                                   animationData={loading}
                                   style={{ width: "35px", height: "35px" }}
                                 />
-                              ) : project.status === "Completed" ? (
+                              ) : project.status === "completed" ? (
                                 <DisplayLottie
                                   animationData={tick}
                                   style={{ width: "35px", height: "35px" }}
                                 />
-                              ) : project.status === "onHold" ? (
+                              ) : project.status === "pending" ? (
                                 <DisplayLottie
                                   animationData={onHold}
                                   style={{ width: "35px", height: "35px" }}
@@ -553,7 +563,7 @@ const UserProfile = () => {
                                 maxHeight: "50px",
                               }}
                             >
-                              {project.description}
+                              description {project.description}
                             </span>
 
                             <span className="position-absolute bottom-0 end-0  me-3">
@@ -566,7 +576,7 @@ const UserProfile = () => {
                               className="fa-solid fa-calendar"
                               style={{ marginTop: "4px" }}
                             ></i>
-                            <span> {project.timeline}</span>
+                            <span>duration {project.duration}</span>
                           </Card.Text>
                           <Card.Text className=" d-flex gap-3 mx--5 my-4">
                             <div className=" d-flex gap-3 mx-1">
@@ -574,22 +584,24 @@ const UserProfile = () => {
                                 className="fa-solid fa-people-group"
                                 style={{ marginTop: "4px" }}
                               ></i>
-                              <span className="d-flex flex-column align-items-start">
+                              {/* <span className="d-flex flex-column align-items-start">
                                 {project.team.map((member, memberIndex) => (
                                   <p key={memberIndex}>{member.name}</p>
                                 ))}
-                              </span>
+                              </span> */}
+                               Team member
 
                               <i
                                 class="fa-solid fa-vest-patches"
                                 style={{ marginTop: "4px" }}
                               ></i>
-                              <span className="d-flex flex-column align-items-start ">
+                              {/* <span className="d-flex flex-column align-items-start ">
                                 {" "}
                                 {project.team.map((member, memberIndex) => (
                                   <p key={memberIndex}>{member.role}</p>
                                 ))}
-                              </span>
+                              </span> */}
+                              Role
                             </div>
                           </Card.Text>
                         </Card.Body>
@@ -600,7 +612,7 @@ const UserProfile = () => {
             </div>
           </div>
         </Card.Body>
-      </Card> */}
+      </Card>
 
       {/* Projects section */}
     </div>

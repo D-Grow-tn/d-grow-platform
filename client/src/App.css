@@ -783,9 +783,13 @@ dd:nth-child(22) {
 }
 
 .back{
+ 
   background: url("./assets/img/background3.png") top center no-repeat;
   background-size: cover;
   position: relative;
+  margin-top: 200px;
+
+
   
 }
 
@@ -852,18 +856,19 @@ h5 {
   height: 500px;
   position: relative;
   overflow: hidden;
-  box-shadow: 0 0 32px -10px rgba(0, 0, 0, 0.08);
-  /* background-color: #acbad7; */
-  /* background: linear-gradient(170deg, #01E4F8 0%, #1D3EDE 100%) */
-  background-image: url("https://images.unsplash.com/photo-1618477388954-7852f32655ec?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MzR8fHdlYiUyMGRldmVsb3BtZW50fGVufDB8fDB8fHww&auto=format&fit=crop&w=500&q=60");
-  
+  border-radius: 15px;
+  /* background-color: #acbad7;
+  background: linear-gradient(170deg, #01E4F8 0%, #1D3EDE 100%); */
+  background-image: url("https://i.pinimg.com/564x/94/09/65/9409658c42bb178cb742a6e7dc083e9e.jpg");
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
 }
 .card-hover:has(.card-hover__link:hover) .card-hover__extra {
   transform: translateY(0);
   transition: transform 0.35s;
+  background: #1a408c;
 }
 .card-hover:hover .card-hover__content {
-  background-color: #DEE8C2;
+  background-color: #daeaf0;
   bottom: 100%;
   transform: translateY(100%);
   padding: 50px 60px;
@@ -967,7 +972,7 @@ h5 {
 .card-hover__extra span {
   /* color: #2d7f0b; */
   /* color: #247642; */
-  color: #1a408c;
+  color: #f7c0ac;
   font-weight: bold;
 }
 .card-hover img {

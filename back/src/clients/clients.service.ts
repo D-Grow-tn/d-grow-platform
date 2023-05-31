@@ -13,7 +13,11 @@ export class ClientsService {
   }
 
   async findAll() {
-    return await this.prisma.client.findMany({})
+    return await this.prisma.client.findMany({
+      include:{
+        project:true
+      }
+    })
   }
 
  async findOne(id: string) {

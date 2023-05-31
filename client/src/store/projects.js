@@ -3,10 +3,10 @@ import axios from "axios";
 import config from "../configs";
 
 
-export const fetchProjects = createAsyncThunk("projects/projects", async () => {
-  const response = await axios.get(`${config.API_ENDPOINT}/projects`);
-  return response.data;
-  });
+// export const fetchProjects = createAsyncThunk("projects/projects", async () => {
+//   const response = await axios.get(`${config.API_ENDPOINT}/projects`);
+//   return response.data;
+//   });
 export const fetchProjectbyClient = createAsyncThunk("projects/project", async (id) => {
   const response = await axios.get(`${config.API_ENDPOINT}/projects/by_client/${id}`);
   return response.data;
@@ -18,12 +18,12 @@ export const fetchProjectbyClient = createAsyncThunk("projects/project", async (
 //   });
 
   export const projectSlice= createSlice({
-    name: "project",
+    name: "projects",
     initialState: {
-      project:[],
+      project:null,
        projects: {
         items: [],
-        
+       
       },
       error: null,
       deleteError: null,
@@ -34,12 +34,12 @@ export const fetchProjectbyClient = createAsyncThunk("projects/project", async (
     reducers: {},
 
     extraReducers(builder) {
-      builder.addCase(fetchProjects.fulfilled, (state, action) => {
-        state.projects.items = action.payload;
-      });
+      // builder.addCase(fetchProjects.fulfilled, (state, action) => {
+      //   state.projects.items = action.payload;
+      // });
 
       builder.addCase(fetchProjectbyClient.fulfilled, (state, action) => {
-        state.project = action.payload;
+        state.projects.items = action.payload;
       });
     },
   });

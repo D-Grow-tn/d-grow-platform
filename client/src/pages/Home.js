@@ -24,18 +24,20 @@ function Home() {
     {
       image:
         "https://i.pinimg.com/564x/c9/6a/fe/c96afee943781f42644179c9eca4e3c5.jpg",
-      serv: " Web Front-End SOLUTIONS",
-      descp:"How design is implemented on the web"
+      serv: "             Web Front-End SOLUTIONS       ",
+      descp:"How design is implemented on the web."
     },
     {
       image:
         "https://i.pinimg.com/564x/e8/2e/4f/e82e4f8aea93a0d318395a8a872b72fe.jpg",
-      serv: "mobile application",
+      serv: "          UX/UI       WEBsite AND   MOBILE app       ",
+      descp:"User Interface and User Experience Design."
     },
     {
       image:
         "https://www.newsanyway.com/wp-content/uploads/2020/04/mobile-app-development-company-1024x918-1.png",
-      serv: "mobile application",
+      serv: "       BRANDING       AND CORPORATE     DESIGN          ",
+      descp:"Visual communication and problem-solving"
     },
   ];
 
@@ -97,11 +99,11 @@ function Home() {
         {/* className=" d-flex mx-5 p-5 gap-5 justify-content-between align-items-center dark-bleu" */}
         {/* style={{ textAlign:"center" }}
       > */}
-        <div className="container">
+        <div className="container " style={{paddingTop:"150px"}}>
           <div className="row content ">
             <div
               className="col-lg-6 pt-5 pt-lg-0 
-              mt-5  dark-bleu "
+              mt-5  py-5 dark-bleu "
               style={{ textAlign: "center" }}
             >
               <h2
@@ -144,23 +146,25 @@ function Home() {
       </section>
 
   {/* SERVICES */}
+  <section>
   <h1
           style={{
             fontWeight: "bold",
-            color: "black",
-            paddingTop: "100px",
+            color: "#1a408c",
+            // paddingTop: "100px",
             textAlign: "center",
+            marginBottom:"50px"
           }}
         >Services
         </h1>
 
 
-        <section className="d-flex justify-content-between align-items-center p-5">
+        <div className="d-flex flex-wrap gap-5 justify-content-center">
 {services.map((project, i) => (
                   
-<div className="card-hover" key={i}>
+<div className="card-hover" key={i} style={{ width:"350px"}}>
   <div className="card-hover__content">
-    <h3 className="card-hover__title">
+    <h3 className="card-hover__title" style={{fontWeight:"bold", color:"#1a408c"}}>
     {project.serv}
     </h3>
     <p className="card-hover__text">
@@ -189,6 +193,21 @@ function Home() {
   </div>
  
 </div>   ))}
+</div>
+<button
+                type="button"
+                class="btn mt-5"
+                style={{
+                  width: "150px",
+                  height: "40px",
+                  background: "#47bdea",
+                  color: "white",
+                  marginLeft:"79%"
+                }}
+                onClick={() => navigate("/services")}
+              >
+               See More <i class="fa-solid fa-play fa-fade px-2"></i>
+              </button>
 </section>
 
 
@@ -225,7 +244,7 @@ function Home() {
     
       
 
-      <section className="back">
+      <section className="back" >
         <div className="container">
           <div className="row content ">
             <div className="col-lg-5 ">
@@ -269,74 +288,6 @@ function Home() {
 
     
 
-
-
-   <section>
-        <div className="containere h-100">
-          <div className="rowi align-middle">
-            <div className="col-md-6 col-lg-4 column">
-              <div className="card gr-1">
-                <div className="txt">
-                  <h1>
-                    BRANDING AND <br />
-                    CORPORATE DESIGN
-                  </h1>
-                  <p>Visual communication and problem-solving</p>
-                </div>
-                <a href="#">more</a>
-                <div className="ico-card">
-                  <i className="fa fa-rebel" />
-                </div>
-              </div>
-            </div>
-            <div className="col-md-6 col-lg-4 column">
-              <div className="card gr-2">
-                <div className="txt">
-                  <h1>
-                    Web Front-End <br />
-                    SOLUTIONS
-                  </h1>
-                  <p>How design is implemented on the web.</p>
-                </div>
-                <a href="#">more</a>
-                <div className="ico-card">
-                  <i className="fa fa-codepen" />
-                </div>
-              </div>
-            </div>
-            <div className="col-md-6 col-lg-4 column">
-              <div className="card gr-3">
-                <div className="txt">
-                  <h1>
-                    UX/UI WEBsite <br />
-                    AND MOBILE app
-                  </h1>
-                  <p>User Interface and User Experience Design.</p>
-                </div>
-                <a href="#">more</a>
-                <div className="ico-card">
-                  <i className="fa fa-empire" />
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-        <button
-          type="button"
-          class="btn mt-5"
-          style={{
-            width: "170px",
-            height: "40px",
-            background: "#47bdea",
-            color: "white",
-            position: "relative",
-            marginLeft: "80%",
-          }}
-          onClick={() => navigate("/services")}
-        >
-          See more <i class="fa-solid fa-play fa-fade px-2"></i>
-        </button>
-        </section>
 
           {/* CLIENTS REVIEWS */}
 <section>
