@@ -198,7 +198,7 @@ const UserProfile = () => {
                   <div
                     className="   mt-3 "
                     key={i}
-                    onClick={() => navigate(`/profile/${i}-details`)}
+                    onClick={() => navigate(`/project/${project.id}`)}
                     style={{ cursor: "pointer" }}
                   >
                     <Card

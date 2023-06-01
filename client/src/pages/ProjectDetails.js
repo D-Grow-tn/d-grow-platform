@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
   Gantt,
   Task,
@@ -17,16 +17,87 @@ import DisplayLottie from "../constants/DisplayLottie";
 import loading from "../constants/loading.json";
 import tick from "../constants/tick.json";
 import onHold from "../constants/onHold.json";
+import { fetchProject } from "../store/projects";
+import { useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 
 function ProjectDetails() {
   const { projectId } = useParams();
-  const [selectedProject, setSelectedProject] = useState(
-    projectData[projectId]
-  );
-
+  const dispatch = useDispatch();
+  const projectStore = useSelector((state) => state.projects);
+  const { project } = projectStore;
   const [selectedDiv, setSelectedDiv] = useState(1);
-
   const [activeTab, setActiveTab] = useState("tab1");
+  const [formattedCreatedAt, setFormattedCreatedAt] = useState("");
+  const [formattedEndAt, setFormattedEndAt] = useState("");
+  const [tasks, setTasks] = useState([]);
+
+  useEffect(() => {
+    dispatch(fetchProject(projectId));
+  }, [dispatch]);
+
+  useEffect(() => {
+    function formatDate(dateString) {
+      const date = new Date(dateString);
+
+      if (isNaN(date.getTime())) {
+        return "Invalid Date";
+      }
+      const day = date.getDate();
+      const month = date.getMonth() + 1; // Adding 1 because months are zero-based
+      const year = date.getFullYear();
+
+      return `${day}-${month}-${year}`;
+    }
+    if (project) {
+      const createdAt = project?.createdAt;
+      const endAt = project?.endAt;
+
+      const formattedCreatedAt = formatDate(createdAt);
+      const formattedEndAt = formatDate(endAt);
+
+      setFormattedCreatedAt(formattedCreatedAt);
+      setFormattedEndAt(formattedEndAt);
+      let auxTasks = [];
+
+      project.objective.forEach((element) => {
+        auxTasks.push({
+          start: new Date(element.startAt),
+          end: new Date(element.endAt),
+          name: element.name,
+          id: element.id,
+          type: "project",
+          progress: 0,
+          hideChildren: true,
+          styles: {
+            progressColor: "#6dd0c5",
+            progressSelectedColor: "#3ba395",
+          },
+          open: false,
+          barChildren: element.Stage.map((elem) => {
+            return {
+              start: new Date(elem.startAt),
+              end: new Date(elem.endAt),
+              name: elem.name,
+              id: elem.id,
+              type: "task",
+              progress: elem.porcentage,
+
+              styles: {
+                progressColor: "#6dd0c5",
+                progressSelectedColor: "#3ba395",
+              },
+              project: element.id,
+              dependencies: [element.id], // No dependencies
+            };
+          }),
+          children: element.Stage,
+          dependencies: [], // No dependencies
+        });
+      });
+      setTasks(auxTasks);
+    }
+  }, [project]);
 
   const handleTabChange = (tab) => {
     setActiveTab(tab);
@@ -35,89 +106,6 @@ function ProjectDetails() {
   const handleClick = (divIndex) => {
     setSelectedDiv(divIndex);
   };
-
-  const tasks = [
-    {
-      start: new Date(2023, 0, 1),
-      end: new Date(2023, 0, 7),
-      name: "Task 1",
-      id: "Task 1",
-      type: "task",
-      progress: 50,
-      isDisabled: false,
-      styles: { progressColor: "#6dd0c5", progressSelectedColor: "#3ba395" },
-    },
-    {
-      start: new Date(2023, 0, 2),
-      end: new Date(2023, 0, 6),
-      name: "Task 2",
-      id: "Task 2",
-      type: "task",
-      progress: 70,
-      isDisabled: false,
-      styles: { progressColor: "#ffbb54", progressSelectedColor: "#ff9e0d" },
-    },
-    {
-      start: new Date(2023, 0, 7),
-      end: new Date(2023, 0, 10),
-      name: "Task 3",
-      id: "Task 3",
-      type: "task",
-      progress: 30,
-      isDisabled: true,
-      styles: { progressColor: "#8e67fd", progressSelectedColor: "#6736c6" },
-    },
-    {
-      start: new Date(2023, 0, 3),
-      end: new Date(2023, 0, 7),
-      name: "Task 4",
-      id: "Task 4",
-      type: "task",
-      progress: 90,
-      isDisabled: false,
-      styles: { progressColor: "#ff649c", progressSelectedColor: "#ff2663" },
-    },
-    {
-      start: new Date(2023, 0, 1),
-      end: new Date(2023, 1, 6),
-      name: "Task 5",
-      id: "Task 5",
-      type: "task",
-      progress: 20,
-      isDisabled: false,
-      styles: { progressColor: "#6dd0c5", progressSelectedColor: "#3ba395" },
-    },
-    {
-      start: new Date(2023, 0, 1),
-      end: new Date(2023, 0, 4),
-      name: "Task 6",
-      id: "Task 6",
-      type: "task",
-      progress: 60,
-      isDisabled: true,
-      styles: { progressColor: "#ffbb54", progressSelectedColor: "#ff9e0d" },
-    },
-    {
-      start: new Date(2023, 0, 2),
-      end: new Date(2023, 0, 7),
-      name: "Task 7",
-      id: "Task 7",
-      type: "task",
-      progress: 40,
-      isDisabled: false,
-      styles: { progressColor: "#8e67fd", progressSelectedColor: "#6736c6" },
-    },
-    {
-      start: new Date(2023, 0, 1),
-      end: new Date(2023, 0, 4),
-      name: "Task 8",
-      id: "Task 8",
-      type: "task",
-      progress: 80,
-      isDisabled: false,
-      styles: { progressColor: "#ff649c", progressSelectedColor: "#ff2663" },
-    },
-  ];
 
   return (
     <div>
@@ -129,7 +117,8 @@ function ProjectDetails() {
           <div class="card-body d-flex flex-column flex-md-row justify-content-around align-items-center ">
             <div style={{ maxWidth: "400px", width: "100%" }}>
               <img
-                src={selectedProject.cover}
+                // src={project.cover}
+                src="https://www.pole-emploi.fr/files/live/sites/PE/files/actualites/vignetteideee62655.jpg"
                 alt="Project Cover"
                 style={{ width: "100%", height: "auto", borderRadius: "50px" }}
               />
@@ -144,28 +133,31 @@ function ProjectDetails() {
                   fontWeight: 700,
                 }}
               >
-                {selectedProject.name}
+                {project?.name}
               </h3>
               <p class="card-text" style={{ maxWidth: "400px" }}>
-                {selectedProject.description}
+                {project?.description}
               </p>
               <p class="card-text">
                 <span class="text-muted">Project Owner:</span>{" "}
-                {selectedProject.owner}
+                {/* {project.owner} */}
               </p>
               <p class="card-text">
                 <span class="text-muted">Contract:</span>{" "}
-                {selectedProject.contract}
+                {/* {project.contract} */}
               </p>
               <p class="card-text">
-                <span class="text-muted">Status:</span> {selectedProject.status}
+                <span class="text-muted">Status:</span>
+                {project?.status}
               </p>
               <a href="#" class="btn btn-primary mt-2 mb-2">
                 Discover more !
               </a>
             </div>
           </div>
-          <div class="card-footer text-muted">{selectedProject.timeline}</div>
+          <div class="card-footer text-muted" id="dateDiv">
+            {`Start: ${formattedCreatedAt} End: ${formattedEndAt}`}
+          </div>
         </div>
       </div>
 
@@ -288,13 +280,13 @@ function ProjectDetails() {
           >
             <MDBContainer style={{ maxWidth: "1000px" }}>
               <MDBAccordion alwaysOpen>
-                {selectedProject.objectives.map((objective, index) => (
+                {project?.objective.map((objective, index) => (
                   <MDBAccordionItem
                     key={index}
                     collapseId={`collapse${index}`}
                     headerTitle={
                       <div className="d-flex align-items-center gap-3">
-                        <div> {objective.name} </div>
+                        <div>{objective.name}</div>
                         <div>
                           {objective.status === "In progress" ? (
                             <DisplayLottie
@@ -317,7 +309,7 @@ function ProjectDetails() {
                     }
                   >
                     <ul>
-                      {objective.subobjects.map((subObjective, subIndex) => (
+                      {objective?.subobjective.map((subObjective, subIndex) => (
                         <li
                           key={subIndex}
                           className="d-flex align-items-center gap-3"
@@ -334,7 +326,7 @@ function ProjectDetails() {
                                 animationData={tick}
                                 style={{ width: "35px", height: "35px" }}
                               />
-                            ) : subObjective.status === "Pending" ? (
+                            ) : subObjective.status === "pending" ? (
                               <DisplayLottie
                                 animationData={onHold}
                                 style={{ width: "35px", height: "35px" }}
@@ -361,7 +353,45 @@ function ProjectDetails() {
             id="tab2"
             style={{ maxWidth: "1200px" }}
           >
-            <Gantt tasks={tasks} />
+            {tasks.length ? (
+              <Gantt
+              listCellWidth='60px'
+                tasks={tasks}
+                onExpanderClick={(task) => {
+                  console.log(task);
+                  let newArray = [];
+                  let auxTasks = tasks.slice();// copy of tasks
+                  
+                  if (task.open) {
+                    auxTasks[task.index].hideChildren = true;
+                    auxTasks.splice(task.index + 1, task.children.length);
+                  } else {
+                    auxTasks[task.index].hideChildren = false;
+                    newArray = task.children.map((elem) => {
+                      return {
+                        start: new Date(elem.startAt),
+                        end: new Date(elem.endAt),
+                        name: elem.name,
+                        id: elem.id,
+                        type: "task",
+                        progress: elem.porcentage,
+                        styles: {
+                          progressColor: "#6dd0c5",
+                          progressSelectedColor: "#3ba395",
+                        },
+                        project: task.id,
+                        dependencies: [], // No dependencies
+                      };
+                    });
+                    auxTasks.splice(task.index + 1, 0, ...newArray);
+                  }
+                  auxTasks[task.index].open = !auxTasks[task.index].open;
+                  console.log(auxTasks);
+
+                  setTasks(auxTasks);
+                }}
+              />
+            ) : null}
           </div>
           <div
             className={`tab-pane  ${
@@ -389,7 +419,7 @@ function ProjectDetails() {
                     src="https://images.prismic.io/utopix-next-website/Y2E4OTI3NzQtNmUyOC00YmU2LWE5ZjctODcxY2RlMzg2ZDIy_26dfc43e-31dd-463f-ad04-56f39a430691_profilhomme1.jpg?ixlib=js-3.7.1&w=3840&auto=format&fit=max"
                     alt=""
                   />
-                  <h2>Rania Elouni</h2>
+                  <h2>{project?.consultant.name}</h2>
                   <span>Consultant</span>
                 </div>
                 <div className="box">
@@ -397,7 +427,7 @@ function ProjectDetails() {
                     src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRx0CIy3mIbpe2nuLRfK5xxPcwxmTvXjJsBNw&usqp=CAU"
                     alt=""
                   />
-                  <h2>Khalil Kraim</h2>
+                  <h2>{project?.projectManager.name}</h2>
                   <span>Project Manager</span>
                 </div>
               </div>

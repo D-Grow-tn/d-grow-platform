@@ -43,7 +43,7 @@ async function main() {
       address: 'tunis',
     },
   });
-  
+
   let employee1 = await prisma.employee.create({
     data: {
       name: 'khalil',
@@ -55,6 +55,14 @@ async function main() {
   let employee2 = await prisma.employee.create({
     data: {
       name: 'ines',
+      bio: 'String',
+      email: 'String',
+      phone: 'String',
+    },
+  });
+  let employee3 = await prisma.employee.create({
+    data: {
+      name: 'rania',
       bio: 'String',
       email: 'String',
       phone: 'String',
@@ -95,7 +103,6 @@ async function main() {
     },
   });
 
-
   let user4 = await prisma.user.create({
     data: {
       name: 'd-grow4',
@@ -103,6 +110,36 @@ async function main() {
       clientId: client4.id,
       password: await bcrypt.hash('1234', salt),
       isClient: true,
+      // mediaId   :  media.id,
+    },
+  });
+  let user5 = await prisma.user.create({
+    data: {
+      name: 'd-grow5',
+      email: 'rania@gmail.com',
+      employeeId: employee3.id,
+      password: await bcrypt.hash('1234', salt),
+      isClient: false,
+      // mediaId   :  media.id,
+    },
+  });
+  let user6 = await prisma.user.create({
+    data: {
+      name: 'khalil',
+      email: 'khalil@gmail.com',
+      employeeId: employee2.id,
+      password: await bcrypt.hash('1234', salt),
+      isClient: false,
+      // mediaId   :  media.id,
+    },
+  });
+  let user7 = await prisma.user.create({
+    data: {
+      name: 'ines',
+      email: 'ines@gmail.com',
+      employeeId: employee1.id,
+      password: await bcrypt.hash('1234', salt),
+      isClient: false,
       // mediaId   :  media.id,
     },
   });
@@ -154,6 +191,8 @@ async function main() {
       name: 'String',
       decription: 'String',
       projectId: project1.id,
+      startAt:new Date("01/05/2023"),
+      endAt:new Date("01/09/2023"),
     },
   });
 
@@ -162,6 +201,8 @@ async function main() {
       name: 'String',
       decription: 'String',
       projectId: project1.id,
+      startAt:new Date("01/05/2023"),
+      endAt:new Date("01/09/2023"),
     },
   });
   let objective3Project1 = await prisma.objective.create({
@@ -169,6 +210,8 @@ async function main() {
       name: 'String',
       decription: 'String',
       projectId: project1.id,
+      startAt:new Date("01/05/2023"),
+      endAt:new Date("01/09/2023"),
     },
   });
 
@@ -194,6 +237,97 @@ async function main() {
       description: 'String',
     },
   });
+  //create stage
+  let stage1Project1 = await prisma.stage.create({
+    data: {
+      name: 'design',
+      porcentage: '20',
+      startAt: new Date('01/05/2023'),
+      endAt: new Date('01/07/2023'),
+      objectiveId: objective1Project1.id,
+    },
+  });
+  let stage2Project1 = await prisma.stage.create({
+    data: {
+      name: 'graphic integration',
+      porcentage: '20',
+      startAt: new Date('01/05/2023'),
+      endAt: new Date('01/07/2023'),
+      objectiveId: objective1Project1.id,
+    },
+  });
+  let stage3Project1 = await prisma.stage.create({
+    data: {
+      name: 'database',
+      porcentage: '20',
+      startAt: new Date('01/05/2023'),
+      endAt: new Date('01/07/2023'),
+      objectiveId: objective1Project1.id,
+    },
+  });
+
+  let task1Stage1Project1 = await prisma.task.create({
+    data: {
+      points: 5,
+      name: 'Logo e-comerce website',
+      duration: '5',
+      level: '2',
+      stageId: stage1Project1.id,
+      employeeId: employee1.id,
+    },
+  });
+  let task2Stage1Project1 = await prisma.task.create({
+    data: {
+      points: 5,
+      name: 'xd e-commerce website',
+      duration: '5',
+      level: '2',
+      stageId: stage1Project1.id,
+      employeeId: employee1.id,
+    },
+  });
+  let task1Stage2Project1 = await prisma.task.create({
+    data: {
+      points: 5,
+      name: 'about us page',
+      duration: '5',
+      level: '2',
+      stageId: stage2Project1.id,
+      employeeId: employee1.id,
+    },
+  });
+  let task2Stage2Project1 = await prisma.task.create({
+    data: {
+      points: 5,
+      name: 'home page',
+      duration: '5',
+      level: '2',
+      stageId: stage2Project1.id,
+      employeeId: employee2.id,
+    },
+  });
+  let task1Stage3Project1 = await prisma.task.create({
+    data: {
+      points: 5,
+      name: 'conception database',
+      duration: '5',
+      level: '2',
+      stageId: stage3Project1.id,
+      employeeId: employee3.id,
+    },
+  });
+  let task2Stage3Project1 = await prisma.task.create({
+    data: {
+      points: 5,
+      name: 'implimentation databse prisma',
+      duration: '5',
+      level: '2',
+      stageId: stage3Project1.id,
+      employeeId: employee3.id,
+    },
+  });
+
+  
 }
 main()
   .then((res) => console.log('seeding completed'))

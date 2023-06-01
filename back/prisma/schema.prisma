@@ -38,7 +38,6 @@ model Client {
   project     Project[]
   User        User[]
   MediaClient MediaClient[]
-
 }
 
 model Employee {
@@ -121,11 +120,14 @@ model Objective {
   name         String
   decription   String
   projectId    String
+  startAt      DateTime?
+  endAt        DateTime?
   createdAt    DateTime       @default(now())
   updatedAt    DateTime       @updatedAt
   status       Status         @default(pending)
   project      Project        @relation(fields: [projectId], references: [id])
   subobjective SubObjective[]
+  Stage        Stage[]
 }
 
 model SubObjective {
@@ -148,6 +150,7 @@ model Stage {
   createdAt   DateTime  @default(now())
   updatedAt   DateTime  @updatedAt
   objectiveId String
+  objective   Objective @relation(fields: [objectiveId], references: [id])
   status      Status    @default(pending)
   task        Task[]
 }
@@ -184,12 +187,14 @@ model TeamMembership {
 }
 
 model Interaction {
-  id        String  @id @default(uuid())
+  id        String   @id @default(uuid())
   content   String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
   projectId String
-  project   Project @relation(fields: [projectId], references: [id])
+  project   Project  @relation(fields: [projectId], references: [id])
   UserId    String
-  User      User    @relation(fields: [UserId], references: [id])
+  User      User     @relation(fields: [UserId], references: [id])
 }
 
 model Test {

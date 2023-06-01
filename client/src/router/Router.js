@@ -40,7 +40,7 @@ function Router() {
     } else {
       setLoading(false);
     }
-  }, []);
+  }, [dispatch]);
 
   return (
     <div>
@@ -72,7 +72,7 @@ function Router() {
             />
 
             <Route
-              path="profile/:projectId-details"
+              path="project/:projectId"
               element={<LoadComponent Component={ProjectDetails} />}
             />
             <Route
