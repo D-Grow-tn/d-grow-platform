@@ -38,7 +38,6 @@ export class AuthService {
     }
     return status;
 
-
   }
  
   async login(dto:UserLogin): Promise<any> {
@@ -102,7 +101,7 @@ export class AuthService {
   async verificationCode(code: string, email: string) {
     const result = await this.prisma.user.findUnique({
       where: { email },
-   
+  //  include:{ avatar:true}
     });
     console.log(result);
 

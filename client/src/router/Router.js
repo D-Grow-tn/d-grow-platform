@@ -35,16 +35,20 @@ function Router() {
   useEffect(() => {
     const token = JSON.parse(localStorage.getItem("token"));
     if (token) {
-      const Authorization=token.Authorization
+      const Authorization = token.Authorization;
       dispatch(me(Authorization)).then((res) => setLoading(false));
     } else {
       setLoading(false);
     }
-  }, []);
+  }, [dispatch]);
 
   return (
     <div>
-      {loading&&<div className="d-flex justify-content-center align-items-center position-fixed w-100 h-100 bg-white">Loading</div>}
+      {loading && (
+        <div className="d-flex justify-content-center align-items-center position-fixed w-100 h-100 bg-white">
+          Loading
+        </div>
+      )}
       <BrowserRouter>
         <Routes>
           {!user && (

@@ -146,7 +146,7 @@ function Home() {
       </section>
 
   {/* SERVICES */}
-  <section>
+  <section className="mt-5">
   <h1
           style={{
             fontWeight: "bold",

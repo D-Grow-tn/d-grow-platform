@@ -28,17 +28,18 @@ model User {
 }
 
 model Client {
-  id          String        @id @default(uuid())
-  name        String
-  email       String
-  phone       String
-  address     String
-  createdAt   DateTime      @default(now())
-  updatedAt   DateTime      @updatedAt
-  project     Project[]
-  User        User[]
-  MediaClient MediaClient[]
-
+  id             String        @id @default(uuid())
+  name           String
+  email          String
+  phone          String
+  address        String
+  createdAt      DateTime      @default(now())
+  updatedAt      DateTime      @updatedAt
+  project        Project[]
+  User           User[]
+  MediaClient    MediaClient[]
+  avatar         Media         @relation(fields: [avatarClientId], references: [id])
+  avatarClientId String
 }
 
 model Employee {
@@ -96,6 +97,8 @@ model Project {
   objective           Objective[]
   projectTechnologies ProjectTechnology[]
   MediaProject        MediaProject[]
+  cover               Media?               @relation(fields: [coverId], references: [id])
+  coverId            String?
 }
 
 model Technology {
@@ -362,6 +365,8 @@ model Media {
   MediaEvent     MediaEvent[]
   MediaRequest   MediaRequest[]
   MediaProject   MediaProject[]
+  Client         Client[]
+  Project        Project[]
 }
 
 model MediaUser {
