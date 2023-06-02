@@ -1,26 +1,39 @@
 import { Injectable } from '@nestjs/common';
 import { CreateTechnologyDto } from './dto/create-technology.dto';
 import { UpdateTechnologyDto } from './dto/update-technology.dto';
+import { PrismaService } from 'src/prisma/prisma.service';
 
 @Injectable()
 export class TechnologiesService {
-  create(createTechnologyDto: CreateTechnologyDto) {
-    return 'This action adds a new technology';
+  constructor(private readonly prisma:PrismaService) {}
+ async create(createTechnologyDto: CreateTechnologyDto) {
+    return await this.prisma.technology.create({
+      data: createTechnologyDto
+    })
   }
 
-  findAll() {
-    return `This action returns all technologies`;
+ async findAll() {
+    return await this.prisma.technology.findMany({});
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} technology`;
+ async findOne(id:string) {
+    return await this.prisma.technology.findFirst({
+      where:{
+        id,
+      }
+    });
   }
 
-  update(id: number, updateTechnologyDto: UpdateTechnologyDto) {
-    return `This action updates a #${id} technology`;
+ async update(id:string, updateTechnologyDto: UpdateTechnologyDto) {
+    return await this.prisma.technology.update({
+      where:{id},
+      data:updateTechnologyDto
+    });
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} technology`;
+ async remove(id:string) {
+    return await this.prisma.technology.delete({
+      where:{id,}
+    });
   }
 }

@@ -1,1 +1,4 @@
-export class CreateTechnologyDto {}
+export class CreateTechnologyDto {
+  name: string;
+  description: string;
+}
