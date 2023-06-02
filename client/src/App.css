@@ -987,3 +987,5 @@ h5 {
   transform: scale(1.2);
   transition: 0.35s 0.35s transform cubic-bezier(0.1, 0.72, 0.4, 0.97);
 }
+.dropdown:hover .dropbtn {background-color: #3e8e41;}
+
