@@ -21,7 +21,7 @@ export class ProjectsService {
         objective: { include: { subobjective: true,Stage:true } },
         projectManager: true,
         consultant: true,
-   interaction:true
+   interaction:{include:{User:true}}
       },
     });
   }

@@ -326,6 +326,35 @@ async function main() {
       employeeId: employee3.id,
     },
   });
+  //create interactions
+  let interaction1Project1 = await prisma.interaction.create({
+    data: {
+    content:"I'm looking for someone to help me with a project. Are you available?",
+    projectId:project1.id,
+    UserId:user1.id
+    },
+  });
+  let interaction2Project1 = await prisma.interaction.create({
+    data: {
+    content:"Hi there! I'd be happy to assist you. Can you provide me with some details about the project?",
+    projectId:project1.id,
+    UserId:user6.id
+    },
+  });
+  let interaction3Project1 = await prisma.interaction.create({
+    data: {
+    content:"Sure! My business is a boutique fashion store specializing in trendy clothing and accessories. I want a website that showcases our products, provides information about our brand, and allows customers to make purchases online. Are you experienced in web design?",
+    projectId:project1.id,
+    UserId:user1.id
+    },
+  });
+  let interaction4Project1 = await prisma.interaction.create({
+    data: {
+    content:"Yes, I have experience in web design, including creating e-commerce websites. We can definitely create a website that highlights your products and reflects the style and vibe of your boutique. Do you have any specific preferences in terms of the website's design, color schemes, or layout?",
+    projectId:project1.id,
+    UserId:user6.id
+    },
+  });
 
   
 }

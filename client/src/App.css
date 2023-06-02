@@ -30,7 +30,9 @@
 .proCard:hover .cardTitle {
   text-decoration: underline;
 }
-
+.accordion-button::after{
+  display: none
+}
 
 
 @import url('../src/assets/vendor/bootstrap-icons/bootstrap-icons.css');

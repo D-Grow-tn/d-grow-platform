@@ -5,6 +5,10 @@ import Client from "./../apps/Client";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { me } from "../store/auth";
+import Objectives from "../components/Objectives";
+import TeamSection from "../components/TeamSection";
+import InteractionSection from "../components/InteractionSection";
+import Gantt from "../components/GanttSection";
 
 const ComingSoon = React.lazy(() => import("../pages/ComingSoon"));
 
@@ -35,7 +39,7 @@ function Router() {
   useEffect(() => {
     const token = JSON.parse(localStorage.getItem("token"));
     if (token) {
-      const Authorization=token.Authorization
+      const Authorization = token.Authorization;
       dispatch(me(Authorization)).then((res) => setLoading(false));
     } else {
       setLoading(false);
@@ -44,7 +48,11 @@ function Router() {
 
   return (
     <div>
-      {loading&&<div className="d-flex justify-content-center align-items-center position-fixed w-100 h-100 bg-white">Loading</div>}
+      {loading && (
+        <div className="d-flex justify-content-center align-items-center position-fixed w-100 h-100 bg-white">
+          Loading
+        </div>
+      )}
       <BrowserRouter>
         <Routes>
           {!user && (
@@ -74,7 +82,22 @@ function Router() {
             <Route
               path="project/:projectId"
               element={<LoadComponent Component={ProjectDetails} />}
-            />
+            >
+              <Route index  element={<LoadComponent Component={Objectives} />} />
+              <Route
+                path="team-section"
+                element={<LoadComponent Component={TeamSection} />}
+              />
+              <Route
+                path="interaction"
+                element={<LoadComponent Component={InteractionSection} />}
+              />
+              <Route
+                path="gantt"
+                element={<LoadComponent Component={Gantt} />}
+              />
+            </Route>
+
             <Route
               path="*"
               element={<LoadComponent Component={ComingSoon} />}
@@ -89,6 +112,18 @@ function Router() {
               path="signup"
               element={<LoadComponent Component={Signup} />}
             />
+            {/* <Route
+              path="objectives"
+              element={<LoadComponent Component={Objectives} />}
+            />
+             <Route
+              path="team-section"
+              element={<LoadComponent Component={TeamSection} />}
+            />
+             <Route
+              path="interaction"
+              element={<LoadComponent Component={InteractionSection} />}
+            /> */}
           </Route>
         </Routes>
       </BrowserRouter>

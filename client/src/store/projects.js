@@ -13,10 +13,6 @@ export const fetchProjectbyClient = createAsyncThunk("projects/project", async (
   return response.data;
   });
 
-// export const createCommand= createAsyncThunk("projects/createProjects", async (body,{dispatch}) => {
-//   const response = await axios.post(`${config.API_ENDPOINT}/commands/TUN/`,body);
-//  dispatch(fetchCommand(response.data.id)) 
-//   });
 
   export const projectSlice= createSlice({
     name: "projects",
