@@ -19,16 +19,16 @@ export class DecisionsController {
 
   @Get(':id')
   findOne(@Param('id') id: string) {
-    return this.DecisionsService.findOne(+id);
+    return this.DecisionsService.findOne(id);
   }
 
   @Patch(':id')
   update(@Param('id') id: string, @Body() updateDecisionDto: UpdateDecisionDto) {
-    return this.DecisionsService.update(+id, updateDecisionDto);
+    return this.DecisionsService.update(id, updateDecisionDto);
   }
 
   @Delete(':id')
   remove(@Param('id') id: string) {
-    return this.DecisionsService.remove(+id);
+    return this.DecisionsService.remove(id);
   }
 }

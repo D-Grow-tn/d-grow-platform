@@ -8,6 +8,58 @@ async function main() {
     console.log('skip seeding');
     return;
   }
+
+  let cover1=await prisma.media.create({
+    data:{
+      path:'https://thumbs.dreamstime.com/b/person-programmer-working-pc-laptop-program-code-screen-coding-programming-vector-concept-person-programmer-working-107767154.jpg',
+      type:'cover',
+      extension:'png',
+    }
+  })
+  let cover2=await prisma.media.create({
+    data:{
+      path:'https://img.freepik.com/free-icon/user_318-159711.jpg',
+      type:'cover',
+      extension:'png',
+    }
+  })
+  let cover3=await prisma.media.create({
+    data:{
+      path:'https://img.freepik.com/free-icon/user_318-159711.jpg',
+      type:'cover',
+      extension:'png',
+    }
+  })
+let avatarClient1 =await prisma.media.create({
+  data :{
+    path:'https://img.freepik.com/free-icon/user_318-159711.jpg',
+    type:'avatar',
+    extension:'png',
+  }
+})
+let avatarClient2 =await prisma.media.create({
+  data :{
+    path:'https://img.freepik.com/free-icon/user_318-159711.jpg',
+    type:'avatar',
+    extension:'png'
+  }
+})
+let avatarClient3 =await prisma.media.create({
+  data :{
+    path:'https://img.freepik.com/free-icon/user_318-159711.jpg',
+    type:'avatar',
+    extension:'png'
+  }
+})
+let avatarClient4 =await prisma.media.create({
+  data :{
+    path:'https://img.freepik.com/free-icon/user_318-159711.jpg',
+    type:'avatar',
+    extension:'png'
+  }
+})
+
+
   //create client
   let client1 = await prisma.client.create({
     data: {
@@ -15,6 +67,7 @@ async function main() {
       email: 'd-grow1@gmail.com',
       phone: '44444444',
       address: 'tunis',
+      avatarClientId: avatarClient1.id ,
     },
   });
   let client2 = await prisma.client.create({
@@ -23,6 +76,7 @@ async function main() {
       email: 'd-grow2@gmail.com',
       phone: '44444444',
       address: 'tunis',
+      avatarClientId: avatarClient2.id,
     },
   });
 
@@ -32,6 +86,7 @@ async function main() {
       email: 'd-grow3@gmail.com',
       phone: '44444444',
       address: 'tunis',
+      avatarClientId: avatarClient3.id ,
     },
   });
 
@@ -41,6 +96,7 @@ async function main() {
       email: 'inesdebichi1995@gmail.com',
       phone: '44444444',
       address: 'tunis',
+      avatarClientId: avatarClient4.id ,
     },
   });
   
@@ -119,6 +175,7 @@ async function main() {
       startAt: new Date(1 / 6 / 2023),
       endAt: new Date(30 / 6 / 2023),
       status: 'pending',
+      coverId: cover1.id,
     },
   });
   let project2 = await prisma.project.create({
@@ -132,6 +189,7 @@ async function main() {
       startAt: new Date(1 / 5 / 2023),
       endAt: new Date(30 / 5 / 2023),
       status: 'in_progress',
+      coverId: cover2.id,
     },
   });
   let project3 = await prisma.project.create({
@@ -145,6 +203,8 @@ async function main() {
       startAt: new Date(1 / 4 / 2023),
       endAt: new Date(30 / 4 / 2023),
       status: 'completed',
+      coverId: cover3.id,
+      
     },
   });
 

@@ -19,16 +19,16 @@ export class RequestsController {
 
   @Get(':id')
   findOne(@Param('id') id: string) {
-    return this.requestsService.findOne(+id);
+    return this.requestsService.findOne(id);
   }
 
   @Patch(':id')
   update(@Param('id') id: string, @Body() updateRequestDto: UpdateRequestDto) {
-    return this.requestsService.update(+id, updateRequestDto);
+    return this.requestsService.update(id, updateRequestDto);
   }
 
   @Delete(':id')
   remove(@Param('id') id: string) {
-    return this.requestsService.remove(+id);
+    return this.requestsService.remove(id);
   }
 }

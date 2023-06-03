@@ -8,4 +8,5 @@ export class CreateProjectDto {
   consultantId: string;
   startAt: Date;
   endAt: Date;
+  coverId: string;
 }
