@@ -8,9 +8,11 @@ import { ObjectivesController } from './objectives.controller';
 import { ObjectivesService } from './objectives.service';
 import { SubObjectivesService } from './sub-objectives.service';
 import { SubObjectivesController } from './sub-objectives.controller';
+import { InteractionController } from './interaction.controller';
+import { InteractionService } from './interaction.service';
 
 @Module({
-  controllers: [ProjectsController,StagesController,ObjectivesController,SubObjectivesController],
-  providers: [ProjectsService,StagesService,PrismaService,ObjectivesService,SubObjectivesService]
+  controllers: [ProjectsController,StagesController,ObjectivesController,SubObjectivesController,InteractionController],
+  providers: [ProjectsService,StagesService,PrismaService,ObjectivesService,SubObjectivesService,InteractionService]
 })
 export class ProjectsModule {}

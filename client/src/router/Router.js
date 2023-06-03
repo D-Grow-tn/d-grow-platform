@@ -5,6 +5,10 @@ import Client from "./../apps/Client";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { me } from "../store/auth";
+import Objectives from "../components/Objectives";
+import TeamSection from "../components/TeamSection";
+import InteractionSection from "../components/InteractionSection";
+import Gantt from "../components/GanttSection";
 
 const ComingSoon = React.lazy(() => import("../pages/ComingSoon"));
 
@@ -76,9 +80,24 @@ function Router() {
             />
 
             <Route
-              path="profile/:projectId-details"
+             path="project/:projectId"
               element={<LoadComponent Component={ProjectDetails} />}
-            />
+            >
+              <Route   index   element={<LoadComponent Component={Objectives} />} />
+              <Route
+                path="team-section"
+                element={<LoadComponent Component={TeamSection} />}
+              />
+              <Route
+                path="interaction"
+                element={<LoadComponent Component={InteractionSection} />}
+              />
+              <Route
+                path="gantt"
+                element={<LoadComponent Component={Gantt} />}
+              />
+            </Route>
+
             <Route
               path="*"
               element={<LoadComponent Component={ComingSoon} />}
@@ -93,6 +112,18 @@ function Router() {
               path="signup"
               element={<LoadComponent Component={Signup} />}
             />
+            {/* <Route
+              path="objectives"
+              element={<LoadComponent Component={Objectives} />}
+            />
+             <Route
+              path="team-section"
+              element={<LoadComponent Component={TeamSection} />}
+            />
+             <Route
+              path="interaction"
+              element={<LoadComponent Component={InteractionSection} />}
+            /> */}
           </Route>
         </Routes>
       </BrowserRouter>

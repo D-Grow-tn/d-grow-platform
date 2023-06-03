@@ -28,7 +28,7 @@
  }
  .box{
   width: 280px;
-  margin: 20px;
+  /* margin: 20px; */
   padding: 30px 10px;
   background: #ececec;
   text-align: center;
