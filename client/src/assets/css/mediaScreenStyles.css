@@ -1,0 +1,11 @@
+@media only screen and (max-width: 500px) {
+  .titleNavProjectDetails {
+    font-size: 12px !important;
+  }
+}
+@media only screen and (max-width: 380px) {
+  .titleNavProjectDetails {
+    font-size: 9px !important;
+    font-weight: bold !important;
+  }
+}

@@ -5,7 +5,7 @@ function TeamSection() {
     const projectStore = useSelector((state) => state.projects);
     const { project } = projectStore;
   return (
-    <div className="team-area mt-5">
+    <div className="  team-area mt-5">
     <h1
       className="text-center"
       style={{
@@ -18,7 +18,7 @@ function TeamSection() {
       Our committed professionals
     </h1>
 
-    <div className="team-box d-flex justify-content-center align-items-center">
+    <div className="team-box d-flex  flex-wrap justify-content-center align-items-center gap-5">
       <div className="box">
         <img
           src="https://images.prismic.io/utopix-next-website/Y2E4OTI3NzQtNmUyOC00YmU2LWE5ZjctODcxY2RlMzg2ZDIy_26dfc43e-31dd-463f-ad04-56f39a430691_profilhomme1.jpg?ixlib=js-3.7.1&w=3840&auto=format&fit=max"

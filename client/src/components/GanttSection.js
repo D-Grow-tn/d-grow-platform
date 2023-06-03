@@ -35,23 +35,7 @@ function GanttSection() {
                 progressSelectedColor: "#3ba395",
               },
               open: false,
-              barChildren: element.Stage.map((elem) => {
-                return {
-                  start: new Date(elem.startAt),
-                  end: new Date(elem.endAt),
-                  name: elem.name,
-                  id: elem.id,
-                  type: "task",
-                  progress: elem.porcentage,
-    
-                  styles: {
-                    progressColor: "#6dd0c5",
-                    progressSelectedColor: "#3ba395",
-                  },
-                  project: element.id,
-                  dependencies: [element.id], // No dependencies
-                };
-              }),
+        
               children: element.Stage,
               dependencies: [], // No dependencies
             });
@@ -98,7 +82,7 @@ function GanttSection() {
                   progressSelectedColor: "#3ba395",
                 },
                 project: task.id,
-                dependencies: [], // No dependencies
+                dependencies: [elem.previousStageId], // No dependencies
               };
             });
             auxTasks.splice(task.index + 1, 0, ...newArray);

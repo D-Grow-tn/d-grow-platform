@@ -91,6 +91,8 @@ model Project {
   projectManager      Employee?           @relation(fields: [projectManagerId], references: [id], name: "projectManager")
   consultantId        String?
   consultant          Employee?           @relation(fields: [consultantId], references: [id], name: "consultant")
+  contarct            Media?              @relation(fields: [contractId], references: [id])
+  contractId          String?
   interaction         Interaction[]
   objective           Objective[]
   projectTechnologies ProjectTechnology[]
@@ -142,17 +144,20 @@ model SubObjective {
 }
 
 model Stage {
-  id          String    @id @default(uuid())
-  name        String
-  porcentage  String
-  startAt     DateTime?
-  endAt       DateTime?
-  createdAt   DateTime  @default(now())
-  updatedAt   DateTime  @updatedAt
-  objectiveId String
-  objective   Objective @relation(fields: [objectiveId], references: [id])
-  status      Status    @default(pending)
-  task        Task[]
+  id              String    @id @default(uuid())
+  name            String
+  porcentage      String
+  startAt         DateTime?
+  endAt           DateTime?
+  createdAt       DateTime  @default(now())
+  updatedAt       DateTime  @updatedAt
+  objectiveId     String
+  project         Objective @relation(fields: [objectiveId], references: [id])
+  status          Status    @default(pending)
+  previousStageId String?
+  previousStage   Stage?    @relation(name: "previousStage", fields: [previousStageId], references: [id])
+  task            Task[]
+  Stage           Stage[]   @relation("previousStage")
 }
 
 model Task {
@@ -367,6 +372,7 @@ model Media {
   MediaEvent     MediaEvent[]
   MediaRequest   MediaRequest[]
   MediaProject   MediaProject[]
+  Project        Project[]
 }
 
 model MediaUser {

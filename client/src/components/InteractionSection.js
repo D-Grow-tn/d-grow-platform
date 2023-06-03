@@ -13,14 +13,14 @@ function InteractionSection() {
   const { interactions } = interactiontStore;
   const [content, setContent] = useState("");
   useEffect(() => {
-    dispatch(fetchInteractions("f36d077f-b5ef-449a-9813-90737f3894c1"));
+    dispatch(fetchInteractions(project?.id));
   }, [dispatch]);
 
-  console.log("interactions", interactions);
-  console.log("iterStore", interactiontStore);
+  // console.log("interactions", interactions);
+  // console.log("iterStore", interactiontStore);
   return (
-    <div className=" mt-5 justify-content-center align-items-center px-5">
-      <section style={{ backgroundColor: "#eee", borderRadius: "10px" }}>
+    <div className="  mt-5 d-flex justify-content-center align-items-center px-5">
+      <section style={{ backgroundColor: "#daeaf0",width:"1000px", borderRadius: "10px" }} >
         <div class="container  d-flex justify-content-center align-items-center">
           <div class="col-md-6 col-lg-7 col-xl-8  ">
             <ul class="list-unstyled ">
@@ -68,14 +68,16 @@ function InteractionSection() {
                 type="button"
                 class="btn btn-info btn-rounded float-end"
                 onClick={() => {
-                  let args = {
-                    id:project.id,
-                    body:{content,
-                    projectId: project?.id,
-                    UserId: me.id,
-                  }}
-                  dispatch(createInteraction(args));
-                  setContent("")
+                  if(content.trim() !==""){
+                    let args = {
+                      id:project.id,
+                      body:{content,
+                      projectId: project?.id
+                    }}
+                    dispatch(createInteraction(args));
+                    setContent("")
+                  }
+                 else{return}
                 }
               
               }

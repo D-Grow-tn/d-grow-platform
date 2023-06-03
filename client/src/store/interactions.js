@@ -11,9 +11,16 @@ export const fetchInteractions = createAsyncThunk("interactions/interactions", a
 
 
 export const createInteraction= createAsyncThunk("interactions/interaction", async (args,{dispatch}) => {
+  const token = JSON.parse(localStorage.getItem("token")).Authorization;
+
+    const configs = {
+      headers: {
+        Authorization: "Bearer " + token,
+      },
+    };
   const { id, body } = args;
 
-  const response = await axios.post(`${config.API_ENDPOINT}/interactions`,body);
+  const response = await axios.post(`${config.API_ENDPOINT}/interactions`,body,configs);
  dispatch(fetchInteractions(id)) 
  console.log("inter",response.data);
  return response.data;

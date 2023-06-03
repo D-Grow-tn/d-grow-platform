@@ -1,16 +1,20 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
+import { Controller, Get, Post, Body, Patch, Param, Delete ,UseGuards} from '@nestjs/common';
 import { InteractionService } from './interaction.service';
 import { CreateInterationDto } from './dto/create-interaction.dto';
+import {ApiTags,ApiSecurity} from '@nestjs/swagger';
+import { JwtAuthGuard } from '../auth/jwt-auth.guard';
+import { CurrentUser } from 'src/auth/decorators/currentUser';
 
-import { ApiTags } from '@nestjs/swagger';
+
 @ApiTags('interactions')
 @Controller('interactions')
 export class InteractionController {
   constructor(private readonly interactionService: InteractionService) {}
-
+  @ApiSecurity('apiKey')
+  @UseGuards(JwtAuthGuard)
   @Post()
-  create(@Body() createObjectiveDto: CreateInterationDto) {
-    return this.interactionService.create(createObjectiveDto);
+  create(@Body() createObjectiveDto: CreateInterationDto ,@CurrentUser () user: any) {
+    return this.interactionService.create(createObjectiveDto,user.id);
   }
 
   @Get('byProjectId/:id')

@@ -80,10 +80,10 @@ function Router() {
             />
 
             <Route
-              path="project/:projectId"
+             path="project/:projectId"
               element={<LoadComponent Component={ProjectDetails} />}
             >
-              <Route index  element={<LoadComponent Component={Objectives} />} />
+              <Route   index   element={<LoadComponent Component={Objectives} />} />
               <Route
                 path="team-section"
                 element={<LoadComponent Component={TeamSection} />}

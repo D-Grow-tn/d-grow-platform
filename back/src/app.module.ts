@@ -19,6 +19,7 @@ import { MailModule } from './mail/mail.module';
 
 
 
+
 @Module({
   imports: [UsersModule, EmployeesModule, ProjectsModule, PrismaModule, MediasModule, ProductsModule, ClientsModule,AuthModule,TechnologiesModule,MailModule],
   controllers: [AppController],

@@ -2,6 +2,7 @@ import { Injectable } from '@nestjs/common';
 import { CreateProjectDto } from './dto/create-project.dto';
 import { UpdateProjectDto } from './dto/update-project.dto';
 import { PrismaService } from 'src/prisma/prisma.service';
+import { Media } from './../medias/entities/media.entity';
 
 @Injectable()
 export class ProjectsService {
@@ -18,10 +19,11 @@ export class ProjectsService {
     return await this.prisma.project.findUnique({
       where: { id },
       include: {
-        objective: { include: { subobjective: true,Stage:true } },
+        objective: { include: { subobjective: true, Stage: true } },
         projectManager: true,
         consultant: true,
-   interaction:{include:{User:true}}
+        interaction: { include: { User: true } },
+        contarct:true
       },
     });
   }

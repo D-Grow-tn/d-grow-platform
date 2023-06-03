@@ -5,7 +5,8 @@ import { PrismaService } from 'src/prisma/prisma.service';
 @Injectable()
 export class InteractionService {
   constructor(private readonly prisma:PrismaService) {}
-async create(data: CreateInterationDto) {
+async create(dto: CreateInterationDto ,UserId:string) {
+  let data = { ...dto, UserId };
     return await this.prisma.interaction.create({data})
    }
 

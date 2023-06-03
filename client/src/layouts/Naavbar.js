@@ -7,7 +7,7 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import TextHoverUnderline from "../components/TextHoverUnderline";
 import { useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
-
+import Dropdown from 'react-bootstrap/Dropdown';
 function Naavbar() {
   const [scroll, setScroll] = useState(0);
   const navigate = useNavigate();
@@ -102,21 +102,38 @@ function Naavbar() {
             </Nav.Link>
           </Nav>
 
-          <Nav.Link
-            href={me?"/profile":"/auth/login"}
+        
+        <Dropdown>
+      <Dropdown.Toggle variant="success" id="dropdown-basic" style={{all:"unset"}}>
+      <Nav.Link
+           
             className="d-flex gap-2 align-items-center"
             style={{ color: "#213764" }}
+            onClick={()=> {if (!localStorage.getItem("token")){navigate("/auth/login")}}}
           >
             <PersonOutlineIcon style={{ color: "#213764" }} />
             <TextHoverUnderline
               bgColor="blue"
               duration="300"
               type="linear"
-              content="Login"
-              width={60}
+              content={!localStorage.getItem("token")?"Login":me?.name}
+              width={80}
               fontSize={21}
+              whiteSpace="nowrap"
             />
           </Nav.Link>
+      </Dropdown.Toggle>
+
+     { localStorage.getItem("token") && <Dropdown.Menu>
+        <Dropdown.Item  href={me?"/profile":"/auth/login"}>Profile</Dropdown.Item>
+        <Dropdown.Item href="#/action-2">Setting</Dropdown.Item>
+        <Dropdown.Item  onClick={()=> {
+          localStorage.removeItem("token")
+          navigate("/auth/login")
+          window.location.reload()
+        }}>Logout</Dropdown.Item>
+      </Dropdown.Menu>}
+    </Dropdown>
         </Navbar.Collapse>
       </Container>
     </Navbar>
