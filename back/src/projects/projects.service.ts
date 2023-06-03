@@ -11,8 +11,10 @@ export class ProjectsService {
     return this.prisma.project.create({ data });
   }
 
-  findAll() {
-    return this.prisma.project.findMany({});
+ async findAll() {
+    return  await this.prisma.project.findMany({
+      include:{cover:true}
+    });
   }
 
   async findOne(id: string) {

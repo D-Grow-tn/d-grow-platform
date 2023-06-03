@@ -38,6 +38,9 @@ model Client {
   project     Project[]
   User        User[]
   MediaClient MediaClient[]
+
+  avatar         Media  @relation(fields: [avatarClientId], references: [id])
+  avatarClientId String
 }
 
 model Employee {
@@ -91,12 +94,16 @@ model Project {
   projectManager      Employee?           @relation(fields: [projectManagerId], references: [id], name: "projectManager")
   consultantId        String?
   consultant          Employee?           @relation(fields: [consultantId], references: [id], name: "consultant")
-  contarct            Media?              @relation(fields: [contractId], references: [id])
+  contarct            Media?              @relation(fields: [contractId], references: [id], name: "contractRelation")
   contractId          String?
   interaction         Interaction[]
   objective           Objective[]
   projectTechnologies ProjectTechnology[]
   MediaProject        MediaProject[]
+  cover               Media?              @relation(fields: [coverId], references: [id], name: "coverRelation")
+  coverId             String?
+  Media               Media?              @relation(fields: [mediaId], references: [id])
+  mediaId             String?
 }
 
 model Technology {
@@ -372,7 +379,10 @@ model Media {
   MediaEvent     MediaEvent[]
   MediaRequest   MediaRequest[]
   MediaProject   MediaProject[]
-  Project        Project[]
+  Client         Client[]
+  cover          Project[]       @relation("coverRelation")
+  contract       Project[]       @relation("contractRelation")
+  Project Project[]
 }
 
 model MediaUser {

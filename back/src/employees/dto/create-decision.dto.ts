@@ -1,1 +1,4 @@
-export class CreateDecisionDto {}
+export class CreateDecisionDto {
+    content :string
+    employeeId:string
+}

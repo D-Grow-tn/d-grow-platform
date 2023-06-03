@@ -16,12 +16,19 @@ import { AuthService } from './auth/auth.service';
 import { UsersService } from './users/users.service';
 import { JwtService } from '@nestjs/jwt';
 import { MailModule } from './mail/mail.module';
+import { TasksModule } from './tasks/tasks.module';
+import { TestsModule } from './tests/tests.module';
+import { QuizsModule } from './quizs/quizs.module';
+import { TeamsModule } from './teams/teams.module';
+import { DepartmentsModule } from './departments/departments.module';
+import { ChatRoomsModule } from './chat-rooms/chat-rooms.module';
+import { MessagesModule } from './messages/messages.module';
 
 
 
 
 @Module({
-  imports: [UsersModule, EmployeesModule, ProjectsModule, PrismaModule, MediasModule, ProductsModule, ClientsModule,AuthModule,TechnologiesModule,MailModule],
+  imports: [UsersModule, EmployeesModule, ProjectsModule, PrismaModule, MediasModule, ProductsModule, ClientsModule,AuthModule,TechnologiesModule,MailModule, TasksModule, TestsModule, QuizsModule, TeamsModule, DepartmentsModule, ChatRoomsModule, MessagesModule],
   controllers: [AppController],
   providers: [AppService,PrismaService,MediasService,AuthService,UsersService,JwtService],
 })

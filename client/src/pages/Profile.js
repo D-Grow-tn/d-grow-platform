@@ -11,7 +11,6 @@ import { useDispatch, useSelector } from "react-redux";
 import auth from "../store/auth";
 import { fetchProjectbyClient } from "../store/projects";
 
-
 const UserProfile = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -61,7 +60,7 @@ const UserProfile = () => {
             </div>
             <div className="card-body d-flex flex-column align-items-center">
               <img
-                src="https://mdbcdn.b-cdn.net/img/new/avatars/2.webp"
+                src={me?.client?.avatar?.path}
                 class="rounded-circle "
                 style={{
                   width: "150px",
@@ -201,13 +200,15 @@ const UserProfile = () => {
                     onClick={() => navigate(`/project/${project.id}`)}
                     style={{ cursor: "pointer" }}
                   >
+                    {console.log("coverId", project.coverId)};
+                    {console.log("cover", project?.cover?.path)};
                     <Card
                       style={{ width: "19rem", height: "500px" }}
                       className="shadow proCard"
                     >
                       <Card.Img
                         variant="top"
-                        src="https://i.pinimg.com/564x/03/8e/10/038e10b450624ffcf2a59bdaf3cfc9aa.jpg"
+                        src={project.cover?.path}
                         style={{
                           height: "200px",
                           width: "432px",
@@ -248,7 +249,7 @@ const UserProfile = () => {
                             }}
                           >
                             {" "}
-                            description   {project.description}
+                            description {project.description}
                           </span>
 
                           <span className="position-absolute bottom-0 end-0  me-3">
@@ -261,7 +262,7 @@ const UserProfile = () => {
                             className="fa-solid fa-calendar"
                             style={{ marginTop: "4px" }}
                           ></i>
-                          <span> duration  {project.duration} </span>
+                          <span> duration {project.duration} </span>
                         </Card.Text>
                         <Card.Text className=" d-flex gap-3 mx--5 my-4">
                           <div className=" d-flex gap-3 mx-1">
@@ -275,7 +276,6 @@ const UserProfile = () => {
                               ))}
                             </span> */}
                             team member
-
                             <i
                               class="fa-solid fa-vest-patches"
                               style={{ marginTop: "4px" }}
@@ -312,7 +312,7 @@ const UserProfile = () => {
                       >
                         <Card.Img
                           variant="top"
-                          src=""
+                          src={project.cover?.path}
                           style={{
                             height: "200px",
                             width: "432px",
@@ -353,7 +353,7 @@ const UserProfile = () => {
                                 maxHeight: "50px",
                               }}
                             >
-                             description  {project.description}
+                              description {project.description}
                             </span>
 
                             <span className="position-absolute bottom-0 end-0  me-3">
@@ -366,7 +366,7 @@ const UserProfile = () => {
                               className="fa-solid fa-calendar"
                               style={{ marginTop: "4px" }}
                             ></i>
-                            <span> duration  {project.duration}</span>
+                            <span> duration {project.duration}</span>
                           </Card.Text>
                           <Card.Text className=" d-flex gap-3 mx--5 my-4">
                             <div className=" d-flex gap-3 mx-1">
@@ -380,7 +380,6 @@ const UserProfile = () => {
                                 ))}
                               </span> */}
                               Team member
-
                               <i
                                 class="fa-solid fa-vest-patches"
                                 style={{ marginTop: "4px" }}
@@ -417,7 +416,7 @@ const UserProfile = () => {
                       >
                         <Card.Img
                           variant="top"
-                          src={project.cover}
+                          src={project.cover?.path}
                           style={{
                             height: "200px",
                             width: "432px",
@@ -485,7 +484,6 @@ const UserProfile = () => {
                                 ))}
                               </span> */}
                               Team member
-
                               <i
                                 class="fa-solid fa-vest-patches"
                                 style={{ marginTop: "4px" }}
@@ -522,7 +520,7 @@ const UserProfile = () => {
                       >
                         <Card.Img
                           variant="top"
-                          src={project.cover}
+                          src={project.cover?.path}
                           style={{
                             height: "200px",
                             width: "432px",
@@ -589,8 +587,7 @@ const UserProfile = () => {
                                   <p key={memberIndex}>{member.name}</p>
                                 ))}
                               </span> */}
-                               Team member
-
+                              Team member
                               <i
                                 class="fa-solid fa-vest-patches"
                                 style={{ marginTop: "4px" }}
