@@ -1,1 +1,3 @@
-export class CreateChatRoomDto {}
+export class CreateChatRoomDto {
+  content: string;
+}
