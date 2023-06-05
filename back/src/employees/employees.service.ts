@@ -2,6 +2,7 @@ import { Injectable } from '@nestjs/common';
 import { CreateEmployeeDto } from './dto/create-employee.dto';
 import { UpdateEmployeeDto } from './dto/update-employee.dto';
 import { PrismaService } from 'src/prisma/prisma.service';
+import { ChatRoom } from 'src/chat-rooms/entities/chat-room.entity';
 
 
 
@@ -15,7 +16,9 @@ export class EmployeesService {
   }
 
   async findAll() {
-    return await this.prisma.employee.findMany({})
+    return await this.prisma.employee.findMany({
+      include: {employeeTest:true,teamMembership:{include:{team:true}},EmployeeChatRoom:{include:{chatRoom:true}},EmployeeQuiz:{include:{quiz:true}}}
+    })
   }
 
   async findOne(id: string) {

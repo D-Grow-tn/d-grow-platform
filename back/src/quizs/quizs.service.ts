@@ -13,7 +13,9 @@ export class QuizsService {
   }
 
  async findAll() {
-    return await this.prisma.quiz.findMany({});
+    return await this.prisma.quiz.findMany({
+      include:{employeeQuiz:{include:{employee:true}}}
+    });
   }
 
 async  findOne(id: string) {

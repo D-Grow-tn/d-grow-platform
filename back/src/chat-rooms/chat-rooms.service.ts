@@ -13,7 +13,9 @@ export class ChatRoomsService {
   }
 
   async findAll() {
-    return await this.prisma.chatRoom.findMany({});
+    return await this.prisma.chatRoom.findMany({
+      include:{employeeChatRoom:{include:{employee:true}}}
+    });
   }
 
   async findOne(id: string) {

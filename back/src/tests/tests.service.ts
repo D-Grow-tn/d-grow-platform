@@ -13,7 +13,9 @@ async  create(data: CreateTestDto) {
   }
 
  async findAll() {
-    return await this.prisma.test.findMany({});
+    return await this.prisma.test.findMany({
+      include: {employeeTest:true}
+    });
   }
 
  async findOne(id: string) {

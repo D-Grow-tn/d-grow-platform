@@ -13,7 +13,7 @@ export class ProjectsService {
 
  async findAll() {
     return  await this.prisma.project.findMany({
-      include:{cover:true}
+      include:{cover:true,projectTechnologies:{include:{technologies:true}}}
     });
   }
 

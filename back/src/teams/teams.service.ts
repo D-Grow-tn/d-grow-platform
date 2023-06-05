@@ -13,7 +13,10 @@ export class TeamsService {
   }
 
  async findAll() {
-    return await this.prisma.team.findMany({});
+    return await this.prisma.team.findMany({
+      include:{project:true,teamMembership:{include:{employee:true}}},
+     
+    });
   }
 
  async findOne(id: string) {
