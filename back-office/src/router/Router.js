@@ -68,7 +68,7 @@ function Router() {
         </Route>
        
         <Route path="loginAdmin" element={<LoginAdmin />} />
-          <Route path="reset-password" element={<ResetPassword />} />
+          <Route path="resetPassword" element={<ResetPassword />} />
           <Route path="*" element={<NoPage />} />
       
       </Routes>

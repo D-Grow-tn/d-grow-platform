@@ -1,0 +1,27 @@
+.cascading-right {
+    margin-right: -50px;
+  }
+  
+  @media (max-width:414px) {
+    .cascading-right {
+      margin-right: 50;
+    }
+    .w-100 {
+      width: 0%!important;
+      
+  }
+  .text-center{
+    margin-right: -60%;
+
+  }
+  .card{
+    --mdb-card-box-shadow:"none"
+  }
+  /* .button{
+    width: 100%!important;
+   
+  } */
+  /* .w-100 {
+    width: 100%!important;
+} */
+  }

@@ -1,11 +1,12 @@
-import React from 'react'
+import React from "react";
+import CastomForm from "../componets/CastomForm";
 
 function ResetPassword() {
   return (
-    <div>
-      
-    </div>
-  )
+    <>
+      <CastomForm Name="Forgot Password" ButtonName="Forgot Password " />
+    </>
+  );
 }
 
-export default ResetPassword
+export default ResetPassword;
