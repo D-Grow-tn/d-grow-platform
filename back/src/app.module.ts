@@ -23,12 +23,17 @@ import { TeamsModule } from './teams/teams.module';
 import { DepartmentsModule } from './departments/departments.module';
 import { ChatRoomsModule } from './chat-rooms/chat-rooms.module';
 import { MessagesModule } from './messages/messages.module';
+import { ProjectTechnologiesModule } from './project-technologies/project-technologies.module';
+import { EmployeeTestsModule } from './employee-tests/employee-tests.module';
+import { TeamMenbershipsModule } from './team-menberships/team-menberships.module';
+import { EmployeeQuizsModule } from './employee-quizs/employee-quizs.module';
+import { EmployeeChatRoomsModule } from './employee-chat-rooms/employee-chat-rooms.module';
 
 
 
 
 @Module({
-  imports: [UsersModule, EmployeesModule, ProjectsModule, PrismaModule, MediasModule, ProductsModule, ClientsModule,AuthModule,TechnologiesModule,MailModule, TasksModule, TestsModule, QuizsModule, TeamsModule, DepartmentsModule, ChatRoomsModule, MessagesModule],
+  imports: [UsersModule, EmployeesModule, ProjectsModule, PrismaModule, MediasModule, ProductsModule, ClientsModule,AuthModule,TechnologiesModule,MailModule, TasksModule, TestsModule, QuizsModule, TeamsModule, DepartmentsModule, ChatRoomsModule, MessagesModule, ProjectTechnologiesModule, EmployeeTestsModule, TeamMenbershipsModule, EmployeeQuizsModule, EmployeeChatRoomsModule],
   controllers: [AppController],
   providers: [AppService,PrismaService,MediasService,AuthService,UsersService,JwtService],
 })

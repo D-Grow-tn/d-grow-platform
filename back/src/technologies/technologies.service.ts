@@ -13,7 +13,9 @@ export class TechnologiesService {
   }
 
  async findAll() {
-    return await this.prisma.technology.findMany({});
+    return await this.prisma.technology.findMany({
+      include: {projectTechnologies:{include:{project:true}}
+    }});
   }
 
  async findOne(id:string) {
