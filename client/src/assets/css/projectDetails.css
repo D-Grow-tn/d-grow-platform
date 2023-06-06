@@ -61,9 +61,22 @@
   margin-bottom: 25px;
 
  }
+ .modal-dialog {
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  margin: auto !important;
+  height: 100%;
+  width: 100% !important;
+ }
+
+.modal-content{
+  height: 100%;
+}
 
  @media(max-width:767px ){
   .team-box{
     display: block;
   }
  }
+ 
