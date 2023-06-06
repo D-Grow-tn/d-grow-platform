@@ -17,6 +17,12 @@ export class DecisionsService {
      return await this.prisma.decision.findMany({});
   }
 
+  async findAllByEmployee(employeeId:string){
+    return  await this.prisma.decision.findMany({ 
+      where:{employeeId}
+    })
+  }
+
   async findOne(id: string) {
     return await this.prisma.decision.findFirst({
       where: {

@@ -135,12 +135,12 @@ function ProjectDetails() {
                 <span class="text-muted">Contract:</span>{" "}
                 {/* {project.contract} */}
                 <div>
-                  <Document
+                  {/* <Document
                     file={project?.contarct.path}
                     onLoadSuccess={onDocumentLoadSuccess}
                   >
                     <Page pageNumber={pageNumber} />
-                  </Document>
+                  </Document> */}
                   <p>
                     Page {pageNumber} of {numPages}
                   </p>

@@ -2,7 +2,9 @@ import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/commo
 import { DecisionsService } from './decisions.service';
 import { CreateDecisionDto } from './dto/create-decision.dto';
 import { UpdateDecisionDto } from './dto/update-decision.dto';
+import { ApiTags } from '@nestjs/swagger';
 
+@ApiTags ('Decisions')
 @Controller('Decisions')
 export class DecisionsController {
   constructor(private readonly DecisionsService: DecisionsService) {}
@@ -17,6 +19,10 @@ export class DecisionsController {
     return this.DecisionsService.findAll();
   }
 
+  @Get('by_employee/:employeeId')
+  findAllByEmployee(@Param('employeeId') employeeId: string) {
+    return this.DecisionsService.findAllByEmployee(employeeId);
+  }
   @Get(':id')
   findOne(@Param('id') id: string) {
     return this.DecisionsService.findOne(id);

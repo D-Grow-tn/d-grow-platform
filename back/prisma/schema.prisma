@@ -74,6 +74,8 @@ model Employee {
   EmployeeChatRoom EmployeeChatRoom[]
   Message          Message[]
   MediaEmployee    MediaEmployee[]
+
+  Membership Membership[]
 }
 
 model Project {
@@ -267,6 +269,31 @@ model Event {
   employeeId  String
   employee    Employee     @relation(fields: [employeeId], references: [id])
   MediaEvent  MediaEvent[]
+  Membership  Membership[]
+  History     History[]
+}
+
+model Membership {
+  eventId    String
+  event      Event    @relation(fields: [eventId], references: [id])
+  employeeId String
+  employee   Employee @relation(fields: [employeeId], references: [id])
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
+  historyId  String?
+  History    History? @relation(fields: [historyId], references: [id])
+
+  @@id([eventId, employeeId])
+}
+
+model History {
+  id           String       @id @default(uuid())
+  event        Event        @relation(fields: [eventId], references: [id])
+  eventId      String
+  activityType String
+  createdAt    DateTime     @default(now())
+  Membership   Membership[]
+  MediaEvent   MediaEvent[]
 }
 
 model Behavior {
@@ -382,7 +409,7 @@ model Media {
   Client         Client[]
   cover          Project[]       @relation("coverRelation")
   contract       Project[]       @relation("contractRelation")
-  Project Project[]
+  Project        Project[]
 }
 
 model MediaUser {
@@ -413,10 +440,12 @@ model MediaEmployee {
 }
 
 model MediaEvent {
-  media   Media  @relation(fields: [mediaId], references: [id])
-  mediaId String
-  event   Event  @relation(fields: [eventId], references: [id], onDelete: Cascade)
-  eventId String
+  media     Media    @relation(fields: [mediaId], references: [id])
+  mediaId   String
+  event     Event    @relation(fields: [eventId], references: [id], onDelete: Cascade)
+  eventId   String
+  History   History? @relation(fields: [historyId], references: [id])
+  historyId String?
 
   @@unique(fields: [mediaId, eventId], name: "eventMedia")
 }

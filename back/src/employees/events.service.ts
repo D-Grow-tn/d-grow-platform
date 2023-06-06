@@ -6,27 +6,43 @@ import { PrismaService } from 'src/prisma/prisma.service';
 @Injectable()
 export class EventsService {
   constructor(private readonly prisma: PrismaService) {}
- async create(createEmployeeDto: CreateEventDto) {
-    return await  this.prisma.event.create({
-      data:createEmployeeDto,
+  async create(createEventDto: CreateEventDto) {
+    return await this.prisma.event.create({
+      data: createEventDto,
     });
   }
 
   async findAll() {
-    return await this.prisma.event.findMany({})
+    return await this.prisma.event.findMany({
+      include: {
+        Membership: true,
+      },
+    });
+  }
+  async findAllByEmployee(employeeId: string) {
+    return await this.prisma.event.findMany({
+      where: {
+        employeeId,
+      },
+      include: {
+        Membership: true,
+      },
+    });
   }
 
- async  findOne(id: string) {
+  async findOne(id: string) {
     return await this.prisma.event.findFirst({
       where: {
         id,
+      },
+      include: {
+        Membership: true,
       },
     });
   }
 
   async update(id: string, updateEventDto: UpdateEventDto) {
-    return await 
-    this.prisma.event.update({
+    return await this.prisma.event.update({
       where: { id },
       data: updateEventDto,
     });
@@ -34,6 +50,5 @@ export class EventsService {
 
   async remove(id: string) {
     return await this.prisma.event.delete({ where: { id } });
-
   }
 }

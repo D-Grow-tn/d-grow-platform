@@ -2,6 +2,6 @@ export class CreateEventDto {
   name: string;
   description: string;
   employeeId: string;
-  startAt: Date;
-  endAt: Date;
+  startAt : Date;
+  endAt :Date;
 }

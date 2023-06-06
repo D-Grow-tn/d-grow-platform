@@ -2,7 +2,9 @@ import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/commo
 import { EventsService } from './events.service';
 import { CreateEventDto } from './dto/create-event.dto';
 import { UpdateEventDto } from './dto/update-event.dto';
+import { ApiTags } from '@nestjs/swagger';
 
+@ApiTags ('events')
 @Controller('events')
 export class EventsController {
   constructor(private readonly eventsService: EventsService) {}
@@ -15,6 +17,11 @@ export class EventsController {
   @Get()
   findAll() {
     return this.eventsService.findAll();
+  }
+
+  @Get('by-employee/:employeeId')
+  findAllByEmployee(@Param('employeeId') employeeId: string) {
+    return this.eventsService.findAllByEmployee(employeeId);
   }
 
   @Get(':id')
