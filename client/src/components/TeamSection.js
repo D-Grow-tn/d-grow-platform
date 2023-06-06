@@ -12,7 +12,9 @@ function TeamSection() {
         color: "#181f38",
         fontSize: "36px",
         lineHeight: "44px",
-        fontWeight: 700,
+        fontWeight: 400,
+        fontFamily:"Merriweather",
+        marginBottom:"40px"
       }}
     >
       Our committed professionals

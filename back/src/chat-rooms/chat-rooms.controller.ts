@@ -19,16 +19,16 @@ export class ChatRoomsController {
 
   @Get(':id')
   findOne(@Param('id') id: string) {
-    return this.chatRoomsService.findOne(+id);
+    return this.chatRoomsService.findOne(id);
   }
 
   @Patch(':id')
   update(@Param('id') id: string, @Body() updateChatRoomDto: UpdateChatRoomDto) {
-    return this.chatRoomsService.update(+id, updateChatRoomDto);
+    return this.chatRoomsService.update(id, updateChatRoomDto);
   }
 
   @Delete(':id')
   remove(@Param('id') id: string) {
-    return this.chatRoomsService.remove(+id);
+    return this.chatRoomsService.remove(id);
   }
 }

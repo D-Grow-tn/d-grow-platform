@@ -11,6 +11,7 @@ export const fetchProject = createAsyncThunk("projects/oneProject", async (id) =
 export const fetchProjectbyClient = createAsyncThunk("projects/project", async (id) => {
 
   const response = await axios.get(`${config.API_ENDPOINT}/projects/by_client/${id}`);
+  console.log("proj",response.data);
   return response.data;
   });
 
