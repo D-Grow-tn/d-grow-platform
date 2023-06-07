@@ -12,7 +12,6 @@ import {
 } from "mdb-react-ui-kit";
 import { Button } from "react-bootstrap";
 import { Link } from "react-router-dom";
-
 import "../css/LoginAdmin.css";
 import CastomInput from "./CastomInput";
 function CastomForm({ Name, ButtonName, onClick }) {
@@ -21,7 +20,7 @@ function CastomForm({ Name, ButtonName, onClick }) {
     setShowPassword(!showPassword);
   };
   return (
-    <div className="bg-light ">
+    <div className="bg-light  border rounded  ">
       <MDBContainer
         fluid
         className="d-flex justify-content-center align-items-start "
@@ -45,7 +44,7 @@ function CastomForm({ Name, ButtonName, onClick }) {
                     <CastomInput
                       placeholder="Email"
                       type="email"
-                      label="user"
+                      icon="fa-solid fa-user p-1 mt-1"
                     />
 
                     <div className="d-flex justify-content-end my-3">
@@ -65,12 +64,12 @@ function CastomForm({ Name, ButtonName, onClick }) {
                     <CastomInput
                       placeholder="Email"
                       type="email"
-                      label="user"
+                      icon="fa-solid fa-user p-1 mt-1"
                     />
                     <CastomInput
                       placeholder="Password"
                       type={showPassword ? "text" : "password"}
-                      label="key"
+                      icon="fa-solid fa-key p-1 mt-1"
                     />
                     <div className="d-flex  mb-4">
                       <MDBCheckbox
@@ -91,12 +90,12 @@ function CastomForm({ Name, ButtonName, onClick }) {
                   <>
                     <CastomInput
                       placeholder="New password"
-                      label="key"
+                      icon="fa-solid fa-key p-1 mt-1"
                       type={showPassword ? "text" : "password"}
                     />
                     <CastomInput
                       placeholder="Confirm New password"
-                      label="key"
+                      icon="fa-solid fa-key p-1 mt-1"
                       type={showPassword ? "text" : "password"}
                     />
 

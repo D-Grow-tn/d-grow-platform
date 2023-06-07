@@ -1,18 +1,24 @@
-import React from 'react'
+import React from "react";
 
-function CastomInput({ placeholder, type, label }) {
+function CastomInput({ placeholder, type, label, icon }) {
   return (
     <div className="input d-flex align-items-start">
-      <label>
-        <i className={`fa-solid fa-${label} p-1 mt-3`}></i>
-      </label>
-      <input
-        placeholder={placeholder}
-        className="mb-4 border border-secondary rounded form-control form-control-lg custom-height"
-        type={type}
-      />
+      <label>{label}</label>
+      <div className="input-group ">
+       
+        <input
+          placeholder={placeholder}
+          className="mb-4 border border-secondary rounded form-control form-control-lg custom-height"
+          type={type}
+        />
+         {icon && (
+          <span className="input-group-text">
+            <i className={icon}></i>
+          </span>
+        )}
+      </div>
     </div>
-  )
+  );
 }
 
-export default CastomInput
+export default CastomInput;
