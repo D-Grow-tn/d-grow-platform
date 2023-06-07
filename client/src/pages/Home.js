@@ -4,6 +4,7 @@ import development from "../constants/development.json";
 import dev from "../constants/dev.json";
 import plan from "../constants/plan.json";
 import{ background2} from "../assets/img/images"
+import{ background4} from "../assets/img/images"
 
 import DisplayLottie from "../constants/DisplayLottie";
 
@@ -291,7 +292,7 @@ function Home() {
           </Carousel.Caption>
           <img
             className="d-block w-100 "
-            src={background2}
+            src={background4}
             alt="First slide"
             style={{ height: "500px" }}
           />
@@ -325,28 +326,13 @@ function Home() {
         <Carousel.Item>
           <img
             className="d-block w-100"
-            src={background2}
+            src={background4}
             alt="Third slide"
             style={{ height: "500px" }}
           />
 
-          <Carousel.Caption
-            style={{ color: "#213764", paddingBottom: "180px" }}
-          >
-            <h3
-              className="dark-bleu"
-              style={{
-                fontSize: "55px",
-                fontWeight: "bold",
-                paddingBottom: "20px",
-              }}
-            >
-              Crafting Seamless User Experiences
-            </h3>
-            <p style={{ fontSize: "30px" }}>
-              {" "}
-              Elevate Your Brand with Cutting-Edge Web and Mobile Solutions!"{" "}
-            </p>
+          <Carousel.Caption>
+          
           </Carousel.Caption>
         </Carousel.Item>
       </Carousel>

@@ -62,7 +62,6 @@ model Employee {
   request          Request[]
   employeeTest     EmployeeTest[]
   event            Event[]
-  decision         Decision[]
   teamMembership   TeamMembership[]
   projectManager   Project[]          @relation("projectManager")
   consultant       Project[]          @relation("consultant")
@@ -74,10 +73,9 @@ model Employee {
   EmployeeChatRoom EmployeeChatRoom[]
   Message          Message[]
   MediaEmployee    MediaEmployee[]
-
+  DecisionApply    DecisionApply[]
   Membership Membership[]
 }
-
 model Project {
   id                  String              @id @default(uuid())
   name                String
@@ -270,7 +268,6 @@ model Event {
   employee    Employee     @relation(fields: [employeeId], references: [id])
   MediaEvent  MediaEvent[]
   Membership  Membership[]
-  History     History[]
 }
 
 model Membership {
@@ -280,20 +277,8 @@ model Membership {
   employee   Employee @relation(fields: [employeeId], references: [id])
   createdAt  DateTime @default(now())
   updatedAt  DateTime @updatedAt
-  historyId  String?
-  History    History? @relation(fields: [historyId], references: [id])
 
-  @@id([eventId, employeeId])
-}
-
-model History {
-  id           String       @id @default(uuid())
-  event        Event        @relation(fields: [eventId], references: [id])
-  eventId      String
-  activityType String
-  createdAt    DateTime     @default(now())
-  Membership   Membership[]
-  MediaEvent   MediaEvent[]
+  @@unique(fields: [eventId, employeeId], name: "membership")
 }
 
 model Behavior {
@@ -307,12 +292,22 @@ model Behavior {
 }
 
 model Decision {
-  id         String   @id @default(uuid())
-  content    String
-  createdAt  DateTime @default(now())
-  updatedAt  DateTime @updatedAt
+  id            String          @id @default(uuid())
+  content       String
+  createdAt     DateTime        @default(now())
+  updatedAt     DateTime        @updatedAt
+  DecisionApply DecisionApply[]
+}
+
+model DecisionApply {
+  decisionId String
+  decision   Decision @relation(fields: [decisionId], references: [id])
   employeeId String
   employee   Employee @relation(fields: [employeeId], references: [id])
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
+
+  @@unique(fields: [decisionId, employeeId], name: "decisionApply")
 }
 
 model Product {
@@ -440,12 +435,10 @@ model MediaEmployee {
 }
 
 model MediaEvent {
-  media     Media    @relation(fields: [mediaId], references: [id])
-  mediaId   String
-  event     Event    @relation(fields: [eventId], references: [id], onDelete: Cascade)
-  eventId   String
-  History   History? @relation(fields: [historyId], references: [id])
-  historyId String?
+  media   Media  @relation(fields: [mediaId], references: [id])
+  mediaId String
+  event   Event  @relation(fields: [eventId], references: [id], onDelete: Cascade)
+  eventId String
 
   @@unique(fields: [mediaId, eventId], name: "eventMedia")
 }

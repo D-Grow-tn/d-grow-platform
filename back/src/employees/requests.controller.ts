@@ -15,8 +15,12 @@ export class RequestsController {
   @Get()
   findAll() {
     return this.requestsService.findAll();
+    
   }
-
+  @Get('by_employee/:emplyeeId')
+  findAllByClient(@Param('emplyeeId') emplyeeId: string) {
+    return this.requestsService.findAllByEmployee(emplyeeId);
+  }
   @Get(':id')
   findOne(@Param('id') id: string) {
     return this.requestsService.findOne(id);

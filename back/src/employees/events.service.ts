@@ -2,18 +2,22 @@ import { Injectable } from '@nestjs/common';
 import { CreateEventDto } from './dto/create-event.dto';
 import { UpdateEventDto } from './dto/update-event.dto';
 import { PrismaService } from 'src/prisma/prisma.service';
-import { PrismaClient } from '@prisma/client';
+import { Prisma, PrismaClient} from '@prisma/client';
 
 @Injectable()
 export class EventsService {
   constructor(private readonly prisma: PrismaService) {}
   async create(createEventDto: CreateEventDto) {
-    const { mediaIds, membershipIds, ...rest } = createEventDto;
+    const {mediaIds, membershipIds, ...rest } = createEventDto;
+    console.log(membershipIds)
     return await this.prisma.event.create({
       data: {
         ...rest,
         Membership: {
+          
+          
           create: membershipIds.map((id) => {
+
             return {
               employeeId: id,
             };
@@ -85,6 +89,18 @@ export class EventsService {
   }
 
   async remove(id: string) {
-    return await this.prisma.event.delete({ where: { id } });
+   return await this.prisma.$transaction(async (prisma) => {
+      await prisma.membership.deleteMany({
+        where: {
+          eventId: id,
+        },
+      });
+     return await prisma.event.delete({
+        where: {
+          id,
+        },
+      });
+    });
   }
+  
 }

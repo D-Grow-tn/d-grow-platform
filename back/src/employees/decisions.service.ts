@@ -75,7 +75,19 @@ export class DecisionsService {
   }
 
   async remove(id: string) {
-    return await this.prisma.decision.delete({ where: { id } });
-  }
+    return await this.prisma.$transaction(async (prisma) => {
+       await prisma.decisionApply.deleteMany({
+         where: {
+           decisionId: id,
+         },
+       });
+      return await prisma.decision.delete({
+         where: {
+           id,
+         },
+       });
+     });
+   }
+   
 
   }

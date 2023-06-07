@@ -19,7 +19,6 @@ export class DecisionsController {
     return this.DecisionsService.findAll();
   }
 
-
   @Get(':id')
   findOne(@Param('id') id: string) {
     return this.DecisionsService.findOne(id);
@@ -31,7 +30,7 @@ export class DecisionsController {
   }
 
   @Delete(':id')
-  remove(@Param('id') id: string) {
+  remove(@Param('id') id:string) {
     return this.DecisionsService.remove(id);
   }
 }

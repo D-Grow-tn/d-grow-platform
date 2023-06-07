@@ -16,6 +16,12 @@ async  findAll() {
     return await this.prisma.request.findMany({})
   }
 
+  async findAllByEmployee(employeeId:string){
+    return  await this.prisma.request.findMany({ 
+      where:{employeeId},
+    
+    })
+  }
   async  findOne(id: string) {
     return await this.prisma.request.findFirst({
       where: {
@@ -23,7 +29,7 @@ async  findAll() {
       },
     });
   }
-
+ 
   async update(id: string, updateRequestDto: UpdateRequestDto) {
     return await 
     this.prisma.request.update({

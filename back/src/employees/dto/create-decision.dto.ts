@@ -1,4 +1,7 @@
+import { ApiProperty } from "@nestjs/swagger";
 export class CreateDecisionDto {
+    @ApiProperty()
     content :string ;
-    employeeId:string
+    @ApiProperty()
+    decisionApplyIds: string[];
 }
