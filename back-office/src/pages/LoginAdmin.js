@@ -1,11 +1,13 @@
-import React from 'react'
+import React from "react";
+
+import CastomForm from "../componets/CastomForm";
 
 function LoginAdmin() {
   return (
-    <div>
-      im login
-    </div>
-  )
+    <>
+      <CastomForm Name="Login" ButtonName="Login" />
+    </>
+  );
 }
 
-export default LoginAdmin
+export default LoginAdmin;

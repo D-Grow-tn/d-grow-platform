@@ -49,6 +49,12 @@
   left: -60px !important
 
 }
+/* .form-control{
+ display: none !important;
+ margin-left: 75px;
+
+ width:50% !important;
+} */
 
 
 @import url('../src/assets/vendor/bootstrap-icons/bootstrap-icons.css');

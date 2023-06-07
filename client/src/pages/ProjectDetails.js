@@ -2,54 +2,13 @@ import React, { useEffect, useState } from "react";
 
 import "gantt-task-react/dist/index.css";
 import { Outlet, useLocation, useNavigate, useParams } from "react-router-dom";
-import { Nav } from "react-bootstrap";
+import { Button, Modal, Nav } from "react-bootstrap";
 import "../assets/css/projectDetails.css";
 import { fetchProject } from "../store/projects";
 import { useSelector } from "react-redux";
 import { useDispatch } from "react-redux";
-import { Document, Page, pdfjs } from "react-pdf";
+import projectDetailData from "../constants/projectDetailData";
 
-pdfjs.GlobalWorkerOptions.workerSrc = new URL(
-  "pdfjs-dist/build/pdf.worker.min.js",
-  import.meta.url
-).toString();
-
-const navData = [
-  {
-    nameEn: "Objectives",
-    nameAr: "",
-    nameFr: "",
-    path: "",
-    image:
-      "https://tourduvalat.org/wp-content/uploads/2017/11/bullseye2-512.png",
-    colorTab: "blue",
-  },
-  {
-    nameEn: "Gantt Diagram",
-    nameAr: "",
-    nameFr: "Diagramme de Gantt",
-    path: "/gantt",
-    image: "https://cdn-icons-png.flaticon.com/512/5639/5639804.png",
-    colorTab: "green",
-  },
-  {
-    nameEn: "Agent In Charge",
-    nameAr: "",
-    nameFr: "Agents responsables",
-    path: "/team-section",
-    image: "https://cdn-icons-png.flaticon.com/128/4059/4059783.png",
-    colorTab: "blue",
-  },
-  {
-    nameEn: "Intercations",
-    nameAr: "",
-    nameFr: "Interactions",
-    path: "/interaction",
-    image:
-      "https://www.iconarchive.com/download/i86695/johanchalibert/mac-osx-yosemite/messages.1024.png",
-    colorTab: "purple",
-  },
-];
 
 function ProjectDetails() {
   const { projectId } = useParams();
@@ -62,8 +21,8 @@ function ProjectDetails() {
 
   const [formattedCreatedAt, setFormattedCreatedAt] = useState("");
   const [formattedEndAt, setFormattedEndAt] = useState("");
-  const [numPages, setNumPages] = useState(null);
-  const [pageNumber, setPageNumber] = useState(1);
+  const [viewContractModal, setViewContractModal] = useState(false);
+  const [navData, setNavData] = useState(projectDetailData);
 
   useEffect(() => {
     dispatch(fetchProject(projectId));
@@ -92,34 +51,31 @@ function ProjectDetails() {
     setFormattedEndAt(formattedEndAt);
   }, []);
 
-  // console.log("file", project?.contarct.path)
-
-  function onDocumentLoadSuccess({ numPages }) {
-    setNumPages(numPages);
-  }
-
   return (
     <div>
-      <div className="container d-flex justify-content-center align-items-center   ">
-        <div class="card  w-75 text-center mt-5 mb-5 ">
-          <div class="card-header">Featured</div>
-          <div class="card-body d-flex flex-column flex-md-row align-items-center d-flex justify-content-around">
+      <div className="container d-flex justify-content-center align-items-center ">
+        <div class="card  m-5 ">
+          <div class="card-header d-flex justify-content-center align-items-center ">
+            Featured
+          </div>
+          <div class="card-body d-flex flex-column flex-md-row align-items-center d-flex justify-content-around gap-5">
             <div style={{ maxWidth: "400px", width: "100%" }}>
               <img
                 // src={project.cover}
                 src="https://www.pole-emploi.fr/files/live/sites/PE/files/actualites/vignetteideee62655.jpg"
                 alt="Project Cover"
-                style={{ width: "100%", height: "auto", borderRadius: "50px" }}
+                style={{ width: "100%", height: "auto", borderRadius: "10px" }}
               />
             </div>
-            <div className=" d-flex flex-column  align-items-center">
+            <div className=" ">
               <h3
-                class="card-title text-center"
+                class="card-title "
                 style={{
                   color: "#181f38",
                   fontSize: "36px",
                   lineHeight: "44px",
-                  fontWeight: 700,
+                  fontWeight: 400,
+                  fontFamily: "Merriweather",
                 }}
               >
                 {project?.name}
@@ -128,34 +84,36 @@ function ProjectDetails() {
                 {project?.description}
               </p>
               <p class="card-text">
-                <span class="text-muted">Project Owner: {me.client.name}</span>{" "}
-                {/* {project.owner} */}
+                <span class="text-muted">Project Owner:</span> {me?.client.name}
               </p>
-              <p class="card-text">
-                <span class="text-muted">Contract:</span>{" "}
-                {/* {project.contract} */}
-                <div>
-                  {/* <Document
-                    file={project?.contarct.path}
-                    onLoadSuccess={onDocumentLoadSuccess}
+              <div className="d-flex align-items-center gap-3">
+                <p class="card-text m-0 ">
+                  <span class="text-muted">Contract:</span>{" "}
+                </p>
+                {project?.contract ? (
+                  <button
+                    type="button"
+                    class="btn"
+                    onClick={() => setViewContractModal(true)}
+                    style={{ backgroundColor: "#1a408c", color: "#fff" }}
                   >
-                    <Page pageNumber={pageNumber} />
-                  </Document> */}
-                  <p>
-                    Page {pageNumber} of {numPages}
-                  </p>
-                </div>
-              </p>
-              <p class="card-text">
-                <span class="text-muted">Status:</span>
+                    View contract
+                  </button>
+                ) : (
+                  "no contract"
+                )}
+              </div>
+
+              <p class="card-text mt-2">
+                <span class="text-muted">Status: </span>
                 {project?.status}
               </p>
-              <a href="#" class="btn btn-primary mt-2 mb-2">
-                Discover more !
-              </a>
             </div>
           </div>
-          <div class="card-footer text-muted" id="dateDiv">
+          <div
+            class="card-footer text-muted d-flex justify-content-center align-items-center "
+            id="dateDiv"
+          >
             {`Start: ${formattedCreatedAt} End: ${formattedEndAt}`}
           </div>
         </div>
@@ -204,6 +162,33 @@ function ProjectDetails() {
           <Outlet />
         </div>
       </div>
+      <Modal
+        style={{ padding: 17 }}
+        show={viewContractModal}
+        onHide={() => setViewContractModal(false)}
+      >
+        <Modal.Header closeButton>
+          <Modal.Title>{project?.contract?.name}</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+          <embed
+            src={project?.contract?.path}
+            type="application/pdf"
+            frameBorder="0"
+            scrolling="auto"
+            height="100%"
+            width="100%"
+          ></embed>
+        </Modal.Body>
+        <Modal.Footer>
+          <Button
+            variant="secondary"
+            onClick={() => setViewContractModal(false)}
+          >
+            Close
+          </Button>
+        </Modal.Footer>
+      </Modal>
     </div>
   );
 }

@@ -19,10 +19,7 @@ export class DecisionsController {
     return this.DecisionsService.findAll();
   }
 
-  @Get('by_employee/:employeeId')
-  findAllByEmployee(@Param('employeeId') employeeId: string) {
-    return this.DecisionsService.findAllByEmployee(employeeId);
-  }
+
   @Get(':id')
   findOne(@Param('id') id: string) {
     return this.DecisionsService.findOne(id);

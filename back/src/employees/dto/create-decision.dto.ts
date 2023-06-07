@@ -1,4 +1,4 @@
 export class CreateDecisionDto {
-    content :string
+    content :string ;
     employeeId:string
 }

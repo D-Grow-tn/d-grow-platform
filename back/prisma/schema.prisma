@@ -468,6 +468,8 @@ model MediaProject {
   @@unique(fields: [mediaId, projectId], name: "projectMedia")
 }
 
+
+
 // join table
 
 enum Status {
