@@ -1,10 +1,16 @@
 import React from "react";
 import CastomForm from "../componets/CastomForm";
+import { useNavigate } from 'react-router-dom';
 
 function ResetPassword() {
+  const navigate = useNavigate()
+  const handleNavigate=()=>{
+     navigate("/validateCode")
+
+  }
   return (
     <>
-      <CastomForm Name="Forgot Password" ButtonName="Forgot Password " />
+      <CastomForm Name="Forgot Password" ButtonName="Forgot Password " onClick={handleNavigate} />
     </>
   );
 }

@@ -24,6 +24,8 @@ import NoPage from "../domains/noPage/NoPage";
 import CreateProject from './../domains/project/views/CreateProject';
 import EditProject from './../domains/project/views/EditProject';
 import ResetPassword from './../pages/ResetPassword'
+import ValidateCode from "../pages/ValidateCode";
+import NewPassword from "../pages/NewPassword";
 
 function Router() {
   return (
@@ -69,6 +71,9 @@ function Router() {
        
         <Route path="loginAdmin" element={<LoginAdmin />} />
           <Route path="resetPassword" element={<ResetPassword />} />
+          <Route path="validateCode" element={<ValidateCode />} />
+          <Route path="newPassword" element={<NewPassword />} />
+           
           <Route path="*" element={<NoPage />} />
       
       </Routes>
