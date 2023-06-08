@@ -29,7 +29,7 @@ export class SubComponentsService {
       where:{id},
       data:updateSubComponentDto
     });
-  }
+  } 
 
  async  remove(id: string) {
     return await this.prisma.subComponent.delete({
