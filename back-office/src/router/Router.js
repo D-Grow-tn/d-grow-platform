@@ -43,6 +43,10 @@ import EditRole from './../domains/role/views/EditRole';
 
 
 
+
+import ValidateCode from "../pages/ValidateCode";
+import NewPassword from "../pages/NewPassword";
+
 function Router() {
   return (
     <BrowserRouter>
@@ -108,6 +112,12 @@ function Router() {
         <Route path="loginAdmin" element={<LoginAdmin />} />
         <Route path="resetPassword" element={<ResetPassword />} />
         <Route path="*" element={<NoPage />} />
+          <Route path="resetPassword" element={<ResetPassword />} />
+          <Route path="validateCode" element={<ValidateCode />} />
+          <Route path="newPassword" element={<NewPassword />} />
+           
+          <Route path="*" element={<NoPage />} />
+      
       </Routes>
     </BrowserRouter>
   );

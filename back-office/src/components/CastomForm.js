@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import {
   MDBBtn,
   MDBContainer,
@@ -12,13 +12,19 @@ import {
 } from "mdb-react-ui-kit";
 import { Button } from "react-bootstrap";
 import { Link } from "react-router-dom";
-
-import "../assets/styles/LoginAdmin.css"
-import LoginAdmin from './../pages/LoginAdmin';
-function CastomForm({ Name, ButtonName }) {
+import "../assets/styles/LoginAdmin.css";
+import CastomInput from "./CastomInput";
+function CastomForm({ Name, ButtonName, onClick }) {
+  const [showPassword, setShowPassword] = useState(false);
+  const togglePasswordVisibility = () => {
+    setShowPassword(!showPassword);
+  };
   return (
-    <div className="bg-light">
-      <MDBContainer fluid className="my-5  ">
+    <div className="bg-light  border rounded  ">
+      <MDBContainer
+        fluid
+        className="d-flex justify-content-center align-items-start "
+      >
         <MDBRow className="g-0 align-items-center">
           <MDBCol
             col="6"
@@ -31,20 +37,15 @@ function CastomForm({ Name, ButtonName }) {
                 backdropFilter: "blur(30px)",
               }}
             >
-              <MDBCardBody className="p-5 shadow-5 text-center w-100">
+              <MDBCardBody className="p-5 shadow-5 text-center w-100 ">
                 <h2 className="fw-bold mb-5">{Name} </h2>
                 {Name === "Forgot Password" && (
                   <>
-                    <div className="input d-flex align-items-start">
-                      <label>
-                        <i className="fa-solid fa-user p-1 mt-2"></i>
-                      </label>
-                      <input
-                        placeholder="Email"
-                        className="mb-4 border border-secondary rounded form-control form-control-lg custom-height"
-                        type="email"
-                      />
-                    </div>
+                    <CastomInput
+                      placeholder="Email"
+                      type="email"
+                      icon="fa-solid fa-user p-1 mt-1"
+                    />
 
                     <div className="d-flex justify-content-end my-3">
                       {" "}
@@ -52,36 +53,31 @@ function CastomForm({ Name, ButtonName }) {
                     </div>
                   </>
                 )}
+                {Name === "ValidateCode" && (
+                  <>
+                    <label className="">Please Enter your Code</label>
+                    <CastomInput placeholder="Enter your Code" type="text" />
+                  </>
+                )}
                 {Name === "Login" && (
                   <>
-                    <div className="input d-flex align-items-start">
-                      <label>
-                        <i className="fa-solid fa-user p-1 mt-2"></i>
-                      </label>
-                      <input
-                        placeholder="Email"
-                        className="mb-4 border border-secondary rounded form-control form-control-lg custom-height"
-                        type="email"
-                      />
-                    </div>
-
-                    <div className="input d-flex align-items-start">
-                      <label>
-                        <i className="fa-solid fa-key p-1 mt-3"></i>
-                      </label>
-                      <input
-                        placeholder="Password"
-                        className="mb-4 border border-secondary rounded form-control form-control-lg custom-height"
-                        type="Password"
-                      />
-                    </div>
-
+                    <CastomInput
+                      placeholder="Email"
+                      type="email"
+                      icon="fa-solid fa-user p-1 mt-1"
+                    />
+                    <CastomInput
+                      placeholder="Password"
+                      type={showPassword ? "text" : "password"}
+                      icon="fa-solid fa-key p-1 mt-1"
+                    />
                     <div className="d-flex  mb-4">
                       <MDBCheckbox
                         name="flexCheck"
                         value=""
                         id="flexCheckDefault"
-                        label="Subscribe to our newsletter"
+                        label="Show Password"
+                        onChange={togglePasswordVisibility}
                       />
                     </div>
                     <div className="d-flex justify-content-end my-3 ">
@@ -90,12 +86,41 @@ function CastomForm({ Name, ButtonName }) {
                     </div>
                   </>
                 )}
-                <div className="d-flex justify-content-center ">
-                  <Button className="w-100 mb-5 d-flex justify-content-center btn custom-button ">
-                    {" "}
-                    {ButtonName}{" "}
-                  </Button>
-                </div>
+                {Name === "New Password" && (
+                  <>
+                    <CastomInput
+                      placeholder="New password"
+                      icon="fa-solid fa-key p-1 mt-1"
+                      type={showPassword ? "text" : "password"}
+                    />
+                    <CastomInput
+                      placeholder="Confirm New password"
+                      icon="fa-solid fa-key p-1 mt-1"
+                      type={showPassword ? "text" : "password"}
+                    />
+
+                    <div className="d-flex  mb-4">
+                      <MDBCheckbox
+                        name="flexCheck"
+                        value=""
+                        id="flexCheckDefault"
+                        label="Show Password"
+                        onChange={togglePasswordVisibility}
+                      />
+                    </div>
+                  </>
+                )}
+                {ButtonName && (
+                  <div className="d-flex justify-content-center ">
+                    <Button
+                      className="w-100 mb-5 d-flex justify-content-center btn custom-button "
+                      onClick={onClick}
+                    >
+                      {" "}
+                      {ButtonName}{" "}
+                    </Button>
+                  </div>
+                )}
               </MDBCardBody>
             </MDBCard>
           </MDBCol>
