@@ -1,0 +1,45 @@
+.cascading-right {
+    margin-right: -50px;
+  }
+  .p-5{
+    padding: 10rem!important;
+  }
+  .custom-button {
+    background-color: #1A408C;
+    border-color: #1A408C;
+    color: #ffffff; /* Optional: set the text color to white */
+  }
+  .custom-height {
+    height: 50px; /* Adjust the height value as per your requirements */
+    width: 310px;
+  }
+  
+  
+  @media (max-width:720px) {
+    .p-5{
+      padding: 5rem!important;
+    }
+    .custom-height {
+      height: 40px; /* Adjust the height value as per your requirements */
+      width: 100%;
+    }
+    /* 
+    .w-100 {
+      width: 100%!important;
+      
+  }
+  .text-center{
+    margin-right: -60%;
+
+  }
+  .card{
+    --mdb-card-box-shadow:"none"
+  } */
+  /* .button{
+    width: 100%!important;
+   
+  } */
+  /* .w-100 {
+    width: 100%!important;
+} */
+  }
