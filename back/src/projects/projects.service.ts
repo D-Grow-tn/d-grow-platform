@@ -25,7 +25,7 @@ export class ProjectsService {
         projectManager: true,
         consultant: true,
         interaction: { include: { User: true } },
-        contarct:true
+        contract:true
       },
     });
   }

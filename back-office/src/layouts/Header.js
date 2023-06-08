@@ -1,11 +1,11 @@
-import React from 'react'
+import React from "react";
 
-function Header() {
+function Header({ isOpen }) {
   return (
-    <div>
+    <div className="header" style={{ paddingLeft: isOpen ? 250 : 50 }}>
       im header
     </div>
-  )
+  );
 }
 
-export default Header
+export default Header;
