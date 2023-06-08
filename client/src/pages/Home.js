@@ -225,13 +225,14 @@ function Home() {
               <DisplayLottie animationData={dev} />
             </div>
             <div
-              className="col-lg-6 pt-4  mt-5 dark-bleu"
+              className="col-lg-6 p-5 mt-5  dark-bleu"
               style={{ textAlign: "center" }}
             >
+               <div style={{ paddingTop: "60px" }}>
               <h2
                 style={{
                   fontWeight: "bold",
-                  paddingBottom: "30px",
+                
                 }}
               >
                 Elevate your digital presence
@@ -255,6 +256,7 @@ function Home() {
               >
                 Contact-us <i class="fa-solid fa-play fa-fade px-2"></i>
               </button>
+              </div>
             </div>
           </div>
         </div>

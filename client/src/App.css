@@ -947,7 +947,7 @@ h5 {
 }
 .card-hover__title span {
   /* color: #2d7f0b; */
-  color: #6032fa;
+  color:#00ac9e
 
 }
 .card-hover__text {
@@ -962,13 +962,14 @@ h5 {
   flex-wrap: wrap;
   align-items: center;
   text-decoration: none;
-  color: #6032fa;
+  color: #2b3ada;
   opacity: 0;
   padding: 10px;
   transition: all 0.35s;
 }
 .card-hover__link:hover svg {
-  transform: translateX(4px);
+  transform: translateX(5px);
+  
 }
 .card-hover__link svg {
   width: 18px;

@@ -14,10 +14,7 @@ export class EventsService {
       data: {
         ...rest,
         Membership: {
-          
-          
           create: membershipIds.map((id) => {
-
             return {
               employeeId: id,
             };
