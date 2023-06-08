@@ -13,7 +13,8 @@ import {
 import { Button } from "react-bootstrap";
 import { Link } from "react-router-dom";
 
-import "../css/LoginAdmin.css";
+import "../assets/styles/LoginAdmin.css"
+import LoginAdmin from './../pages/LoginAdmin';
 function CastomForm({ Name, ButtonName }) {
   return (
     <div className="bg-light">

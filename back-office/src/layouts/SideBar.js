@@ -1,122 +1,12 @@
 import React, { useState } from "react";
 // import { Flexboard, FlexboardProvider, FlexboardFrame, ResizerType, Position } from '@dorbus/flexboard'
-import {
-  FaBars,
-  FaUsers,
-  FaClipboardList,
-  FaGlobe,
-  FaUserCog,
-  FaChartBar,
-  FaTools,
-  FaUserFriends,
-  FaBriefcase,
-} from "react-icons/fa";
-import { Link,useLocation } from "react-router-dom";
+import { FaBars } from "react-icons/fa";
+import { Link, useLocation } from "react-router-dom";
 
-const menuItem = [
-  {
-    path: "/",
-    name: "Dashboard",
-    icon: <FaChartBar />,
-  },
-  {
-    name: "Administration",
-    icon: <FaGlobe />,
-    children: [
-      {
-        name: "Invoices",
-        path: "invoices",
-      },
-      {
-        name: "Provides",
-        path: "*",
-      },
-      {
-        name: "Request",
-        path: "*",
-      },
-    ],
-  },
-  {
-    name: "HR",
-    icon: <FaBriefcase />,
-    children: [
-      {
-        name: "Employee",
-        path: "employee",
-      },
-      {
-        name: "Test",
-        path: "/test",
-      },
-      {
-        name: "Quiz",
-        path: "/quiz",
-      },
-      {
-        name: "Events",
-        path: "/events",
-      },
-    ],
-  },
-  {
-    path: "/client",
-    name: "CRM",
-    icon: <FaUsers />,
-    children: [
-      {
-        name: "client",
-        path: "client",
-      },
-    ],
-  },
-  {
-    path: "/product",
-    name: "PMO",
-    icon: <FaClipboardList />,
-    children: [
-      {
-        name: "Project",
-        path: "project",
-      },
-    ],
-  },
-  {
-    path: "/productList",
-    name: "WebSite Setting",
-    icon: <FaTools />,
-    children: [
-      {
-        name: "Home",
-        path: "*",
-      },
-      {
-        name: "About us",
-        path: "*",
-      },
-    ],
-  },
-  {
-    path: "/productList",
-    name: "Admin Setting",
-    icon: <FaUserCog />,
-    children: [
-      {
-        name: "Users",
-        path: "*",
-      },
-      {
-        name: "Role",
-        path: "role",
-      },
-    ],
-  },
-];
+import { menuItem } from "./../constants/sidebarData";
+function SideBar({ toggle, isOpen }) {
+  const location = useLocation();
 
-function SideBar({toggle,isOpen}) {
-  const path=useLocation().pathname
-  
-  
   const [activeSubMenu, setActiveSubMenu] = useState(null);
 
   const handleSubMenuClick = (index) => {
@@ -155,22 +45,41 @@ function SideBar({toggle,isOpen}) {
               <div
                 className={`accordion-collapse collapse ${
                   activeSubMenu === index ? "show" : ""
-                }`}
+                } `}
               >
-                <div className="mx-5 mt-2">
+                <div className="mx-5">
                   {item.children.map((child, childIndex) => (
-                    <div key={childIndex}>
-                      <Link to={child.path} className="links">
-                        {child.name}
-                      </Link>
-                    </div>
+                    <Link to={child.path} className="linkText">
+                      <div
+                        style={{ paddingRight: "40px" }}
+                        key={childIndex}
+                        className={`links ${
+                          location.pathname === child.path ? "active" : ""
+                        } `}
+                      >
+                        <div
+                          className={`icon ${
+                            isOpen ? "" : "sidebar-closed-icon"
+                          }`}
+                        >
+                          {child.icon}
+                        </div>
+
+                        <div
+                          style={{ display: isOpen ? "block" : "none" }}
+                          className=""
+                        >
+                          {child.name}
+                        </div>
+                      </div>{" "}
+                    </Link>
                   ))}
                 </div>
               </div>
             </div>
           ) : (
             <Link
-            onClick={()=>handleSubMenuClick(index)}
+              onClick={() => handleSubMenuClick(index)}
               to={item.path}
               className={`links  
               ${activeSubMenu === index ? "active" : ""}

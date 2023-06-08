@@ -23,23 +23,33 @@
   } 
   .links{
     display: flex;
-    color: #fff;
+     color: #fff;
     padding: 10px 15px;
     gap: 15px;
     transition: all 0.5s;
   }
   .links:hover{
-    background:#fff;
-    color: #000;
-    transition: all 0.5s;
+    background: #f3fcf6;
+  color: #000;
+  transition: all 0.5s;
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.3);
+  border-radius: 5px;
   }
   .active{
-    background: #fff !important;
+    background: #f3fcf6 !important;
     color: #000 !important;
+    transition: all 0.5s !important;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.3) !important;
+    border-radius: 5px !important;
   }
   .icon, .linkText{
     font-size: 20px;
   }
+  .sidebar-closed-icon {
+    color: #1a408c;
+   
+  }
+  
   .header{
     position: fixed;
     width: 100%;
@@ -48,3 +58,7 @@
     box-shadow: 0px 3px 8px #1a408c83;
     transition: all 0.5s;
   }
+  .icon.sidebar-closed-icon {
+    padding-right: 10px;
+  }
+  
