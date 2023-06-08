@@ -9,6 +9,7 @@ import Objectives from "../components/Objectives";
 import TeamSection from "../components/TeamSection";
 import InteractionSection from "../components/InteractionSection";
 import Gantt from "../components/GanttSection";
+import Applications from "../pages/Applications";
 
 const ComingSoon = React.lazy(() => import("../pages/ComingSoon"));
 
@@ -111,6 +112,10 @@ function Router() {
             <Route
               path="signup"
               element={<LoadComponent Component={Signup} />}
+            />
+             <Route
+              path="applications"
+              element={<LoadComponent Component={Applications} />}
             />
             {/* <Route
               path="objectives"
