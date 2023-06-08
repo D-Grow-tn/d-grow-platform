@@ -439,60 +439,37 @@ model MediaProject {
   @@unique(fields: [mediaId, projectId], name: "projectMedia")
 }
 
-model Page {
-  id        String        @id @default(uuid())
-  title     String
-  slug      String        @unique
-  createdAt DateTime      @default(now())
-  updatedAt DateTime      @updatedAt
-  content   ContentPage[]
+model MainComponent {
+  id        String            @id @default(uuid())
+  title     String?
+  path      String?           @unique
+  createdAt DateTime          @default(now())
+  updatedAt DateTime          @updatedAt
+  type      TypeMainComponent
+
+  SubComponent SubComponent[]
 }
 
-model ContentPage {
-  id        String    @id @default(uuid())
-  title     String
-  page      Page      @relation(fields: [pageId], references: [id])
-  pageId    String
-  sectionContentPage SectionContentPage[]
-  createdAt DateTime  @default(now())
-  updatedAt DateTime  @updatedAt
+model SubComponent {
+  id                  String                @id @default(uuid())
+  name                String?
+  main                MainComponent         @relation(fields: [mainId], references: [id])
+  mainId              String
+  position            PositionSubComponent
+  createdAt           DateTime              @default(now())
+  updatedAt           DateTime              @updatedAt
+  ContentSubComponent ContentSubComponent[]
 }
 
-model SectionContentPage {
-  section   Section  @relation(fields: [sectionId], references: [id])
-  sectionId String
-  contentPage   ContentPage @relation(fields: [contentPageId], references: [id])
-  contentPageId String
-  @@unique(fields: [ sectionId, contentPageId], name: "sectionContentPage")
-}
-
-model Section {
-  id            String      @id @default(uuid())
-  name          String
-  paragraphs    Paragraph[]
-  buttons       Button[]
-  sectionContentPage SectionContentPage[]
-  createdAt     DateTime    @default(now())
-  updatedAt     DateTime    @updatedAt
-}
-
-model Paragraph {
-  id        String   @id @default(uuid())
-  content   String
-  section   Section  @relation(fields: [sectionId], references: [id])
-  sectionId String
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
-}
-
-model Button {
-  id        String   @id @default(uuid())
-  label     String
-  url       String
-  section   Section  @relation(fields: [sectionId], references: [id])
-  sectionId String
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+model ContentSubComponent {
+  id             String       @id @default(uuid())
+  title          String
+  navigateTo     String?
+  content        String
+  subComponent   SubComponent @relation(fields: [subComponentId], references: [id])
+  subComponentId String
+  createdAt      DateTime     @default(now())
+  updatedAt      DateTime     @updatedAt
 }
 
 // join table
@@ -506,4 +483,20 @@ enum Status {
   reviewed
   refused
   accepted
+}
+
+enum TypeMainComponent {
+  footer
+  header
+  sidebar
+  page
+}
+
+enum PositionSubComponent {
+  left
+  right
+  top
+  bottom
+  middle
+  section
 }

@@ -29,18 +29,16 @@ import { TeamMenbershipsModule } from './team-menberships/team-menberships.modul
 import { EmployeeQuizsModule } from './employee-quizs/employee-quizs.module';
 import { EmployeeChatRoomsModule } from './employee-chat-rooms/employee-chat-rooms.module';
 
-import { PagesModule } from './pages/pages.module';
-import { ContentPagesModule } from './content-pages/content-pages.module';
-import { SectionsModule } from './sections/sections.module';
-import { ParagraphsModule } from './paragraphs/paragraphs.module';
-import { ButtonsModule } from './buttons/buttons.module';
-import { SectionContentPagesModule } from './section-content-pages/section-content-pages.module';
+
+import { MainComponentsModule } from './main-components/main-components.module';
+import { SubComponentsModule } from './sub-components/sub-components.module';
+import { ContentSubComponentsModule } from './content-sub-components/content-sub-components.module';
 
 
 
 
 @Module({
-  imports: [UsersModule, EmployeesModule, ProjectsModule, PrismaModule, MediasModule, ProductsModule, ClientsModule,AuthModule,TechnologiesModule,MailModule, TasksModule, TestsModule, QuizsModule, TeamsModule, DepartmentsModule, ChatRoomsModule, MessagesModule, ProjectTechnologiesModule, EmployeeTestsModule, TeamMenbershipsModule, EmployeeQuizsModule, EmployeeChatRoomsModule, PagesModule, ContentPagesModule, SectionsModule, ParagraphsModule, ButtonsModule, SectionContentPagesModule],
+  imports: [UsersModule, EmployeesModule, ProjectsModule, PrismaModule, MediasModule, ProductsModule, ClientsModule,AuthModule,TechnologiesModule,MailModule, TasksModule, TestsModule, QuizsModule, TeamsModule, DepartmentsModule, ChatRoomsModule, MessagesModule, ProjectTechnologiesModule, EmployeeTestsModule, TeamMenbershipsModule, EmployeeQuizsModule, EmployeeChatRoomsModule, MainComponentsModule, SubComponentsModule, ContentSubComponentsModule],
   controllers: [AppController],
   providers: [AppService,PrismaService,MediasService,AuthService,UsersService,JwtService],
 })
