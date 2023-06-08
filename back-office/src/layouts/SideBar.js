@@ -47,23 +47,16 @@ function SideBar({ toggle, isOpen }) {
                   activeSubMenu === index ? "show" : ""
                 } `}
               >
-                <div className="mx-5">
+                <div className={`${isOpen ? "mx-5" : ""}`}>
                   {item.children.map((child, childIndex) => (
                     <Link to={child.path} className="linkText">
                       <div
-                        style={{ paddingRight: "40px" }}
                         key={childIndex}
                         className={`links ${
                           location.pathname === child.path ? "active" : ""
                         } `}
                       >
-                        <div
-                          className={`icon ${
-                            isOpen ? "" : "sidebar-closed-icon"
-                          }`}
-                        >
-                          {child.icon}
-                        </div>
+                        <div>{child.icon}</div>
 
                         <div
                           style={{ display: isOpen ? "block" : "none" }}

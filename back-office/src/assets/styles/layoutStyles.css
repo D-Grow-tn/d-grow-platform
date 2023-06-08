@@ -12,6 +12,8 @@
     justify-content: space-between;
     align-items:center;
     padding:20px 15px;
+    height:70px;
+    
   }
    .logo{
     font-size: 30px;
@@ -39,16 +41,14 @@
     background: #f3fcf6 !important;
     color: #000 !important;
     transition: all 0.5s !important;
-    box-shadow: 0 0 5px rgba(0, 0, 0, 0.3) !important;
-    border-radius: 5px !important;
+    box-shadow: 0 0 0px rgba(0, 0, 0, 0.3) !important;
+    border-radius: 7px !important;
+   
   }
   .icon, .linkText{
     font-size: 20px;
   }
-  .sidebar-closed-icon {
-    color: #1a408c;
-   
-  }
+ 
   
   .header{
     position: fixed;
@@ -61,4 +61,6 @@
   .icon.sidebar-closed-icon {
     padding-right: 10px;
   }
-  
+  .custom-btn .btn-ripple {
+    background-color: #1a408c;
+  }
