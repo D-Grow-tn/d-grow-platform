@@ -1,8 +1,7 @@
 import React from "react";
-import { FaBell, FaUser, FaEnvelope,FaCommentAlt} from "react-icons/fa";
-// import { MDBInputGroup, MDBInput, MDBIcon, MDBBtn } from "mdb-react-ui-kit";
+import { FaBell, FaUser, FaCommentAlt} from "react-icons/fa";
 import { Dropdown } from "react-bootstrap";
-import { MDBCol, MDBIcon } from "mdbreact";
+import { MDBIcon } from "mdbreact";
 function Header({ isOpen }) {
   return (
     <div className="header" style={{ paddingLeft: isOpen ? 250 : 50 }}>

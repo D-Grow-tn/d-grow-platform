@@ -1,9 +1,8 @@
 import React, { useState } from "react";
-// import { Flexboard, FlexboardProvider, FlexboardFrame, ResizerType, Position } from '@dorbus/flexboard'
 import { FaBars } from "react-icons/fa";
 import { Link, useLocation } from "react-router-dom";
-
 import { menuItem } from "./../constants/sidebarData";
+
 function SideBar({ toggle, isOpen }) {
   const location = useLocation();
 
@@ -37,7 +36,7 @@ function SideBar({ toggle, isOpen }) {
                 <div className="icon">{item.icon}</div>
                 <div
                   style={{ display: isOpen ? "block" : "none" }}
-                  className="linkText"
+                  className="linkText "
                 >
                   {item.name}
                 </div>
@@ -56,11 +55,11 @@ function SideBar({ toggle, isOpen }) {
                           location.pathname === child.path ? "active" : ""
                         } `}
                       >
-                        <div>{child.icon}</div>
+                        <div className="">{child.icon}</div>
 
                         <div
                           style={{ display: isOpen ? "block" : "none" }}
-                          className=""
+                          className="mt-1"
                         >
                           {child.name}
                         </div>
