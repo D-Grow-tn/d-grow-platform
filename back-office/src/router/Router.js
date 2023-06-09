@@ -46,6 +46,18 @@ import EditRole from './../domains/role/views/EditRole';
 
 import ValidateCode from "../pages/ValidateCode";
 import NewPassword from "../pages/NewPassword";
+import User from "../domains/users/User";
+import UsersList from "../domains/users/views/UsersList";
+import CreateUser from "../domains/users/views/CreateUser";
+import EditUser from "../domains/users/views/EditUser";
+import Providers from "../domains/providers/Providers";
+import ProviderList from "../domains/providers/ProviderList";
+import CreateProvider from "../domains/providers/CreateProvider";
+import EditProvider from "../domains/providers/EditProvider";
+import RequestList from "../domains/request/views/RequestList";
+import CreateRequest from "../domains/request/views/CreateRequest";
+import EditRequest from "../domains/request/views/EditRequest";
+import Request from "../domains/request/Request"
 
 function Router() {
   return (
@@ -100,12 +112,29 @@ function Router() {
             <Route path="edit/:projectId" element={<EditProject />} />
           </Route>
 
-          <Route path="project" element={<Decision />}>
+          <Route path="decision" element={<Decision />}>
             <Route index element={<DecisionList />} />
             <Route path="create" element={<CreateDecision />} />
-            <Route path="edit/:projectId" element={<EditDecision />} />
+            <Route path="edit/:decisionId" element={<EditDecision />} />
+          </Route>
+          <Route path="user" element={<User />}>
+            <Route index element={<UsersList />} />
+            <Route path="create" element={<CreateUser />} />
+            <Route path="edit/:userId" element={<EditUser />} />
+          </Route>
+          <Route path="provider" element={<Providers/>}>
+            <Route index element={<ProviderList />} />
+            <Route path="create" element={<CreateProvider />} />
+            <Route path="edit/:providerId" element={<EditProvider />} />
           </Route>
 
+          <Route path="request" element={<Request/>}>
+            <Route index element={<RequestList />} />
+            <Route path="create" element={<CreateRequest/>} />
+            <Route path="edit/:requestId" element={<EditRequest />} />
+          </Route>
+
+          <Route path="*" element={<NoPage />} />
           
         </Route>
 
@@ -116,7 +145,6 @@ function Router() {
           <Route path="validateCode" element={<ValidateCode />} />
           <Route path="newPassword" element={<NewPassword />} />
            
-          <Route path="*" element={<NoPage />} />
       
       </Routes>
     </BrowserRouter>

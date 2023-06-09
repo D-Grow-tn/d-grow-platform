@@ -30,6 +30,8 @@
     padding: 10px 15px;
     gap: 15px;
     transition: all 0.5s;
+  margin-top:5px;
+
   }
   .links:hover{
     background: #f3fcf6;
@@ -37,6 +39,7 @@
   transition: all 0.5s;
   box-shadow: 0 0 5px rgba(0, 0, 0, 0.3);
   border-radius: 5px;
+  margin-top:5px;
   }
   .active{
     background: #f3fcf6 !important;
@@ -44,6 +47,7 @@
     transition: all 0.5s !important;
     box-shadow: 0 0 0px rgba(0, 0, 0, 0.3) !important;
     border-radius: 7px !important;
+   
    
   }
   .icon, .linkText{

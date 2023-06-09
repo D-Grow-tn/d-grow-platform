@@ -19,6 +19,7 @@ import {
   FaUserAlt,
   FaCalendarAlt,
   FaQuestionCircle,
+  FaCheckCircle
 } from "react-icons/fa";
 export const menuItem = [
   {
@@ -37,12 +38,12 @@ export const menuItem = [
       },
       {
         name: "Provides",
-        path: "*",
+        path: "/provider",
         icon: <FaHandshake />,
       },
       {
         name: "Request",
-        path: "*",
+        path: "request",
         icon: <FaEnvelopeOpenText />,
       },
     ],
@@ -71,6 +72,11 @@ export const menuItem = [
         path: "/events",
         icon: <FaCalendarAlt />,
       },
+      {
+        name: "Decision",
+        path: "/decision",
+        icon: <FaCheckCircle />,
+      }
     ],
   },
   {
@@ -101,12 +107,12 @@ export const menuItem = [
     children: [
       {
         name: "Home",
-        path: "*",
+        path: "/*",
         icon: <FaHome />,
       },
       {
         name: "About us",
-        path: "*",
+        path: "/*",
         icon: <FaInfoCircle />,
       },
     ],
@@ -117,7 +123,7 @@ export const menuItem = [
     children: [
       {
         name: "Users",
-        path: "*",
+        path: "/user",
         icon: <FaUsers />,
       },
       {
