@@ -5,12 +5,11 @@
 --------------------------------------------------------------*/
 .body {
   font-family: "Open Sans", sans-serif;
-  color: #213764;
-  background: url("../img/bg.jpg") top center no-repeat;
-  background-size: cover;
+  color: #1a408c;
   position: relative;
+  
 } 
-
+/* 
  .body::before {
   content: "";
   position: absolute;
@@ -18,13 +17,12 @@
   right: 0;
   top: 0;
   bottom: 0;
-  /* background: rgba(255, 255, 255, 0.8) !important; */
   background: rgba(250, 255, 245, 0.8) !important;
 
-}
+} */
 
 @media (min-width: 1024px) {
-  body {
+ #header {
     background-attachment: fixed;
   }
 }
@@ -91,20 +89,39 @@ h6 {
 #header {
   position: relative;
   width: 100%;
-  padding: 100px 0;
-  /* countdown */
+  padding: 100px ;
+  height: 100%;
+
+
 }
+.header {
+  font-family: "Open Sans", sans-serif;
+  color: #1a408c;
+  position: relative;
+  background: url("../img/bg.jpg")  no-repeat;
+  background-size:100% 100%;
+} 
+.header::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  background: rgba(250, 255, 245, 0.8) !important;
+
+} 
 
 #header h1 {
   margin: 0 0 10px 0;
   font-size: 50px;
   font-weight: 700;
   line-height: 56px;
-  color:#213764;
+
 }
 
 #header h2 {
-  color: #213764;
+ 
   margin-bottom: 40px;
   font-size: 22px;
 }
@@ -126,8 +143,7 @@ h6 {
 #header .countdown div h3 {
   font-weight: 700;
   font-size: 44px;
-  margin-bottom: 15px;
-  color: #213764;
+ 
 }
 
 #header .countdown div h4 {
@@ -189,6 +205,7 @@ h6 {
 --------------------------------------------------------------*/
 section {
   padding: 60px 0;
+  
 }
 
 .section-bg {
@@ -203,7 +220,7 @@ section {
 .section-title h2 {
   font-size: 32px;
   font-weight: bold;
-  margin-bottom: 20px;
+  margin-bottom: 30px;
   position: relative;
 }
 
@@ -413,7 +430,7 @@ section {
 }
 
 .contact .php-email-form button[type=submit] {
-  background:rgb(152 164 168);
+  background-color:#47bdea;
  border-radius: 5px;;
   padding: 10px 24px;
   color:#fff ;
@@ -423,8 +440,9 @@ section {
 }
 
 .contact .php-email-form button[type=submit]:hover {
-  background:#47bdea;
-  color: #fff;
+  background:#fff;
+  color: #f05748;
+  font-weight: bold;
 }
 
 @keyframes animate-loading {
@@ -437,28 +455,3 @@ section {
   }
 }
 
-/*--------------------------------------------------------------
-# Footer
---------------------------------------------------------------*/
-#footer {
-  background: rgba(19, 19, 19, 0.4);
-  padding: 30px 0;
-  color: #fff;
-  font-size: 14px;
-  position: relative;
-}
-
-#footer .copyright {
-  text-align: center;
-}
-
-#footer .credits {
-  padding-top: 10px;
-  text-align: center;
-  font-size: 13px;
-  color: #fff;
-}
-
-#footer .credits a {
-  color: #ff3333;
-}

@@ -1,26 +1,37 @@
 import { Injectable } from '@nestjs/common';
 import { CreateBehaviorDto } from './dto/create-behavior.dto';
 import { UpdateBehaviorDto } from './dto/update-behavior.dto';
+import { PrismaService } from 'src/prisma/prisma.service';
 
 @Injectable()
 export class BehaviorsService {
-  create(createBehaviorDto: CreateBehaviorDto) {
-    return 'This action adds a new behavior';
+  constructor(private readonly prisma: PrismaService) {}
+  async create(createBehaviorDto: CreateBehaviorDto) {
+    return await this.prisma.behavior.create({
+      data: createBehaviorDto,
+    });
   }
 
-  findAll() {
-    return `This action returns all behaviors`;
+  async findAll() {
+    return await this.prisma.behavior.findMany({});
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} behavior`;
+  async findOne(id: string) {
+    return await this.prisma.behavior.findFirst({
+      where: {
+        id,
+      },
+    });
   }
 
-  update(id: number, updateBehaviorDto: UpdateBehaviorDto) {
-    return `This action updates a #${id} behavior`;
+  async update(id: string, updateBehaviorDto: UpdateBehaviorDto) {
+    return await this.prisma.behavior.update({
+      where: { id },
+      data: updateBehaviorDto,
+    });
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} behavior`;
+  async remove(id: string) {
+    return await this.prisma.behavior.delete({ where: { id } });
   }
 }

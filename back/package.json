@@ -8,8 +8,8 @@
   "scripts": {
     "build": "nest build",
     "format": "prettier --write \"src/**/*.ts\" \"test/**/*.ts\"",
-    "start": "nest start",
-    "start:dev": "nest start --watch",
+    "start": "nest start --watch",
+    "start:dev": "nest start ",
     "start:debug": "nest start --debug --watch",
     "start:prod": "node dist/main",
     "lint": "eslint \"{src,apps,libs,test}/**/*.ts\" --fix",
@@ -27,6 +27,7 @@
     "prisma:build": "tsc -p tsconfig.build.json"
   },
   "dependencies": {
+    "@nestjs-modules/mailer": "^1.8.1",
     "@nestjs/common": "^9.0.0",
     "@nestjs/core": "^9.0.0",
     "@nestjs/jwt": "^10.0.3",
@@ -36,21 +37,30 @@
     "@nestjs/swagger": "^6.3.0",
     "@prisma/client": "4.13.0",
     "@types/multer": "^1.4.7",
+    "@types/passport-local": "^1.0.35",
     "bcrypt": "^5.1.0",
     "class-validator": "^0.14.0",
+    "cors": "^2.8.5",
+    "install": "^0.13.0",
     "jwt": "^0.2.0",
+    "passport": "^0.6.0",
     "passport-jwt": "^4.0.1",
+    "passport-local": "^1.0.0",
     "reflect-metadata": "^0.1.13",
     "rxjs": "^7.2.0",
     "swagger-ui-express": "^4.6.3"
   },
   "devDependencies": {
     "@nestjs/cli": "^9.0.0",
+    "@nestjs/jwt": "^10.0.3",
     "@nestjs/schematics": "^9.0.0",
     "@nestjs/testing": "^9.0.0",
+    "@types/bcrypt": "^5.0.0",
     "@types/express": "^4.17.13",
     "@types/jest": "29.5.0",
     "@types/node": "18.15.11",
+    "@types/passport-jwt": "^3.0.8",
+    "@types/passport-local": "^1.0.35",
     "@types/supertest": "^2.0.11",
     "@typescript-eslint/eslint-plugin": "^5.0.0",
     "@typescript-eslint/parser": "^5.0.0",
@@ -84,5 +94,8 @@
     ],
     "coverageDirectory": "../coverage",
     "testEnvironment": "node"
+  },
+  "prisma": {
+    "seed": "ts-node prisma/seed.ts"
   }
 }

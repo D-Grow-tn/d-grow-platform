@@ -1,10 +1,11 @@
-import { Controller, Get, Post,UploadedFile,UseInterceptors,Body,UploadedFiles} from '@nestjs/common';
+import { Controller, Get, Post,UploadedFile,UseInterceptors,Body,UploadedFiles, UseGuards,Request} from '@nestjs/common';
 import { AppService } from './app.service';
 import { MediasService } from './medias/medias.service';
 import { diskStorage } from 'multer';
 import { extname } from 'path';
 import { existsSync, mkdirSync } from 'fs';
 import { FileInterceptor ,FilesInterceptor} from '@nestjs/platform-express';
+import { AuthService } from './auth/auth.service';
 
 const multerConfig = {
   dest: 'upload',
@@ -12,12 +13,24 @@ const multerConfig = {
 
 @Controller()
 export class AppController {
-  constructor(private readonly appService: AppService,private readonly mediaService: MediasService) {}
-
-  @Get()
-  getHello(): string {
-    return this.appService.getHello();
-  }
+  constructor(private readonly appService: AppService,private readonly mediaService: MediasService,private readonly authservice:AuthService) {}
+   
+//   @Post('/login')
+//   login(@Request() req){
+//     console.log(req.body);
+    
+//     return  this.authservice.login(req.body.email,req.body.password);
+//   }
+//   @UseGuards(JwtAuthGuard)
+//   @Get('/protected')
+//   getHello(@Request() req) {
+//     console.log(req.user);
+    
+//     return {
+//     message:`this route is protected,  but the user ${req.user.name} has access`,
+//     user: req.user,
+//   };
+// }
 
   @Post('upload')
   @UseInterceptors(FileInterceptor('file', {
@@ -81,4 +94,5 @@ export class AppController {
     }));
     return this.mediaService.createMany(mediaData);
   }
+  
 }

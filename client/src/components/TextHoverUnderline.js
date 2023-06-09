@@ -9,6 +9,7 @@ function TextHoverUnderline({
   content,
   type,
   fontSize,
+  whiteSpace
 }) {
   let style = {
     width: width ? width : "",
@@ -21,7 +22,7 @@ function TextHoverUnderline({
       className="hover-underline-transition pointer d-flex justify-content-center align-items-center"
       style={{ width: width, position: "relative" }}
     >
-      <h6 className="m-2" style={{fontSize}}>{content}</h6>
+      <h6 className="m-2" style={{fontSize,whiteSpace}}>{content}</h6>
       <div
         className="hover-underline-transition-line"
         style={

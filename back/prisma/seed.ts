@@ -1,0 +1,526 @@
+import { PrismaClient } from '@prisma/client';
+import * as bcrypt from 'bcrypt';
+
+const prisma = new PrismaClient();
+
+async function main() {
+  if ((await prisma.user.findMany()).length) {
+    console.log('skip seeding');
+    return;
+  }
+
+  let cover1=await prisma.media.create({
+    data:{
+      path:'https://thumbs.dreamstime.com/b/person-programmer-working-pc-laptop-program-code-screen-coding-programming-vector-concept-person-programmer-working-107767154.jpg',
+      type:'cover',
+      extension:'png',
+    }
+  })
+  let cover2=await prisma.media.create({
+    data:{
+      path:'https://img.freepik.com/free-icon/user_318-159711.jpg',
+      type:'cover',
+      extension:'png',
+    }
+  })
+  let cover3=await prisma.media.create({
+    data:{
+      path:'https://img.freepik.com/free-icon/user_318-159711.jpg',
+      type:'cover',
+      extension:'png',
+    }
+  })
+let avatarClient1 =await prisma.media.create({
+  data :{
+    path:'https://img.freepik.com/free-icon/user_318-159711.jpg',
+    type:'avatar',
+    extension:'png',
+  }
+})
+let avatarClient2 =await prisma.media.create({
+  data :{
+    path:'https://img.freepik.com/free-icon/user_318-159711.jpg',
+    type:'avatar',
+    extension:'png'
+  }
+})
+let avatarClient3 =await prisma.media.create({
+  data :{
+    path:'https://img.freepik.com/free-icon/user_318-159711.jpg',
+    type:'avatar',
+    extension:'png'
+  }
+})
+let avatarClient4 =await prisma.media.create({
+  data :{
+    path:'https://img.freepik.com/free-icon/user_318-159711.jpg',
+    type:'avatar',
+    extension:'png'
+  }
+})
+
+
+  //create client
+  let client1 = await prisma.client.create({
+    data: {
+      name: 'd-grow1',
+      email: 'd-grow1@gmail.com',
+      phone: '44444444',
+      address: 'tunis',
+      avatarClientId: avatarClient1.id ,
+    },
+  });
+  let client2 = await prisma.client.create({
+    data: {
+      name: 'd-grow2',
+      email: 'd-grow2@gmail.com',
+      phone: '44444444',
+      address: 'tunis',
+      avatarClientId: avatarClient2.id,
+    },
+  });
+
+  let client3 = await prisma.client.create({
+    data: {
+      name: 'd-grow3',
+      email: 'd-grow3@gmail.com',
+      phone: '44444444',
+      address: 'tunis',
+      avatarClientId: avatarClient3.id ,
+    },
+  });
+
+  let client4 = await prisma.client.create({
+    data: {
+      name: 'd-grow4',
+      email: 'inesdebichi1995@gmail.com',
+      phone: '44444444',
+      address: 'tunis',
+      avatarClientId: avatarClient4.id ,
+    },
+  });
+
+  let employee1 = await prisma.employee.create({
+    data: {
+      name: 'khalil',
+      bio: 'String',
+      email: 'String',
+      phone: 'String',
+    },
+  });
+  let employee2 = await prisma.employee.create({
+    data: {
+      name: 'ines',
+      bio: 'String',
+      email: 'String',
+      phone: 'String',
+    },
+  });
+  let employee3 = await prisma.employee.create({
+    data: {
+      name: 'rania',
+      bio: 'String',
+      email: 'String',
+      phone: 'String',
+    },
+  });
+  // create users
+  const salt = await bcrypt.genSalt();
+  let user1 = await prisma.user.create({
+    data: {
+      name: 'd-grow1',
+      email: 'd-grow1@gmail.com',
+      clientId: client1.id,
+      password: await bcrypt.hash('1234', salt),
+      isClient: true,
+      //   mediaId: media.id,
+    },
+  });
+
+  let user2 = await prisma.user.create({
+    data: {
+      name: 'd-grow2',
+      email: 'd-grow2@gmail.com',
+      clientId: client2.id,
+      password: await bcrypt.hash('1234', salt),
+      isClient: true,
+      // mediaId   :  media.id,
+    },
+  });
+
+  let user3 = await prisma.user.create({
+    data: {
+      name: 'd-grow3',
+      email: 'd-grow3@gmail.com',
+      clientId: client3.id,
+      password: await bcrypt.hash('1234', salt),
+      isClient: true,
+      // mediaId   :  media.id,
+    },
+  });
+
+  let user4 = await prisma.user.create({
+    data: {
+      name: 'd-grow4',
+      email: 'inesdebichi1995@gmail.com',
+      clientId: client4.id,
+      password: await bcrypt.hash('1234', salt),
+      isClient: true,
+      // mediaId   :  media.id,
+    },
+  });
+  let user5 = await prisma.user.create({
+    data: {
+      name: 'd-grow5',
+      email: 'rania@gmail.com',
+      employeeId: employee3.id,
+      password: await bcrypt.hash('1234', salt),
+      isClient: false,
+      // mediaId   :  media.id,
+    },
+  });
+  let user6 = await prisma.user.create({
+    data: {
+      name: 'khalil',
+      email: 'khalil@gmail.com',
+      employeeId: employee2.id,
+      password: await bcrypt.hash('1234', salt),
+      isClient: false,
+      // mediaId   :  media.id,
+    },
+  });
+  let user7 = await prisma.user.create({
+    data: {
+      name: 'ines',
+      email: 'ines@gmail.com',
+      employeeId: employee1.id,
+      password: await bcrypt.hash('1234', salt),
+      isClient: false,
+      // mediaId   :  media.id,
+    },
+  });
+  let contract = await prisma.media.create({
+    data: {
+      path: 'https://www.africau.edu/images/default/sample.pdf',
+      extension: 'jpg',
+      type: 'file',
+    },
+  });
+  //create project
+  let project1 = await prisma.project.create({
+    data: {
+      name: 'E-commerce Website Development',
+      clientId: client1.id,
+      description: 'Building an online store for XYZ Corporation',
+      duration: '2 months',
+      projectManagerId: employee1.id,
+      consultantId: employee2.id,
+      startAt: new Date(30 / 5 / 2023),
+      endAt: new Date(30 / 7 / 2023),
+      status: 'pending',
+      contractId: contract.id,
+      coverId: cover1.id,
+    },
+  });
+
+  let project2 = await prisma.project.create({
+    data: {
+      name: 'Corporate Website Redesign',
+      clientId: client1.id,
+      description: 'Revamping the existing website for ABC Corporation',
+      duration: 'One month',
+      projectManagerId: employee1.id,
+      consultantId: employee2.id,
+      startAt: new Date(1 / 5 / 2023),
+      endAt: new Date(30 / 5 / 2023),
+      status: 'in_progress',
+      coverId: cover2.id,
+    },
+  });
+  let project3 = await prisma.project.create({
+    data: {
+      name: 'Mobile App Development',
+      clientId: client2.id,
+      description: 'Creating a mobile application for PQR Ltd.',
+      duration: 'One month',
+      projectManagerId: employee1.id,
+      consultantId: employee2.id,
+      startAt: new Date(1 / 4 / 2023),
+      endAt: new Date(30 / 4 / 2023),
+      status: 'completed',
+      coverId: cover3.id,
+      
+    },
+  });
+
+  // create objective
+  let objective1Project1 = await prisma.objective.create({
+    data: {
+      name: 'Design and User Experience',
+      decription:
+        'Improve the visual design and user experience of the e-commerce website.',
+      projectId: project1.id,
+      startAt: new Date('30/05/2023'),
+      endAt: new Date('15/06/2023'),
+      status: 'in_progress',
+    },
+  });
+
+  let objective2Project1 = await prisma.objective.create({
+    data: {
+      name: 'Backend Development and Database Integration',
+      decription:
+        'Develop the server-side functionality and integrate the database for the e-commerce website.',
+      projectId: project1.id,
+      startAt: new Date('30/05/2023'),
+      endAt: new Date('15/06/2023'),
+      status: 'in_progress',
+    },
+  });
+  let objective3Project1 = await prisma.objective.create({
+    data: {
+      name: 'Payment Gateway Integration',
+      decription:
+        'Integrate a secure and reliable payment gateway to facilitate smooth and secure online transactions.',
+      projectId: project1.id,
+      startAt: new Date('15/06/2023'),
+      endAt: new Date('30/06/2023'),
+    },
+  });
+
+  let objective4Project1 = await prisma.objective.create({
+    data: {
+      name: 'Performance Optimization',
+      decription:
+        'Optimize the performance of the e-commerce website to ensure fast loading times and efficient resource utilization.',
+      projectId: project1.id,
+      startAt: new Date('15/06/2023'),
+      endAt: new Date('30/06/2023'),
+    },
+  });
+
+  // create sub_Objective
+  let subObjective1Ojective1Project1 = await prisma.subObjective.create({
+    data: {
+      name: 'User Interface Design',
+      objectiveId: objective1Project1.id,
+      description:
+        'Create an intuitive and visually appealing user interface for the e-commerce website.',
+      status: 'completed',
+    },
+  });
+  let subObjective2Ojective1Project1 = await prisma.subObjective.create({
+    data: {
+      name: 'Responsive Design',
+      objectiveId: objective1Project1.id,
+      description:
+        'Ensure that the e-commerce website is responsive and optimally displayed on different devices and screen sizes.',
+      status: 'in_progress',
+    },
+  });
+  let subObjective3Ojective1Project1 = await prisma.subObjective.create({
+    data: {
+      name: 'Usability Testing',
+      objectiveId: objective1Project1.id,
+      description:
+        "Conduct usability tests with target users to identify areas for improvement in the website's design and user experience.",
+    },
+  });
+  let subObjective1Objective4Project1 = await prisma.subObjective.create({
+    data: {
+      name: 'Performance Analysis and Profiling',
+      objectiveId: objective4Project1.id,
+      description:
+        "Conduct a comprehensive performance analysis of the e-commerce website to identify bottlenecks and areas for optimization. Use profiling tools to measure and analyze the application's resource usage and performance metrics.",
+    },
+  });
+  let subObjective1Ojective2Project1 = await prisma.subObjective.create({
+    data: {
+      name: 'Database Design and Setup',
+      objectiveId: objective2Project1.id,
+      description:
+        'Design and set up the database schema for the application, including tables, relationships, and indexes.',
+      status: 'in_progress',
+    },
+  });
+
+  let subObjective2Ojective2Project1 = await prisma.subObjective.create({
+    data: {
+      name: 'API Development',
+      objectiveId: objective2Project1.id,
+      description:
+        'Develop the backend APIs to handle data retrieval, manipulation, and storage based on the defined requirements.',
+      status: 'in_progress',
+    },
+  });
+  let subObjective3Ojective2Project1 = await prisma.subObjective.create({
+    data: {
+      name: 'Authentication and Authorization',
+      objectiveId: objective2Project1.id,
+      description:
+        'Implement secure user authentication and authorization mechanisms to control access to the application and its resources.',
+      status: 'in_progress',
+    },
+  });
+
+  let subObjective1Ojective3Project1 = await prisma.subObjective.create({
+    data: {
+      name: 'Research and Evaluation',
+      objectiveId: objective3Project1.id,
+      description:
+        'Conduct research on available payment gateway options and evaluate their features, security, and reliability.',
+    },
+  });
+  let subObjective2Ojective3Project1 = await prisma.subObjective.create({
+    data: {
+      name: 'Payment Gateway Selection',
+      objectiveId: objective3Project1.id,
+      description:
+        'Choose the most suitable payment gateway based on the research and evaluation, taking into account factors like cost, integration options, and supported payment methods.',
+    },
+  });
+  let subObjective3Ojective3Project1 = await prisma.subObjective.create({
+    data: {
+      name: 'Integration Implementation',
+      objectiveId: objective3Project1.id,
+      description:
+        'Integrate the selected payment gateway into the e-commerce website or application, following the provided documentation and guidelines.',
+    },
+  });
+  let subObjective4Ojective3Project1 = await prisma.subObjective.create({
+    data: {
+      name: 'Testing and Security',
+      objectiveId: objective3Project1.id,
+      description:
+        'Perform thorough testing of the payment gateway integration, including functionality, security, and error handling, to ensure smooth and secure online transactions.',
+    },
+  });
+
+  //create stage
+  let stage1Project1 = await prisma.stage.create({
+    data: {
+      name: 'User Interface Design',
+      porcentage: '20',
+      startAt: new Date('01/05/2023'),
+      endAt: new Date('01/07/2023'),
+      objectiveId: objective1Project1.id,
+    },
+  });
+  let stage2Project1 = await prisma.stage.create({
+    data: {
+      name: 'User Experience Optimization',
+      porcentage: '20',
+      startAt: new Date('01/05/2023'),
+      endAt: new Date('01/07/2023'),
+      objectiveId: objective1Project1.id,
+      previousStageId: stage1Project1.id,
+    },
+  });
+  let stage3Project1 = await prisma.stage.create({
+    data: {
+      name: 'Server-side Development',
+      porcentage: '20',
+      startAt: new Date('01/05/2023'),
+      endAt: new Date('01/07/2023'),
+      objectiveId: objective1Project1.id,
+      previousStageId: stage2Project1.id,
+    },
+  });
+
+  let task1Stage1Project1 = await prisma.task.create({
+    data: {
+      points: 5,
+      name: 'Logo e-comerce website',
+      duration: '5',
+      level: '2',
+      stageId: stage1Project1.id,
+      employeeId: employee1.id,
+    },
+  });
+  let task2Stage1Project1 = await prisma.task.create({
+    data: {
+      points: 5,
+      name: 'xd e-commerce website',
+      duration: '5',
+      level: '2',
+      stageId: stage1Project1.id,
+      employeeId: employee1.id,
+    },
+  });
+  let task1Stage2Project1 = await prisma.task.create({
+    data: {
+      points: 5,
+      name: 'about us page',
+      duration: '5',
+      level: '2',
+      stageId: stage2Project1.id,
+      employeeId: employee1.id,
+    },
+  });
+  let task2Stage2Project1 = await prisma.task.create({
+    data: {
+      points: 5,
+      name: 'home page',
+      duration: '5',
+      level: '2',
+      stageId: stage2Project1.id,
+      employeeId: employee2.id,
+    },
+  });
+  let task1Stage3Project1 = await prisma.task.create({
+    data: {
+      points: 5,
+      name: 'conception database',
+      duration: '5',
+      level: '2',
+      stageId: stage3Project1.id,
+      employeeId: employee3.id,
+    },
+  });
+  let task2Stage3Project1 = await prisma.task.create({
+    data: {
+      points: 5,
+      name: 'implimentation databse prisma',
+      duration: '5',
+      level: '2',
+      stageId: stage3Project1.id,
+      employeeId: employee3.id,
+    },
+  });
+  //create interactions
+  let interaction1Project1 = await prisma.interaction.create({
+    data: {
+      content:
+        "I'm looking for someone to help me with a project. Are you available?",
+      projectId: project1.id,
+      UserId: user1.id,
+    },
+  });
+  let interaction2Project1 = await prisma.interaction.create({
+    data: {
+      content:
+        "Hi there! I'd be happy to assist you. Can you provide me with some details about the project?",
+      projectId: project1.id,
+      UserId: user6.id,
+    },
+  });
+  let interaction3Project1 = await prisma.interaction.create({
+    data: {
+      content:
+        'Sure! My business is a boutique fashion store specializing in trendy clothing and accessories. I want a website that showcases our products, provides information about our brand, and allows customers to make purchases online. Are you experienced in web design?',
+      projectId: project1.id,
+      UserId: user1.id,
+    },
+  });
+  let interaction4Project1 = await prisma.interaction.create({
+    data: {
+      content:
+        "Yes, I have experience in web design, including creating e-commerce websites. We can definitely create a website that highlights your products and reflects the style and vibe of your boutique. Do you have any specific preferences in terms of the website's design, color schemes, or layout?",
+      projectId: project1.id,
+      UserId: user6.id,
+    },
+  });
+}
+main()
+  .then((res) => console.log('seeding completed'))
+  .catch((err) => console.log(err));

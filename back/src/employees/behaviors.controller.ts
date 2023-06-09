@@ -19,16 +19,16 @@ export class BehaviorsController {
 
   @Get(':id')
   findOne(@Param('id') id: string) {
-    return this.BehaviorsService.findOne(+id);
+    return this.BehaviorsService.findOne(id);
   }
 
   @Patch(':id')
   update(@Param('id') id: string, @Body() updateBehaviorDto: UpdateBehaviorDto) {
-    return this.BehaviorsService.update(+id, updateBehaviorDto);
+    return this.BehaviorsService.update(id, updateBehaviorDto);
   }
 
   @Delete(':id')
   remove(@Param('id') id: string) {
-    return this.BehaviorsService.remove(+id);
+    return this.BehaviorsService.remove(id);
   }
 }

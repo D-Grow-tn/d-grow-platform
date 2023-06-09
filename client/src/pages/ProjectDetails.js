@@ -1,166 +1,194 @@
-import React, { useState } from "react";
-// import {
-//   Gantt,
-//   Task,
-//   EventOption,
-//   StylingOption,
-//   ViewMode,
-//   DisplayOption,
-// } from "gantt-task-react";
-// import "gantt-task-react/dist/index.css";
-import { MySvgComponent } from "../components/Svg";
-import { useParams } from "react-router-dom";
-import projectData from "../constants/ProjectsData";
-import TextHeader from "../components/TextHeader";
-import "../assets/css/projectDetails.css"
+import React, { useEffect, useState } from "react";
+
+import "gantt-task-react/dist/index.css";
+import { Outlet, useLocation, useNavigate, useParams } from "react-router-dom";
+import { Button, Modal, Nav } from "react-bootstrap";
+import "../assets/css/projectDetails.css";
+import { fetchProject } from "../store/projects";
+import { useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
+import projectDetailData from "../constants/projectDetailData";
+
+
 function ProjectDetails() {
   const { projectId } = useParams();
-  const [selectedProject, setSelectedProject] = useState(
-    projectData[projectId]
-  );
-  console.log(selectedProject, "im project");
-  let tasks = [
-    {
-      start: new Date(2020, 1, 1),
-      end: new Date(2020, 1, 2),
-      name: "Idea",
-      id: "Task 0",
-      type: "task",
-      progress: 45,
-      isDisabled: true,
-      styles: { progressColor: "#ffbb54", progressSelectedColor: "#ff9e0d" },
-    },
-  ];
-  const [selectedDiv, setSelectedDiv] = useState(1);
+  const navigate = useNavigate();
+  const me = useSelector((state) => state.auth.me);
+  const dispatch = useDispatch();
+  const path = useLocation().pathname;
+  const projectStore = useSelector((state) => state.projects);
+  const { project } = projectStore;
 
-  const handleClick = (divIndex) => {
-    setSelectedDiv(divIndex);
-  };
+  const [formattedCreatedAt, setFormattedCreatedAt] = useState("");
+  const [formattedEndAt, setFormattedEndAt] = useState("");
+  const [viewContractModal, setViewContractModal] = useState(false);
+  const [navData, setNavData] = useState(projectDetailData);
 
-  const [selectedObjective, setSelectedObjective] = useState(null);
+  useEffect(() => {
+    dispatch(fetchProject(projectId));
+  }, [dispatch]);
 
-  const handleObjectiveClick = (index) => {
-    setSelectedObjective(index);
-  };
+  useEffect(() => {
+    function formatDate(dateString) {
+      const date = new Date(dateString);
+
+      if (isNaN(date.getTime())) {
+        return "Invalid Date";
+      }
+      const day = date.getDate();
+      const month = date.getMonth() + 1; // Adding 1 because months are zero-based
+      const year = date.getFullYear();
+
+      return `${day}-${month}-${year}`;
+    }
+    const createdAt = project?.createdAt;
+    const endAt = project?.endAt;
+
+    const formattedCreatedAt = formatDate(createdAt);
+    const formattedEndAt = formatDate(endAt);
+
+    setFormattedCreatedAt(formattedCreatedAt);
+    setFormattedEndAt(formattedEndAt);
+  }, []);
+
   return (
     <div>
-      
-      <div
-        style={{  width: "100%", backgroundColor: "#ebedf5" }}
-      >
-       
-          <TextHeader
-            title={selectedProject.name}
-            description={selectedProject.description}
-          />
-            {/* nav links */}
-
-
-            <div
-      className="d-flex justify-content-center mt-3"
-      style={{ maxWidth: "1000px", margin: "0 auto" }}
-    >
-      <div style={{ flex: "1", textAlign: "center" }}>
-        <div onClick={() => handleClick(1)}>
-          <img
-            src="https://tourduvalat.org/wp-content/uploads/2017/11/bullseye2-512.png"
-            height="24"
-            width="35"
-          />
-          <div>Objectifs</div>
-        </div>
-        <div
-          style={{
-            height: "3px",
-            backgroundColor: selectedDiv === 1 ? "blue" : "#C1D9D8",
-          }}
-          className="mt-2"
-        ></div>
-      </div>
-
-      <div style={{ flex: "1", textAlign: "center" }}>
-        <div onClick={() => handleClick(2)}>
-          <img
-            src="https://cdn-icons-png.flaticon.com/512/5639/5639804.png"
-            height="24"
-            width="35"
-          />
-          <div>Diagram de gantt</div>
-       
-        </div>
-        <div
-          style={{
-            height: "3px",
-            backgroundColor: selectedDiv === 2 ? "green" : "#C1D9D8",
-          }}
-          className="mt-2"
-        ></div>
-      </div>
-
-      <div style={{ flex: "1", textAlign: "center" }}>
-        <div onClick={() => handleClick(3)}>
-          <img
-            src="https://cdn-icons-png.flaticon.com/128/4059/4059783.png"
-            height="24"
-            width="35"
-          />
-          <div>Team</div>
-
-        </div>
-        <div
-          style={{
-            height: "3px",
-            backgroundColor: selectedDiv === 3 ? "blue" : "#C1D9D8",
-          }}
-          className="mt-2"
-        ></div>
-      </div>
-
-      <div style={{ flex: "1", textAlign: "center" }}>
-        <div onClick={() => handleClick(4)}>
-          <img
-            src="https://www.iconarchive.com/download/i86695/johanchalibert/mac-osx-yosemite/messages.1024.png"
-            height="24"
-            width="35"
-          />
-          <div>Interaction</div>
-        </div>
-        <div
-          style={{
-            height: "3px",
-            backgroundColor: selectedDiv === 4 ? "purple" : "#C1D9D8",
-          }}
-          className="mt-2"
-        ></div>
-      </div>
-    </div>
-                                   {/* end */}
-                                   <div className="d-flex">
-      <div className="main-objectives">
-        {selectedProject.objectives.map((objective, index) => (
-          <div
-            key={index}
-            className={`objective ${selectedObjective === index ? "active" : ""}`}
-            onClick={() => handleObjectiveClick(index)}
-          >
-            {objective.name}
+      <div className="container d-flex justify-content-center align-items-center ">
+        <div class="card  m-5 ">
+          <div class="card-header d-flex justify-content-center align-items-center ">
+            Featured
           </div>
-        ))}
+          <div class="card-body d-flex flex-column flex-md-row align-items-center d-flex justify-content-around gap-5">
+            <div style={{ maxWidth: "400px", width: "100%" }}>
+              <img
+                // src={project.cover}
+                src="https://www.pole-emploi.fr/files/live/sites/PE/files/actualites/vignetteideee62655.jpg"
+                alt="Project Cover"
+                style={{ width: "100%", height: "auto", borderRadius: "10px" }}
+              />
+            </div>
+            <div className=" ">
+              <h3
+                class="card-title "
+                style={{
+                  color: "#181f38",
+                  fontSize: "36px",
+                  lineHeight: "44px",
+                  fontWeight: 400,
+                  fontFamily: "Merriweather",
+                }}
+              >
+                {project?.name}
+              </h3>
+              <p class="card-text" style={{ maxWidth: "400px" }}>
+                {project?.description}
+              </p>
+              <p class="card-text">
+                <span class="text-muted">Project Owner:</span> {me?.client.name}
+              </p>
+              <div className="d-flex align-items-center gap-3">
+                <p class="card-text m-0 ">
+                  <span class="text-muted">Contract:</span>{" "}
+                </p>
+                {project?.contract ? (
+                  <button
+                    type="button"
+                    class="btn"
+                    onClick={() => setViewContractModal(true)}
+                    style={{ backgroundColor: "#1a408c", color: "#fff" }}
+                  >
+                    View contract
+                  </button>
+                ) : (
+                  "no contract"
+                )}
+              </div>
+
+              <p class="card-text mt-2">
+                <span class="text-muted">Status: </span>
+                {project?.status}
+              </p>
+            </div>
+          </div>
+          <div
+            class="card-footer text-muted d-flex justify-content-center align-items-center "
+            id="dateDiv"
+          >
+            {`Start: ${formattedCreatedAt} End: ${formattedEndAt}`}
+          </div>
+        </div>
       </div>
-      <div className="sub-objectives">
-        {selectedObjective !== null && (
-          <ul>
-            {selectedProject.objectives[selectedObjective].subobjects.map((subObjective, index) => (
-              <li key={index}>{subObjective.name}</li>
-            ))}
-          </ul>
-        )}
+      <div
+        className="container py-4 "
+        style={{ backgroundColor: "#fff", borderRadius: "20px" }}
+      >
+        <Nav
+          className="d-flex justify-content-center align-items-center "
+          style={{ maxWidth: "1200px", margin: "0 auto" }}
+        >
+          {navData.map((elem, i) => (
+            <Nav.Link
+              style={{ all: "unset", cursor: "pointer" }}
+              className="w-25 r"
+              onClick={() => navigate(`/project/${projectId}${elem.path}`)}
+            >
+              <div style={{ flex: "1", textAlign: "center" }}>
+                <div className="">
+                  <img src={elem.image} height="24" width="24" />
+                  <p
+                    className="titleNavProjectDetails"
+                    style={{ fontWeight: 500 }}
+                  >
+                    {elem.nameEn}
+                  </p>
+                </div>
+                <div
+                  style={{
+                    height: "3px",
+                    backgroundColor:
+                      path === `/project/${projectId}${elem.path}` ||
+                      path === `/project/${projectId}${elem.path}/`
+                        ? elem.colorTab
+                        : "#C1D9D8",
+                    width: "100%",
+                  }}
+                  className="mt-2"
+                ></div>
+              </div>
+            </Nav.Link>
+          ))}
+        </Nav>
+        <div className="tab-content">
+          <Outlet />
+        </div>
       </div>
-    </div>
-      </div>
-      <MySvgComponent />
-      {/* <Gantt tasks={tasks} /> */}
-    
+      <Modal
+        style={{ padding: 17 }}
+        show={viewContractModal}
+        onHide={() => setViewContractModal(false)}
+      >
+        <Modal.Header closeButton>
+          <Modal.Title>{project?.contract?.name}</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+          <embed
+            src={project?.contract?.path}
+            type="application/pdf"
+            frameBorder="0"
+            scrolling="auto"
+            height="100%"
+            width="100%"
+          ></embed>
+        </Modal.Body>
+        <Modal.Footer>
+          <Button
+            variant="secondary"
+            onClick={() => setViewContractModal(false)}
+          >
+            Close
+          </Button>
+        </Modal.Footer>
+      </Modal>
     </div>
   );
 }
