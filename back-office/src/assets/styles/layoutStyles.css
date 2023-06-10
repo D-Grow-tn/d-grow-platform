@@ -49,9 +49,7 @@
 .icon,
 .linkText {
   font-size: 20px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+ 
 }
 
 .header {
@@ -68,4 +66,30 @@
 }
 .custom-btn .btn-ripple {
   background-color: #1a408c;
+}
+.inputForm{
+margin-left: 120px;
+}
+.dropdownHeader{
+  margin-right: 20px;
+
+}
+
+
+@media (max-width: 700px) {
+  .inputForm {
+    margin-left: 10px;
+  }
+  #dropdownMenu2{
+    padding: 2px !important;
+    margin-top: 5px;
+  }
+  .dropdownHeader{
+    margin-right: 0px;
+  
+  }
+  .icon {
+  font-size: 15px;
+ 
+}
 }

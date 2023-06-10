@@ -33,7 +33,7 @@ function SideBar({ toggle, isOpen }) {
                 type="button"
                 onClick={() => handleSubMenuClick(index)}
               >
-                <div className="icon">{item.icon}</div>
+                <div className="icon mb-2">{item.icon}</div>
                 <div
                   style={{ display: isOpen ? "block" : "none" }}
                   className="linkText "

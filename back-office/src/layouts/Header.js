@@ -13,16 +13,15 @@ function Header({ isOpen }) {
 
   const me =useSelector (state=>state.auth.me)
  
-  console.log("me",me);
   return (
     <div className="header" style={{ paddingLeft: isOpen ? 250 : 50 }}>
       <div className="d-flex  flex-row-reverse justify-content-between">
-        <div className="d-flex mt-2 mx-5 ">
+        <div className="d-flex mt-2 dropdownHeader " >
           {" "}
           <div className="p-2 icon " style={{ color: "#1a408c" }}>
             <FaBell />
           </div>
-          <div className="p-2 icon " style={{ color: "#1a408c" ,marginRight:"10px",marginLeft:"10px"}}>
+          <div className="p-2 icon " style={{ color: "#1a408c"}}>
             <FaCommentAlt />
           </div>
         
@@ -55,7 +54,7 @@ function Header({ isOpen }) {
           </div>
         </div>
 
-        <div style={{ width: "400px", marginLeft: "120px" }} className="mt-3">
+        <div style={{ width: "400px"}} className="mt-3 inputForm">
           <div className="input-group md-form form-sm form-1 pl-0">
             <div className="input-group-prepend">
               <span
