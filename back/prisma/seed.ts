@@ -520,6 +520,19 @@ let avatarClient4 =await prisma.media.create({
       UserId: user6.id,
     },
   });
+  let decision1 = await prisma.decision.create({
+    data : {
+      content : "decision number 1",
+      DecisionApply:{create:[{employeeId:employee1.id}]}
+    }
+  });
+  let decision2 = await prisma.decision.create({
+    data : {
+      content : "decision number 2",
+      DecisionApply:{create:[{employeeId:employee2.id}]}
+    }
+  });
+
 }
 main()
   .then((res) => console.log('seeding completed'))
