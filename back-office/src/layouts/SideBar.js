@@ -11,7 +11,7 @@ function SideBar({ toggle, isOpen }) {
   const handleSubMenuClick = (index) => {
     setActiveSubMenu(index === activeSubMenu ? null : index);
   };
-  console.log(activeSubMenu);
+ 
   return (
     <div style={{ width: isOpen ? "250px" : "50px" }} className="sidebar">
       <div className="top_section">
@@ -48,7 +48,7 @@ function SideBar({ toggle, isOpen }) {
               >
                 <div className={`${isOpen ? "mx-5" : ""}`}>
                   {item.children.map((child, childIndex) => (
-                    <Link to={child.path} className="linkText">
+                    <Link to={child.path} className="linkText" key={childIndex}>
                       <div
                         key={childIndex}
                         className={`links ${
