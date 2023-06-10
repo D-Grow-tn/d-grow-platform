@@ -30,10 +30,15 @@ import { EmployeeQuizsModule } from './employee-quizs/employee-quizs.module';
 import { EmployeeChatRoomsModule } from './employee-chat-rooms/employee-chat-rooms.module';
 
 
+import { MainComponentsModule } from './main-components/main-components.module';
+import { SubComponentsModule } from './sub-components/sub-components.module';
+import { ContentSubComponentsModule } from './content-sub-components/content-sub-components.module';
+
+
 
 
 @Module({
-  imports: [UsersModule, EmployeesModule, ProjectsModule, PrismaModule, MediasModule, ProductsModule, ClientsModule,AuthModule,TechnologiesModule,MailModule, TasksModule, TestsModule, QuizsModule, TeamsModule, DepartmentsModule, ChatRoomsModule, MessagesModule, ProjectTechnologiesModule, EmployeeTestsModule, TeamMenbershipsModule, EmployeeQuizsModule, EmployeeChatRoomsModule],
+  imports: [UsersModule, EmployeesModule, ProjectsModule, PrismaModule, MediasModule, ProductsModule, ClientsModule,AuthModule,TechnologiesModule,MailModule, TasksModule, TestsModule, QuizsModule, TeamsModule, DepartmentsModule, ChatRoomsModule, MessagesModule, ProjectTechnologiesModule, EmployeeTestsModule, TeamMenbershipsModule, EmployeeQuizsModule, EmployeeChatRoomsModule, MainComponentsModule, SubComponentsModule, ContentSubComponentsModule],
   controllers: [AppController],
   providers: [AppService,PrismaService,MediasService,AuthService,UsersService,JwtService],
 })

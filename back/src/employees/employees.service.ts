@@ -2,23 +2,33 @@ import { Injectable } from '@nestjs/common';
 import { CreateEmployeeDto } from './dto/create-employee.dto';
 import { UpdateEmployeeDto } from './dto/update-employee.dto';
 import { PrismaService } from 'src/prisma/prisma.service';
-import { ChatRoom } from 'src/chat-rooms/entities/chat-room.entity';
-
 
 
 @Injectable()
 export class EmployeesService {
   constructor(private readonly prisma: PrismaService) {}
   async create(createEmployeeDto: CreateEmployeeDto) {
-    return await  this.prisma.employee.create({
-      data:createEmployeeDto,
+    return await this.prisma.employee.create({
+      data: createEmployeeDto,
     });
   }
 
   async findAll() {
     return await this.prisma.employee.findMany({
-      include: {employeeTest:true,teamMembership:{include:{team:true}},EmployeeChatRoom:{include:{chatRoom:true}},EmployeeQuiz:{include:{quiz:true}}}
-    })
+      include: {
+        employeeTest: true,
+        teamMembership: { include: { team: true } },
+        EmployeeChatRoom: { include: { chatRoom: true } },
+        EmployeeQuiz: { include: { quiz: true } },
+
+        Membership: {
+          include: {
+            event: true,
+          },
+        },
+        DecisionApply: true,
+      },
+    });
   }
 
   async findOne(id: string) {
@@ -26,12 +36,23 @@ export class EmployeesService {
       where: {
         id,
       },
+      include: {
+        Membership: {
+          include: {
+            event: true,
+          },
+        },
+        DecisionApply: {
+          include: {
+            decision: true,
+          },
+        },
+      },
     });
   }
 
   async update(id: string, updateEmployeeDto: UpdateEmployeeDto) {
-    return await 
-    this.prisma.employee.update({
+    return await this.prisma.employee.update({
       where: { id },
       data: updateEmployeeDto,
     });
@@ -39,6 +60,5 @@ export class EmployeesService {
 
   async remove(id: string) {
     return await this.prisma.employee.delete({ where: { id } });
-
   }
 }

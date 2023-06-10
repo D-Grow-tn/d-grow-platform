@@ -200,8 +200,7 @@ const UserProfile = () => {
                     onClick={() => navigate(`/project/${project.id}`)}
                     style={{ cursor: "pointer" }}
                   >
-                    {console.log("coverId", project.coverId)};
-                    {console.log("cover", project?.cover?.path)};
+        
                     <Card
                       style={{ width: "19rem", height: "500px" }}
                       className="shadow proCard"
