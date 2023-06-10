@@ -29,11 +29,11 @@ export class ProjectsService {
       },
     });
   }
-
-  async findAllByClient(clientId: string) {
-    return await this.prisma.project.findMany({
-      where: { clientId },
-    });
+ async findAllByClient(clientId:string){
+    return  await this.prisma.project.findMany({ 
+      where:{clientId},
+      include:{cover:true}
+    })
   }
 
   update(id: string, data: UpdateProjectDto) {

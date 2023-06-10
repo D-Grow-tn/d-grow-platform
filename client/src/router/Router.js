@@ -25,7 +25,7 @@ const Profile = React.lazy(() => import("./../pages/Profile"));
 
 const Chat = React.lazy(() => import("./../pages/Chat"));
 const Services = React.lazy(() => import("./../pages/Services"));
-
+const NoPage = React.lazy(() => import("./../pages/NoPage"));
 const Contact = React.lazy(() => import("./../pages/Contact"));
 const ProjectDetails = React.lazy(() => import("./../pages/ProjectDetails"));
 const Signup = React.lazy(() => import("../pages/Signup"));
@@ -62,7 +62,7 @@ function Router() {
             </Route>
           )}
           <Route path="/" element={<Client />}>
-            <Route index element={<LoadComponent Component={Home} />} />
+            <Route index element={<LoadComponent Component={ComingSoon} />} />
 
             {user && (
               <Route
@@ -70,6 +70,11 @@ function Router() {
                 element={<LoadComponent Component={Profile} />}
               />
             )}
+
+              <Route
+              path="home"
+              element={<LoadComponent Component={Home} />}
+            />
             <Route
               path="about-us"
               element={<LoadComponent Component={AboutUs} />}
@@ -100,7 +105,7 @@ function Router() {
 
             <Route
               path="*"
-              element={<LoadComponent Component={ComingSoon} />}
+              element={<LoadComponent Component={NoPage} />}
             />
             <Route
               path="/services"
