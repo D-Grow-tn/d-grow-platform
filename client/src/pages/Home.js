@@ -4,6 +4,7 @@ import development from "../constants/development.json";
 import dev from "../constants/dev.json";
 import plan from "../constants/plan.json";
 import{ background2} from "../assets/img/images"
+import{ background4} from "../assets/img/images"
 
 import DisplayLottie from "../constants/DisplayLottie";
 
@@ -55,43 +56,16 @@ function Home() {
       className="welcome"
         style={{ width: "100%", height: "500px"}}
       >
-      <div>
-        <dl>
-          <dt>0</dt>
-          <dd> Transforming Ideas into Stunning Websites and Mobile Apps </dd>
-          <dt>1</dt>
-          <dd>
-            Go straight down and then you're done. That's the way to make a one.
-          </dd>
-          <dt>2</dt>
-          <dd>
-            Make a candy cane and then a shoe. That's the way to make a two!
-          </dd>
-          <dt>3</dt>
-          <dd>Around a tree. Around a tree. That's the way to make a three!</dd>
-          <dt>4</dt>
-          <dd>
-            Down, across, and down some more. That is how you make a four!
-          </dd>
-          <dt>5</dt>
-          <dd>
-            Take a drive. Swim around. To make a five come back to the ground.
-          </dd>
-          <dt>6</dt>
-          <dd>
-            Slide down and around to pick up sticks. That is the way to make a
-            six.
-          </dd>
-          <dt>7</dt>
-          <dd>
-            Straight across and down from heaven. That is how you make a seven!
-          </dd>
-          <dt>8</dt>
-          <dd>Make an S but don't just wait. Come back up to make an eight!</dd>
-          <dt>9</dt>
-          <dd>Make a loop and then a line. That's the way to make a nine!</dd>
-        </dl>
-      </div>
+   <div id="container">
+  <dl>
+    <dt>1</dt>
+    <dd>Transforming Ideas into Stunning Websites and Mobile Apps</dd>
+    <dt>2</dt>
+    <dd>Go straight down and then you're done. That's the way to make a one.</dd>
+    <dt>3</dt>
+    <dd>Make a candy cane and then a shoe. That's the way to make a two!</dd>
+  </dl>
+</div>
       </div>
 
       {/* PART 2 */}
@@ -251,13 +225,14 @@ function Home() {
               <DisplayLottie animationData={dev} />
             </div>
             <div
-              className="col-lg-6 pt-4  mt-5 dark-bleu"
+              className="col-lg-6 p-5 mt-5  dark-bleu"
               style={{ textAlign: "center" }}
             >
+               <div style={{ paddingTop: "60px" }}>
               <h2
                 style={{
                   fontWeight: "bold",
-                  paddingBottom: "30px",
+                
                 }}
               >
                 Elevate your digital presence
@@ -281,6 +256,7 @@ function Home() {
               >
                 Contact-us <i class="fa-solid fa-play fa-fade px-2"></i>
               </button>
+              </div>
             </div>
           </div>
         </div>
@@ -318,7 +294,7 @@ function Home() {
           </Carousel.Caption>
           <img
             className="d-block w-100 "
-            src={background2}
+            src={background4}
             alt="First slide"
             style={{ height: "500px" }}
           />
@@ -352,28 +328,13 @@ function Home() {
         <Carousel.Item>
           <img
             className="d-block w-100"
-            src={background2}
+            src={background4}
             alt="Third slide"
             style={{ height: "500px" }}
           />
 
-          <Carousel.Caption
-            style={{ color: "#213764", paddingBottom: "180px" }}
-          >
-            <h3
-              className="dark-bleu"
-              style={{
-                fontSize: "55px",
-                fontWeight: "bold",
-                paddingBottom: "20px",
-              }}
-            >
-              Crafting Seamless User Experiences
-            </h3>
-            <p style={{ fontSize: "30px" }}>
-              {" "}
-              Elevate Your Brand with Cutting-Edge Web and Mobile Solutions!"{" "}
-            </p>
+          <Carousel.Caption>
+          
           </Carousel.Caption>
         </Carousel.Item>
       </Carousel>

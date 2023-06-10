@@ -1,8 +1,12 @@
+
+import { ApiProperty } from "@nestjs/swagger";
 export class CreateRequestDto {
+  @ApiProperty()
   subject: string;
+  @ApiProperty()
   content: string;
-  createdAt: Date;
-  updatedAt: Date;
+  @ApiProperty()
   employeeId: string;
+ 
   
 }

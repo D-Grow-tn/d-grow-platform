@@ -1,5 +1,5 @@
 import React from 'react'
-import CastomForm from '../componets/CastomForm'
+import CastomForm from '../components/CastomForm'
 
 function NewPassword() {
   return (

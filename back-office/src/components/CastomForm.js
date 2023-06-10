@@ -12,7 +12,7 @@ import {
 } from "mdb-react-ui-kit";
 import { Button } from "react-bootstrap";
 import { Link } from "react-router-dom";
-import "../css/LoginAdmin.css";
+import "../assets/styles/LoginAdmin.css";
 import CastomInput from "./CastomInput";
 function CastomForm({ Name, ButtonName, onClick }) {
   const [showPassword, setShowPassword] = useState(false);

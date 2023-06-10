@@ -1,6 +1,9 @@
+import { ApiProperty } from "@nestjs/swagger";
 export class CreateBehaviorDto {
-    content:  string;
-  senderId:  string;
-  recieverId:string;
-
+  @ApiProperty()
+  content: string;
+  @ApiProperty()
+  senderId: string;
+  @ApiProperty()
+  recieverId: string;
 }

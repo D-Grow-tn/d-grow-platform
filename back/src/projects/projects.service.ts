@@ -25,15 +25,15 @@ export class ProjectsService {
         projectManager: true,
         consultant: true,
         interaction: { include: { User: true } },
-        contarct:true
+        contract:true
       },
     });
   }
-
-  async findAllByClient(clientId: string) {
-    return await this.prisma.project.findMany({
-      where: { clientId },
-    });
+ async findAllByClient(clientId:string){
+    return  await this.prisma.project.findMany({ 
+      where:{clientId},
+      include:{cover:true}
+    })
   }
 
   update(id: string, data: UpdateProjectDto) {

@@ -62,7 +62,6 @@ model Employee {
   request          Request[]
   employeeTest     EmployeeTest[]
   event            Event[]
-  decision         Decision[]
   teamMembership   TeamMembership[]
   projectManager   Project[]          @relation("projectManager")
   consultant       Project[]          @relation("consultant")
@@ -74,8 +73,9 @@ model Employee {
   EmployeeChatRoom EmployeeChatRoom[]
   Message          Message[]
   MediaEmployee    MediaEmployee[]
+  DecisionApply    DecisionApply[]
+  Membership Membership[]
 }
-
 model Project {
   id                  String              @id @default(uuid())
   name                String
@@ -94,7 +94,7 @@ model Project {
   projectManager      Employee?           @relation(fields: [projectManagerId], references: [id], name: "projectManager")
   consultantId        String?
   consultant          Employee?           @relation(fields: [consultantId], references: [id], name: "consultant")
-  contarct            Media?              @relation(fields: [contractId], references: [id], name: "contractRelation")
+  contract            Media?              @relation(fields: [contractId], references: [id], name: "contractRelation")
   contractId          String?
   interaction         Interaction[]
   objective           Objective[]
@@ -267,6 +267,18 @@ model Event {
   employeeId  String
   employee    Employee     @relation(fields: [employeeId], references: [id])
   MediaEvent  MediaEvent[]
+  Membership  Membership[]
+}
+
+model Membership {
+  eventId    String
+  event      Event    @relation(fields: [eventId], references: [id])
+  employeeId String
+  employee   Employee @relation(fields: [employeeId], references: [id])
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
+
+  @@unique(fields: [eventId, employeeId], name: "membership")
 }
 
 model Behavior {
@@ -280,12 +292,22 @@ model Behavior {
 }
 
 model Decision {
-  id         String   @id @default(uuid())
-  content    String
-  createdAt  DateTime @default(now())
-  updatedAt  DateTime @updatedAt
+  id            String          @id @default(uuid())
+  content       String
+  createdAt     DateTime        @default(now())
+  updatedAt     DateTime        @updatedAt
+  DecisionApply DecisionApply[]
+}
+
+model DecisionApply {
+  decisionId String
+  decision   Decision @relation(fields: [decisionId], references: [id])
   employeeId String
   employee   Employee @relation(fields: [employeeId], references: [id])
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
+
+  @@unique(fields: [decisionId, employeeId], name: "decisionApply")
 }
 
 model Product {
@@ -382,7 +404,7 @@ model Media {
   Client         Client[]
   cover          Project[]       @relation("coverRelation")
   contract       Project[]       @relation("contractRelation")
-  Project Project[]
+  Project        Project[]
 }
 
 model MediaUser {
@@ -439,7 +461,38 @@ model MediaProject {
   @@unique(fields: [mediaId, projectId], name: "projectMedia")
 }
 
+model MainComponent {
+  id        String            @id @default(uuid())
+  title     String?
+  path      String?           @unique
+  createdAt DateTime          @default(now())
+  updatedAt DateTime          @updatedAt
+  type      TypeMainComponent
 
+  SubComponent SubComponent[]
+}
+
+model SubComponent {
+  id                  String                @id @default(uuid())
+  name                String?
+  main                MainComponent         @relation(fields: [mainId], references: [id])
+  mainId              String
+  position            PositionSubComponent
+  createdAt           DateTime              @default(now())
+  updatedAt           DateTime              @updatedAt
+  ContentSubComponent ContentSubComponent[]
+}
+
+model ContentSubComponent {
+  id             String       @id @default(uuid())
+  title          String
+  navigateTo     String?
+  content        String
+  subComponent   SubComponent @relation(fields: [subComponentId], references: [id])
+  subComponentId String
+  createdAt      DateTime     @default(now())
+  updatedAt      DateTime     @updatedAt
+}
 
 // join table
 
@@ -452,4 +505,20 @@ enum Status {
   reviewed
   refused
   accepted
+}
+
+enum TypeMainComponent {
+  footer
+  header
+  sidebar
+  page
+}
+
+enum PositionSubComponent {
+  left
+  right
+  top
+  bottom
+  middle
+  section
 }
