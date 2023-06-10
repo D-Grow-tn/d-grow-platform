@@ -517,48 +517,7 @@ dt:nth-child(5), dt:nth-child(5):after {
 dt:nth-child(5):after {
   background-color: #47bdea;
 }
-dt:nth-child(7), dt:nth-child(7):after {
-  animation-delay: 13.5s;
-}
-dt:nth-child(7):after {
-  background-color:#47bdea;
-}
-dt:nth-child(9), dt:nth-child(9):after {
-  animation-delay: 18s;
-}
-dt:nth-child(9):after {
-  background-color: #47bdea;
-}
-dt:nth-child(11), dt:nth-child(11):after {
-  animation-delay: 22.5s;
-}
-dt:nth-child(11):after {
-  background-color: #593C8F;
-}
-dt:nth-child(13), dt:nth-child(13):after {
-  animation-delay: 27s;
-}
-dt:nth-child(13):after {
-  background-color: #9E0059;
-}
-dt:nth-child(15), dt:nth-child(15):after {
-  animation-delay: 31.5s;
-}
-dt:nth-child(15):after {
-  background-color: #357266;
-}
-dt:nth-child(17), dt:nth-child(17):after {
-  animation-delay: 36s;
-}
-dt:nth-child(17):after {
-  background-color: #11B5E4;
-}
-dt:nth-child(19), dt:nth-child(19):after {
-  animation-delay: 40.5s;
-}
-dt:nth-child(19):after {
-  background-color: #59FFA0;
-}
+
 
 dd {
   --size: 5vmin;
@@ -585,30 +544,8 @@ dd:nth-child(4) {
 dd:nth-child(6) {
   animation-delay: 9s;
 }
-dd:nth-child(8) {
-  animation-delay: 13.5s;
-}
-dd:nth-child(10) {
-  animation-delay: 18s;
-}
-dd:nth-child(12) {
-  animation-delay: 22.5s;
-}
-dd:nth-child(14) {
-  animation-delay: 27s;
-}
-dd:nth-child(16) {
-  animation-delay: 31.5s;
-}
-dd:nth-child(18) {
-  animation-delay: 36s;
-}
-dd:nth-child(20) {
-  animation-delay: 40.5s;
-}
-dd:nth-child(22) {
-  animation-delay: 45s;
-}
+
+
 
 @keyframes dt {
   2.5% {
@@ -814,7 +751,7 @@ dd:nth-child(22) {
   background: url("./assets/img/background3.png") top center no-repeat;
   background-size: cover;
   position: relative;
-  margin-top: 200px;
+  margin-top: 150px;
 
 
   
@@ -967,8 +904,12 @@ h5 {
   padding: 10px;
   transition: all 0.35s;
 }
+.card-hover__link:hover {
+  color: #00ac9e;
+}
 .card-hover__link:hover svg {
   transform: translateX(5px);
+ 
   
 }
 .card-hover__link svg {

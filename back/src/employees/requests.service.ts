@@ -2,7 +2,7 @@ import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import { CreateRequestDto } from './dto/create-request.dto';
 import { UpdateRequestDto } from './dto/update-request.dto';
 import { PrismaService } from 'src/prisma/prisma.service';
-import { Prisma } from '@prisma/client';
+import { Prisma ,PrismaClient} from '@prisma/client';
 import { HelpersService } from '../helpers/helpers.service.js';
 
 @Injectable()
@@ -45,8 +45,8 @@ export class RequestsService {
     });
   }
 
-  async findOne(id: string) {
-    return await this.prisma.request.findMany({
+  async findOne(id: string,prisma:Prisma.TransactionClient=this.prisma) {
+    return await prisma.request.findFirst({
       where: {
         id,
       },
@@ -59,23 +59,23 @@ export class RequestsService {
   async update(id: string, dto: UpdateRequestDto) {
     const { mediaIds, ...rest } = dto;
     let data = { ...rest };
+
     await this.helper.notFound('employee', 'findFirstOrThrow', {
       where: { id: rest.employeeId },
     });
+    return await this.prisma.$transaction(async (prisma)=>{
     if (mediaIds) {
-      const request=  await this.findOne(id);
-      
-    await Promise.all(
-      request.MediaRequest.forEach(async (elem) => {
+      let request=  await this.findOne(id,prisma);
+    request.MediaRequest.forEach(async (elem) => {
           if (!mediaIds.includes(elem.mediaId)) {
-    return await this.prisma.mediaRequest.delete({
+              await prisma.mediaRequest.delete({
               where: {
                 requestMedia: { mediaId: elem.mediaId, requestId: id },
               },
             });
           }
         }),
-      );
+      
       await this.helper.nestedCreateOrUpdateWithMedia(
         mediaIds,
         data,
@@ -85,11 +85,12 @@ export class RequestsService {
         'requestMedia',
       );
     }
-    return await this.prisma.request.update({
+    return await prisma.request.update({
       where: { id },
       data,
       include: { MediaRequest: { include: { media: true } } },
     });
+  })
   }
 
   async remove(id: string) {
