@@ -4,4 +4,5 @@ export class CreateEmployeeDto {
     email: string;
     phone: string;
     avatarId: string;
+    password: string
 }
