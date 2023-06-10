@@ -53,7 +53,7 @@ function Router() {
           Loading
         </div>
       )}
-      <BrowserRouter>
+      <BrowserRouter >
         <Routes>
           {!user && (
             <Route path="/auth" element={<LoadComponent Component={Auth} />}>
