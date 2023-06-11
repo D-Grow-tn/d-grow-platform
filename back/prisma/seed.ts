@@ -118,7 +118,7 @@ let avatarClient4 =await prisma.media.create({
   });
   let employee3 = await prisma.employee.create({
     data: {
-      name: 'rania',
+      name: 'Rania elouni',
       bio: 'String',
       email: 'String',
       phone: 'String',
@@ -172,7 +172,7 @@ let avatarClient4 =await prisma.media.create({
   let user5 = await prisma.user.create({
     data: {
       name: 'd-grow5',
-      email: 'rania@gmail.com',
+      email: 'raniaelouni421@gmail.com',
       employeeId: employee3.id,
       password: await bcrypt.hash('1234', salt),
       isClient: false,
