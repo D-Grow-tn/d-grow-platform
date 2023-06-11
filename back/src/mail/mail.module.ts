@@ -5,29 +5,29 @@ import { PugAdapter } from '@nestjs-modules/mailer/dist/adapters/pug.adapter';
 
 @Module({
   imports: [
-   
-      
-      MailerModule.forRoot({
-        transport:{
-          service:'Gmail',
-          auth:{
-            user:'inesdebichi1995@gmail.com',
-            pass:'poomhpnsmqpsjpov'
-          }
-        } ,
-        defaults: {
-          from: 'inesdebichi1995@gmail.com',
+    MailerModule.forRoot({
+      transport: {
+        host: 'ssl0.ovh.net',
+        port: 465,
+        secure: true,
+        auth: {
+          user: 'contact@dgrow.tn',
+          pass: 'Digital@growth2023',
         },
-        template: {
-          dir: __dirname + '/templates',
-          adapter: new PugAdapter(),
-          options: {
-            strict: true,
-          },
+      },
+      defaults: {
+        from: 'contact@dgrow.tn',
+      },
+      template: {
+        dir: __dirname + '/templates',
+        adapter: new PugAdapter(),
+        options: {
+          strict: true,
         },
-      }),
+      },
+    }),
   ],
   providers: [MailService],
-  exports: [MailService], 
+  exports: [MailService],
 })
 export class MailModule {}
