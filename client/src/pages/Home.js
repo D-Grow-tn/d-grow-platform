@@ -88,7 +88,7 @@ function Home() {
               >
                 Unleash Your Digital Potential
               </h2>
-              <h4>
+              <h4 >
                 Transforming Businesses with Exquisite Websites and Powerful
                 Mobile Applications <br />{" "}
               </h4>
@@ -101,9 +101,9 @@ function Home() {
                 type="button"
                 class="btn mt-5"
                 style={{
-                  width: "170px",
+                  width: "150px",
                   height: "40px",
-                  background: "#47bdea",
+                  background: "#00ac9e",
                   color: "white",
                 }}
                 onClick={() => navigate("/about-us")}
@@ -121,19 +121,19 @@ function Home() {
 
   {/* SERVICES */}
   <section className="mt-5">
+    <div style={{ color: "#1a408c",
+            textAlign: "center",
+            marginBottom:"50px"}}>
   <h1
           style={{
-            fontWeight: "bold",
-            color: "#1a408c",
-            // paddingTop: "100px",
-            textAlign: "center",
-            marginBottom:"50px"
-          }}
-        >Services
+            fontWeight: "bold", }}
+        > Our Services
         </h1>
 
-
-        <div className="d-flex flex-wrap gap-5 justify-content-center">
+<p style={{ paddingTop:"10px",
+            fontSize:"20px" }}>We offer comprehensive services to help businesses establish a strong online presence and drive their success in the digital realm.</p>
+</div>
+      <div className="d-flex flex-wrap gap-5 justify-content-center">
 {services.map((project, i) => (
                   
 <div className="card-hover" key={i} style={{ width:"350px"}}>
@@ -174,7 +174,7 @@ function Home() {
                 style={{
                   width: "150px",
                   height: "40px",
-                  background: "#47bdea",
+                  background: "#00ac9e",
                   color: "white",
                   marginLeft:"79%"
                 }}
@@ -186,38 +186,9 @@ function Home() {
 
 
 
-
-      {/* <div
-        className=" px-5 align-items-center  "
-        style={{ borderRadius: "10px", height: "100px",textAlign:"center" }}
-      >
-        {" "}
-      </div> */}
-      {/* <div
-          style={{
-            borderRadius: "10px",
-            height: "5px",
-            width: "550px",
-            backgroundColor: "#47bdea",
-          }}
-          className=" m-5 justify-content-center "
-        ></div> */}
-      {/* <h3
-        className=" p-5  mx-5 justify-content-center "
-        style={{ color: "#213764", fontWeight: "bold", width: "90%", textAlign:"center" }}
-      >
-        Empowering businesses with stunning websites and engaging mobile
-        applications for a strong digital presence
-      </h3> */}
-
-      {/* <img
-        src="https://i.pinimg.com/564x/ab/3f/5a/ab3f5a328f0c37e7ae2287c8c66f6209.jpg"
-        className="home-g"
-      /> */}
-
     
       
-
+{/* Contact */}
       <section className="back" >
         <div className="container">
           <div className="row content ">
@@ -249,7 +220,7 @@ function Home() {
                 style={{
                   width: "150px",
                   height: "40px",
-                  background: "#47bdea",
+                  background: "#00ac9e",
                   color: "white",
                 }}
                 onClick={() => navigate("/contact")}
@@ -272,12 +243,12 @@ function Home() {
     style={{
       fontSize:"50px",
       fontWeight: "bold",
-      paddingTop: "10px",
+      paddingTop: "40px",
       textAlign: "center",
       
     }}> 
     Clients Reviews</h1>
-<Carousel variant="dark">
+<Carousel variant="dark py-5">
         <Carousel.Item>
           <Carousel.Caption  style={{ paddingBottom: "100px" }}>
             <h3

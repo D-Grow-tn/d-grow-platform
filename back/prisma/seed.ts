@@ -118,7 +118,7 @@ let avatarClient4 =await prisma.media.create({
   });
   let employee3 = await prisma.employee.create({
     data: {
-      name: 'rania',
+      name: 'Rania elouni',
       bio: 'String',
       email: 'String',
       phone: 'String',
@@ -172,7 +172,7 @@ let avatarClient4 =await prisma.media.create({
   let user5 = await prisma.user.create({
     data: {
       name: 'd-grow5',
-      email: 'rania@gmail.com',
+      email: 'raniaelouni421@gmail.com',
       employeeId: employee3.id,
       password: await bcrypt.hash('1234', salt),
       isClient: false,
@@ -521,6 +521,19 @@ let avatarClient4 =await prisma.media.create({
       UserId: user6.id,
     },
   });
+  let decision1 = await prisma.decision.create({
+    data : {
+      content : "decision number 1",
+      DecisionApply:{create:[{employeeId:employee1.id}]}
+    }
+  });
+  let decision2 = await prisma.decision.create({
+    data : {
+      content : "decision number 2",
+      DecisionApply:{create:[{employeeId:employee2.id}]}
+    }
+  });
+
 }
 main()
   .then((res) => console.log('seeding completed'))

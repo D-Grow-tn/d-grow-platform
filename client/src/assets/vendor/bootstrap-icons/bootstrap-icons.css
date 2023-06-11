@@ -19,7 +19,7 @@ url("./fonts/bootstrap-icons.woff?24e3eb84d0bcaf83d77f904c78ac1f47") format("wof
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 
-  color:#38b7e9;
+  color:#00ac9e;
 }
 
 .bi-123::before { content: "\f67f"; }
