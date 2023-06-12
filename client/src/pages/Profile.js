@@ -8,7 +8,6 @@ import { Fade } from "react-reveal";
 import { Nav } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import auth from "../store/auth";
 import { fetchProjectbyClient } from "../store/projects";
 
 const UserProfile = () => {

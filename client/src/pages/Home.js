@@ -8,15 +8,15 @@ import{ background4} from "../assets/img/images"
 
 import DisplayLottie from "../constants/DisplayLottie";
 
-import {
-  MDBCard,
-  MDBCardImage,
-  MDBCardBody,
-  MDBCardTitle,
-  MDBCardText,
-  MDBRow,
-  MDBCol,
-} from "mdb-react-ui-kit";
+// import {
+//   MDBCard,
+//   MDBCardImage,
+//   MDBCardBody,
+//   MDBCardTitle,
+//   MDBCardText,
+//   MDBRow,
+//   MDBCol,
+// } from "mdb-react-ui-kit";
 import Carousel from "react-bootstrap/Carousel";
 
 function Home() {

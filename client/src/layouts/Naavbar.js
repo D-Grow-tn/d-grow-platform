@@ -1,9 +1,8 @@
 import React, { useEffect, useState } from "react";
-import Container from "react-bootstrap/Container";
-import Nav from "react-bootstrap/Nav";
-import Navbar from "react-bootstrap/Navbar";
+import {Container,Nav,Navbar} from "react-bootstrap";
+
 import PersonOutlineIcon from "@mui/icons-material/PersonOutline";
-import "bootstrap/dist/css/bootstrap.min.css";
+
 import TextHoverUnderline from "../components/TextHoverUnderline";
 import { useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
@@ -28,7 +27,7 @@ function Naavbar() {
       } `}
     >
       <Container fluid>
-        <Navbar.Brand href="#" id="logo" className="dark-bleu">
+        <Navbar.Brand href="/" id="logo" className="dark-bleu">
           {" "}
           D-Grow{" "}
         </Navbar.Brand>
@@ -37,7 +36,7 @@ function Naavbar() {
           <div style={{ marginLeft: -120 }}></div>
           <Nav className="gap-3 " style={{ maxHeight: "200px" }} navbarScroll>
             <Nav.Link
-              href="/home"
+              href="/"
               className="d-flex  align-items-center nav-font px-3 "
               style={{ fontSize: "40px" }}
             >
@@ -112,7 +111,7 @@ function Naavbar() {
                 className="d-flex gap-2 align-items-center"
                 style={{ color: "#213764" }}
                 onClick={() => {
-                  if (!localStorage.getItem("token")) {
+                  if (!me) {
                     navigate("/auth/login");
                   }
                 }}
@@ -122,7 +121,7 @@ function Naavbar() {
                   bgColor="blue"
                   duration="300"
                   type="linear"
-                  content={!localStorage.getItem("token") ? "Login" : me?.name}
+                  content={!me ? "Login" : me?.name}
                   width={80}
                   fontSize={21}
                   whiteSpace="nowrap"
@@ -130,7 +129,7 @@ function Naavbar() {
               </Nav.Link>
             </Dropdown.Toggle>
 
-            {localStorage.getItem("token") && (
+            {me && (
               <Dropdown.Menu>
                 <Dropdown.Item href={me ? "/profile" : "/auth/login"}>
                   Profile
@@ -139,8 +138,7 @@ function Naavbar() {
                 <Dropdown.Item
                   onClick={() => {
                     localStorage.removeItem("token");
-                    navigate("/auth/login");
-                    window.location.reload();
+                    window.location.pathname = "/auth/login";
                   }}
                 >
                   Logout
