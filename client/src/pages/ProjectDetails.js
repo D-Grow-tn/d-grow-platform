@@ -133,7 +133,7 @@ function ProjectDetails() {
             >
               <div style={{ flex: "1", textAlign: "center" }}>
                 <div className="">
-                  <img src={elem.image} height="24" width="24" />
+                  <img src={elem.image} height="24" width="24"alt="" />
                   <p
                     className="titleNavProjectDetails"
                     style={{ fontWeight: 500 }}

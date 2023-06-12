@@ -16,14 +16,14 @@ const UserProfile = () => {
 
   const me = useSelector((state) => state.auth.me);
   const projectStore = useSelector((state) => state.projects);
-  const { project, projects } = projectStore;
+  const { projects } = projectStore;
   const [activeTab, setActiveTab] = useState("tab1");
 
   useEffect(() => {
     if (me) {
       dispatch(fetchProjectbyClient(me.client.id));
     }
-  }, [dispatch]);
+  }, [dispatch,me]);
 
   const handleTabChange = (tab) => {
     setActiveTab(tab);

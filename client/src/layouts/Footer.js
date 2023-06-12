@@ -126,22 +126,22 @@ export default function App() {
                   <MDBIcon icon="print" className="me-3" /> + 01 234 567 89
                 </p>
 
-                <a href="" className="me-4 text-reset">
+                <a href="#!" className="me-4 text-reset">
                   <MDBIcon fab icon="facebook-f" style={{ color: "white" }} />
                 </a>
-                <a href="" className="me-4 text-reset">
+                <a href="#!" className="me-4 text-reset">
                   <MDBIcon fab icon="twitter" style={{ color: "white" }} />
                 </a>
-                <a href="" className="me-4 text-reset">
+                <a href="#!" className="me-4 text-reset">
                   <MDBIcon fab icon="google" style={{ color: "white" }} />
                 </a>
-                <a href="" className="me-4 text-reset">
+                <a href="#!" className="me-4 text-reset">
                   <MDBIcon fab icon="instagram" style={{ color: "white" }} />
                 </a>
-                <a href="" className="me-4 text-reset">
+                <a href="#!" className="me-4 text-reset">
                   <MDBIcon fab icon="linkedin" style={{ color: "white" }} />
                 </a>
-                <a href="" className="me-4 text-reset">
+                <a href="#!" className="me-4 text-reset">
                   <MDBIcon fab icon="github" style={{ color: "white" }} />
                 </a>
               </MDBCol>

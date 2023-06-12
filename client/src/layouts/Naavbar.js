@@ -93,9 +93,9 @@ function Naavbar() {
                   fontSize={21}
                 />
                 <div class="dropdown-content">
-                  <a href="#"> Website applications</a>
-                  <a href="#"> Mobile applications</a>
-                  <a href="#"> Something else</a>
+                  <a href="/"> Website applications</a>
+                  <a href="/"> Mobile applications</a>
+                  <a href="/"> Something else</a>
                 </div>
               </div>
             </Nav.Link>

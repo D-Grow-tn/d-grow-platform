@@ -5,7 +5,7 @@ import DisplayLottie from "../constants/DisplayLottie";
 import comingsoon from "../constants/comingsoon.json";
 
 function ComingSoon() {
-  const [datacount, setDatacount] = useState("2023/07/23");
+  const datacount="2023/07/23"
   const [day, setDay] = useState("--");
   const [hour, setHour] = useState("--");
   const [minute, setMinute] = useState("--");
@@ -145,9 +145,7 @@ function ComingSoon() {
             <div className="row justify-content-center">
               <div className="col-lg-10">
                 <form
-                  action="forms/contact.php"
-                  method="post"
-                  role="form"
+                  
                   className="php-email-form"
                 >
                   <div className="row">
