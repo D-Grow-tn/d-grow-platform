@@ -34,7 +34,7 @@ function Contact() {
             </div>
             <div className="row justify-content-center" style={{paddingBottom:"50px"}}>
               <div className="col-lg-10">
-                <form action="forms/contact.php" method="post" role="form" className="php-email-form">
+                <form  className="php-email-form">
                   <div className="row">
                     <div className="col-md-6 form-group">
                       <input type="text" name="name" className="form-control" id="name" placeholder="Your Name" required />

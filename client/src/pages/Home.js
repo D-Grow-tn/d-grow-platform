@@ -1,6 +1,6 @@
-import React, { useState, useEffect, useRef } from "react";
+import React  from "react";
 import { useNavigate } from "react-router-dom";
-import development from "../constants/development.json";
+// import development from "../constants/development.json";
 import dev from "../constants/dev.json";
 import plan from "../constants/plan.json";
 import{ background2} from "../assets/img/images"
@@ -8,15 +8,15 @@ import{ background4} from "../assets/img/images"
 
 import DisplayLottie from "../constants/DisplayLottie";
 
-import {
-  MDBCard,
-  MDBCardImage,
-  MDBCardBody,
-  MDBCardTitle,
-  MDBCardText,
-  MDBRow,
-  MDBCol,
-} from "mdb-react-ui-kit";
+// import {
+//   MDBCard,
+//   MDBCardImage,
+//   MDBCardBody,
+//   MDBCardTitle,
+//   MDBCardText,
+//   MDBRow,
+//   MDBCol,
+// } from "mdb-react-ui-kit";
 import Carousel from "react-bootstrap/Carousel";
 
 function Home() {
@@ -42,11 +42,11 @@ function Home() {
     },
   ];
 
-  const images = [
-    "https://i.pinimg.com/564x/ab/3f/5a/ab3f5a328f0c37e7ae2287c8c66f6209.jpg",
-    "https://www.newsanyway.com/wp-content/uploads/2020/04/mobile-app-development-company-1024x918-1.png",
-    "https://example.com/slide3.jpg",
-  ];
+  // const images = [
+  //   "https://i.pinimg.com/564x/ab/3f/5a/ab3f5a328f0c37e7ae2287c8c66f6209.jpg",
+  //   "https://www.newsanyway.com/wp-content/uploads/2020/04/mobile-app-development-company-1024x918-1.png",
+  //   "https://example.com/slide3.jpg",
+  // ];
 
   return (
     <div className="bg-light">
@@ -144,7 +144,7 @@ function Home() {
     <p className="card-hover__text">
     {project.descp}
     </p>
-    <a href="#" className="card-hover__link">
+    <a href="/" className="card-hover__link">
       <span>Learn more</span>
       <svg
         fill="none"

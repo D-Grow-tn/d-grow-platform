@@ -5,4 +5,4 @@ export const jalyss2=require('./jalyss2.png')
 export const jalyss3=require('./jalyss3.png')
 export const jalyss4=require('./jalyss4.png')
 export const jalyss5=require('./jalyss5.png')
-export default {background2,jalyss1,jalyss2,jalyss3,jalyss4,jalyss5,background4}
+// export default {background2,jalyss1,jalyss2,jalyss3,jalyss4,jalyss5,background4}

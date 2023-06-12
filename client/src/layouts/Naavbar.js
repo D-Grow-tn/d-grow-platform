@@ -4,12 +4,12 @@ import {Container,Nav,Navbar} from "react-bootstrap";
 import PersonOutlineIcon from "@mui/icons-material/PersonOutline";
 
 import TextHoverUnderline from "../components/TextHoverUnderline";
-import { useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { useSelector } from "react-redux";
 import Dropdown from "react-bootstrap/Dropdown";
 function Naavbar() {
   const [scroll, setScroll] = useState(0);
-  const navigate = useNavigate();
+  // const navigate = useNavigate();
   const me = useSelector((state) => state.auth.me);
 
   useEffect(() => {
@@ -93,9 +93,9 @@ function Naavbar() {
                   fontSize={21}
                 />
                 <div class="dropdown-content">
-                  <a href="#"> Website applications</a>
-                  <a href="#"> Mobile applications</a>
-                  <a href="#"> Something else</a>
+                  <a href="/"> Website applications</a>
+                  <a href="/"> Mobile applications</a>
+                  <a href="/"> Something else</a>
                 </div>
               </div>
             </Nav.Link>
@@ -107,14 +107,15 @@ function Naavbar() {
               id="dropdown-basic"
               style={{ all: "unset" }}
             >
-              <Nav.Link
+              <Link
+              to={!me &&"/auth/login"}
                 className="d-flex gap-2 align-items-center"
                 style={{ color: "#213764" }}
-                onClick={() => {
-                  if (!me) {
-                    navigate("/auth/login");
-                  }
-                }}
+                // onClick={() => {
+                //   if (!me) {
+                //     navigate("/auth/login");
+                //   }
+                // }}
               >
                 <PersonOutlineIcon style={{ color: "#213764" }} />
                 <TextHoverUnderline
@@ -126,7 +127,7 @@ function Naavbar() {
                   fontSize={21}
                   whiteSpace="nowrap"
                 />
-              </Nav.Link>
+              </Link>
             </Dropdown.Toggle>
 
             {me && (

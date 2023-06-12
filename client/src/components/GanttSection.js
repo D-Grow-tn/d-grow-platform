@@ -3,11 +3,11 @@ import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import {
     Gantt,
-    Task,
-    EventOption,
-    StylingOption,
-    ViewMode,
-    DisplayOption,
+    // Task,
+    // EventOption,
+    // StylingOption,
+    // ViewMode,
+    // DisplayOption,
   } from "gantt-task-react";
 function GanttSection() {
     const projectStore = useSelector((state) => state.projects);

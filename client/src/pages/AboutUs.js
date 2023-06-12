@@ -5,7 +5,7 @@ import imgabout from "../constants/imgabout.json";
 import Marquee from "react-fast-marquee";
 import "../assets/css/aboutus.css";
 
-import{home, jalyss1, jalyss2, jalyss3, jalyss4, jalyss5} from "../assets/img/images"
+import{ jalyss1, jalyss2, jalyss3, jalyss4, jalyss5} from "../assets/img/images"
 
 
 import Carousel from "react-bootstrap/Carousel";
@@ -144,19 +144,19 @@ function updateNext() {
   // Apply styles based on the position of each item
   items.forEach((item) => {
       let position2 = parseInt(item.style.order);
-    if (position2 == 0) {
+    if (position2 === 0) {
       item.classList.add('small1');
       item.classList.remove('small2');
-    } else if (position2 == 1) {
+    } else if (position2 === 1) {
       item.classList.add('big1');
       item.classList.remove('small1');
-    } else if (position2 == 2) {
+    } else if (position2 === 2) {
       item.classList.add('focus');
       item.classList.remove('big1');
-    } else if (position2 == 3) {
+    } else if (position2 === 3) {
       item.classList.add('big2');
       item.classList.remove('focus');
-    } else if (position2 == 4) {
+    } else if (position2 === 4) {
       item.classList.add('small2');
       item.classList.remove('big2');
     }
@@ -183,19 +183,19 @@ function updatePrev() {
   // Apply styles based on the position of each item
   items.forEach((item) => {
       let position2 = parseInt(item.style.order);
-    if (position2 == 0) {
+    if (position2 === 0) {
       item.classList.add('small1');
       item.classList.remove('big1');
-    } else if (position2 == 1) {
+    } else if (position2 === 1) {
       item.classList.add('big1');
       item.classList.remove('focus');
-    } else if (position2 == 2) {
+    } else if (position2 === 2) {
       item.classList.add('focus');
       item.classList.remove('big2');
-    } else if (position2 == 3) {
+    } else if (position2 === 3) {
       item.classList.add('big2');
       item.classList.remove('small2');
-    } else if (position2 == 4) {
+    } else if (position2 === 4) {
       item.classList.add('small2');
       item.classList.remove('small1');
     }
@@ -264,35 +264,35 @@ function updatePrev() {
       <div className="slider-prev "  />
       <ul>
         <li>
-          <img
+          <img alt=""
             className="item small1"
             style={{ order: 0 }}
             src={jalyss1}
           />
         </li>
         <li>
-          <img
+          <img alt=""
             className="item big1"
             style={{ order: 1 }}
             src={jalyss2}
           />
         </li>
         <li>
-          <img
+          <img alt=""
             className="item focus"
             style={{ order: 2 }}
             src={jalyss3}
           />
         </li>
         <li>
-          <img
+          <img alt=""
             className="item big2"
             style={{ order: 3 }}
             src={jalyss4}
           />
         </li>
         <li>
-          <img
+          <img alt=""
             className="item small2"
             style={{ order: 4 }}
             src={jalyss5}
@@ -302,29 +302,29 @@ function updatePrev() {
       <div className="slider-next" />
     </div>
     <div className="description">
-      <h3 data-index={4}></h3>
-      <h3 data-index={3}></h3>
+      <h3 data-index={4}>*</h3>
+      <h3 data-index={3}>*</h3>
       <h3 data-index={2} className="active">
-        
+        *
       </h3>
-      <h3 data-index={1}></h3>
-      <h3 data-index={0}></h3>
+      <h3 data-index={1}>*</h3>
+      <h3 data-index={0}>*</h3>
     </div>
     <div className="further-description">
       <h2 data-index={14}>
-     
+     *
       </h2>
       <h2 data-index={13}>
-        
+        *
       </h2>
       <h2 data-index={12} className="active">
-        
+        *
       </h2>
       <h2 data-index={11}>
-       
+       *
       </h2>
       <h2 data-index={10}>
-        
+        *
       </h2>
     </div>
   </div>
@@ -355,7 +355,7 @@ function updatePrev() {
               <div class="col-12 col-sm-6 col-md-4 col-lg-3 cad">
                 <div class="our-team">
                   <div class="picture">
-                    <img
+                    <img alt=""
                       class="img-fluid"
                       src="https://picsum.photos/130/130?image=1027"
                     />
@@ -370,28 +370,28 @@ function updatePrev() {
                         href="https://codepen.io/collection/XdWJOQ/"
                         class="fa fa-facebook"
                         aria-hidden="true"
-                      ></a>
+                      >*</a>
                     </li>
                     <li>
                       <a
                         href="https://codepen.io/collection/XdWJOQ/"
                         class="fa fa-twitter"
                         aria-hidden="true"
-                      ></a>
+                      >*</a>
                     </li>
                     <li>
                       <a
                         href="https://codepen.io/collection/XdWJOQ/"
                         class="fa fa-google-plus"
                         aria-hidden="true"
-                      ></a>
+                      >*</a>
                     </li>
                     <li>
                       <a
                         href="https://codepen.io/collection/XdWJOQ/"
                         class="fa fa-linkedin"
                         aria-hidden="true"
-                      ></a>
+                      >*</a>
                     </li>
                   </ul>
                 </div>
@@ -400,7 +400,7 @@ function updatePrev() {
               <div class="col-12 col-sm-6 col-md-4 col-lg-3 cad">
                 <div class="our-team">
                   <div class="picture">
-                    <img
+                    <img alt="" 
                       class="img-fluid"
                       src="https://picsum.photos/130/130?image=839"
                     />
@@ -415,28 +415,28 @@ function updatePrev() {
                         href="https://codepen.io/collection/XdWJOQ/"
                         class="fa fa-facebook"
                         aria-hidden="true"
-                      ></a>
+                      >**</a>
                     </li>
                     <li>
                       <a
                         href="https://codepen.io/collection/XdWJOQ/"
                         class="fa fa-twitter"
                         aria-hidden="true"
-                      ></a>
+                      >*</a>
                     </li>
                     <li>
                       <a
                         href="https://codepen.io/collection/XdWJOQ/"
                         class="fa fa-google-plus"
                         aria-hidden="true"
-                      ></a>
+                      >*</a>
                     </li>
                     <li>
                       <a
                         href="https://codepen.io/collection/XdWJOQ/"
                         class="fa fa-linkedin"
                         aria-hidden="true"
-                      ></a>
+                      >*</a>
                     </li>
                   </ul>
                 </div>
@@ -444,7 +444,7 @@ function updatePrev() {
               <div class="col-12 col-sm-6 col-md-4 col-lg-3 cad">
                 <div class="our-team">
                   <div class="picture">
-                    <img
+                    <img alt=""
                       class="img-fluid"
                       src="https://picsum.photos/130/130?image=856"
                     />
@@ -459,28 +459,28 @@ function updatePrev() {
                         href="https://codepen.io/collection/XdWJOQ/"
                         class="fa fa-facebook"
                         aria-hidden="true"
-                      ></a>
+                      >*</a>
                     </li>
                     <li>
                       <a
                         href="https://codepen.io/collection/XdWJOQ/"
                         class="fa fa-twitter"
                         aria-hidden="true"
-                      ></a>
+                      >*</a>
                     </li>
                     <li>
                       <a
                         href="https://codepen.io/collection/XdWJOQ/"
                         class="fa fa-google-plus"
                         aria-hidden="true"
-                      ></a>
+                      >*</a>
                     </li>
                     <li>
                       <a
                         href="https://codepen.io/collection/XdWJOQ/"
                         class="fa fa-linkedin"
                         aria-hidden="true"
-                      ></a>
+                      >*</a>
                     </li>
                   </ul>
                 </div>
@@ -488,7 +488,7 @@ function updatePrev() {
               <div class="col-12 col-sm-6 col-md-4 col-lg-3 cad">
                 <div class="our-team">
                   <div class="picture">
-                    <img
+                    <img alt=""
                       class="img-fluid"
                       src="https://picsum.photos/130/130?image=836"
                     />
@@ -503,28 +503,28 @@ function updatePrev() {
                         href="https://codepen.io/collection/XdWJOQ/"
                         class="fa fa-facebook"
                         aria-hidden="true"
-                      ></a>
+                      >*</a>
                     </li>
                     <li>
                       <a
                         href="https://codepen.io/collection/XdWJOQ/"
                         class="fa fa-twitter"
                         aria-hidden="true"
-                      ></a>
+                      >*</a>
                     </li>
                     <li>
                       <a
                         href="https://codepen.io/collection/XdWJOQ/"
                         class="fa fa-google-plus"
                         aria-hidden="true"
-                      ></a>
+                      >*</a>
                     </li>
                     <li>
                       <a
                         href="https://codepen.io/collection/XdWJOQ/"
                         class="fa fa-linkedin"
                         aria-hidden="true"
-                      ></a>
+                      >*</a>
                     </li>
                   </ul>
                 </div>
@@ -538,7 +538,7 @@ function updatePrev() {
               <div class="col-12 col-sm-6 col-md-4 col-lg-3 cad">
                 <div class="our-team">
                   <div class="picture">
-                    <img
+                    <img alt=""
                       class="img-fluid"
                       src="https://picsum.photos/130/130?image=1027"
                     />
@@ -553,28 +553,28 @@ function updatePrev() {
                         href="https://codepen.io/collection/XdWJOQ/"
                         class="fa fa-facebook"
                         aria-hidden="true"
-                      ></a>
+                      >*</a>
                     </li>
                     <li>
                       <a
                         href="https://codepen.io/collection/XdWJOQ/"
                         class="fa fa-twitter"
                         aria-hidden="true"
-                      ></a>
+                      >*</a>
                     </li>
                     <li>
                       <a
                         href="https://codepen.io/collection/XdWJOQ/"
                         class="fa fa-google-plus"
                         aria-hidden="true"
-                      ></a>
+                      >*</a>
                     </li>
                     <li>
                       <a
                         href="https://codepen.io/collection/XdWJOQ/"
                         class="fa fa-linkedin"
                         aria-hidden="true"
-                      ></a>
+                      >*</a>
                     </li>
                   </ul>
                 </div>
@@ -583,7 +583,7 @@ function updatePrev() {
               <div class="col-12 col-sm-6 col-md-4 col-lg-3 cad">
                 <div class="our-team">
                   <div class="picture">
-                    <img
+                    <img alt=""
                       class="img-fluid"
                       src="https://picsum.photos/130/130?image=839"
                     />
@@ -598,28 +598,28 @@ function updatePrev() {
                         href="https://codepen.io/collection/XdWJOQ/"
                         class="fa fa-facebook"
                         aria-hidden="true"
-                      ></a>
+                      >*</a>
                     </li>
                     <li>
                       <a
                         href="https://codepen.io/collection/XdWJOQ/"
                         class="fa fa-twitter"
                         aria-hidden="true"
-                      ></a>
+                      >*</a>
                     </li>
                     <li>
                       <a
                         href="https://codepen.io/collection/XdWJOQ/"
                         class="fa fa-google-plus"
                         aria-hidden="true"
-                      ></a>
+                      >*</a>
                     </li>
                     <li>
                       <a
                         href="https://codepen.io/collection/XdWJOQ/"
                         class="fa fa-linkedin"
                         aria-hidden="true"
-                      ></a>
+                      >*</a>
                     </li>
                   </ul>
                 </div>
@@ -627,7 +627,7 @@ function updatePrev() {
               <div class="col-12 col-sm-6 col-md-4 col-lg-3 cad">
                 <div class="our-team">
                   <div class="picture">
-                    <img
+                    <img alt=""
                       class="img-fluid"
                       src="https://picsum.photos/130/130?image=856"
                     />
@@ -642,28 +642,28 @@ function updatePrev() {
                         href="https://codepen.io/collection/XdWJOQ/"
                         class="fa fa-facebook"
                         aria-hidden="true"
-                      ></a>
+                      >*</a>
                     </li>
                     <li>
                       <a
                         href="https://codepen.io/collection/XdWJOQ/"
                         class="fa fa-twitter"
                         aria-hidden="true"
-                      ></a>
+                      >*</a>
                     </li>
                     <li>
                       <a
                         href="https://codepen.io/collection/XdWJOQ/"
                         class="fa fa-google-plus"
                         aria-hidden="true"
-                      ></a>
+                      >*</a>
                     </li>
                     <li>
                       <a
                         href="https://codepen.io/collection/XdWJOQ/"
                         class="fa fa-linkedin"
                         aria-hidden="true"
-                      ></a>
+                      >*</a>
                     </li>
                   </ul>
                 </div>
@@ -671,7 +671,7 @@ function updatePrev() {
               <div class="col-12 col-sm-6 col-md-4 col-lg-3 cad">
                 <div class="our-team">
                   <div class="picture">
-                    <img
+                    <img alt=""
                       class="img-fluid"
                       src="https://picsum.photos/130/130?image=836"
                     />
@@ -686,28 +686,28 @@ function updatePrev() {
                         href="https://codepen.io/collection/XdWJOQ/"
                         class="fa fa-facebook"
                         aria-hidden="true"
-                      ></a>
+                      >*</a>
                     </li>
                     <li>
                       <a
                         href="https://codepen.io/collection/XdWJOQ/"
                         class="fa fa-twitter"
                         aria-hidden="true"
-                      ></a>
+                      >*</a>
                     </li>
                     <li>
                       <a
                         href="https://codepen.io/collection/XdWJOQ/"
                         class="fa fa-google-plus"
                         aria-hidden="true"
-                      ></a>
+                      >*</a>
                     </li>
                     <li>
                       <a
                         href="https://codepen.io/collection/XdWJOQ/"
                         class="fa fa-linkedin"
                         aria-hidden="true"
-                      ></a>
+                      >*</a>
                     </li>
                   </ul>
                 </div>
@@ -721,7 +721,7 @@ function updatePrev() {
               <div class="col-12 col-sm-6 col-md-4 col-lg-3 cad">
                 <div class="our-team">
                   <div class="picture">
-                    <img
+                    <img alt=""
                       class="img-fluid"
                       src="https://picsum.photos/130/130?image=1027"
                     />
@@ -736,28 +736,28 @@ function updatePrev() {
                         href="https://codepen.io/collection/XdWJOQ/"
                         class="fa fa-facebook"
                         aria-hidden="true"
-                      ></a>
+                      >*</a>
                     </li>
                     <li>
                       <a
                         href="https://codepen.io/collection/XdWJOQ/"
                         class="fa fa-twitter"
                         aria-hidden="true"
-                      ></a>
+                      >*</a>
                     </li>
                     <li>
                       <a
                         href="https://codepen.io/collection/XdWJOQ/"
                         class="fa fa-google-plus"
                         aria-hidden="true"
-                      ></a>
+                      >*</a>
                     </li>
                     <li>
                       <a
                         href="https://codepen.io/collection/XdWJOQ/"
                         class="fa fa-linkedin"
                         aria-hidden="true"
-                      ></a>
+                      >*</a>
                     </li>
                   </ul>
                 </div>
@@ -766,7 +766,7 @@ function updatePrev() {
               <div class="col-12 col-sm-6 col-md-4 col-lg-3 cad">
                 <div class="our-team">
                   <div class="picture">
-                    <img
+                    <img alt=""
                       class="img-fluid"
                       src="https://picsum.photos/130/130?image=839"
                     />
@@ -781,28 +781,28 @@ function updatePrev() {
                         href="https://codepen.io/collection/XdWJOQ/"
                         class="fa fa-facebook"
                         aria-hidden="true"
-                      ></a>
+                      >/</a>
                     </li>
                     <li>
                       <a
                         href="https://codepen.io/collection/XdWJOQ/"
                         class="fa fa-twitter"
                         aria-hidden="true"
-                      ></a>
+                      >/</a>
                     </li>
                     <li>
                       <a
                         href="https://codepen.io/collection/XdWJOQ/"
                         class="fa fa-google-plus"
                         aria-hidden="true"
-                      ></a>
+                      >/</a>
                     </li>
                     <li>
                       <a
                         href="https://codepen.io/collection/XdWJOQ/"
                         class="fa fa-linkedin"
                         aria-hidden="true"
-                      ></a>
+                      >/</a>
                     </li>
                   </ul>
                 </div>
@@ -810,7 +810,7 @@ function updatePrev() {
               <div class="col-12 col-sm-6 col-md-4 col-lg-3 cad">
                 <div class="our-team">
                   <div class="picture">
-                    <img
+                    <img alt=""
                       class="img-fluid"
                       src="https://picsum.photos/130/130?image=856"
                     />
@@ -825,28 +825,28 @@ function updatePrev() {
                         href="https://codepen.io/collection/XdWJOQ/"
                         class="fa fa-facebook"
                         aria-hidden="true"
-                      ></a>
+                      >/</a>
                     </li>
                     <li>
                       <a
                         href="https://codepen.io/collection/XdWJOQ/"
                         class="fa fa-twitter"
                         aria-hidden="true"
-                      ></a>
+                      >/</a>
                     </li>
                     <li>
                       <a
                         href="https://codepen.io/collection/XdWJOQ/"
                         class="fa fa-google-plus"
                         aria-hidden="true"
-                      ></a>
+                      >/</a>
                     </li>
                     <li>
                       <a
                         href="https://codepen.io/collection/XdWJOQ/"
                         class="fa fa-linkedin"
                         aria-hidden="true"
-                      ></a>
+                      >/</a>
                     </li>
                   </ul>
                 </div>
@@ -855,6 +855,7 @@ function updatePrev() {
                 <div class="our-team">
                   <div class="picture">
                     <img
+                    alt=""
                       class="img-fluid"
                       src="https://picsum.photos/130/130?image=836"
                     />
@@ -869,28 +870,28 @@ function updatePrev() {
                         href="https://codepen.io/collection/XdWJOQ/"
                         class="fa fa-facebook"
                         aria-hidden="true"
-                      ></a>
+                      >/</a>
                     </li>
                     <li>
                       <a
                         href="https://codepen.io/collection/XdWJOQ/"
                         class="fa fa-twitter"
                         aria-hidden="true"
-                      ></a>
+                      >/</a>
                     </li>
                     <li>
                       <a
                         href="https://codepen.io/collection/XdWJOQ/"
                         class="fa fa-google-plus"
                         aria-hidden="true"
-                      ></a>
+                      >/</a>
                     </li>
                     <li>
                       <a
                         href="https://codepen.io/collection/XdWJOQ/"
                         class="fa fa-linkedin"
                         aria-hidden="true"
-                      ></a>
+                      >/</a>
                     </li>
                   </ul>
                 </div>
@@ -903,7 +904,7 @@ function updatePrev() {
               class="carousel-control-prev"
               role="button"
               tabindex="0"
-              href="#"
+              href="/"
              
             >
               <span
@@ -917,7 +918,7 @@ function updatePrev() {
               class="carousel-control-next"
               role="button"
               tabindex="0"
-              href="#"
+              href="/"
               
             >
               <span
@@ -951,7 +952,7 @@ function updatePrev() {
                   />
                 </div>
                 <h4 className="title">
-                  <a href="">Full Control</a>
+                  Full Control
                 </h4>
                 <p className="description">
                   You can make changes anytime, anywhere.
@@ -967,7 +968,7 @@ function updatePrev() {
                   />
                 </div>
                 <h4 className="title">
-                  <a href="">Mobile Responsiveness</a>
+                  Mobile Responsiveness
                 </h4>
                 <p className="description">
                   Your website will look great on mobile, tablet, and desktop.
@@ -983,7 +984,7 @@ function updatePrev() {
                   />
                 </div>
                 <h4 className="title">
-                  <a href="">Gorgeous Design</a>
+                  Gorgeous Design
                 </h4>
                 <p className="description">
                   Beautiful, sleek design tailored to you and your business.
@@ -1000,7 +1001,7 @@ function updatePrev() {
                   />
                 </div>
                 <h4 className="title">
-                  <a href="">Friendly Support</a>
+                  Friendly Support
                 </h4>
                 <p className="description">
                   Our staff is always happy to help, even after your website has
@@ -1017,7 +1018,7 @@ function updatePrev() {
                   />
                 </div>
                 <h4 className="title">
-                  <a href="">Strategized Advertising</a>
+                  Strategized Advertising
                 </h4>
                 <p className="description">
                   Get your website featured on top searches to be chosen ahead
@@ -1034,7 +1035,7 @@ function updatePrev() {
                   />
                 </div>
                 <h4 className="title">
-                  <a href="">SEO</a>
+                  SEO
                 </h4>
                 <p className="description">
                   Rank high on search engine results to increase your visitors –
