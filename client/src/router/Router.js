@@ -57,7 +57,7 @@ function Router() {
       <BrowserRouter >
         <Routes>
           {!user && (
-            <Route path="/auth" element={<LoadComponent Component={Auth} />}>
+            <Route path="/auth" element={<Auth />}>
               <Route exact path="login" element={<LoginPage />} />
               <Route exact path="reset-password" element={<ResetPassword />} />
             </Route>
