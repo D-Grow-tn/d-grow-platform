@@ -3,7 +3,7 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { me } from "../store/auth";
 
-const LoadComponent = React.lazy(() => import("./LoadComponent"));
+import LoadComponent from"./LoadComponent"
 const Client = React.lazy(() => import("./../apps/Client"));
 
 const ComingSoon = React.lazy(() => import("../pages/ComingSoon"));
@@ -14,7 +14,7 @@ const AboutUs = React.lazy(() => import("../pages/AboutUs"));
 
 const Contact = React.lazy(() => import("./../pages/Contact"));
 
-const Services = React.lazy(() => import("./../pages/Services"));
+// const Services = React.lazy(() => import("./../pages/Services"));
 
 const Auth = React.lazy(() => import("../pages/auth/Auth"));
 const LoginPage = React.lazy(() => import("../pages/auth/LoginPage"));
@@ -54,10 +54,10 @@ function Router() {
           Loading
         </div>
       )}
-      <BrowserRouter>
+      <BrowserRouter >
         <Routes>
           {!user && (
-            <Route path="/auth" element={<LoadComponent Component={Auth} />}>
+            <Route path="/auth" element={<Auth />}>
               <Route exact path="login" element={<LoginPage />} />
               <Route exact path="reset-password" element={<ResetPassword />} />
             </Route>
@@ -75,7 +75,7 @@ function Router() {
 
             <Route
               path="/services"
-              element={<LoadComponent Component={Services} />}
+              element={<LoadComponent Component={ComingSoon} />}
             />
 
             {user && (

@@ -8,7 +8,6 @@ import { Fade } from "react-reveal";
 import { Nav } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import auth from "../store/auth";
 import { fetchProjectbyClient } from "../store/projects";
 
 const UserProfile = () => {
@@ -17,14 +16,14 @@ const UserProfile = () => {
 
   const me = useSelector((state) => state.auth.me);
   const projectStore = useSelector((state) => state.projects);
-  const { project, projects } = projectStore;
+  const { projects } = projectStore;
   const [activeTab, setActiveTab] = useState("tab1");
 
   useEffect(() => {
     if (me) {
       dispatch(fetchProjectbyClient(me.client.id));
     }
-  }, [dispatch]);
+  }, [dispatch,me]);
 
   const handleTabChange = (tab) => {
     setActiveTab(tab);
