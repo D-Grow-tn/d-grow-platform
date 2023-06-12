@@ -3,7 +3,7 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { me } from "../store/auth";
 
-const LoadComponent = React.lazy(() => import("./LoadComponent"));
+import LoadComponent from"./LoadComponent"
 const Client = React.lazy(() => import("./../apps/Client"));
 
 const ComingSoon = React.lazy(() => import("../pages/ComingSoon"));
