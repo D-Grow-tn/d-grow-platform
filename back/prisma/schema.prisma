@@ -74,7 +74,7 @@ model Employee {
   Message          Message[]
   MediaEmployee    MediaEmployee[]
   DecisionApply    DecisionApply[]
-  Membership Membership[]
+  Membership       Membership[]
 }
 model Project {
   id                  String              @id @default(uuid())
