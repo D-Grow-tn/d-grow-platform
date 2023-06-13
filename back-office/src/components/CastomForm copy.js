@@ -14,8 +14,8 @@ import { Button } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import "../assets/styles/LoginAdmin.css";
 import { useLocation } from "react-router-dom";
-
 import CastomInput from "./CastomInput";
+
 function CastomForm({ Name, ButtonName, onClick }) {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -51,7 +51,7 @@ function CastomForm({ Name, ButtonName, onClick }) {
                 backdropFilter: "blur(30px)",
               }}
             >
-              <MDBCardBody className="p-5 shadow-5 text-center w-100 p5 ">
+              <MDBCardBody className="p-5 shadow-5 text-center w-100 ">
                 <h2 className="fw-bold mb-5">{Name} </h2>
                 {Name === "Forgot Password" && (
                   <>
@@ -88,7 +88,7 @@ function CastomForm({ Name, ButtonName, onClick }) {
                   <>
                     <CastomInput
                       value={email}
-                      label='Email :'
+                      label="Email :"
                       placeholder="Email"
                       type="email"
                       icon="fa-solid fa-user p-1 mt-1"
@@ -149,7 +149,7 @@ function CastomForm({ Name, ButtonName, onClick }) {
                 {ButtonName && (
                   <div className="d-flex justify-content-center ">
                     <Button
-                    type='submit'
+                      type="submit"
                       className="w-100 mb-5 d-flex justify-content-center btn custom-button"
                       onSubmit={
                         Name === "Login"
