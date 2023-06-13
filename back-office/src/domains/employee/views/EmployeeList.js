@@ -1,11 +1,15 @@
-import React from 'react'
+import React from "react";
+import HeaderPage from "../../../components/HeaderPage";
+
 
 function EmployeeList() {
   return (
     <div>
-      employee List
+      <HeaderPage title="Emlpoyees List" showButton={true} buttonPath="/employee/create"  text={"Create Employee"} />
+    
+     
     </div>
-  )
+  );
 }
 
-export default EmployeeList
+export default EmployeeList;

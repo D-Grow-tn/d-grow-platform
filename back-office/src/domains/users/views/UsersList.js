@@ -1,9 +1,11 @@
 import {useMemo, useState } from "react";
 
 import { Avatar, Box} from "@mui/material";
-import { DataGrid, gridClasses } from "@mui/x-data-grid";
+
 import moment from "moment";
-import { grey } from "@mui/material/colors";
+import Table from "../../../components/Table";
+import HeaderPage from "../../../components/HeaderPage";
+
 
 const UsersList = () => {
   const [rowId, setRowId] = useState(null);
@@ -110,28 +112,16 @@ const UsersList = () => {
     [rowId]
   );
   return (
+    <div>
+    <HeaderPage title="Users List"/>
     <Box
       sx={{
-        height: 400,
         width: "100%",
       }}
     >
-      <DataGrid
-        columns={columns}
-        rows={mockUsers}
-        getRowId={(row) => row.id}
-        getRowSpacing={(params) => ({
-          top: params.isFirstVisible ? 0 : 5,
-          bottom: params.isLastVisible ? 0 : 5,
-        })}
-        sx={{
-          [`& .${gridClasses.row}`]: {
-            bgcolor: (theme) =>
-              theme.palette.mode === "light" ? grey[200] : grey[900],
-          },
-        }}
-      />
+      <Table columns={columns} rows={mockUsers}/>
     </Box>
+    </div>
   );
 };
 

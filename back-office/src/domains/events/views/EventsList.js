@@ -1,9 +1,10 @@
 import React from 'react'
+import HeaderPage from '../../../components/HeaderPage'
 
 function EventsList() {
   return (
     <div>
-      event list
+      <HeaderPage title="Events List" />
     </div>
   )
 }
