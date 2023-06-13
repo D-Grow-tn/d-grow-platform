@@ -2,7 +2,6 @@ import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import { PrismaClient } from '@prisma/client';
 import { PrismaService } from 'src/prisma/prisma.service';
 
-
 @Injectable()
 export class HelpersService {
   constructor(private readonly prisma: PrismaService) {}
@@ -11,8 +10,7 @@ export class HelpersService {
     try {
       return await this.prisma[model][findType](options);
     } catch (e) {
-      if (e.code === 'P2025')
-        throw new HttpException(model + ' not found', HttpStatus.BAD_REQUEST);
+      throw new HttpException(model + ' not found', HttpStatus.BAD_REQUEST);
     }
   }
   async nestedCreateOrUpdateWithMedia(
