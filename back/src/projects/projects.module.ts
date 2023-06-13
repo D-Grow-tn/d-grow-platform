@@ -10,9 +10,10 @@ import { SubObjectivesService } from './sub-objectives.service';
 import { SubObjectivesController } from './sub-objectives.controller';
 import { InteractionController } from './interaction.controller';
 import { InteractionService } from './interaction.service';
+import { HelpersService } from 'src/helpers/helpers.service';
 
 @Module({
   controllers: [ProjectsController,StagesController,ObjectivesController,SubObjectivesController,InteractionController],
-  providers: [ProjectsService,StagesService,PrismaService,ObjectivesService,SubObjectivesService,InteractionService]
+  providers: [ProjectsService,StagesService,PrismaService,ObjectivesService,SubObjectivesService,InteractionService,HelpersService]
 })
 export class ProjectsModule {}
