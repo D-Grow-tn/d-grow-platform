@@ -81,16 +81,14 @@ function CreateEmployee() {
         // title="Login"
         // titleClassName="text-center mb-5"
         // titleStyle={{ fontWeight: 400 }}
-        className=" rounded-5"
+        className=" rounded-5 p-5"
         style={{
           boxShadow: "0px 0px 8px #9E9E9E",
-          padding: 80,
-          paddingTop: 100,
         }}
         inputsClassName="d-flex justify-content-around gap-3 flex-wrap"
         inputs={inputs}
         buttons={buttons}
-        buttonsClassName="mt-5 d-flex justify-content-end"
+        buttonsClassName="mt-5 d-flex justify-content-end gap-3"
         onSubmit={onSubmit}
         onChange={handleChange}
       />
