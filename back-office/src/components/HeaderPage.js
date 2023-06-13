@@ -14,7 +14,7 @@ const HeaderPage = ({ title, showButton, buttonPath,text }) => {
   return (
     <header className="headerPage d-flex justify-content-between align-items-center p-3">
       <div>
-        <h2 className="headerPge-title">{title}</h2>
+        <h2 className="headerPge-title darkBleu">{title}</h2>
         <p className="headerPage-path">
           Dashboard <ArrowRightIcon /> {location.pathname}
         </p>
