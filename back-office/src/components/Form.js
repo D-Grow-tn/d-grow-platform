@@ -32,6 +32,8 @@ function Form({
   buttonsClassName,
   buttonsStyle,
   link,
+  value
+  
 }) {
   const [showPassword, setShowPassword] = useState(false);
 
@@ -44,7 +46,7 @@ function Form({
   );
 
   return (
-    <form className={className} style={style} onSubmit={onSubmit}>
+    <form className={className} style={style} onSubmit={onSubmit}  value={value}>
       {/* Title */}
       <h1 className={titleClassName} style={titleStyle}>
         {title}
@@ -61,6 +63,7 @@ function Form({
               type={input.type}
               required={input.required}
               width={input.width}
+             
             />
           )
           // input.type === "radio" ? (

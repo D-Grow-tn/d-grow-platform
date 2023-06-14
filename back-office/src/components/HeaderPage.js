@@ -20,7 +20,7 @@ const HeaderPage = ({ title, showButton, buttonPath,text }) => {
   return (
     <header className="headerPage d-flex justify-content-between align-items-center p-3">
       <div>
-        <h2 className="headerPge-title">{title}</h2>
+        <h2 className="headerPage-title darkBlue">{title}</h2>
         <p className="headerPage-path">
           Dashboard <ArrowRightIcon /> {location.pathname}
         </p>
@@ -32,7 +32,7 @@ const HeaderPage = ({ title, showButton, buttonPath,text }) => {
                 class="btn"
                 style={{
                   height: "40px",
-                  background: "#1a408c",
+                  background: "#2351AD",
                   color: "white",
                   borderRadius:"8px",
                   
