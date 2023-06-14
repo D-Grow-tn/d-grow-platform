@@ -1,6 +1,12 @@
 import React from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import ArrowRightIcon from "@mui/icons-material/ArrowRight";
+import AddButton from "../componets/button/AddButton";
+import CancelButton from "../componets/button/CancelButton";
+import SaveButton from "../componets/button/SaveButton";
+import EditButton from "../componets/button/EditButton";
+import ConfirmButton from "../componets/button/ConfirmButton";
+import DeleteButton from "../componets/button/DeleteButton";
 
 const HeaderPage = ({ title, showButton, buttonPath,text }) => {
   const location = useLocation();
@@ -37,6 +43,7 @@ const HeaderPage = ({ title, showButton, buttonPath,text }) => {
             {text} <i class="fa-solid fa-play fa-fade px-2"></i>
           </button>
         )}
+       
       </div>
     </header>
   );

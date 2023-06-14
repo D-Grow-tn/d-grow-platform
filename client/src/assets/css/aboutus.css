@@ -1,20 +1,4 @@
-/* .about {
-  background-image: url("https://www.free-css.com/assets/files/free-css-templates/preview/page288/seo-master/assets/img/newsletter.png");
 
-  width: 900px;
-
-  height: 200px;
-
-
-} */
-/* .about_us{
-  background-image: url("https://creativecanvasweb.com/wp-content/uploads/2019/05/Testimonial.png");
-  width: 100%;
-  height:auto;
-  
- 
- 
-} */
 
 
 
@@ -195,10 +179,8 @@
 
    
  @media only screen and (max-width: 600px){ 
-   .row1 {
-    display: flex;
-    flex-wrap: nowrap;
-   }
+
+
    .our-team {
      padding: 30px 0 40px;
      margin-bottom: 30px;
@@ -379,6 +361,7 @@ background-size: 100% 100%;
    }
    section {
      overflow: hidden;
+         padding: 20px 0;
    }
    
   
@@ -414,15 +397,13 @@ background-size: 100% 100%;
    
    
    #aboutus .box {
-     /* padding: 30px; */
-     /* position: relative; */
+    
      overflow: hidden;
      border-radius: 10px;
      margin-left: 150px;
      background:#EDF4F6;
      box-shadow: 0 10px 29px 0 rgba(68, 88, 144, 0.1);
-     /* transition: all 0.3s ease-in-out; */
-    /* padding: auto; */
+    
     width: 400px;
    height: 400px;
    }
@@ -446,22 +427,25 @@ background-size: 100% 100%;
      font-size: 36px;
      line-height: 1;
    }
-   
+  
    #services {
      padding: 60px 0 40px 0;
     
    }
    
    #services .box {
-     padding: 30px;
+     /* padding: 30px; */
+     padding-top: 70px;
      position: relative;
      overflow: hidden;
      border-radius: 10px;
      margin: 0 10px 40px 10px;
-     background:#DAEAF0;
+    background-color: #daeaf0;
      box-shadow: 0 10px 29px 0 rgba(68, 88, 144, 0.1);
      transition: all 0.3s ease-in-out;
      text-align: center;
+     width: 300px !important;
+     height: 300px !important;
    }
    
    #services .box:hover {
@@ -507,10 +491,13 @@ background-size: 100% 100%;
      line-height: 28px;
      margin-bottom: 0;
      text-align: left;
+     position: relative;
+    top: 7px;
    }
    
    #services .box:hover .description {
      color: #fff;
+
    }
    
    /*------------------ Fonts ------------------*/
@@ -744,7 +731,7 @@ h3.active{
     height: 40px;
     padding-bottom: 25px;
     margin-top: -59px;
-    margin-left: 267px;
+    margin-left: -19px;
     }
     .home,
     .home-popular,
@@ -849,38 +836,7 @@ h3.active{
       margin-left: 7px;
     }
     
-    /* .description{
-      position: relative;
-      top: 125px;
-    }
-    
-    .description h3{
-      display: none;
-    }
-    
-    .further-description{
-      position: relative;
-      top: 125px;
-      left: 60px;
-    }
-    
-    .further-description h2{
-      text-transform: capitalize;
-      display: none;
-      font-size: 1.2rem;
-      font-weight: 200;
-      width: 55%;
-      text-align: center;
-      text-transform: none; */
-    /* } */
-    
-    /* h2.active{
-      display: block;
-    }
-    
-    h3.active{
-      display: block !important;
-    } */
+   
     
     .item{
       flex: 1 0 20%;
