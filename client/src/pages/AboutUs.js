@@ -275,7 +275,8 @@ function AboutUs() {
                 crafting exceptional websites and mobile applications that
                 redefine user experiences.
               </p>
-              <button
+              <a
+           
                 type="button"
                 class="btn mt-5"
                 style={{
@@ -284,12 +285,14 @@ function AboutUs() {
                   background: "#00ac9e",
                   color: "white",
                 }}
-
+           
 
                 href="#aboutus"
               >
+                
                 show more
-              </button>
+             
+              </a>
             </div>
             <div className="col-lg-6 ">
               <DisplayLottie animationData={imgabout}  style={{marginTop:"-90px"}}/>
@@ -650,7 +653,7 @@ function AboutUs() {
           </div>
         </div>
       </section>
-      <div>
+      <div style={{marginBottom:"100px"}}>
         <Marquee autoFill={true}>
           <section>
             <div className="container">
