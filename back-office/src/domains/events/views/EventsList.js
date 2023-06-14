@@ -7,8 +7,8 @@ function EventsList() {
 
   return (
     <div>
-      <HeaderPage title="Events List" />
-     
+
+      <HeaderPage title="Events List" showButton={true} buttonPath="/events/create"  text={"Create Event"}  />
 
     </div>
   )
