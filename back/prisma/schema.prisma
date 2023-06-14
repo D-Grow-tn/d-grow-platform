@@ -121,7 +121,7 @@ model ProjectTechnology {
   technologyId String
   technologies Technology @relation(fields: [technologyId], references: [id])
 
-  @@unique([technologyId, projectId])
+  @@unique(fields: [technologyId, projectId], name:"projectTechnology")
 }
 
 model Objective {
@@ -232,7 +232,7 @@ model Quiz {
   id           String         @id @default(uuid())
   content      String
   score        Int
-  employeeQuiz EmployeeQuiz[]
+  EmployeeQuiz EmployeeQuiz[]
 }
 
 model EmployeeQuiz {
@@ -242,7 +242,7 @@ model EmployeeQuiz {
   quiz       Quiz     @relation(fields: [quizId], references: [id])
   score      Int
 
-  @@unique([employeeId, quizId])
+  @@unique([employeeId, quizId], name: "employeeQuiz")
 }
 
 model Request {
@@ -460,8 +460,6 @@ model MediaProject {
 
   @@unique(fields: [mediaId, projectId], name: "projectMedia")
 }
-
-
 
 // join table
 

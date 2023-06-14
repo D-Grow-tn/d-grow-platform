@@ -17,4 +17,6 @@ export class CreateProjectDto {
   consultantId: string;
   @ApiProperty({ required: false })
   coverId: string;
+   @ApiProperty({ required: true })
+  projectTechnologyIds: string[];
 }
