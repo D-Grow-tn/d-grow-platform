@@ -19,6 +19,7 @@ function CastomForm({ Name, ButtonName, onClick }) {
   const togglePasswordVisibility = () => {
     setShowPassword(!showPassword);
   };
+  
   return (
     <div className="bg-light  border rounded  ">
       <MDBContainer

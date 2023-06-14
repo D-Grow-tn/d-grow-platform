@@ -10,10 +10,12 @@ import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import auth from "../store/auth";
 import { fetchProjectbyClient } from "../store/projects";
-
+import CastomModal from "../components/CastomModal";
+import "../assets/css/Profile.css"
 const UserProfile = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
+  const [isOpen, setIsOpen] = useState(false);
 
   const me = useSelector((state) => state.auth.me);
   const projectStore = useSelector((state) => state.projects);
@@ -69,19 +71,15 @@ const UserProfile = () => {
                 }}
                 alt="Avatar"
               />
-              <div className="d-flex">
-                <button
-                  type="button"
-                  class="btn mt-5"
-                  style={{
-                    width: "170px",
-                    height: "40px",
-                    background: "#2772db",
-                    color: "white",
-                  }}
-                >
-                  add project <i class="fa-solid fa-play fa-fade px-2"></i>
-                </button>
+              <div >
+             
+      <div>
+       <button className="primaryBtn" onClick={() => setIsOpen(true) }>
+      Update Profile
+     </button>
+     {isOpen && <CastomModal setIsOpen={setIsOpen}  buttonName="Confirm" title="Update Your Profile "/>}
+    </div>
+     {/* </CastomModal> */}
                 <div className="mt-5 d-flex flex-column justify-content-center align-items-center ">
                   <h5 className="card-title  ">{me?.name}</h5>
                   <h6 className="card-subtitle mb-2 text-muted my-2">

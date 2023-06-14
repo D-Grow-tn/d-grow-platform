@@ -10,6 +10,7 @@ function CastomInput({ placeholder, type, label, icon }) {
           placeholder={placeholder}
           className="mb-4 border border-secondary rounded form-control form-control-lg custom-height"
           type={type}
+          
         />
          {icon && (
           <span className="input-group-text">
