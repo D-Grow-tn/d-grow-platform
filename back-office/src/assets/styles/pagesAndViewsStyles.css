@@ -7,6 +7,23 @@
 padding: 20px;
 
 }
+.headerPage {
+    background-color: #daeaf088;
+    padding: 10px;
+    border-radius: 5px;
+
+  }
+  
+  .headerPage-title {
+    color: #333;
+    margin-bottom: 5px;
+    font-weight:600;
+  }
+  
+  .headerPage-path {
+    color: #666;
+    font-size: 14px;
+  }
 .views {
     
 
@@ -15,3 +32,59 @@ padding: 20px;
 .view{
     
 }
+.header-blue{
+    color:#1a408c ;
+    font-size: 18px;
+  
+  }
+ /* PopupToggle.css */
+
+.popup {
+  height: 550px;
+  width: 700px;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  justify-content: center;
+  transform: translate(-50%, -50%);
+  background-color: white;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+}
+
+.popup h2 {
+  margin-top: 0;
+}
+
+.popup form {
+  display: grid;
+  gap: 10px;
+}
+
+.popup label {
+  display: grid;
+  gap: 5px;
+}
+
+.popup input {
+  padding: 5px;
+  border-radius: 4px;
+  border: 1px solid #ccc;
+}
+
+.popup button {
+  margin-top: 10px;
+  padding: 8px 16px;
+  background-color: #4caf50;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.popup button:hover {
+  background-color: #45a049;
+}
+
+  

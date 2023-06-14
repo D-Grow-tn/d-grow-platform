@@ -1,11 +1,10 @@
-import {useMemo, useState } from "react";
+import { useMemo, useState } from "react";
 
-import { Avatar, Box} from "@mui/material";
+import { Avatar, Box } from "@mui/material";
 
 import moment from "moment";
 import Table from "../../../components/Table";
 import HeaderPage from "../../../components/HeaderPage";
-
 
 const UsersList = () => {
   const [rowId, setRowId] = useState(null);
@@ -113,14 +112,9 @@ const UsersList = () => {
   );
   return (
     <div>
-    <HeaderPage title="Users List"/>
-    <Box
-      sx={{
-        width: "100%",
-      }}
-    >
-      <Table columns={columns} rows={mockUsers}/>
-    </Box>
+      <HeaderPage title="Users List" />
+
+      <Table columns={columns} rows={mockUsers} />
     </div>
   );
 };

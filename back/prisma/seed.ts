@@ -183,7 +183,7 @@ let avatarClient4 =await prisma.media.create({
     data: {
       name: 'khalil',
       email: 'khalil@gmail.com',
-      employeeId: employee2.id,
+      employeeId: employee1.id,
       password: await bcrypt.hash('1234', salt),
       isClient: false,
       // mediaId   :  media.id,
@@ -193,7 +193,7 @@ let avatarClient4 =await prisma.media.create({
     data: {
       name: 'ines',
       email: 'ines@gmail.com',
-      employeeId: employee1.id,
+      employeeId: employee2.id,
       password: await bcrypt.hash('1234', salt),
       isClient: false,
       // mediaId   :  media.id,

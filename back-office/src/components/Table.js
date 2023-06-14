@@ -1,7 +1,7 @@
 import React ,{useState}from 'react'
 import { DataGrid, gridClasses } from "@mui/x-data-grid";
 
-import {  Pagination, TablePagination } from '@mui/material';
+import { TablePagination } from '@mui/material';
 
 
 function Table({columns,rows}) {
@@ -20,6 +20,7 @@ function Table({columns,rows}) {
     const startIndex = (page - 1) * rowsPerPage;
     const endIndex = startIndex + rowsPerPage;
     const paginatedRows = rows.slice(startIndex, endIndex);
+    
   
   return (
     <div>
