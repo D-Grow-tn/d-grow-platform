@@ -285,8 +285,8 @@ function AboutUs() {
                   background: "#00ac9e",
                   color: "white",
                 }}
-           
 
+               
                 href="#aboutus"
               >
                 
@@ -653,8 +653,8 @@ function AboutUs() {
           </div>
         </div>
       </section>
-      <div style={{marginBottom:"100px"}}>
-        <Marquee autoFill={true}>
+      <div>
+        <Marquee autoFill="true">
           <section>
             <div className="container">
               <ul className="grid-list d-flex">
