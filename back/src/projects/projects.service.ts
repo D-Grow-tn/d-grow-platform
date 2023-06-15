@@ -4,6 +4,8 @@ import { UpdateProjectDto } from './dto/update-project.dto';
 import { PrismaService } from 'src/prisma/prisma.service';
 import { Media } from './../medias/entities/media.entity';
 import { HelpersService } from 'src/helpers/helpers.service';
+import { Prisma } from '@prisma/client';
+
 
 @Injectable()
 export class ProjectsService {
@@ -63,7 +65,7 @@ export class ProjectsService {
     });
   }
 
-  async findOne(id: string) {
+  async findOne(id: string,prisma:Prisma.TransactionClient=this.prisma) {
     return await this.prisma.project.findUnique({
       where: { id },
       include: {
@@ -72,6 +74,7 @@ export class ProjectsService {
         consultant: true,
         interaction: { include: { User: true } },
         contract: true,
+        projectTechnologies:true,
       },
     });
   }
@@ -82,14 +85,45 @@ export class ProjectsService {
     });
   }
 
-  update(id: string, data: UpdateProjectDto) {
-    return this.prisma.project.update({
-      data,
-      where: { id },
-    });
+    async update(id: string, data: UpdateProjectDto) {
+    const { projectTechnologyIds,...rest } = data
+    return await this.prisma.$transaction(async (prisma)=>{
+      const project= await this.findOne(id,prisma)
+      project.projectTechnologies.forEach(async technology => {
+        if(!projectTechnologyIds.includes(technology.technologyId)){
+          await prisma.projectTechnology.delete({where:{
+            projectTechnology:{projectId:id,technologyId:technology.technologyId}
+          }})
+        }
+      })
+      return await this.prisma.project.update({
+        where: {id},
+        data: {...rest,
+        projectTechnologies:{
+          connectOrCreate : projectTechnologyIds.map((technology)=>({
+            create:{technologyId:technology},
+            where: {projectTechnology:{projectId:id,technologyId:technology}}
+          }))
+        }}
+      })
+    })
   }
 
-  remove(id: string) {
-    return this.prisma.project.delete({ where: { id } });
-  }
-}
+  async remove(id: string) {
+    return await this.prisma.$transaction(async (prisma) => {
+       await prisma.projectTechnology.deleteMany({
+         where: {
+           technologyId: id,
+         },
+       });
+      return await prisma.project.delete({
+         where: {
+           id,
+         },
+       });
+     });
+   }
+   
+ }
+ 
+

@@ -61,6 +61,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { me } from "../store/auth";
 import AuthAdmin from "../apps/AuthAdmin";
 
+
 function Router() {
   const dispatch = useDispatch();
   const user = useSelector((state) => state.auth.me);
@@ -164,6 +165,7 @@ function Router() {
             </Route>
           )}
           <Route path="*" element={<NoPage />} />
+          
         </Routes>
       </BrowserRouter>
     </div>

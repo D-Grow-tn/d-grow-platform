@@ -43,7 +43,7 @@ function LoginAdmin() {
       name: "password",
     },
   ];
-  const buttons = [{ name: "Login", onSubmit, className: "w-100" ,type:"submit"}];
+  const buttons = [{ name: "Login", onSubmit, className: "w-100",type:'submit' }];
   return (
     <div className="d-flex justify-content-center align-items-center h-100 w-100 position-fixed ">
       <Form
