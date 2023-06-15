@@ -1,26 +1,58 @@
-import { Injectable } from '@nestjs/common';
+import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import { CreateProjectDto } from './dto/create-project.dto';
 import { UpdateProjectDto } from './dto/update-project.dto';
 import { PrismaService } from 'src/prisma/prisma.service';
-import { Media } from '../medias/entities/media.entity';
+import { Media } from './../medias/entities/media.entity';
+import { HelpersService } from 'src/helpers/helpers.service';
 import { Prisma } from '@prisma/client';
+
 
 @Injectable()
 export class ProjectsService {
-  constructor(private readonly prisma: PrismaService) {}
+  constructor(
+    private readonly prisma: PrismaService,
+    private readonly helper: HelpersService,
+  ) {}
   async create(dto: CreateProjectDto) {
     const { projectTechnologyIds, ...rest } = dto;
+    let data = rest;
+    if (projectTechnologyIds) {
+      if (Array.isArray(projectTechnologyIds)) {
+        data['projectTechnologies'] = {
+          create: await Promise.all(
+            projectTechnologyIds.map(async (elem) => {
+              if (typeof elem === 'string') {
+                await this.helper.notFound('technology', 'findUniqueOrThrow', {
+                  where: { id: elem },
+                });
+                return {
+                  technologies: {
+                    connect: {
+                      id: elem,
+                    },
+                  },
+                };
+              } else if (typeof elem === 'object') {
+                if (!Array.isArray(elem))
+                  return {
+                    technologies: {
+                      create: elem,
+                    },
+                  };
+              }
+            }),
+          ),
+        };
+      } else {
+        throw new HttpException(
+          'projecTechnologyIds must be an array',
+          HttpStatus.BAD_REQUEST,
+        );
+      }
+    }
     return this.prisma.project.create({
-      data: {
-        ...rest,
-        projectTechnologies: {
-          create: projectTechnologyIds.map((id) => {
-            return {
-              technologyId: id,
-            };
-          }),
-        },
-      },
+      data,
+      include: { projectTechnologies: { include: { technologies: true } } },
     });
   }
 
@@ -41,7 +73,7 @@ export class ProjectsService {
         projectManager: true,
         consultant: true,
         interaction: { include: { User: true } },
-        contarct: true,
+        contract: true,
         projectTechnologies:true,
       },
     });
@@ -93,4 +125,5 @@ export class ProjectsService {
    }
    
  }
+ 
 

@@ -1,14 +1,14 @@
-import { Provider } from 'react-redux';
-import './App.css';
-import Router from './router/Router';
-import 'bootstrap/dist/css/bootstrap.min.css';
-import { store } from './store/index.js';
+import { Provider } from "react-redux";
+import Router from "./router/Router";
+import { store } from "./store/index.js";
+import "./App.css";
+import "bootstrap/dist/css/bootstrap.min.css";
 function App() {
   return (
     <Provider store={store}>
-    <div className="App">
-    <Router/>
-    </div>
+      <div className="App">
+        <Router />
+      </div>
     </Provider>
   );
 }

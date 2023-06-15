@@ -10,7 +10,7 @@ export class MailService {
     try {
       result = await this.mailerService.sendMail({
         to: email,
-        from: 'inesdebichi1995@gmail.com',
+        from: 'contact@dgrow.tn',
         subject: 'Test Mailer ✔',
         text: 'welcome',
         html: `<h1>welcome</h1><p>${code}</p>`,

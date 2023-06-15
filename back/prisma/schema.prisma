@@ -74,7 +74,7 @@ model Employee {
   Message          Message[]
   MediaEmployee    MediaEmployee[]
   DecisionApply    DecisionApply[]
-  Membership Membership[]
+  Membership       Membership[]
 }
 model Project {
   id                  String              @id @default(uuid())
@@ -94,7 +94,7 @@ model Project {
   projectManager      Employee?           @relation(fields: [projectManagerId], references: [id], name: "projectManager")
   consultantId        String?
   consultant          Employee?           @relation(fields: [consultantId], references: [id], name: "consultant")
-  contarct            Media?              @relation(fields: [contractId], references: [id], name: "contractRelation")
+  contract            Media?              @relation(fields: [contractId], references: [id], name: "contractRelation")
   contractId          String?
   interaction         Interaction[]
   objective           Objective[]
@@ -109,7 +109,7 @@ model Project {
 model Technology {
   id                  String              @id @default(uuid())
   name                String
-  description         String
+  description         String?
   createdAt           DateTime            @default(now())
   updatedAt           DateTime            @updatedAt
   projectTechnologies ProjectTechnology[]
@@ -248,7 +248,7 @@ model EmployeeQuiz {
 model Request {
   id           String         @id @default(uuid())
   subject      String
-  content      String
+  content      String?
   createdAt    DateTime       @default(now())
   updatedAt    DateTime       @updatedAt
   employeeId   String
@@ -461,6 +461,39 @@ model MediaProject {
   @@unique(fields: [mediaId, projectId], name: "projectMedia")
 }
 
+model MainComponent {
+  id        String            @id @default(uuid())
+  title     String?
+  path      String?           @unique
+  createdAt DateTime          @default(now())
+  updatedAt DateTime          @updatedAt
+  type      TypeMainComponent
+
+  SubComponent SubComponent[]
+}
+
+model SubComponent {
+  id                  String                @id @default(uuid())
+  name                String?
+  main                MainComponent         @relation(fields: [mainId], references: [id])
+  mainId              String
+  position            PositionSubComponent
+  createdAt           DateTime              @default(now())
+  updatedAt           DateTime              @updatedAt
+  ContentSubComponent ContentSubComponent[]
+}
+
+model ContentSubComponent {
+  id             String       @id @default(uuid())
+  title          String
+  navigateTo     String?
+  content        String
+  subComponent   SubComponent @relation(fields: [subComponentId], references: [id])
+  subComponentId String
+  createdAt      DateTime     @default(now())
+  updatedAt      DateTime     @updatedAt
+}
+
 // join table
 
 enum Status {
@@ -472,4 +505,20 @@ enum Status {
   reviewed
   refused
   accepted
+}
+
+enum TypeMainComponent {
+  footer
+  header
+  sidebar
+  page
+}
+
+enum PositionSubComponent {
+  left
+  right
+  top
+  bottom
+  middle
+  section
 }

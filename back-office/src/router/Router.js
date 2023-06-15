@@ -4,11 +4,11 @@ import { BrowserRouter, Route, Routes } from "react-router-dom";
 import Employee from "../domains/employee/Employee";
 import EmployeeList from "../domains/employee/views/EmployeeList";
 import CreateEmployee from "../domains/employee/views/CreateEmployee";
-import EditEmployee from "../domains/employee/views/EditEmployee";
+import OneEmployee from "../domains/employee/views/OneEmployee";
 import Client from "../domains/client/Client";
 import CreateClient from "../domains/client/views/CreateClient";
 import ClientList from "../domains/client/views/ClientList";
-import EditClient from "../domains/client/views/EditClient";
+import EditClient from "../domains/client/views/OneClient";
 import Project from "../domains/project/Project";
 import ProjectList from "../domains/project/views/ProjectList";
 import Decision from "../domains/decision/Decision";
@@ -60,7 +60,7 @@ import Request from "../domains/request/Request";
 import { useDispatch, useSelector } from "react-redux";
 import { me } from "../store/auth";
 import AuthAdmin from "../apps/AuthAdmin";
-import CreateProfile from "../componets/createProfile";
+
 
 function Router() {
   const dispatch = useDispatch();
@@ -93,7 +93,7 @@ function Router() {
               <Route path="employee" element={<Employee />}>
                 <Route index element={<EmployeeList />} />
                 <Route path="create" element={<CreateEmployee />} />
-                <Route path="edit/:employeeId" element={<EditEmployee />} />
+                <Route path="one/:employeeId" element={<OneEmployee />} />
               </Route>
               <Route path="events" element={<Events />}>
                 <Route index element={<EventsList />} />
@@ -124,7 +124,7 @@ function Router() {
               <Route path="client" element={<Client />}>
                 <Route index element={<ClientList />} />
                 <Route path="create" element={<CreateClient />} />
-                <Route path="edit/:clientId" element={<EditClient />} />
+                <Route path="one/:clientId" element={<EditClient />} />
               </Route>
 
               <Route path="project" element={<Project />}>
@@ -165,7 +165,7 @@ function Router() {
             </Route>
           )}
           <Route path="*" element={<NoPage />} />
-          <Route path="createProfile" element={<CreateProfile />} />
+          
         </Routes>
       </BrowserRouter>
     </div>

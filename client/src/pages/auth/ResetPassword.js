@@ -42,7 +42,7 @@ function ResetPassword() {
         showErrorToast(res.error.message);
       }
     });
-  };
+  }
 
   const handleSaveChanges = async (event) => {
     event.preventDefault();

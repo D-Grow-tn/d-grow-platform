@@ -25,12 +25,46 @@ import { EmployeeTestsModule } from './employee-tests/employee-tests.module';
 import { TeamMenbershipsModule } from './team-menberships/team-menberships.module';
 import { EmployeeChatRoomsModule } from './employee-chat-rooms/employee-chat-rooms.module';
 
-
-
+import { MainComponentsModule } from './main-components/main-components.module';
+import { SubComponentsModule } from './sub-components/sub-components.module';
+import { ContentSubComponentsModule } from './content-sub-components/content-sub-components.module';
 
 @Module({
-  imports: [UsersModule, EmployeesModule, ProjectsModule, PrismaModule, MediasModule, ProductsModule, ClientsModule,AuthModule,MailModule,  TestsModule, QuizsModule, TeamsModule, DepartmentsModule, ChatRoomsModule, MessagesModule, EmployeeTestsModule, TeamMenbershipsModule, EmployeeChatRoomsModule],
+  imports: [
+    UsersModule,
+    EmployeesModule,
+    ProjectsModule,
+    PrismaModule,
+    MediasModule,
+    ProductsModule,
+    ClientsModule,
+    AuthModule,
+  
+    MailModule,
+   
+    TestsModule,
+    QuizsModule,
+    TeamsModule,
+    DepartmentsModule,
+    ChatRoomsModule,
+    MessagesModule,
+    
+    EmployeeTestsModule,
+    TeamMenbershipsModule,
+
+    EmployeeChatRoomsModule,
+    MainComponentsModule,
+    SubComponentsModule,
+    ContentSubComponentsModule,
+  ],
   controllers: [AppController],
-  providers: [AppService,PrismaService,MediasService,AuthService,UsersService,JwtService],
+  providers: [
+    AppService,
+    PrismaService,
+    MediasService,
+    AuthService,
+    UsersService,
+    JwtService,
+  ],
 })
 export class AppModule {}

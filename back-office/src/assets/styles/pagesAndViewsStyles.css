@@ -1,0 +1,60 @@
+.pages {
+    background-color:#f8f9fa ;
+    padding-top: 70px;
+    transition: all 0.5s;
+}
+.page{
+padding: 20px;
+
+}
+.headerPage {
+    background-color: #daeaf088;
+    padding: 10px;
+    border-radius: 5px;
+
+  }
+  
+  .headerPage-title {
+    color: #333;
+    margin-bottom: 5px;
+    font-weight:600;
+  }
+  
+  .headerPage-path {
+    color: #666;
+    font-size: 14px;
+  }
+
+  .cancel{
+    border-color: red;
+  }
+.views {
+    
+
+
+}
+.view{
+    
+}
+.header-blue{
+    color:#1a408c ;
+    font-size: 18px;
+  
+  }
+
+
+.popup {
+  height: 550px;
+  width: 700px;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  justify-content: center;
+  transform: translate(-50%, -50%);
+  background-color: white;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+}
+
+  

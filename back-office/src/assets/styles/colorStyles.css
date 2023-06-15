@@ -1,0 +1,14 @@
+/* color */
+
+.darkBlue {
+  color: #1a408c;
+}
+
+/* background color */
+
+.bgDarkBlue {
+  background-color: #1a408c;
+}
+.bgLightBlue {
+  background-color: #e8f1f5
+}

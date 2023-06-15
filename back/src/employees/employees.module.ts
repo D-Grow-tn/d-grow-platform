@@ -9,11 +9,13 @@ import { BehaviorsController } from './behaviors.controller';
 import {DecisionsService} from './decisions.service'
 import{DecisionsController} from './decisions.controller'
 import{EventsController}from './events.controller'
-import {EventsService}from './events.service'
+import {EventsService} from './events.service'
+import { HelpersService } from 'src/helpers/helpers.service';
+
 
 
 @Module({
   controllers: [EmployeesController,RequestsController,BehaviorsController,DecisionsController,EventsController],
-  providers: [EmployeesService,RequestsService,PrismaService,BehaviorsService,DecisionsService,EventsService]
+  providers: [EmployeesService,RequestsService,PrismaService,BehaviorsService,DecisionsService,EventsService,HelpersService]
 })
 export class EmployeesModule {}

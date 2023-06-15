@@ -136,7 +136,7 @@ h6 {
   width: 100px;
   padding: 15px 0;
   background:#e9f7fc;
-  border-top: 5px solid#38b7e9;
+  border-top: 5px solid #00ac9e;
   border-radius: 3px;
 }
 
@@ -149,7 +149,7 @@ h6 {
 #header .countdown div h4 {
   font-size: 16px;
   font-weight: 600;
-  color: #38b7e9;
+  color: #00ac9e;
 }
 
 @media (max-width: 575px) {
@@ -332,17 +332,21 @@ section {
 }
 
 .contact .info .social-links a:hover {
-  background:  #2772db;
+  background:  #023631;
   color: #fff;
 }
 
 .contact .info .email:hover i,
 .contact .info .address:hover i,
 .contact .info .phone:hover i {
-  background:  #2772db;
+  background:  #00ac9e;
   color: #fff;
 }
 
+.text-inf{
+  
+  color:#0d978c;
+}
 .contact .php-email-form {
   width: 100%;
   padding: 30px;
@@ -430,7 +434,7 @@ section {
 }
 
 .contact .php-email-form button[type=submit] {
-  background-color:#47bdea;
+  background-color:#00ac9e;
  border-radius: 5px;;
   padding: 10px 24px;
   color:#fff ;

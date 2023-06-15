@@ -1,4 +1,5 @@
 import { ApiProperty } from "@nestjs/swagger";
+import { IsArray, IsEmpty, IsNotEmpty} from "class-validator";
 
 export class CreateEventDto {
   @ApiProperty()
@@ -10,10 +11,12 @@ export class CreateEventDto {
   @ApiProperty()
   endAt :Date;
   @ApiProperty()
+  @IsNotEmpty()
   employeeId: string;
   @ApiProperty()
   membershipIds:string[]
   @ApiProperty()
+  @IsEmpty()
   mediaIds:string[]
 
 }

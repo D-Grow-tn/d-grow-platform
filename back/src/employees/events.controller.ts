@@ -18,11 +18,11 @@ export class EventsController {
   findAll() {
     return this.eventsService.findAll();
   }
-
   @Get('by-employee/:employeeId')
   findAllByEmployee(@Param('employeeId') employeeId: string) {
     return this.eventsService.findAllByEmployee(employeeId);
   }
+
 
   @Get(':id')
   findOne(@Param('id') id: string) {
