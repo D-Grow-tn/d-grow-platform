@@ -93,7 +93,7 @@ function Form({
       <div className={buttonsClassName} style={buttonsStyle}>
         {buttons?.map((button) => {
           const { category, ...rest } = button;
-          console.log(category);
+         console.log("button",button);
           switch (category) {
             case "cancel":
               return <CancelButton {...rest} />;

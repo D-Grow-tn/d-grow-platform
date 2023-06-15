@@ -10,7 +10,7 @@ function LoginAdmin() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const [user, setUser] = useState(null);
-
+ console.log("user",user);
   const handleChange = (e) => {
     const { name, value } = e.target;
     setUser((User) => ({ ...User, [name]: value }));
