@@ -1,21 +1,18 @@
 import React from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import ArrowRightIcon from "@mui/icons-material/ArrowRight";
-import AddButton from "../componets/button/AddButton";
-import CancelButton from "../componets/button/CancelButton";
-import SaveButton from "../componets/button/SaveButton";
-import EditButton from "../componets/button/EditButton";
-import ConfirmButton from "../componets/button/ConfirmButton";
-import DeleteButton from "../componets/button/DeleteButton";
+import AddButton from "./button/AddButton";
+import CancelButton from "./button/CancelButton";
+import SaveButton from "./button/SaveButton";
+import EditButton from "./button/EditButton";
+import ConfirmButton from "./button/ConfirmButton";
+import DeleteButton from "./button/DeleteButton";
 
-const HeaderPage = ({ title, showButton, buttonPath,text }) => {
+const HeaderPage = ({ title, showButton,text,buttonFunction }) => {
   const location = useLocation();
   const navigate = useNavigate();
 
-  const handleButtonClick = () => {
-    // Logic to navigate to the specified button path
-    navigate(buttonPath);
-  };
+ 
 
   return (
     <header className="headerPage d-flex justify-content-between align-items-center p-3">
@@ -38,7 +35,7 @@ const HeaderPage = ({ title, showButton, buttonPath,text }) => {
                   
                 }}
           
-            onClick={handleButtonClick}
+            onClick={buttonFunction}
           >
             {text} <i class="fa-solid fa-play fa-fade px-2"></i>
           </button>

@@ -1,21 +1,17 @@
-import React, { useEffect, useState } from "react";
-import {
-  MDBBtn,
-  MDBContainer,
-  MDBCard,
-  MDBCardBody,
-  MDBInput,
-  MDBIcon,
-  MDBRow,
-  MDBCol,
-  MDBCheckbox,
-} from "mdb-react-ui-kit";
+import React, { useState } from "react";
+
 import { Button } from "react-bootstrap";
 import { Link } from "react-router-dom";
-// import "../assets/styles/LoginAdmin.css";
+
 import { useLocation } from "react-router-dom";
-import CastomInput from "./CastomInput";
+
 import TextInput from "./TextInput";
+import CancelButton from "./button/CancelButton";
+import AddButton from "./button/AddButton";
+import ConfirmButton from "./button/ConfirmButton";
+import SaveButton from "./button/SaveButton";
+import DeleteButton from "./button/DeleteButton";
+import EditButton from "./button/EditButton";
 
 function Form({
   className,
@@ -26,14 +22,14 @@ function Form({
   inputs,
   inputsClassName,
   inputsStyle,
+  numberInputPerRow,
   onSubmit,
   onChange,
   buttons,
   buttonsClassName,
   buttonsStyle,
   link,
-  value
-  
+  readOnly,
 }) {
   const [showPassword, setShowPassword] = useState(false);
 
@@ -46,7 +42,7 @@ function Form({
   );
 
   return (
-    <form className={className} style={style} onSubmit={onSubmit}  value={value}>
+    <form className={className} style={style} onSubmit={onSubmit}>
       {/* Title */}
       <h1 className={titleClassName} style={titleStyle}>
         {title}
@@ -54,18 +50,35 @@ function Form({
       {/* Inputs */}
       <div className={inputsClassName} style={inputsStyle}>
         {inputs?.map(
-          (input) => (
-            <TextInput
-              placeholder={input.placeholder}
-              label={input.label}
-              onChange={onChange}
-              name={input.name}
-              type={input.type}
-              required={input.required}
-              width={input.width}
-             
-            />
-          )
+          (input, i) =>
+            i % numberInputPerRow === 0 ? (
+              <>
+                <div className="w-100"></div>
+                <TextInput
+                  placeholder={input.placeholder}
+                  label={input.label}
+                  onChange={onChange}
+                  name={input.name}
+                  type={input.type}
+                  required={input.required}
+                  width={input.width}
+                  readOnly={readOnly}
+                  value={input.value}
+                />
+              </>
+            ) : (
+              <TextInput
+                placeholder={input.placeholder}
+                label={input.label}
+                onChange={onChange}
+                name={input.name}
+                type={input.type}
+                required={input.required}
+                width={input.width}
+                readOnly={readOnly}
+                value={input.value}
+              />
+            )
           // input.type === "radio" ? (
           //   <RadioInput />
           // ) : input.type === "checkbox" ? (
@@ -78,27 +91,26 @@ function Form({
 
       {/* Buttons */}
       <div className={buttonsClassName} style={buttonsStyle}>
-        {buttons?.map((button) =>
-          button.onClick ? (
-            <Button
-              type="button"
-              onClick={button.onClick}
-              className={button?.className}
-              style={button.style}
-            >
-              {button.name}
-            </Button>
-          ) : button.onSubmit ? (
-            <Button
-              type="submit"
-              onClick={button.onSubmit}
-              className={button?.className}
-              style={button.style}
-            >
-              {button.name}
-            </Button>
-          ) : null
-        )}
+        {buttons?.map((button) => {
+          const { category, ...rest } = button;
+          console.log(category);
+          switch (category) {
+            case "cancel":
+              return <CancelButton {...rest} />;
+            case "add":
+              return <AddButton {...rest} />;
+            case "confirm":
+              return <ConfirmButton {...rest} />;
+            case "save":
+              return <SaveButton {...rest} />;
+            case "delete":
+              return <DeleteButton {...rest} />;
+            case "edit":
+              return <EditButton {...rest} />;
+            default:
+              return <Button {...rest}>{button.name}</Button>;
+          }
+        })}
       </div>
       {link && (
         <Link to={link.href} className={link.className} style={link.style}>
