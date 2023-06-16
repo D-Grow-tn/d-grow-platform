@@ -1,11 +1,11 @@
 import React from 'react'
 
-function Chat() {
+function RequestList() {
   return (
     <div>
-      Chat room page
+      
     </div>
   )
 }
 
-export default Chat
+export default RequestList

@@ -1,36 +1,42 @@
 import React, { useEffect, useState } from "react";
-
-import LoadComponent from "./LoadComponent";
-import Client from "./../apps/Client";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { me } from "../store/auth";
-import Objectives from "../components/Objectives";
-import TeamSection from "../components/TeamSection";
-import InteractionSection from "../components/InteractionSection";
-import Gantt from "../components/GanttSection";
+// import Objectives from "../components/Objectives";
+// import TeamSection from "../components/TeamSection";
+// import InteractionSection from "../components/InteractionSection";
+// import Gantt from "../components/GanttSection";
 import Applications from "../pages/Applications";
 import ApplicationDetails from "../pages/ApplicationDetails";
+// import Signup from "../pages/Signup"
+import LoadComponent from"./LoadComponent"
+import Services from "../pages/Services";
+const Client = React.lazy(() => import("./../apps/Client"));
 
 const ComingSoon = React.lazy(() => import("../pages/ComingSoon"));
 
 const Home = React.lazy(() => import("./../pages/Home"));
 
-const Auth = React.lazy(() => import("../pages/auth/Auth"));
-const LoginPage = React.lazy(() => import("../pages/auth/LoginPage"));
-
-const ResetPassword = React.lazy(() => import("../pages/auth/ResetPassword"));
-
 const AboutUs = React.lazy(() => import("../pages/AboutUs"));
 
-const Profile = React.lazy(() => import("./../pages/Profile"));
-
-const Chat = React.lazy(() => import("./../pages/Chat"));
-const Services = React.lazy(() => import("./../pages/Services"));
-
 const Contact = React.lazy(() => import("./../pages/Contact"));
+
+// const Services = React.lazy(() => import("./../pages/Services"));
+
+const Auth = React.lazy(() => import("../pages/auth/Auth"));
+const LoginPage = React.lazy(() => import("../pages/auth/LoginPage"));
+const ResetPassword = React.lazy(() => import("../pages/auth/ResetPassword"));
+
+const Profile = React.lazy(() => import("./../pages/Profile"));
 const ProjectDetails = React.lazy(() => import("./../pages/ProjectDetails"));
-const Signup = React.lazy(() => import("../pages/Signup"));
+const Objectives = React.lazy(() => import("../components/Objectives"));
+const TeamSection = React.lazy(() => import("../components/TeamSection"));
+const InteractionSection = React.lazy(() =>
+  import("../components/InteractionSection")
+);
+const Gantt = React.lazy(() => import("../components/GanttSection"));
+
+const NoPage = React.lazy(() => import("./../pages/NoPage"));
 
 function Router() {
   const dispatch = useDispatch();
@@ -55,23 +61,16 @@ function Router() {
           Loading
         </div>
       )}
-      <BrowserRouter>
+      <BrowserRouter >
         <Routes>
           {!user && (
-            <Route path="/auth" element={<LoadComponent Component={Auth} />}>
+            <Route path="/auth" element={<Auth />}>
               <Route exact path="login" element={<LoginPage />} />
               <Route exact path="reset-password" element={<ResetPassword />} />
             </Route>
           )}
           <Route path="/" element={<Client />}>
             <Route index element={<LoadComponent Component={Home} />} />
-
-            {user && (
-              <Route
-                path="profile"
-                element={<LoadComponent Component={Profile} />}
-              />
-            )}
             <Route
               path="about-us"
               element={<LoadComponent Component={AboutUs} />}
@@ -82,38 +81,14 @@ function Router() {
             />
 
             <Route
-             path="project/:projectId"
-              element={<LoadComponent Component={ProjectDetails} />}
-            >
-              <Route   index   element={<LoadComponent Component={Objectives} />} />
-              <Route
-                path="team-section"
-                element={<LoadComponent Component={TeamSection} />}
-              />
-              <Route
-                path="interaction"
-                element={<LoadComponent Component={InteractionSection} />}
-              />
-              <Route
-                path="gantt"
-                element={<LoadComponent Component={Gantt} />}
-              />
-            </Route>
-
-            <Route
-              path="*"
-              element={<LoadComponent Component={ComingSoon} />}
-            />
-            <Route
               path="/services"
               element={<LoadComponent Component={Services} />}
             />
-            <Route path="chat" element={<LoadComponent Component={Chat} />} />
 
-            <Route
+            {/* <Route
               path="signup"
               element={<LoadComponent Component={Signup} />}
-            />
+            /> */}
              <Route
               path="applications/:id"
               element={<LoadComponent Component={Applications} />}
@@ -134,9 +109,40 @@ function Router() {
               path="interaction"
               element={<LoadComponent Component={InteractionSection} />}
             /> */}
+            {user && (
+              <>
+                <Route
+                  path="profile"
+                  element={<LoadComponent Component={Profile} />}
+                />
+                <Route
+                  path="project/:projectId"
+                  element={<LoadComponent Component={ProjectDetails} />}
+                >
+                  <Route
+                    index
+                    element={<LoadComponent Component={Objectives} />}
+                  />
+                  <Route
+                    path="team-section"
+                    element={<LoadComponent Component={TeamSection} />}
+                  />
+                  <Route
+                    path="interaction"
+                    element={<LoadComponent Component={InteractionSection} />}
+                  />
+                  <Route
+                    path="gantt"
+                    element={<LoadComponent Component={Gantt} />}
+                  />
+                </Route>
+              </>
+            )}
+            <Route path="*" element={<LoadComponent Component={NoPage} />} />
           </Route>
         </Routes>
       </BrowserRouter>
+
     </div>
   );
 }

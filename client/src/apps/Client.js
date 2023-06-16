@@ -5,7 +5,7 @@ import "../assets/css/style.css";
 import { BsTelephone, BsInstagram } from "react-icons/bs";
 import { GrFacebookOption, GrTwitter } from "react-icons/gr";
 import { TbBallBasketball } from "react-icons/tb";
-import ComingSoon from "../pages/ComingSoon";
+// import ComingSoon from "../pages/ComingSoon";
 
 
 

@@ -1,0 +1,95 @@
+.sidebar {
+  background: #1a408c;
+  position: fixed;
+  z-index: 3;
+  color: #fff;
+  height: 100vh;
+  width: 250px;
+  transition: all 0.5s;
+}
+.top_section {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px 15px;
+  height: 70px;
+  margin-bottom: 15px;
+}
+.logo {
+  font-size: 30px;
+}
+.bars {
+  display: flex;
+  font-size: 25px;
+  margin-left: 80px;
+}
+.links {
+  display: flex;
+  color: #fff;
+  padding: 10px 15px;
+  gap: 15px;
+  transition: all 0.5s;
+  margin-top: 5px;
+}
+.links:hover {
+  background: #f3fcf6;
+  color: #000;
+  transition: all 0.5s;
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.3);
+  border-radius: 5px;
+  margin-top: 5px;
+}
+.active {
+  background: #f3fcf6 !important;
+  color: #000 !important;
+  transition: all 0.5s !important;
+  box-shadow: 0 0 0px rgba(0, 0, 0, 0.3) !important;
+  border-radius: 7px !important;
+}
+.icon,
+.linkText {
+  font-size: 20px;
+ 
+}
+
+.header {
+  position: fixed;
+  width: 100%;
+  z-index: 2;
+  height: 70px;
+  box-shadow: 0px 3px 8px #1a408c83;
+  transition: all 0.5s;
+  background-color: #fff;
+}
+.icon.sidebar-closed-icon {
+  padding-right: 10px;
+}
+.custom-btn .btn-ripple {
+  background-color: #1a408c;
+}
+.inputForm{
+margin-left: 120px;
+}
+.dropdownHeader{
+  margin-right: 20px;
+
+}
+
+
+@media (max-width: 700px) {
+  .inputForm {
+    margin-left: 10px;
+  }
+  #dropdownMenu2{
+    padding: 2px !important;
+    margin-top: 5px;
+  }
+  .dropdownHeader{
+    margin-right: 0px;
+  
+  }
+  .icon {
+  font-size: 15px;
+ 
+}
+}

@@ -1,0 +1,34 @@
+.pages {
+    background-color:#f8f9fa ;
+    padding-top: 70px;
+    transition: all 0.5s;
+}
+.page{
+padding: 20px;
+
+}
+.headerPage {
+    background-color: #daeaf088;
+    padding: 10px;
+    border-radius: 5px;
+
+  }
+  
+  .headerPage-title {
+    color: #333;
+    font-size: 24px;
+    margin-bottom: 5px;
+  }
+  
+  .headerPage-path {
+    color: #666;
+    font-size: 14px;
+  }
+.views {
+    
+
+
+}
+.view{
+    
+}

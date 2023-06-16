@@ -2,7 +2,10 @@ import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/commo
 import { BehaviorsService } from './behaviors.service';
 import { CreateBehaviorDto } from './dto/create-behavior.dto';
 import { UpdateBehaviorDto } from './dto/update-behavior.dto';
+import { ApiTags } from '@nestjs/swagger';
 
+
+@ApiTags ('behaviors')
 @Controller('behaviors')
 export class BehaviorsController {
   constructor(private readonly BehaviorsService: BehaviorsService) {}
@@ -20,6 +23,15 @@ export class BehaviorsController {
   @Get(':id')
   findOne(@Param('id') id: string) {
     return this.BehaviorsService.findOne(id);
+  }
+  @Get('by_reciever/:recieverId')
+  findAllByReceiver(@Param('recieverId') recieverId: string) {
+    return this.BehaviorsService.findAllByReceiver(recieverId);
+  }
+
+  @Get('by_sender/:senderId')
+  findAllBySender(@Param('senderId') senderId: string) {
+    return this.BehaviorsService.findAllByReceiver(senderId);
   }
 
   @Patch(':id')

@@ -3,8 +3,8 @@ import { useSelector } from "react-redux";
 import { useDispatch } from "react-redux";
 import { createInteraction, fetchInteractions } from "../store/interactions";
 import ConversionDate from "./ConversionDate";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faPaperPlane } from "@fortawesome/free-solid-svg-icons";
+// import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+// import { faPaperPlane } from "@fortawesome/free-solid-svg-icons";
 import send from "../assets/img/send.png"
 
 function InteractionSection() {
@@ -17,7 +17,7 @@ function InteractionSection() {
   const [content, setContent] = useState("");
   useEffect(() => {
     dispatch(fetchInteractions(project?.id));
-  }, [project?.id]);
+  }, [project?.id,dispatch]);
 
   return (
     <div className="  mt-5 d-flex ">
@@ -87,7 +87,7 @@ function InteractionSection() {
                   }}
                 >
                   {/* <FontAwesomeIcon icon={faPaperPlane} size="2x" style={{color:"1a408c"}}/> */}
-                  <img src={send} style={{width:50,heigh:50}}/>
+                  <img alt="" src={send} style={{width:50,heigh:50}}/>
                 </div>
               </div>
             </ul>

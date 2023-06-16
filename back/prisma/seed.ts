@@ -118,7 +118,7 @@ let avatarClient4 =await prisma.media.create({
   });
   let employee3 = await prisma.employee.create({
     data: {
-      name: 'rania',
+      name: 'Rania elouni',
       bio: 'String',
       email: 'String',
       phone: 'String',
@@ -172,7 +172,7 @@ let avatarClient4 =await prisma.media.create({
   let user5 = await prisma.user.create({
     data: {
       name: 'd-grow5',
-      email: 'rania@gmail.com',
+      email: 'raniaelouni421@gmail.com',
       employeeId: employee3.id,
       password: await bcrypt.hash('1234', salt),
       isClient: false,
@@ -183,7 +183,7 @@ let avatarClient4 =await prisma.media.create({
     data: {
       name: 'khalil',
       email: 'khalil@gmail.com',
-      employeeId: employee2.id,
+      employeeId: employee1.id,
       password: await bcrypt.hash('1234', salt),
       isClient: false,
       // mediaId   :  media.id,
@@ -193,7 +193,7 @@ let avatarClient4 =await prisma.media.create({
     data: {
       name: 'ines',
       email: 'ines@gmail.com',
-      employeeId: employee1.id,
+      employeeId: employee2.id,
       password: await bcrypt.hash('1234', salt),
       isClient: false,
       // mediaId   :  media.id,
@@ -215,8 +215,8 @@ let avatarClient4 =await prisma.media.create({
       duration: '2 months',
       projectManagerId: employee1.id,
       consultantId: employee2.id,
-      startAt: new Date(30 / 5 / 2023),
-      endAt: new Date(30 / 7 / 2023),
+      startAt: new Date("01/05/2023"),
+      endAt: new Date("01/07/2023"),
       status: 'pending',
       contractId: contract.id,
       coverId: cover1.id,
@@ -231,8 +231,8 @@ let avatarClient4 =await prisma.media.create({
       duration: 'One month',
       projectManagerId: employee1.id,
       consultantId: employee2.id,
-      startAt: new Date(1 / 5 / 2023),
-      endAt: new Date(30 / 5 / 2023),
+      startAt: new Date("01/05/2023"),
+      endAt: new Date("01/07/2023"),
       status: 'in_progress',
       coverId: cover2.id,
     },
@@ -245,8 +245,8 @@ let avatarClient4 =await prisma.media.create({
       duration: 'One month',
       projectManagerId: employee1.id,
       consultantId: employee2.id,
-      startAt: new Date(1 / 4 / 2023),
-      endAt: new Date(30 / 4 / 2023),
+      startAt: new Date("01/05/2023"),
+      endAt: new Date("01/07/2023"),
       status: 'completed',
       coverId: cover3.id,
       
@@ -256,53 +256,53 @@ let avatarClient4 =await prisma.media.create({
   // create objective
   let objective1Project1 = await prisma.objective.create({
     data: {
-      name: 'Design and User Experience',
+      name: 'UX/UI Design',
       decription:
         'Improve the visual design and user experience of the e-commerce website.',
       projectId: project1.id,
-      startAt: new Date('30/05/2023'),
-      endAt: new Date('15/06/2023'),
+      startAt: new Date("01/05/2023"),
+      endAt: new Date("01/08/2023"),
       status: 'in_progress',
     },
   });
 
   let objective2Project1 = await prisma.objective.create({
     data: {
-      name: 'Backend Development and Database Integration',
+      name: 'Backend',
       decription:
         'Develop the server-side functionality and integrate the database for the e-commerce website.',
       projectId: project1.id,
-      startAt: new Date('30/05/2023'),
-      endAt: new Date('15/06/2023'),
+      startAt: new Date("01/05/2023"),
+      endAt: new Date("01/09/2023"),
       status: 'in_progress',
     },
   });
   let objective3Project1 = await prisma.objective.create({
     data: {
-      name: 'Payment Gateway Integration',
+      name: 'Payment Gateway ',
       decription:
         'Integrate a secure and reliable payment gateway to facilitate smooth and secure online transactions.',
       projectId: project1.id,
-      startAt: new Date('15/06/2023'),
-      endAt: new Date('30/06/2023'),
+      startAt: new Date("01/05/2023"),
+      endAt: new Date("01/07/2023"),
     },
   });
 
   let objective4Project1 = await prisma.objective.create({
     data: {
-      name: 'Performance Optimization',
+      name:'Performance Optimization',
       decription:
         'Optimize the performance of the e-commerce website to ensure fast loading times and efficient resource utilization.',
       projectId: project1.id,
-      startAt: new Date('15/06/2023'),
-      endAt: new Date('30/06/2023'),
+      startAt: new Date("01/05/2023"),
+      endAt: new Date("01/09/2023"),
     },
   });
 
   // create sub_Objective
   let subObjective1Ojective1Project1 = await prisma.subObjective.create({
     data: {
-      name: 'User Interface Design',
+      name:'User Interface Design',
       objectiveId: objective1Project1.id,
       description:
         'Create an intuitive and visually appealing user interface for the e-commerce website.',
@@ -311,7 +311,7 @@ let avatarClient4 =await prisma.media.create({
   });
   let subObjective2Ojective1Project1 = await prisma.subObjective.create({
     data: {
-      name: 'Responsive Design',
+      name:'Responsive Design',
       objectiveId: objective1Project1.id,
       description:
         'Ensure that the e-commerce website is responsive and optimally displayed on different devices and screen sizes.',
@@ -328,7 +328,7 @@ let avatarClient4 =await prisma.media.create({
   });
   let subObjective1Objective4Project1 = await prisma.subObjective.create({
     data: {
-      name: 'Performance Analysis and Profiling',
+      name:'Performance Analysis and Profiling',
       objectiveId: objective4Project1.id,
       description:
         "Conduct a comprehensive performance analysis of the e-commerce website to identify bottlenecks and areas for optimization. Use profiling tools to measure and analyze the application's resource usage and performance metrics.",
@@ -397,10 +397,11 @@ let avatarClient4 =await prisma.media.create({
   });
 
   //create stage
+
   let stage1Project1 = await prisma.stage.create({
     data: {
-      name: 'User Interface Design',
-      porcentage: '20',
+      name: 'UI design',
+      porcentage: '40',
       startAt: new Date('01/05/2023'),
       endAt: new Date('01/07/2023'),
       objectiveId: objective1Project1.id,
@@ -408,20 +409,20 @@ let avatarClient4 =await prisma.media.create({
   });
   let stage2Project1 = await prisma.stage.create({
     data: {
-      name: 'User Experience Optimization',
+      name: 'UX design',
       porcentage: '20',
-      startAt: new Date('01/05/2023'),
-      endAt: new Date('01/07/2023'),
+      startAt: new Date("01/05/2023"),
+      endAt: new Date("01/07/2023"),
       objectiveId: objective1Project1.id,
       previousStageId: stage1Project1.id,
     },
   });
   let stage3Project1 = await prisma.stage.create({
     data: {
-      name: 'Server-side Development',
+      name: 'Testing',
       porcentage: '20',
-      startAt: new Date('01/05/2023'),
-      endAt: new Date('01/07/2023'),
+      startAt: new Date("01/05/2023"),
+      endAt: new Date("01/07/2023"),
       objectiveId: objective1Project1.id,
       previousStageId: stage2Project1.id,
     },
@@ -520,6 +521,19 @@ let avatarClient4 =await prisma.media.create({
       UserId: user6.id,
     },
   });
+  let decision1 = await prisma.decision.create({
+    data : {
+      content : "decision number 1",
+      DecisionApply:{create:[{employeeId:employee1.id}]}
+    }
+  });
+  let decision2 = await prisma.decision.create({
+    data : {
+      content : "decision number 2",
+      DecisionApply:{create:[{employeeId:employee2.id}]}
+    }
+  });
+
 }
 main()
   .then((res) => console.log('seeding completed'))

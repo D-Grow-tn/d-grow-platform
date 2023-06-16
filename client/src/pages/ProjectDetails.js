@@ -9,7 +9,6 @@ import { useSelector } from "react-redux";
 import { useDispatch } from "react-redux";
 import projectDetailData from "../constants/projectDetailData";
 
-
 function ProjectDetails() {
   const { projectId } = useParams();
   const navigate = useNavigate();
@@ -22,11 +21,11 @@ function ProjectDetails() {
   const [formattedCreatedAt, setFormattedCreatedAt] = useState("");
   const [formattedEndAt, setFormattedEndAt] = useState("");
   const [viewContractModal, setViewContractModal] = useState(false);
-  const [navData, setNavData] = useState(projectDetailData);
+  const navData = projectDetailData;
 
   useEffect(() => {
     dispatch(fetchProject(projectId));
-  }, [dispatch]);
+  }, [dispatch, projectId]);
 
   useEffect(() => {
     function formatDate(dateString) {
@@ -49,7 +48,7 @@ function ProjectDetails() {
 
     setFormattedCreatedAt(formattedCreatedAt);
     setFormattedEndAt(formattedEndAt);
-  }, []);
+  }, [project]);
 
   return (
     <div>
@@ -134,7 +133,7 @@ function ProjectDetails() {
             >
               <div style={{ flex: "1", textAlign: "center" }}>
                 <div className="">
-                  <img src={elem.image} height="24" width="24" />
+                  <img src={elem.image} height="24" width="24"alt="" />
                   <p
                     className="titleNavProjectDetails"
                     style={{ fontWeight: 500 }}

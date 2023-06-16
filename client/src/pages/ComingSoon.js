@@ -5,7 +5,7 @@ import DisplayLottie from "../constants/DisplayLottie";
 import comingsoon from "../constants/comingsoon.json";
 
 function ComingSoon() {
-  const [datacount, setDatacount] = useState("2023/07/23");
+  const datacount="2023/07/23"
   const [day, setDay] = useState("--");
   const [hour, setHour] = useState("--");
   const [minute, setMinute] = useState("--");
@@ -114,7 +114,7 @@ function ComingSoon() {
                     <div className="col-lg-4 info">
                       <i className="bi bi-geo-alt" />
                       <h4>Location:</h4>
-                      <p>
+                      <p className="text-inf">
                         A108 Adam Street
                         <br />
                         New York, NY 535022
@@ -123,7 +123,7 @@ function ComingSoon() {
                     <div className="col-lg-4 info mt-4 mt-lg-0">
                       <i className="bi bi-envelope" />
                       <h4>Email:</h4>
-                      <p>
+                      <p className="text-inf">
                         info@example.com
                         <br />
                         contact@example.com
@@ -132,7 +132,7 @@ function ComingSoon() {
                     <div className="col-lg-4 info mt-4 mt-lg-0">
                       <i className="bi bi-phone" />
                       <h4>Call:</h4>
-                      <p>
+                      <p className="text-inf">
                         +1 5589 55488 51
                         <br />
                         +1 5589 22475 14
@@ -145,9 +145,7 @@ function ComingSoon() {
             <div className="row justify-content-center">
               <div className="col-lg-10">
                 <form
-                  action="forms/contact.php"
-                  method="post"
-                  role="form"
+                  
                   className="php-email-form"
                 >
                   <div className="row">

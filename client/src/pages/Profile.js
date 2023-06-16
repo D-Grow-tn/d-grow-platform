@@ -8,25 +8,46 @@ import { Fade } from "react-reveal";
 import { Nav } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import auth from "../store/auth";
 import { fetchProjectbyClient } from "../store/projects";
+
 import CastomModal from "../components/CastomModal";
-import "../assets/css/Profile.css"
+import "../assets/css/Profile.css";
+import { UpdateClient, fetchClient } from "../store/client";
 const UserProfile = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const [isOpen, setIsOpen] = useState(false);
 
   const me = useSelector((state) => state.auth.me);
-  const projectStore = useSelector((state) => state.projects);
-  const { project, projects } = projectStore;
-  const [activeTab, setActiveTab] = useState("tab1");
+  const client = useSelector((state) => state.client.client);
 
+  const projectStore = useSelector((state) => state.projects);
+  const { projects } = projectStore;
+  const [activeTab, setActiveTab] = useState("tab1");
+  const [name, setName] = useState("");
+
+  const [address, setAdress] = useState("");
+
+  const [phone, setPhone] = useState("");
+
+  const clientId = me.client.id;
+
+  const form = { clientId, name, address, phone };
   useEffect(() => {
     if (me) {
       dispatch(fetchProjectbyClient(me.client.id));
+      dispatch(fetchClient(clientId));
+     
     }
-  }, [dispatch]);
+   
+  }, [dispatch, me]);
+  useEffect(() => {
+    if (client) {
+      setName(client?.name)
+    setAdress(client?.address)
+    setPhone(client?.phone)
+    }
+  }, [client]);
 
   const handleTabChange = (tab) => {
     setActiveTab(tab);
@@ -37,6 +58,14 @@ const UserProfile = () => {
       return "project";
     }
     return "projects";
+  };
+
+  const handleUpdate = async () => {
+    try {
+      dispatch(UpdateClient(form));
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   return (
@@ -60,39 +89,54 @@ const UserProfile = () => {
                 }}
               ></div>
             </div>
-            <div className="card-body d-flex flex-column align-items-center">
+            <div className="card-body d-flex flex-column align-items-center ">
               <img
                 src={me?.client?.avatar?.path}
                 class="rounded-circle "
                 style={{
                   width: "150px",
                   position: "absolute",
-                  top: "-20%",
+                  top: "-15%",
                 }}
                 alt="Avatar"
               />
-              <div >
-             
-      <div>
-       <button className="primaryBtn" onClick={() => setIsOpen(true) }>
-      Update Profile
-     </button>
-     {isOpen && <CastomModal setIsOpen={setIsOpen}  buttonName="Confirm" title="Update Your Profile "/>}
-    </div>
-     {/* </CastomModal> */}
+              <div>
+                <div>
+                  <button
+                    className="primaryBtn"
+                    onClick={() => setIsOpen(true)}
+                  >
+                    Update Profile
+                  </button>
+                  {isOpen && (
+                    <CastomModal
+                      setIsOpen={setIsOpen}
+                      buttonName="Confirm"
+                      title="Update Your Profile "
+                      nameValue={name}
+                      addressValue={address}
+                      phoneValue={phone}
+                      setName={setName}
+                      setAdress={setAdress}
+                      setPhone={setPhone}
+                      handleUpdate={handleUpdate}
+                    />
+                  )}
+                </div>
+                {/* </CastomModal> */}
                 <div className="mt-5 d-flex flex-column justify-content-center align-items-center ">
-                  <h5 className="card-title  ">{me?.name}</h5>
+                  <h5 className="card-title  ">{client?.name}</h5>
                   <h6 className="card-subtitle mb-2 text-muted my-2">
                     Project Manager
                   </h6>
                   <h6 className="card-subtitle mb-2 text-muted">
                     <i class="fa-solid fa-location-dot mx-2 my-2"></i>
-                    {me?.client?.address}
+                    {client?.address}
                   </h6>
                   <h6 className="card-subtitle mb-2 text-muted">
                     {" "}
                     <i class="fa-solid fa-phone mx-2 my-2"></i>
-                    {me?.client?.phone}
+                    {client?.phone}
                   </h6>
                   <p className="d- flex justify-content-center align-items-center">
                     Some quick example text to build on the card title and make
@@ -198,8 +242,6 @@ const UserProfile = () => {
                     onClick={() => navigate(`/project/${project.id}`)}
                     style={{ cursor: "pointer" }}
                   >
-                    {console.log("coverId", project.coverId)};
-                    {console.log("cover", project?.cover?.path)};
                     <Card
                       style={{ width: "19rem", height: "500px" }}
                       className="shadow proCard"

@@ -2,7 +2,8 @@ import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/commo
 import { RequestsService } from './requests.service';
 import { CreateRequestDto } from './dto/create-request.dto';
 import { UpdateRequestDto } from './dto/update-request.dto';
-
+import { ApiTags } from '@nestjs/swagger';
+@ApiTags('requests')
 @Controller('requests')
 export class RequestsController {
   constructor(private readonly requestsService: RequestsService) {}
@@ -15,6 +16,7 @@ export class RequestsController {
   @Get()
   findAll() {
     return this.requestsService.findAll();
+    
   }
 
   @Get(':id')

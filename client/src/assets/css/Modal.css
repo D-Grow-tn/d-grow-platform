@@ -19,8 +19,8 @@
 
 
 .modal {
-  width: 700px;
-  height: 400px;
+  width: 500px;
+  height: 600px;
   background: white;
   color: white;
   z-index: 10;
@@ -49,11 +49,12 @@
 .heading {
   margin: 0;
   padding: 10px;
-  color: #2c3e50;
+  color: #000000;
   font-weight: 500;
-  font-size: 18px;
+  font-size: 30px;
   text-align: center;
-  margin-top: -30%;
+  margin-top: -10%;
+  
 }
 
 .modalContent {
@@ -113,14 +114,16 @@
   font-size: 0.8rem;
   border: none;
   color: #fff;
-  background: #ff3e4e;
+  background: #185adb;
+
   transition: all 0.25s ease;
 }
 
 .deleteBtn:hover {
-  box-shadow: 0 10px 20px -10px rgba(255, 62, 78, 0.6);
+  box-shadow: 0 10px 20px -10px rgba(24, 90, 219, 0.6);
   transform: translateY(-5px);
-  background: #ff3e4e;
+  background: #185adb;
+
 }
 
 .cancelBtn {
@@ -140,4 +143,27 @@
   box-shadow: none;
   transform: none;
   background: whitesmoke;
+}
+@media screen and (max-width: 767px) {
+  @media screen and (max-width: 767px) {
+    .modal {
+      width: 90%;
+      height: 90%;
+      border-radius: 8px;
+    }
+  }
+  
+  @media screen and (min-width: 768px) and (max-width: 1023px) {
+    .modal {
+      width: 80%;
+      height: 80%;
+    }
+  }
+  
+  @media screen and (min-width: 1024px) {
+    .modal {
+      width: 500px;
+      height: 600px;
+    }
+  }
 }
