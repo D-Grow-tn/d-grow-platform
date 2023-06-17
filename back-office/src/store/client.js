@@ -88,6 +88,7 @@ export const fetchClients= createAsyncThunk("clients/clients", async () => {
      
       builder.addCase(fetchClients.fulfilled, (state, action) => {
         state.clients.items = action.payload;
+       
       
       });
 

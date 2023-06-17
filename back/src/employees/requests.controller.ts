@@ -23,6 +23,10 @@ export class RequestsController {
   findOne(@Param('id') id: string) {
     return this.requestsService.findOne(id);
   }
+  @Get('by_employee/:employeeId')
+  findAllByEmployee(@Param('employeeId')employeeId:string){
+    return this.requestsService.findAllByEmployee(employeeId);
+  }
 
   @Patch(':id')
   update(@Param('id') id: string, @Body() updateRequestDto: UpdateRequestDto) {

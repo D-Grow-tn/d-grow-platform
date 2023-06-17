@@ -44,6 +44,8 @@ export class RequestsService {
       },
     });
   }
+  
+
 
   async findOne(id: string,prisma:Prisma.TransactionClient=this.prisma) {
     return await prisma.request.findFirst({
@@ -54,6 +56,13 @@ export class RequestsService {
         MediaRequest: true,
       },
     });
+  }
+
+  async findAllByEmployee(employeeId:string){
+    return await this.prisma.request.findMany({
+      where:{employeeId}
+    
+    })
   }
 
   async update(id: string, dto: UpdateRequestDto) {
