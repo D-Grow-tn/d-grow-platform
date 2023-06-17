@@ -11,8 +11,8 @@ import { fetchRequestsByEmployee } from "../../../store/request";
 import DisplayLottie from "../../../constants/DisplayLottie";
 import loading from "../../../constants/loading.json";
 import { useNavigate } from "react-router-dom";
-import { useParams } from "react-router-dom";
-import { fetchEmployee } from "../../../store/employees";
+
+
 
 function RequestList() {
   const employee = useSelector((state) => state.employee.employee);
@@ -25,9 +25,7 @@ function RequestList() {
   useEffect(() => {
     if (me) {
       dispatch(fetchRequestsByEmployee(me.employee.id));
-      console.log('====================================');
-      console.log(requests);
-      console.log('====================================');
+  
     }
   }, [dispatch, me]);
  
@@ -130,14 +128,14 @@ function RequestList() {
     },
   ]);
 
-  if (!requests) {
-    return (
-      <div>
-        {" "}
-        <DisplayLottie animationData={loading} />
-      </div>
-    );
-  }
+  // if (!requests) {
+  //   return (
+  //     <div>
+  //       {" "}
+  //       <DisplayLottie animationData={loading} />
+  //     </div>
+  //   );
+  // }
 
   return (
     <div>
@@ -147,7 +145,7 @@ function RequestList() {
         buttonFunction={() => navigate("create")}
         text={"create a request"}
       />
-      <Table columns={columns} rows={rows}></Table>
+      <Table columns={columns} rows={rows}></Table> 
     </div>
   );
 }

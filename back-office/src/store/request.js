@@ -14,8 +14,14 @@ export const fetchRequests= createAsyncThunk("requests/requests", async () => {
   });
 
   export const fetchRequestsByEmployee = createAsyncThunk("requests/requestsByEmployee",async (id) => {
-    const response = await axios.get(`http://localhost:3001/api/v1/requests/by_employee/${id}`)
+  const response = await axios.get(`http://localhost:3001/api/v1/requests/by_employee/${id}`)
+    return response.data 
   }) 
+  export const createRequest = createAsyncThunk("requests/createRequest", async (requestData) => {
+    const response = await axios.post(`${config.API_ENDPOINT}/requests`, requestData);
+    return response.data;
+  });
+  
 
 
 
@@ -44,13 +50,21 @@ export const fetchRequests= createAsyncThunk("requests/requests", async () => {
       
       // });
 
-      builder.addCase(fetchRequest.fulfilled, (state, action) => {
-        state.request = action.payload;
-      });
+      // builder.addCase(fetchRequest.fulfilled, (state, action) => {
+      //   state.request = action.payload;
+      // });
 
       builder.addCase(fetchRequestsByEmployee.fulfilled,(state,action)=>{
-        state.requests.items = action.payload;
+        state.requests.items= action.payload;
+        console.log('====================================');
+        console.log(state.requests.items);
+        console.log('====================================');
       })
+     
+      // builder.addCase(createRequest.fulfilled, (state, action) => {
+      //  state.requests.items = action.payload;
+      // });
+      
     },
   });
   export default requestSlice.reducer;
