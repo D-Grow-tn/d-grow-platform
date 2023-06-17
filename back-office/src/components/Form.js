@@ -31,15 +31,7 @@ function Form({
   link,
   readOnly,
 }) {
-  const [showPassword, setShowPassword] = useState(false);
-
-  const location = useLocation();
-  const togglePasswordVisibility = () => {
-    setShowPassword(!showPassword);
-  };
-  const verificationEmail = new URLSearchParams(location.search).get(
-    "emailForForget"
-  );
+ 
 
   return (
     <form className={className} style={style} onSubmit={onSubmit}>
@@ -93,7 +85,7 @@ function Form({
       <div className={buttonsClassName} style={buttonsStyle}>
         {buttons?.map((button) => {
           const { category, ...rest } = button;
-         console.log("button",button);
+          console.log(category);
           switch (category) {
             case "cancel":
               return <CancelButton {...rest} />;

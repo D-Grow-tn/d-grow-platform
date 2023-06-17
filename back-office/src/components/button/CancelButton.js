@@ -7,7 +7,7 @@ function CancelButton({onClick,onSubmit,type}) {
     <div>
       <button
         type="button"
-        class="btn btn-outline-danger"
+        class="btn btn-dark btn-outline-primary "
         style={{
           borderColor: "gray",
           color: "gray",
@@ -17,6 +17,7 @@ function CancelButton({onClick,onSubmit,type}) {
         }}
         onClick={onClick}
         onSumbit={onSubmit}
+        
       >
         Cancel
       </button>

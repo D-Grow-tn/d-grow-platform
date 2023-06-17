@@ -18,7 +18,7 @@ function TextView({ value, label }) {
         border: "1px solid #b2b9bc",
         borderRadius: 8,
       }}
-      className="bgLightBlue align-items-center d-flex px-3 position-relative"
+      className="bgLightBlue align-items-center d-flex px-3 position-relative textView"
     >
       <div
         className="position-absolute bgLightBlue"
