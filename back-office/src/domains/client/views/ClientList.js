@@ -11,12 +11,14 @@ import { fetchClients } from "../../../store/client";
 import DisplayLottie from "../../../constants/DisplayLottie";
 import loading from "../../../constants/loading.json";
 import { useNavigate } from "react-router-dom";
+import Delete from "./Delete";
 
 function ClientList() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const clients = useSelector((state) => state.client.clients.items);
   const [rows, setRows] = useState([]);
+  const [isOpen, setIsOpen] = useState(false);
 
   console.log("from client component", clients);
 
@@ -42,6 +44,9 @@ function ClientList() {
     navigate("one/" + id);
   };
 
+  const togglePopup = () => {
+    setIsOpen(!isOpen);
+  };
   const columns = useMemo(
     () => [
       {
@@ -49,7 +54,7 @@ function ClientList() {
         headerName: "Avatar",
         headerClassName: "header-blue",
         width: 100,
-        renderCell: (params) => <Avatar src={params.row.photoURL} />,
+        renderCell: (params) => <Avatar src={params.row.avatar?.path} />,
         sortable: false,
         filterable: false,
       },
@@ -106,8 +111,8 @@ function ClientList() {
             >
               <RemoveRedEyeIcon />
             </IconButton>
-            <IconButton
-              onClick={() => handleDelete(params.row.id)}
+           <IconButton
+              onClick={togglePopup}
               color="error"
               aria-label="delete"
             >
@@ -138,6 +143,7 @@ function ClientList() {
         text={"Create Client"}
       />
       <Table columns={columns} rows={rows} />
+      {isOpen && (<Delete/>)}
     </div>
   );
 }

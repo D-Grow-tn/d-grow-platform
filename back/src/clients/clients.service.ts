@@ -26,6 +26,10 @@ export class ClientsService {
       where: {
         id,
       },
+      include:{
+        avatar:true,
+        project:true
+      }
     });
   }
 
