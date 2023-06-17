@@ -2,8 +2,15 @@ import React, { useEffect, useState } from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { me } from "../store/auth";
-
+// import Objectives from "../components/Objectives";
+// import TeamSection from "../components/TeamSection";
+// import InteractionSection from "../components/InteractionSection";
+// import Gantt from "../components/GanttSection";
+import Applications from "../pages/Applications";
+import ApplicationDetails from "../pages/ApplicationDetails";
+// import Signup from "../pages/Signup"
 import LoadComponent from"./LoadComponent"
+import Services from "../pages/Services";
 const Client = React.lazy(() => import("./../apps/Client"));
 
 const ComingSoon = React.lazy(() => import("../pages/ComingSoon"));
@@ -75,9 +82,33 @@ function Router() {
 
             <Route
               path="/services"
-              element={<LoadComponent Component={ComingSoon} />}
+              element={<LoadComponent Component={Services} />}
             />
 
+            {/* <Route
+              path="signup"
+              element={<LoadComponent Component={Signup} />}
+            /> */}
+             <Route
+              path="applications/:id"
+              element={<LoadComponent Component={Applications} />}
+            />
+              <Route
+              path="applicationDetails/:params1/:params2"
+              element={<LoadComponent Component={ApplicationDetails} />}
+            />
+            {/* <Route
+              path="objectives"
+              element={<LoadComponent Component={Objectives} />}
+            />
+             <Route
+              path="team-section"
+              element={<LoadComponent Component={TeamSection} />}
+            />
+             <Route
+              path="interaction"
+              element={<LoadComponent Component={InteractionSection} />}
+            /> */}
             {user && (
               <>
                 <Route

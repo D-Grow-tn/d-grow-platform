@@ -17,7 +17,12 @@ export class EmployeeQuizsController {
     return this.employeeQuizsService.findAll();
   }
 
-  @Get(':quizId/employeeId')
+  @Get('by-employee/:employeeId') 
+  findAllByEmployee(@Param('emlpoyeeId') employeeId:string) {
+    return this.employeeQuizsService.findAllByEmployee(employeeId);
+  }
+
+  @Get('one/:quizId/:employeeId')
   findOne(@Param('quizId') @Param('employeeId')quizId: string, employeeId:string,) {
     return this.employeeQuizsService.findOne(quizId,employeeId);
   }

@@ -17,6 +17,8 @@ function TextInput({
   readOnly,
   value,
   onChange,
+  multiline,
+  rows
 }) {
   const [showPassword, setShowPassword] = useState(false);
 
@@ -30,10 +32,14 @@ function TextInput({
         <TextField
           label={label}
           hiddenLabel
+          multiline={multiline}
+          rows={rows}
+          className="textInput"
           id="filled-hidden-label-normal"
           placeholder={placeholder}
           variant="outlined"
           InputProps={{
+            className:"textInput",
             style: {
               backgroundColor: "#daeaf088",
               borderRadius: "8px",

@@ -5,7 +5,7 @@ import { useParams } from "react-router-dom";
 import { fetchClient ,removeClient} from "../../../store/client";
 import { useNavigate } from "react-router-dom";
 
-function Delete() {
+function Delete({setIsOpen,isopen}) {
 
     const { clientId } = useParams();
     const navigate= useNavigate()
@@ -45,9 +45,8 @@ function Delete() {
           type: "button",
           name: "Cancel",
           onClick: () => {
-         
             setAuxClient(client);
-            
+            setIsOpen(!isopen)
           },
             },
          

@@ -28,32 +28,31 @@ model User {
 }
 
 model Client {
-  id          String        @id @default(uuid())
-  name        String
-  email       String
-  phone       String
-  address     String
-  createdAt   DateTime      @default(now())
-  updatedAt   DateTime      @updatedAt
-  project     Project[]
-  User        User[]
-  MediaClient MediaClient[]
-
-  avatar         Media  @relation(fields: [avatarClientId], references: [id])
+  id             String        @id @default(uuid())
+  name           String
+  email          String
+  phone          String
+  address        String
+  createdAt      DateTime      @default(now())
+  updatedAt      DateTime      @updatedAt
   avatarClientId String
+  avatar         Media         @relation(fields: [avatarClientId], references: [id])
+  project        Project[]
+  User           User[]
+  MediaClient    MediaClient[]
 }
 
 model Employee {
   id               String             @id @default(uuid())
   name             String
-  bio              String
   email            String
   phone            String
-  departmentId     String?
+  bio              String
   createdAt        DateTime           @default(now())
   updatedAt        DateTime           @updatedAt
-  avatar           Media?             @relation(fields: [avatarId], references: [id])
   avatarId         String?
+  avatar           Media?             @relation(fields: [avatarId], references: [id])
+  departmentId     String?
   department       Department?        @relation(fields: [departmentId], references: [id], name: "department")
   directManegerId  String?
   directManeger    Employee?          @relation(fields: [directManegerId], references: [id], name: "directManeger")
@@ -76,6 +75,7 @@ model Employee {
   DecisionApply    DecisionApply[]
   Membership       Membership[]
 }
+
 model Project {
   id                  String              @id @default(uuid())
   name                String
@@ -121,7 +121,7 @@ model ProjectTechnology {
   technologyId String
   technologies Technology @relation(fields: [technologyId], references: [id])
 
-  @@unique([technologyId, projectId])
+  @@unique(fields: [technologyId, projectId], name: "projectTechnology")
 }
 
 model Objective {
@@ -232,7 +232,7 @@ model Quiz {
   id           String         @id @default(uuid())
   content      String
   score        Int
-  employeeQuiz EmployeeQuiz[]
+  EmployeeQuiz EmployeeQuiz[]
 }
 
 model EmployeeQuiz {
@@ -242,7 +242,7 @@ model EmployeeQuiz {
   quiz       Quiz     @relation(fields: [quizId], references: [id])
   score      Int
 
-  @@unique([employeeId, quizId])
+  @@unique([employeeId, quizId], name: "employeeQuiz")
 }
 
 model Request {

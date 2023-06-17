@@ -1,5 +1,5 @@
 import { Injectable } from '@nestjs/common';
-import { CreateEmployeeQuizDto } from './dto/create-employee-quiz.dto';
+import { CreateEmployeeQuizDto } from '../quizs/dto/create-employee-quiz.dto';
 import { UpdateEmployeeQuizDto } from './dto/update-employee-quiz.dto';
 import { PrismaService } from 'src/prisma/prisma.service';
 
@@ -14,8 +14,17 @@ export class EmployeeQuizsService {
 
   async findAll() {
     return await this.prisma.employeeQuiz.findMany({
-      include:{quiz:true}
+      include:{quiz:true,employee:true}
     });
+  }
+
+  async findAllByEmployee(id: string) {
+    return await this.prisma.employeeQuiz.findMany({
+      where:{
+        employeeId:id,
+      },
+      include:{quiz:true}
+    })
   }
 
   async findOne(quizId:string,employeeId:string) {
