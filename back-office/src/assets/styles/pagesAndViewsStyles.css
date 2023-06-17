@@ -1,40 +1,36 @@
 .pages {
-    background-color:#f8f9fa ;
-    padding-top: 70px;
-    transition: all 0.5s;
+  background-color: #f8f9fa;
+  padding-top: 70px;
+  transition: all 0.5s;
 }
-.page{
-padding: 20px;
-
+.page {
+  padding: 20px;
 }
 .headerPage {
-    background-color: #daeaf088;
-    padding: 10px;
-    border-radius: 5px;
+  background-color: #daeaf088;
+  padding: 10px;
+  border-radius: 5px;
+}
 
-  }
-  
-  .headerPage-title {
-    color: #333;
-    margin-bottom: 5px;
-    font-weight:600;
-  }
-  
-  .headerPage-path {
-    color: #666;
-    font-size: 14px;
-  }
+.headerPage-title {
+  color: #333;
+  margin-bottom: 5px;
+  font-weight: 600;
+}
 
-  .cancel{
-    border-color: red;
-  }
-  
-.header-blue{
-    color:#1a408c ;
-    font-size: 18px;
-  
-  }
+.headerPage-path {
+  color: #666;
+  font-size: 14px;
+}
 
+.cancel {
+  border-color: red;
+}
+
+.header-blue {
+  color: #1a408c;
+  font-size: 18px;
+}
 
 .popup {
   height: 200px;
@@ -48,24 +44,21 @@ padding: 20px;
   background-color: white;
   padding: 20px;
   border-radius: 10px;
- box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+  box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
   text-align: center;
   padding-top: 20px;
+  
 }
-.popup p{
- color:black ;;
- padding-top: 20px;
- font-size: 18px;
+.popup p {
+  color: black;
+  padding-top: 20px;
+  font-size: 18px;
 }
-.headerProfile{
+.headerProfile {
   background-color: #daeaf088;
   padding: 10px;
   border-radius: 10px;
 }
-
-
-
-
 
 #form-file-upload {
   height: 16rem;
@@ -100,7 +93,7 @@ padding: 20px;
   padding: 0.25rem;
   font-size: 1rem;
   border: none;
-  font-family: 'Oswald', sans-serif;
+  font-family: "Oswald", sans-serif;
   background-color: transparent;
 }
 
@@ -118,8 +111,6 @@ padding: 20px;
   bottom: 0px;
   left: 0px;
 }
-  
-
 
 .dropzone {
   width: 400px;
@@ -141,4 +132,3 @@ padding: 20px;
 .dropzone p {
   text-align: center;
 }
-

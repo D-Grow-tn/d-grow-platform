@@ -7,45 +7,43 @@ import moment from "moment";
 import DeleteIcon from "@mui/icons-material/Delete";
 import RemoveRedEyeIcon from "@mui/icons-material/RemoveRedEye";
 import { useDispatch, useSelector } from "react-redux";
-import { fetchClients } from "../../../store/client";
+import { fetchClients, removeClient } from "../../../store/client";
 import DisplayLottie from "../../../constants/DisplayLottie";
 import loading from "../../../constants/loading.json";
 import { useNavigate } from "react-router-dom";
-import Delete from "./Delete";
+import DeleteModal from "../../../components/DeleteModal";
+import { showErrorToast, showSuccessToast } from "../../../utils/toast";
 
 function ClientList() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const clients = useSelector((state) => state.client.clients.items);
-  const [rows, setRows] = useState([]);
-  const [isOpen, setIsOpen] = useState(false);
+  const [selected, setSelected] = useState(null);
 
-  console.log("from client component", clients);
+  const [isOpen, setIsOpen] = useState(false);
 
   useEffect(() => {
     dispatch(fetchClients());
   }, []);
 
-  useEffect(() => {
-    if (clients.length) {
-      let aux = clients.map((e) => {
-        return { ...e };
-      });
-      console.log(aux);
-      setRows(aux);
-    }
-  }, [clients]);
-
-  const handleDelete = (id) => {
-    console.log("Delete row with ID:", id);
-  };
-
   const handleUpdate = (id) => {
     navigate("one/" + id);
   };
 
-  const togglePopup = () => {
-    setIsOpen(!isOpen);
+  const openPopup = (select) => {
+    setSelected(select);
+    setIsOpen(true);
+    console.log(isOpen);
+  };
+  const handleDelete = () => {
+    dispatch(removeClient(selected.id)).then((result) => {
+      if (!result.error) {
+        showSuccessToast("Client has been deleted");
+        setIsOpen(false)
+      } else {
+        showErrorToast(result.error.message);
+      }
+    });
   };
   const columns = useMemo(
     () => [
@@ -111,8 +109,8 @@ function ClientList() {
             >
               <RemoveRedEyeIcon />
             </IconButton>
-           <IconButton
-              onClick={togglePopup}
+            <IconButton
+              onClick={() => openPopup(params.row)}
               color="error"
               aria-label="delete"
             >
@@ -142,8 +140,16 @@ function ClientList() {
         buttonFunction={() => navigate("create")}
         text={"Create Client"}
       />
-      <Table columns={columns} rows={rows} />
-      {isOpen && (<Delete/>)}
+      <Table columns={columns} rows={clients.length ? clients : []} />
+      {isOpen && (
+        <DeleteModal
+          close={() => setIsOpen(false)}
+          title={selected.name}
+          width={300}
+          height={250}
+          fnDelete={handleDelete}
+        />
+      )}
     </div>
   );
 }

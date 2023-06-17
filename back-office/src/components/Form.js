@@ -12,6 +12,7 @@ import ConfirmButton from "./button/ConfirmButton";
 import SaveButton from "./button/SaveButton";
 import DeleteButton from "./button/DeleteButton";
 import EditButton from "./button/EditButton";
+import AutoSelect from "./AutoSelect";
 
 function Form({
   className,
@@ -31,8 +32,13 @@ function Form({
   link,
   readOnly,
 }) {
- 
-
+  const renderInput = (category, rest) => {
+    switch (category) {
+      case "select":
+        return <AutoSelect {...rest}  readOnly={readOnly} />;
+    }
+    return <TextInput {...rest} onChange={onChange} readOnly={readOnly} />;
+  };
   return (
     <form className={className} style={style} onSubmit={onSubmit}>
       {/* Title */}
@@ -42,35 +48,20 @@ function Form({
       {/* Inputs */}
       <div className={inputsClassName} style={inputsStyle}>
         {inputs?.map(
-          (input, i) =>
-            i % numberInputPerRow === 0 ? (
-              <>
-                <div className="w-100"></div>
-                <TextInput
-                  placeholder={input.placeholder}
-                  label={input.label}
-                  onChange={onChange}
-                  name={input.name}
-                  type={input.type}
-                  required={input.required}
-                  width={input.width}
-                  readOnly={readOnly}
-                  value={input.value}
-                />
-              </>
-            ) : (
-              <TextInput
-                placeholder={input.placeholder}
-                label={input.label}
-                onChange={onChange}
-                name={input.name}
-                type={input.type}
-                required={input.required}
-                width={input.width}
-                readOnly={readOnly}
-                value={input.value}
-              />
-            )
+          (input, i) => {
+            const { category, ...rest } = input;
+            if (i % numberInputPerRow === 0) {
+              return (
+                <>
+                  <div className="w-100"></div>
+                  {renderInput(category, rest)}
+                </>
+              );
+            } else {
+              return renderInput(category, rest);
+            }
+          }
+
           // input.type === "radio" ? (
           //   <RadioInput />
           // ) : input.type === "checkbox" ? (
@@ -85,7 +76,7 @@ function Form({
       <div className={buttonsClassName} style={buttonsStyle}>
         {buttons?.map((button) => {
           const { category, ...rest } = button;
-          console.log(category);
+
           switch (category) {
             case "cancel":
               return <CancelButton {...rest} />;
