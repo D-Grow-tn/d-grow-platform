@@ -1,0 +1,17 @@
+@media only screen and (max-width: 768px) {
+  .textInput {
+    width: 250px !important;
+  }
+  .textView {
+    width: 250px !important;
+  }
+}
+
+@media only screen and (max-width: 420px) {
+  .textInput {
+    width: 200px !important;
+  }
+  .textView {
+    width: 200px !important;
+  }
+}

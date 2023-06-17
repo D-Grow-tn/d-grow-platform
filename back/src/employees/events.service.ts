@@ -39,12 +39,16 @@ export class EventsService {
     }
     return await this.prisma.event.create({
       data,
+      include:{
+        employee:true,
+      }
     });
   }
 
   async findAll() {
     return await this.prisma.event.findMany({
       include: {
+        employee:true,
         Membership: {
           include: {
             employee: true,
@@ -80,6 +84,7 @@ export class EventsService {
         id,
       },
       include: {
+        employee:true,
         Membership: true,
         MediaEvent: true,
       },

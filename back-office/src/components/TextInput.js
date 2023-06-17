@@ -30,10 +30,12 @@ function TextInput({
         <TextField
           label={label}
           hiddenLabel
+          className="textInput"
           id="filled-hidden-label-normal"
           placeholder={placeholder}
           variant="outlined"
           InputProps={{
+            className:"textInput",
             style: {
               backgroundColor: "#daeaf088",
               borderRadius: "8px",
