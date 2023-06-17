@@ -7,10 +7,11 @@ import { login } from "../store/auth";
 import Form from "../components/Form";
 
 function LoginAdmin() {
+  
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const [user, setUser] = useState(null);
-
+ console.log("user",user);
   const handleChange = (e) => {
     const { name, value } = e.target;
     setUser((User) => ({ ...User, [name]: value }));
@@ -43,7 +44,7 @@ function LoginAdmin() {
       name: "password",
     },
   ];
-  const buttons = [{ name: "Login", onSubmit, className: "w-100" }];
+  const buttons = [{ name: "Login", onSubmit, className: "w-100",type:'submit' }];
   return (
     <div className="d-flex justify-content-center align-items-center h-100 w-100 position-fixed ">
       <Form
