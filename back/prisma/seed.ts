@@ -59,6 +59,14 @@ let avatarClient4 =await prisma.media.create({
   }
 })
 
+//hhhgg
+let mediaEvent1 =await prisma.media.create({
+  data :{
+    path:'https://www.referenseo.com/wp-content/uploads/2019/03/image-attractive-960x540.jpg',
+    type:'image',
+    extension:'png'
+  }
+})
 
   //create client
   let client1 = await prisma.client.create({
@@ -533,6 +541,18 @@ let avatarClient4 =await prisma.media.create({
       DecisionApply:{create:[{employeeId:employee2.id}]}
     }
   });
+
+  //create Events
+  let event1 = await prisma.event.create({
+    data : {
+      name:"Event Name 1" ,
+      description :"description Event Number one ",
+      startAt: new Date('01/05/2023'),
+      endAt: new Date('01/07/2023'),
+      employeeId:employee1.id,
+      MediaEvent: {create:[{mediaId:mediaEvent1.id}]}
+    }
+  })
 
 }
 main()

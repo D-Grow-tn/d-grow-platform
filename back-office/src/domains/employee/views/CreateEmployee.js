@@ -13,6 +13,7 @@ function CreateEmployee() {
   const handleChange = (e) => {
     const { name, value } = e.target;
     setUser((User) => ({ ...User, [name]: value }));
+    console.log(user)
   };
 
   const onSubmit = (e) => {
@@ -30,13 +31,13 @@ function CreateEmployee() {
     {
       label: "First Name",
       placeholder: "john",
-      name: "email",
+      name: "First Name ",
       required: true,
     },
     {
       label: "Last Name",
       placeholder: "Deo",
-      name: "password",
+      name: "Last Name",
       width: 300,
       required: true,
     },
