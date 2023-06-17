@@ -14,6 +14,47 @@ export const fetchClients= createAsyncThunk("clients/clients", async () => {
     return response.data;
   });
 
+  export const UpdateClient = createAsyncThunk("clients/Update", async (form) => {
+    const { clientId, name, address, phone, email } = form;
+    await axios.patch(`http://localhost:3001/api/v1/clients/${clientId}`, {
+      name,
+      address,
+      phone,
+      email
+    });
+  
+    const updatedClientResponse = await axios.get(
+      `http://localhost:3001/api/v1/clients/${clientId}`
+    );
+  console.log("cccccc",updatedClientResponse.data);
+    return updatedClientResponse.data;
+
+  });
+  // export const UpdateClient = createAsyncThunk("clients/Update", async (form) => {
+  //   const { clientId, name, address, phone,email } = form;
+  //   const response = await axios.patch(`http://localhost:3001/api/v1/clients/${clientId}`,
+  //     { name: name, address: address, phone: phone, email:email }
+  //   );
+  //   return response.data;
+  // });
+  
+  // export const updateClient = createAsyncThunk("clients/updateClient", async (id) => {
+  //   const response = await axios.patch(`http://localhost:3001/api/v1/clients/${id}`);
+  //   return response.data;
+  // });
+
+  // export const removeClient = createAsyncThunk("clients/deleteClient", async (id, { dispatch }) => {
+  //   let token = JSON.parse(localStorage.getItem('tokenAdmin'))
+  //   const configs = {
+  //     headers: {
+  //       Authorization: 'Bearer ' + token.Authorization
+  //     }
+  //   }
+  //   const response = await axios.delete(`${config.API_ENDPOINT}/clients/${id}`, configs);
+  //   dispatch(fetchClients())
+  //   return response.data;
+  // })
+
 // export const fetchProject = createAsyncThunk("projects/oneProject", async (id) => {
 //   const response = await axios.get(`${config.API_ENDPOINT}/projects/${id}`);
 //   console.log("res",response.data);
@@ -53,6 +94,12 @@ export const fetchClients= createAsyncThunk("clients/clients", async () => {
       builder.addCase(fetchClient.fulfilled, (state, action) => {
         state.client = action.payload;
       });
+
+
+      builder.addCase(UpdateClient.fulfilled, (state, action) => {
+        state.client = action.payload;
+      });
+
     },
   });
   export default clientSlice.reducer;

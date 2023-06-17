@@ -28,14 +28,7 @@ padding: 20px;
   .cancel{
     border-color: red;
   }
-.views {
-    
-
-
-}
-.view{
-    
-}
+  
 .header-blue{
     color:#1a408c ;
     font-size: 18px;
@@ -44,18 +37,108 @@ padding: 20px;
 
 
 .popup {
-  height: 550px;
-  width: 700px;
+  height: 200px;
+  width: 300px;
   position: fixed;
   top: 50%;
   left: 50%;
+  align-items: center;
   justify-content: center;
   transform: translate(-50%, -50%);
   background-color: white;
   padding: 20px;
   border-radius: 10px;
-  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+ box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+  text-align: center;
+  padding-top: 20px;
+}
+.popup p{
+ color:black ;;
+ padding-top: 20px;
+ font-size: 18px;
+}
+.headerProfile{
+  background-color: #daeaf088;
+  padding: 10px;
+  border-radius: 10px;
 }
 
 
+
+
+
+#form-file-upload {
+  height: 16rem;
+  width: 28rem;
+  max-width: 100%;
+  text-align: center;
+  position: relative;
+}
+
+#input-file-upload {
+  display: none;
+}
+
+#label-file-upload {
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-width: 2px;
+  border-radius: 1rem;
+  border-style: dashed;
+  border-color: #cbd5e1;
+  background-color: #f8fafc;
+}
+
+#label-file-upload.drag-active {
+  background-color: #ffffff;
+}
+
+.upload-button {
+  cursor: pointer;
+  padding: 0.25rem;
+  font-size: 1rem;
+  border: none;
+  font-family: 'Oswald', sans-serif;
+  background-color: transparent;
+}
+
+.upload-button:hover {
+  text-decoration-line: underline;
+}
+
+#drag-file-element {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  border-radius: 1rem;
+  top: 0px;
+  right: 0px;
+  bottom: 0px;
+  left: 0px;
+}
   
+
+
+.dropzone {
+  width: 400px;
+  height: 400px;
+  border: 2px dashed #999;
+  border-radius: 4px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  margin: 0 auto;
+}
+
+.dropzone.active {
+  background-color: #e0e0e0;
+}
+
+.dropzone p {
+  text-align: center;
+}
+
