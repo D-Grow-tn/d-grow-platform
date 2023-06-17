@@ -27,4 +27,4 @@ export const im11=require('./im11.png')
 export const im12=require('./im12.png')
 export const im13=require('./im13.png')
 
-export default {background2,jalyss1,jalyss2,jalyss3,jalyss4,jalyss5,im1,im2,im3,im4,im4,im5,im6,im8,im9,im10,im11,im12,im13}
+export default {background2,jalyss1,jalyss2,jalyss3,jalyss4,jalyss5,im1,im2,im3,im4,im4,im5,im6,im8,im9,im10,im11,im12,im13,member7}
