@@ -29,7 +29,7 @@ import ResetPassword from "./../pages/ResetPassword";
 import Events from "../domains/events/Events";
 import EventsList from "./../domains/events/views/EventsList";
 import CreateEvents from "./../domains/events/views/CreateEvents";
-import EditEvents from "./../domains/events/views/EditEvents";
+import OneEvent from "./../domains/events/views/OneEvent";
 import Test from "../domains/test/Test";
 import TestList from "../domains/test/views/TestList";
 import CreateTest from "../domains/test/views/CreateTest";
@@ -98,7 +98,7 @@ function Router() {
               <Route path="events" element={<Events />}>
                 <Route index element={<EventsList />} />
                 <Route path="create" element={<CreateEvents />} />
-                <Route path="edit/:eventsId" element={<EditEvents />} />
+                <Route path="one/:eventId" element={<OneEvent />} />
               </Route>
               <Route path="quiz" element={<Quiz />}>
                 <Route index element={<QuizList />} />
