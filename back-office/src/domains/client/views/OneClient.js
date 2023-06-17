@@ -29,16 +29,15 @@ function OneClient() {
   useEffect(() => {
     setAuxClient(client);
     console.log("hiiiiiiii",auxClient);
-  }, [client, auxClient]);
+  }, [client]);
 
 
-  
   useEffect(() => {
     if (client) {
       dispatch(fetchProjectbyClient(client.id));
      
     }
-  }, [dispatch,client]);
+  }, [dispatch]);
 
  
 
@@ -223,13 +222,15 @@ function OneClient() {
             inputsStyle={{ rowGap: 20 }}
             numberInputPerRow={2}
             readOnly={readOnly
-            }onChange={handleInputChange}
+            }
+            onChange={handleInputChange}  
+             style={{paddingRight:"50px"}} 
+            buttons={!readOnly ? buttons : []}
+            buttonsClassName="d-flex justify-content-end gap-3"
           />
 
           <Form
-          style={{paddingRight:"50px"}} 
-            buttons={!readOnly ? buttons : []}
-            buttonsClassName="d-flex justify-content-end gap-3"
+       
           
             
           />

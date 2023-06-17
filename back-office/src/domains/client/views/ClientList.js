@@ -143,7 +143,7 @@ function ClientList() {
         text={"Create Client"}
       />
       <Table columns={columns} rows={rows} />
-      {isOpen && (<Delete/>)}
+      {isOpen && (<Delete  isOpen={isOpen} setIsOpen={setIsOpen}/>)}
     </div>
   );
 }

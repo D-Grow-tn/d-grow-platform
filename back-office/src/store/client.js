@@ -67,6 +67,10 @@ export const fetchClients= createAsyncThunk("clients/clients", async () => {
   
 //   });
 
+export const removeClient = createAsyncThunk("clients/remove", async (clientId) => {
+  await axios.delete(`http://localhost:3001/api/v1/clients/${clientId}`);
+  return clientId;
+});
 
   export const clientSlice= createSlice({
     name: "client",
@@ -91,6 +95,11 @@ export const fetchClients= createAsyncThunk("clients/clients", async () => {
       
       });
 
+      builder.addCase(removeClient.fulfilled, (state, action) => {
+        const clientId = action.payload;
+        state.clients.items = state.clients.items.filter(client => client.clientId !== clientId);
+      });
+      
       builder.addCase(fetchClient.fulfilled, (state, action) => {
         state.client = action.payload;
       });

@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import Form from "../../../components/Form";
 import { useParams } from "react-router-dom";
-import { fetchClient } from "../../../store/client";
+import { fetchClient ,removeClient} from "../../../store/client";
 import { useNavigate } from "react-router-dom";
 
 function Delete() {
@@ -15,26 +15,39 @@ function Delete() {
 
     useEffect(() => {
         dispatch(fetchClient(clientId));
+        
       }, [dispatch]);
     
       useEffect(() => {
         setAuxClient(client);
       }, [client]);
     
+      const handleRemove = () => {
+        if (client) {
+          dispatch(removeClient(client.clientId));
+        }
+      };
+    
   
       const buttons = [
        
         {
           category: "delete",
+          type: "button",
           name: "Delete",
-   
+          onClick: () => {
+             handleRemove()
+          },
+            
        },
         {
           category: "cancel",
           type: "button",
           name: "Cancel",
           onClick: () => {
+         
             setAuxClient(client);
+            
           },
             },
          
