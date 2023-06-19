@@ -32,7 +32,7 @@ async function main() {
   })
 let avatarClient1 =await prisma.media.create({
   data :{
-    path:'https://img.freepik.com/free-icon/user_318-159711.jpg',
+    path:'https://scontent.ftun14-1.fna.fbcdn.net/v/t1.6435-9/95926704_4252204308126815_1713291814770835456_n.jpg?_nc_cat=103&ccb=1-7&_nc_sid=174925&_nc_ohc=4G2GM9QpEzMAX_I_fr6&_nc_ht=scontent.ftun14-1.fna&oh=00_AfAAQz6tiYP8qmV74y9Ev9uD9wvhcq8d7RfuypktNlcIBQ&oe=64B2CD0C',
     type:'avatar',
     extension:'png',
   }
@@ -59,6 +59,14 @@ let avatarClient4 =await prisma.media.create({
   }
 })
 
+//hhhgg
+let mediaEvent1 =await prisma.media.create({
+  data :{
+    path:'https://www.referenseo.com/wp-content/uploads/2019/03/image-attractive-960x540.jpg',
+    type:'image',
+    extension:'png'
+  }
+})
 
   //create client
   let client1 = await prisma.client.create({
@@ -533,6 +541,18 @@ let avatarClient4 =await prisma.media.create({
       DecisionApply:{create:[{employeeId:employee2.id}]}
     }
   });
+
+  //create Events
+  let event1 = await prisma.event.create({
+    data : {
+      name:"Event Name 1" ,
+      description :"description Event Number one ",
+      startAt: new Date('01/05/2023'),
+      endAt: new Date('01/07/2023'),
+      employeeId:employee1.id,
+      MediaEvent: {create:[{mediaId:mediaEvent1.id}]}
+    }
+  })
 
 }
 main()

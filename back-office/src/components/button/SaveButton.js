@@ -2,7 +2,7 @@ import React from "react";
 
 
 function SaveButton({ onClick, type, onSubmit }) {
-  console.log(onClick,type,onSubmit);
+  
   return (
     <div>
       <button

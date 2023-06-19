@@ -7,41 +7,44 @@ import moment from "moment";
 import DeleteIcon from "@mui/icons-material/Delete";
 import RemoveRedEyeIcon from "@mui/icons-material/RemoveRedEye";
 import { useDispatch, useSelector } from "react-redux";
-import { fetchClients } from "../../../store/client";
+import { fetchClients, removeClient } from "../../../store/client";
 import DisplayLottie from "../../../constants/DisplayLottie";
 import loading from "../../../constants/loading.json";
 import { useNavigate } from "react-router-dom";
+import DeleteModal from "../../../components/DeleteModal";
+import { showErrorToast, showSuccessToast } from "../../../utils/toast";
 
 function ClientList() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const clients = useSelector((state) => state.client.clients.items);
-  const [rows, setRows] = useState([]);
+  const [selected, setSelected] = useState(null);
 
-  console.log("from client component", clients);
+  const [isOpen, setIsOpen] = useState(false);
 
   useEffect(() => {
     dispatch(fetchClients());
   }, []);
 
-  useEffect(() => {
-    if (clients.length) {
-      let aux = clients.map((e) => {
-        return { ...e };
-      });
-      console.log(aux);
-      setRows(aux);
-    }
-  }, [clients]);
-
-  const handleDelete = (id) => {
-    console.log("Delete row with ID:", id);
-  };
-
   const handleUpdate = (id) => {
     navigate("one/" + id);
   };
 
+  const openPopup = (select) => {
+    setSelected(select);
+    setIsOpen(true);
+    console.log(isOpen);
+  };
+  const handleDelete = () => {
+    dispatch(removeClient(selected.id)).then((result) => {
+      if (!result.error) {
+        showSuccessToast("Client has been deleted");
+        setIsOpen(false)
+      } else {
+        showErrorToast(result.error.message);
+      }
+    });
+  };
   const columns = useMemo(
     () => [
       {
@@ -49,7 +52,7 @@ function ClientList() {
         headerName: "Avatar",
         headerClassName: "header-blue",
         width: 100,
-        renderCell: (params) => <Avatar src={params.row.photoURL} />,
+        renderCell: (params) => <Avatar src={params.row.avatar?.path} />,
         sortable: false,
         filterable: false,
       },
@@ -107,7 +110,7 @@ function ClientList() {
               <RemoveRedEyeIcon />
             </IconButton>
             <IconButton
-              onClick={() => handleDelete(params.row.id)}
+              onClick={() => openPopup(params.row)}
               color="error"
               aria-label="delete"
             >
@@ -137,7 +140,16 @@ function ClientList() {
         buttonFunction={() => navigate("create")}
         text={"Create Client"}
       />
-      <Table columns={columns} rows={rows} />
+      <Table columns={columns} rows={clients.length ? clients : []} />
+      {isOpen && (
+        <DeleteModal
+          close={() => setIsOpen(false)}
+          title={selected.name}
+          width={300}
+          height={250}
+          fnDelete={handleDelete}
+        />
+      )}
     </div>
   );
 }

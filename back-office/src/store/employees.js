@@ -2,56 +2,58 @@ import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
 import config from "../configs";
 
-export const fetchEmployees= createAsyncThunk("employees/employees", async () => {
-    const response = await axios.get("http://localhost:3001/api/v1/employees");
-    console.log("from the store",response.data);
+export const fetchEmployees = createAsyncThunk(
+  "employees/employees",
+  async () => {
+    const response = await axios.get(`${config.API_ENDPOINT}/employees`);
+
     return response.data;
-  });
+  }
+);
 
-  export const fetchEmployee = createAsyncThunk("clients/client", async (id) => {
-    const response = await axios.get(`http://localhost:3001/api/v1/employees/${id}`);
+export const fetchEmployee = createAsyncThunk(
+  "employee/employee",
+  async (id) => {
+    const response = await axios.get(`${config.API_ENDPOINT}/employees/${id}`);
     return response.data;
-  });
+  }
+);
 
-// export const fetchProject = createAsyncThunk("projects/oneProject", async (id) => {
-//   const response = await axios.get(`${config.API_ENDPOINT}/projects/${id}`);
-//   console.log("res",response.data);
-//   return response.data;
-// });
-// export const fetchProjectbyClient = createAsyncThunk("projects/project", async (id) => {
-//   const response = await axios.get(`${config.API_ENDPOINT}/projects/by_client/${id}`);
-//   console.log("proj",response.data);
-//   return response.data;
-  
-//   });
+export const createEmployee = createAsyncThunk(
+  "employee/create",
+  async (body,{dispatch}) => {
+    const response = await axios.post(
+      `${config.API_ENDPOINT}/employees`,
+      body
+    );
+    dispatch(fetchEmployees())
+    return response.data
+  }
+);
 
-
-  export const employeeSlice= createSlice({
-    name: "employee",
-    initialState: {
-      employee:null,
-      employees: {
-        items: [],
-       
-      },
-      error: null,
-      deleteError: null,
-      saveError: null,
-      createProjectError: null,
+export const employeeSlice = createSlice({
+  name: "employee",
+  initialState: {
+    employee: null,
+    employees: {
+      items: [],
     },
- 
-    reducers: {},
+    error: null,
+    deleteError: null,
+    saveError: null,
+    createProjectError: null,
+  },
 
-    extraReducers(builder) {
-     
-      builder.addCase(fetchEmployees.fulfilled, (state, action) => {
-        state.employees.items = action.payload;
-      
-      });
+  reducers: {},
 
-      builder.addCase(fetchEmployee.fulfilled, (state, action) => {
-        state.employee = action.payload;
-      });
-    },
-  });
-  export default employeeSlice.reducer;
+  extraReducers(builder) {
+    builder.addCase(fetchEmployees.fulfilled, (state, action) => {
+      state.employees.items = action.payload;
+    });
+
+    builder.addCase(fetchEmployee.fulfilled, (state, action) => {
+      state.employee = action.payload;
+    });
+  },
+});
+export default employeeSlice.reducer;

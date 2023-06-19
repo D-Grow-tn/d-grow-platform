@@ -1,76 +1,95 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { useDispatch } from "react-redux";
-import { showErrorToast } from "../../../utils/toast";
+import { useDispatch, useSelector } from "react-redux";
+import { showErrorToast, showSuccessToast } from "../../../utils/toast";
 import HeaderPage from "../../../components/HeaderPage";
 import Form from "../../../components/Form";
 import { Button } from "react-bootstrap";
+import { createEmployee, fetchEmployees } from "../../../store/employees";
 
 function CreateEmployee() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const [user, setUser] = useState(null);
+  const employees = useSelector((state) => state.employee.employees.items);
+  const [employee, setEmployee] = useState(null);
+  const [inputs, setInputs] = useState([]);
+  useEffect(() => {
+    dispatch(fetchEmployees());
+    // dispatch(fetchDepartments())
+  }, [dispatch]);
+  useEffect(() => {
+    setInputs([
+      {
+        label: "Name",
+        placeholder: "john",
+        name: "name",
+        required: true,
+        width: 300,
+      },
+      {
+        label: "Email",
+        placeholder: "email@gmail.com",
+        name: "email",
+        width: 300,
+        required: true,
+      },
+      // {
+      //   label: "Adress",
+      //   placeholder: "5 street d-grow",
+      //   name: "adress",
+      //   width: 300,
+      //   required: true,
+      // },
+      {
+        label: "Phone Number",
+        placeholder: "20 200 200",
+        name: "phone",
+        width: 300,
+        required: true,
+      },
+      {
+        // rows: 2,
+        multiline: true,
+        label: "Bio",
+        placeholder: "Write your bio here",
+        name: "bio",
+        width: 300,
+        required: true,
+      },
+      {
+        category: "select",
+        label: "Direct Manager",
+        placeholder: "Select Employee",
+        name: "directManegerId",
+        width: 300,
+        required: true,
+        options: employees,
+        optionLabel: "name",
+        valueLabel: "id",
+        onChange: (value) => {
+          setEmployee((Employee) => ({ ...Employee, directManegerId: value }));
+        },
+      },
+    ]);
+  }, [employees]);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
-    setUser((User) => ({ ...User, [name]: value }));
+    setEmployee((Employee) => ({ ...Employee, [name]: value }));
   };
 
   const onSubmit = (e) => {
     e.preventDefault();
-    console.log(user);
-    // dispatch(login(user)).then((result) => {
-    //   if (!result.error) {
-    //     navigate(`/`);
-    //   } else {
-    //     showErrorToast(result.error.message);
-    //   }
-    // });
+    console.log(employee);
+    dispatch(createEmployee(employee)).then((result) => {
+      if (!result.error) {
+        showSuccessToast("Employee has been created");
+        navigate(-1);
+      } else {
+        showErrorToast(result.error.message);
+      }
+    });
   };
-  const inputs = [
-    {
-      label: "First Name",
-      placeholder: "john",
-      name: "email",
-      required: true,
-      width: 300,
-    },
-    {
-      label: "Last Name",
-      placeholder: "Deo",
-      name: "password",
-      required: true,
-      width: 300,
-    },
-    {
-      label: "Email",
-      placeholder: "email@gmail.com",
-      name: "email",
-      width: 300,
-      required: true,
-    },
-    {
-      label: "Adress",
-      placeholder: "5 street d-grow",
-      name: "adress",
-      width: 300,
-      required: true,
-    },
-    {
-      label: "Phone Number",
-      placeholder: "20 200 200",
-      name: "email",
-      width: 300,
-      required: true,
-    },
-    {
-      label: "Bio",
-      placeholder: "Write your bio here",
-      name: "email",
-      width: 300,
-      required: true,
-    },
-  ];
 
   const buttons = [
     {
@@ -95,7 +114,7 @@ function CreateEmployee() {
       <div
         className=" rounded-5 p-3  "
         style={{
-          boxShadow: "0px 0px 8px #54b4d3",  //old boxShadow #9E9E9E
+          boxShadow: "0px 0px 8px #54b4d3", //old boxShadow #9E9E9E
           backgroundColor: "white",
         }}
       >
@@ -122,21 +141,15 @@ function CreateEmployee() {
         </div>
         <Form
           className=" pt-4  "
-          // style={{
-          //   border: "1px solid",
-          //   borderColor: "#54b4d3"
-          // }}
           inputsClassName="d-flex flex-wrap justify-content-center  "
           inputsStyle={{
             rowGap: 20,
             columnGap: 100,
-            // border: "1px solid black",
           }}
           numberInputPerRow={3}
           inputs={inputs}
           buttons={buttons}
           buttonsClassName="mt-5 d-flex justify-content-end gap-3"
-          // buttonsStyle={{ border: "1px solid blue" }}
           onSubmit={onSubmit}
           onChange={handleChange}
         />
