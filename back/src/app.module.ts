@@ -15,16 +15,13 @@ import { AuthService } from './auth/auth.service';
 import { UsersService } from './users/users.service';
 import { JwtService } from '@nestjs/jwt';
 import { MailModule } from './mail/mail.module';
-import { TestsModule } from './tests/tests.module';
 import { QuizsModule } from './quizs/quizs.module';
 import { TeamsModule } from './teams/teams.module';
 import { DepartmentsModule } from './departments/departments.module';
 import { ChatRoomsModule } from './chat-rooms/chat-rooms.module';
 import { MessagesModule } from './messages/messages.module';
-import { EmployeeTestsModule } from './employee-tests/employee-tests.module';
 import { TeamMenbershipsModule } from './team-menberships/team-menberships.module';
 import { EmployeeChatRoomsModule } from './employee-chat-rooms/employee-chat-rooms.module';
-
 import { MainComponentsModule } from './main-components/main-components.module';
 import { SubComponentsModule } from './sub-components/sub-components.module';
 import { ContentSubComponentsModule } from './content-sub-components/content-sub-components.module';
@@ -41,15 +38,12 @@ import { ContentSubComponentsModule } from './content-sub-components/content-sub
     AuthModule,
   
     MailModule,
-   
-    TestsModule,
     QuizsModule,
     TeamsModule,
     DepartmentsModule,
     ChatRoomsModule,
     MessagesModule,
     
-    EmployeeTestsModule,
     TeamMenbershipsModule,
 
     EmployeeChatRoomsModule,
