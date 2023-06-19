@@ -12,7 +12,7 @@ import loading from "../../../constants/loading.json";
 import { fetchEvents } from "../../../store/event";
 import EditEvent from "./OneEvent";
 import { useNavigate } from "react-router-dom";
-import { Image } from "react-bootstrap";
+import { Image } from 'mui-image'
 
 function EventList() {
   const dispatch = useDispatch();
@@ -56,7 +56,7 @@ function EventList() {
         headerName: "Image",
         headerClassName: "header-blue",
         width: 100,
-        renderCell: (params) => <Image src={params.row.MediaEvent.Media?.path} />,
+        renderCell: (params) => <Image src={params.row.MediaEvent[0]?.media?.path} />,
         sortable: false,
         filterable: false,
       },
@@ -82,20 +82,20 @@ function EventList() {
         editable: true,
       },
       {
-        field: "createdAt",
-        headerName: "Created At",
+        field: "Start At",
+        headerName: "Start At",
         headerClassName: "header-blue",
         width: 200,
         renderCell: (params) =>
-          moment(params.row.createdAt).format("YYYY-MM-DD HH:MM:SS"),
+          moment(params.row.startAt).format("YYYY-MM-DD HH:MM:SS"),
       },
       {
-        field: "UpdatedAt",
-        headerName: "Updated At",
+        field: "End At",
+        headerName: "End At",
         headerClassName: "header-blue",
         width: 200,
         renderCell: (params) =>
-          moment(params.row.createdAt).format("YYYY-MM-DD HH:MM:SS"),
+          moment(params.row.endAt).format("YYYY-MM-DD HH:MM:SS"),
       },
 
       {
