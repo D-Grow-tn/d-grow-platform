@@ -35,8 +35,8 @@ model Client {
   address        String
   createdAt      DateTime      @default(now())
   updatedAt      DateTime      @updatedAt
-  avatarClientId String
-  avatar         Media         @relation(fields: [avatarClientId], references: [id])
+  avatarClientId String?
+  avatar         Media ?        @relation(fields: [avatarClientId], references: [id])
   project        Project[]
   User           User[]
   MediaClient    MediaClient[]
@@ -47,6 +47,7 @@ model Employee {
   name             String
   email            String
   phone            String
+  address          String
   bio              String
   createdAt        DateTime           @default(now())
   updatedAt        DateTime           @updatedAt

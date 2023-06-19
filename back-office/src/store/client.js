@@ -3,6 +3,9 @@ import axios from "axios";
 import config from "../configs";
 console.log(config);
 
+
+
+
 export const fetchClients = createAsyncThunk("clients/clients", async () => {
   const response = await axios.get(`${config.API_ENDPOINT}/clients`);
   console.log("from the store", response.data);
@@ -14,6 +17,18 @@ export const fetchClient = createAsyncThunk("clients/client", async (id) => {
   return response.data;
 });
 
+export const createClient = createAsyncThunk(
+  "client/create",
+  async (body,{dispatch}) => {
+    const response = await axios.post(
+      `${config.API_ENDPOINT}/clients`,
+      body
+    );
+    dispatch(fetchClients())
+    console.log("create datazaaaaaaaaa",response.data);
+    return response.data
+  }
+);
 export const updateClient = createAsyncThunk("clients/Update", async (form) => {
   const { clientId, ...rest } = form;
   await axios.patch(`${config.API_ENDPOINT}/clients/${clientId}`, {
@@ -35,7 +50,7 @@ export const removeClient = createAsyncThunk(
       headers: {
         Authorization: "Bearer " + token.Authorization,
       },
-    };
+    }; 
     const response = await axios.delete(
       `${config.API_ENDPOINT}/clients/${id}`,
       configs
