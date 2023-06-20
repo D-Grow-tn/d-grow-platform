@@ -44,6 +44,26 @@ export class DecisionsService {
     });
   }
 
+  async findByEmployeeId(employeeId: string) {
+    return await this.prisma.decision.findMany({
+      where: {
+        DecisionApply: {
+          some: {
+            employeeId,
+          },
+        },
+      },
+      include: {
+        DecisionApply: {
+          where: {
+            employeeId,
+          },
+          include: { employee: true },
+        },
+      },
+    });
+  }
+
   async update(id: string, updateDecisionDto: UpdateDecisionDto) {
     const { decisionApplyIds, ...rest } = updateDecisionDto;
     return await this.prisma.$transaction(async (prisma) => {

@@ -25,6 +25,11 @@ export class DecisionsController {
     return this.DecisionsService.findOne(id);
   }
 
+  @Get('by_employee/:employeeId')
+  findByEmployeeId(@Param('employeeId')employeeId:string){
+    return this.DecisionsService.findByEmployeeId(employeeId);
+  }
+
   @Patch(':id')
   update(@Param('id') id: string, @Body() updateDecisionDto: UpdateDecisionDto) {
     return this.DecisionsService.update(id, updateDecisionDto);
