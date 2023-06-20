@@ -654,7 +654,7 @@ function AboutUs() {
         </div>
       </section>
       <div>
-        <Marquee autoFill="true">
+        <Marquee autoFill={true}>
           <section>
             <div className="container">
               <ul className="grid-list d-flex">
