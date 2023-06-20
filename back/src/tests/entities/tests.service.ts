@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
-import { CreateTestDto } from './dto/create-test.dto';
-import { UpdateTestDto } from './dto/update-test.dto';
+import { CreateTestDto } from '../dto/create-test.dto';
+import { UpdateTestDto } from '../dto/update-test.dto';
 import { PrismaService } from 'src/prisma/prisma.service';
 
 @Injectable()
@@ -14,7 +14,7 @@ async  create(data: CreateTestDto) {
 
  async findAll() {
     return await this.prisma.test.findMany({
-      include: {employeeTest:true}
+      include: {employeeTest:{include:{employee:true}}}
     });
   }
 

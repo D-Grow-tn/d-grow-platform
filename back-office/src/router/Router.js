@@ -14,7 +14,7 @@ import ProjectList from "../domains/project/views/ProjectList";
 import Decision from "../domains/decision/Decision";
 import DecisionList from "../domains/decision/views/DecisionList";
 import CreateDecision from "../domains/decision/views/CreateDecision";
-import EditDecision from "../domains/decision/views/EditDecision";
+import OneDecision from "../domains/decision/views/OneDecision";
 import Dashboard from "../domains/dashboard/Dashboard";
 import Quiz from "../domains/Quiz/Quiz";
 import QuizList from "../domains/Quiz/views/QuizList";
@@ -136,7 +136,7 @@ function Router() {
               <Route path="decision" element={<Decision />}>
                 <Route index element={<DecisionList />} />
                 <Route path="create" element={<CreateDecision />} />
-                <Route path="edit/:decisionId" element={<EditDecision />} />
+                <Route path="one/:decisionId" element={<OneDecision />} />
               </Route>
               <Route path="user" element={<User />}>
                 <Route index element={<UsersList />} />

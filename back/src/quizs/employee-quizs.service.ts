@@ -28,7 +28,7 @@ export class EmployeeQuizsService {
   }
 
   async findOne(quizId:string,employeeId:string) {
-    return this.prisma.employeeQuiz.findFirst({
+    return await this.prisma.employeeQuiz.findFirst({
       where:{quizId,employeeId}
     });
   }

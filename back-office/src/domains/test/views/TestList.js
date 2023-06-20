@@ -19,7 +19,7 @@ function TestList() {
   // const [isOpen, setIsOpen] = useState(false);
   const [rows, setRows] = useState([]);
 
-  console.log("from client component", Tests);
+  // console.log("from client component", Tests);
 
   useEffect(() => {
     dispatch(fetchTests());

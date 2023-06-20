@@ -1,7 +1,7 @@
 import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
 import { EmployeeTestsService } from './employee-tests.service';
-import { CreateEmployeeTestDto } from './dto/create-employee-test.dto';
-import { UpdateEmployeeTestDto } from './dto/update-employee-test.dto';
+import { CreateEmployeeTestDto } from '../dto/create-employee-test.dto';
+import { UpdateEmployeeTestDto } from '../dto/update-employee-test.dto';
 
 @Controller('employee-tests')
 export class EmployeeTestsController {

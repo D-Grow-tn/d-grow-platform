@@ -5,6 +5,9 @@ import employee from "./employees";
 import request from "./request";
 import projects from "./projects";
 import event from "./event";
+
+import decision from "./decision";
+
 import user from "./users";
 
 
@@ -16,7 +19,11 @@ export const store = configureStore({
     request,
     projects,
     event,
-    user
+
+    decision,
+
+    user,
+
   },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware({
