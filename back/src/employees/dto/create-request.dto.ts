@@ -6,7 +6,9 @@ export class CreateRequestDto {
   @ApiProperty()
   content: string;
   @ApiProperty()
-  employeeId: string;
+  senderId: string;
+  @ApiProperty()
+  receiverId: string;
   @ApiProperty()
   mediaIds: string[];
  

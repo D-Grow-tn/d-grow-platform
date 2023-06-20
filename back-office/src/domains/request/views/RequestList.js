@@ -11,13 +11,14 @@ import { fetchRequestsByEmployee } from "../../../store/request";
 import DisplayLottie from "../../../constants/DisplayLottie";
 import loading from "../../../constants/loading.json";
 import { useNavigate } from "react-router-dom";
-
+import EditRequest from "./EditRequest";
 
 
 function RequestList() {
-  const employee = useSelector((state) => state.employee.employee);
+ 
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const [isOpen, setIsOpen] = useState(false);
   const requests = useSelector((state) => state.request.requests.items);
   const [rows, setRows] = useState([]);
   const me = useSelector((state) => state.auth.me);
@@ -25,7 +26,6 @@ function RequestList() {
   useEffect(() => {
     if (me) {
       dispatch(fetchRequestsByEmployee(me.employee.id));
-  
     }
   }, [dispatch, me]);
  
@@ -37,6 +37,13 @@ function RequestList() {
       setRows(aux);
     }
   }, [requests]);
+
+  
+  const togglePopup = () => {
+    setIsOpen(!isOpen);
+  };
+
+
   const handleDelete = (id) => {
     console.log("Delete row with ID:", id);
   };
@@ -90,7 +97,7 @@ function RequestList() {
       headerName: "employee",
       width: 110,
       type: "boolean",
-      editable: true,
+      editable: true, 
     },
     {
       field: "mediaId",
@@ -110,7 +117,7 @@ function RequestList() {
       renderCell: (params) => (
         <div>
           <IconButton
-            onClick={() => handleUpdate(params.row.id)}
+            onClick= {()=>navigate('edit/'+params.row.id)}
             color="primary"
             aria-label="update"
           >
@@ -128,14 +135,14 @@ function RequestList() {
     },
   ]);
 
-  // if (!requests) {
-  //   return (
-  //     <div>
-  //       {" "}
-  //       <DisplayLottie animationData={loading} />
-  //     </div>
-  //   );
-  // }
+   if (!requests) {
+     return (
+       <div>
+        {" "}
+         <DisplayLottie animationData={loading} />
+       </div>
+  );
+   }
 
   return (
     <div>
@@ -146,6 +153,7 @@ function RequestList() {
         text={"create a request"}
       />
       <Table columns={columns} rows={rows}></Table> 
+      {isOpen && <EditRequest EditRequest={requests}  />}
     </div>
   );
 }
