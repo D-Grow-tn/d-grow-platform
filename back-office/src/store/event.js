@@ -33,6 +33,7 @@ export const updateEvent = createAsyncThunk(
       body
     );
     dispatch(fetchEvent(response.data.id));
+    console.log("update event from store",response.data)
     return response.data;
   }
 );
