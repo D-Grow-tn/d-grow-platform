@@ -82,6 +82,13 @@ function UsersList() {
         headerName: "Email",
         headerClassName: "header-blue",
         width: 200,
+      },   
+      {
+        field: "isClient",
+        headerClassName: "header-blue",
+        headerName: "Role",
+        width: 180,
+        valueGetter: (params) => (params.row.isClient ? "Client" : "Employee"),
       },
       {
         field: "active",
@@ -91,13 +98,7 @@ function UsersList() {
         type: "boolean",
         editable: true,
       },
-      {
-        field: "isClient",
-        headerClassName: "header-blue",
-        headerName: "Role",
-        width: 180,
-        valueGetter: (params) => (params.row.isClient ? "Client" : "Employee"),
-      },
+   
       {
         field: "createdAt",
         headerName: "Created At",

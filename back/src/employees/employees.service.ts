@@ -78,6 +78,18 @@ export class EmployeesService {
   async update(id: string, updateEmployeeDto: UpdateEmployeeDto) {
     return await this.prisma.employee.update({
       where: { id },
+      include: {
+        Membership: {
+          include: {
+            event: true,
+          },
+        },
+        DecisionApply: {
+          include: {
+            decision: true,
+          },
+        },
+      },
       data: updateEmployeeDto,
     });
   }

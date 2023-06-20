@@ -45,15 +45,11 @@ export const createEmployee = createAsyncThunk(
 
 export const updateEmployee = createAsyncThunk("employees/Update", async (form) => {
   const { employeeId, ...rest } = form;
-  await axios.patch(`${config.API_ENDPOINT}/employees/${employeeId}`, {
+ const response =await axios.patch(`${config.API_ENDPOINT}/employees/${employeeId}`, {
     ...rest,
   });
 
-  const updatedEmployeeResponse = await axios.get(
-    `${config.API_ENDPOINT}/employees/${employeeId}`
-  );
-  console.log("cccccc", updatedEmployeeResponse.data);
-  return updatedEmployeeResponse.data;
+  return response.data;
 });
 
 export const removeEmployee = createAsyncThunk(

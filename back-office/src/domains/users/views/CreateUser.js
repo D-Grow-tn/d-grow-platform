@@ -35,7 +35,13 @@ function CreateUser() {
         required: true,
       },
 
-      
+      {
+        label: "Password",
+        placeholder: "email@gmail.com",
+        name: "password",
+        width: 300,
+        required: true,
+      },
       {
         category: "select",
         label: "Role",
@@ -44,15 +50,16 @@ function CreateUser() {
         width: 300,
         required: true,
         options: [
-          { value: true, label: "Client" },
-          { value: false, label: "Employee" },
+           "Client" ,
+         "Employee" 
         ],
-      
-        value: users?.isClient ? true : false,
+        optionLabel: "label",
+        valueLabel: "id",
+        value: user?.isClient?'Client':'Employee',
         onChange: (value) => {
-          setUser((user) => ({ ...user, isClient: value }));
+          setUser((user) => ({ ...user, isClient: value==='Client'?true:false }));
         },
-      }
+      },
  
     ]);
   }, [users]);

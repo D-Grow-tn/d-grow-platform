@@ -29,7 +29,7 @@ function AutoSelect({
     <>
       {readOnly ? (
         <TextView
-          value={typeof value === "string" ? value : value[optionLabel]}
+          value={typeof value === "object" && value ? value[optionLabel]: value  }
           label={label}
         />
       ) : freeSolo && multiple ? (
