@@ -1,20 +1,25 @@
 import React, { useEffect, useState } from "react";
 
-function TextView({ value, label }) {
-  const [width, setWidth] = useState(50);
+function TextView({ value, label,width }) {
+  const [widthlabel, setWidthlabel] = useState(50);
   useEffect(() => {
    let aux= document.getElementById("label")?.offsetWidth
     if (aux) {
-      setWidth(aux);
+      setWidthlabel(aux);
     }
   }, [document.getElementById("label")?.offsetWidth]);
   
   console.log(typeof width);
+
+ 
+
+
+
   return (
     <div
       style={{
         height: 55,
-        width: 250,
+        width:width?width: 250 ,
         border: "1px solid #b2b9bc",
         borderRadius: 8,
       }}
@@ -26,7 +31,7 @@ function TextView({ value, label }) {
           top: -1,
           left: 10,
           fontSize: 12,
-          width: width + 20,
+          width: widthlabel + 20,
           height: 10,
         }}
       ></div>

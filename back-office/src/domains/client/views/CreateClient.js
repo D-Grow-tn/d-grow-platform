@@ -1,70 +1,76 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { useDispatch } from "react-redux";
-import { showErrorToast } from "../../../utils/toast";
+import { useDispatch,useSelector } from "react-redux";
 import HeaderPage from "../../../components/HeaderPage";
+import { showErrorToast, showSuccessToast } from "../../../utils/toast";
 import Form from "../../../components/Form";
-import { Button } from "react-bootstrap";
+import {createClient,fetchClients} from "../../../store/client";
 
 function CreateClient() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const [user, setUser] = useState(null);
+  const [client, setClient] = useState(null);
+  const [inputs, setInputs] = useState([]);
+  const clients=useSelector((state) => state.client.clients.items)
 
-  const handleChange = (e) => {
-    const { name, value } = e.target;
-    setUser((User) => ({ ...User, [name]: value }));
-  };
+  useEffect(() => {
+    dispatch(fetchClients());
+  }, [dispatch]);
 
+
+  useEffect(() => {
+    setInputs([
+      {
+        label: "Name",
+        placeholder: "Name",
+        name: "name",
+        required: true,
+        width: 300,
+      },
+      {
+        label: "Email",
+        placeholder: "email@gmail.com",
+        name: "email",
+        width: 300,
+        required: true,
+      },
+      {
+        label: "Address",
+        placeholder: "5 street d-grow",
+        name: "address",
+        width: 300,
+        required: true,
+      },
+      {
+        label: "Phone Number",
+        placeholder: "20 200 200",
+        name: "phone",
+        width: 300,
+        required: true,
+      }
+  
+    ]);
+  }, [clients]);
+  
   const onSubmit = (e) => {
     e.preventDefault();
-    console.log(user);
-    // dispatch(login(user)).then((result) => {
-    //   if (!result.error) {
-    //     navigate(`/`);
-    //   } else {
-    //     showErrorToast(result.error.message);
-    //   }
-    // });
+    console.log("froooont",client);
+    dispatch(createClient(client)).then((result) => {
+      if (!result.error) {
+        showSuccessToast("Client has been created");
+        navigate(-1);
+      } else {
+        showErrorToast(result.error.message);
+      }
+    });
   };
-  const inputs = [
-    {
-      label: "First Name",
-      placeholder: "john",
-      name: "email",
-      required: true,
-      width: 300,
-    },
-    {
-      label: "Last Name",
-      placeholder: "Deo",
-      name: "password",
-      required: true,
-      width: 300,
-    },
-    {
-      label: "Email",
-      placeholder: "email@gmail.com",
-      name: "email",
-      width: 300,
-      required: true,
-    },
-    {
-      label: "Adress",
-      placeholder: "5 street d-grow",
-      name: "adress",
-      width: 300,
-      required: true,
-    },
-    {
-      label: "Phone Number",
-      placeholder: "20 200 200",
-      name: "email",
-      width: 300,
-      required: true,
-    },
-  ];
 
+
+
+const handleChange = (e) => {
+  const { name, value } = e.target;
+  setClient((Client) => ({ ...Client, [name]: value }));
+};
   const buttons = [
     {
       category: "cancel",
@@ -81,10 +87,11 @@ function CreateClient() {
       style: { width: 100 },
     },
   ];
+
   return (
     <div>
        <HeaderPage title={'Create Client'} />
-       <div className="py-5"></div>
+       <div className="py-3"></div>
       <div
         className=" rounded-5 p-3  "
         style={{
@@ -128,7 +135,6 @@ function CreateClient() {
           inputs={inputs}
           buttons={buttons}
           buttonsClassName="mt-5 d-flex justify-content-end gap-3"
-          // buttonsStyle={{ border: "1px solid blue" }}
           onSubmit={onSubmit}
           onChange={handleChange}
         />

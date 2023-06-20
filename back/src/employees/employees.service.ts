@@ -17,6 +17,7 @@ export class EmployeesService {
     return await this.prisma.employee.findMany({
       include: {
         employeeTest: true,
+        avatar:true,
         teamMembership: { include: { team: true } },
         EmployeeChatRoom: { include: { chatRoom: true } },
         EmployeeQuiz: { include: { quiz: true } },

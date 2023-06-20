@@ -61,7 +61,7 @@ function OneClient() {
       ...prevState,
       [name]: value,
     }));
-    console.log("teeeest", auxClient);
+   
   };
 
   const onSubmit = (e) => {
@@ -186,20 +186,20 @@ function OneClient() {
             </button>
           )}
         </div>
-        <div className="d-flex align-items-center ">
+        <div className="d-flex justify-content-center mt-5 ">
           <Form
             onSubmit={onSubmit}
             inputs={inputs}
-            inputsClassName="d-flex flex-wrap px-3 gap-5"
-            inputsStyle={{ rowGap: 20 }}
+            inputsClassName="d-flex flex-wrap justify-content-center mt-5"
+            inputsStyle={{ rowGap: 20 ,columnGap: 100}}
             numberInputPerRow={2}
             readOnly={readOnly}
             onChange={handleInputChange}
-            buttonsClassName="d-flex justify-content-end gap-3"
+            buttonsClassName="mt-5 d-flex justify-content-center gap-3"
             buttons={!readOnly ? buttons : []}
           />
 
-          <Form style={{ paddingRight: "50px" }} />
+        
         </div>
 
         <div style={{ marginTop: "80px" }}>

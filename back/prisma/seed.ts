@@ -114,6 +114,8 @@ let mediaEvent1 =await prisma.media.create({
       bio: 'String',
       email: 'String',
       phone: 'String',
+      address :'string',
+      avatarId:avatarClient4.id 
     },
   });
   let employee2 = await prisma.employee.create({
@@ -122,6 +124,8 @@ let mediaEvent1 =await prisma.media.create({
       bio: 'String',
       email: 'String',
       phone: 'String',
+      address :'string',
+      avatarId:avatarClient4.id 
     },
   });
   let employee3 = await prisma.employee.create({
@@ -130,6 +134,8 @@ let mediaEvent1 =await prisma.media.create({
       bio: 'String',
       email: 'String',
       phone: 'String',
+      address :'string',
+      avatarId:avatarClient4.id 
     },
   });
   // create users
