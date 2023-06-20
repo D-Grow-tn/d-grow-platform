@@ -37,6 +37,7 @@ export class UsersService {
     return this.prisma.user.findMany();
   }
 
+
   findOne(id: string) {
     return this.prisma.user.findUniqueOrThrow({ where: { id: id } });
   }
@@ -44,7 +45,7 @@ export class UsersService {
   update(id: string, data: UpdateUserDto) {
     return this.prisma.user.update({
       where: { id },
-      data,
+      data: { ...data },
     });
   }
 
@@ -62,7 +63,6 @@ export class UsersService {
         employee: true,
         interaction: true,
         Media: true,
-        
       },
     });
 

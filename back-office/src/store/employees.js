@@ -10,11 +10,22 @@ export const fetchEmployees = createAsyncThunk(
     return response.data;
   }
 );
+export const fetchEmployeeTree=createAsyncThunk("employee/treeEmployee",async()=>{
+  let token = JSON.parse(localStorage.getItem("token"));
+  const configs = {
+    headers: {
+      Authorization: "Bearer " + token.Authorization,
+    },
+  };
+  const response = await axios.get(`${config.API_ENDPOINT}/employees/my-tree`,configs);
+
+  return response.data;
+})
 
 export const fetchEmployee = createAsyncThunk(
   "employee/employee",
   async (id) => {
-    const response = await axios.get(`${config.API_ENDPOINT}/employees/${id}`);
+    const response = await axios.get(`${config.API_ENDPOINT}/employees/one/${id}`);
     return response.data;
   }
 );
@@ -79,6 +90,9 @@ export const employeeSlice = createSlice({
 
   extraReducers(builder) {
     builder.addCase(fetchEmployees.fulfilled, (state, action) => {
+      state.employees.items = action.payload;
+    });
+    builder.addCase(fetchEmployeeTree.fulfilled, (state, action) => {
       state.employees.items = action.payload;
     });
 

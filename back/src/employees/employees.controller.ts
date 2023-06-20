@@ -1,8 +1,19 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
+import {
+  Controller,
+  Get,
+  Post,
+  Body,
+  Patch,
+  Param,
+  Delete,
+  UseGuards,
+} from '@nestjs/common';
 import { EmployeesService } from './employees.service';
 import { CreateEmployeeDto } from './dto/create-employee.dto';
 import { UpdateEmployeeDto } from './dto/update-employee.dto';
-import { ApiTags } from '@nestjs/swagger';
+import { ApiSecurity, ApiTags } from '@nestjs/swagger';
+import { JwtAuthGuard } from 'src/auth/jwt-auth.guard';
+import { CurrentUser } from 'src/auth/decorators/currentUser';
 @ApiTags('employees')
 @Controller('employees')
 export class EmployeesController {
@@ -18,13 +29,23 @@ export class EmployeesController {
     return this.employeesService.findAll();
   }
 
-  @Get(':id')
+  @ApiSecurity('apiKey')
+  @UseGuards(JwtAuthGuard)
+  @Get('my-tree')
+  findMyTree(@CurrentUser() user: any) {
+    return this.employeesService.findTree(user.employeeId);
+  }
+
+  @Get('one/:id')
   findOne(@Param('id') id: string) {
     return this.employeesService.findOne(id);
   }
 
   @Patch(':id')
-  update(@Param('id') id: string, @Body() updateEmployeeDto: UpdateEmployeeDto) {
+  update(
+    @Param('id') id: string,
+    @Body() updateEmployeeDto: UpdateEmployeeDto,
+  ) {
     return this.employeesService.update(id, updateEmployeeDto);
   }
 

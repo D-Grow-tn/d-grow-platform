@@ -9,64 +9,64 @@ async function main() {
     return;
   }
 
-  let cover1=await prisma.media.create({
-    data:{
-      path:'https://thumbs.dreamstime.com/b/person-programmer-working-pc-laptop-program-code-screen-coding-programming-vector-concept-person-programmer-working-107767154.jpg',
-      type:'cover',
-      extension:'png',
-    }
-  })
-  let cover2=await prisma.media.create({
-    data:{
-      path:'https://img.freepik.com/free-icon/user_318-159711.jpg',
-      type:'cover',
-      extension:'png',
-    }
-  })
-  let cover3=await prisma.media.create({
-    data:{
-      path:'https://img.freepik.com/free-icon/user_318-159711.jpg',
-      type:'cover',
-      extension:'png',
-    }
-  })
-let avatarClient1 =await prisma.media.create({
-  data :{
-    path:'https://scontent.ftun14-1.fna.fbcdn.net/v/t1.6435-9/95926704_4252204308126815_1713291814770835456_n.jpg?_nc_cat=103&ccb=1-7&_nc_sid=174925&_nc_ohc=4G2GM9QpEzMAX_I_fr6&_nc_ht=scontent.ftun14-1.fna&oh=00_AfAAQz6tiYP8qmV74y9Ev9uD9wvhcq8d7RfuypktNlcIBQ&oe=64B2CD0C',
-    type:'avatar',
-    extension:'png',
-  }
-})
-let avatarClient2 =await prisma.media.create({
-  data :{
-    path:'https://img.freepik.com/free-icon/user_318-159711.jpg',
-    type:'avatar',
-    extension:'png'
-  }
-})
-let avatarClient3 =await prisma.media.create({
-  data :{
-    path:'https://img.freepik.com/free-icon/user_318-159711.jpg',
-    type:'avatar',
-    extension:'png'
-  }
-})
-let avatarClient4 =await prisma.media.create({
-  data :{
-    path:'https://img.freepik.com/free-icon/user_318-159711.jpg',
-    type:'avatar',
-    extension:'png'
-  }
-})
+  let cover1 = await prisma.media.create({
+    data: {
+      path: 'https://thumbs.dreamstime.com/b/person-programmer-working-pc-laptop-program-code-screen-coding-programming-vector-concept-person-programmer-working-107767154.jpg',
+      type: 'cover',
+      extension: 'png',
+    },
+  });
+  let cover2 = await prisma.media.create({
+    data: {
+      path: 'https://img.freepik.com/free-icon/user_318-159711.jpg',
+      type: 'cover',
+      extension: 'png',
+    },
+  });
+  let cover3 = await prisma.media.create({
+    data: {
+      path: 'https://img.freepik.com/free-icon/user_318-159711.jpg',
+      type: 'cover',
+      extension: 'png',
+    },
+  });
+  let avatarClient1 = await prisma.media.create({
+    data: {
+      path: 'https://scontent.ftun14-1.fna.fbcdn.net/v/t1.6435-9/95926704_4252204308126815_1713291814770835456_n.jpg?_nc_cat=103&ccb=1-7&_nc_sid=174925&_nc_ohc=4G2GM9QpEzMAX_I_fr6&_nc_ht=scontent.ftun14-1.fna&oh=00_AfAAQz6tiYP8qmV74y9Ev9uD9wvhcq8d7RfuypktNlcIBQ&oe=64B2CD0C',
+      type: 'avatar',
+      extension: 'png',
+    },
+  });
+  let avatarClient2 = await prisma.media.create({
+    data: {
+      path: 'https://img.freepik.com/free-icon/user_318-159711.jpg',
+      type: 'avatar',
+      extension: 'png',
+    },
+  });
+  let avatarClient3 = await prisma.media.create({
+    data: {
+      path: 'https://img.freepik.com/free-icon/user_318-159711.jpg',
+      type: 'avatar',
+      extension: 'png',
+    },
+  });
+  let avatarClient4 = await prisma.media.create({
+    data: {
+      path: 'https://img.freepik.com/free-icon/user_318-159711.jpg',
+      type: 'avatar',
+      extension: 'png',
+    },
+  });
 
-//hhhgg
-let mediaEvent1 =await prisma.media.create({
-  data :{
-    path:'https://www.referenseo.com/wp-content/uploads/2019/03/image-attractive-960x540.jpg',
-    type:'image',
-    extension:'png'
-  }
-})
+  //hhhgg
+  let mediaEvent1 = await prisma.media.create({
+    data: {
+      path: 'https://www.referenseo.com/wp-content/uploads/2019/03/image-attractive-960x540.jpg',
+      type: 'image',
+      extension: 'png',
+    },
+  });
 
   //create client
   let client1 = await prisma.client.create({
@@ -75,7 +75,7 @@ let mediaEvent1 =await prisma.media.create({
       email: 'd-grow1@gmail.com',
       phone: '44444444',
       address: 'tunis',
-      avatarClientId: avatarClient1.id ,
+      avatarClientId: avatarClient1.id,
     },
   });
   let client2 = await prisma.client.create({
@@ -94,7 +94,7 @@ let mediaEvent1 =await prisma.media.create({
       email: 'd-grow3@gmail.com',
       phone: '44444444',
       address: 'tunis',
-      avatarClientId: avatarClient3.id ,
+      avatarClientId: avatarClient3.id,
     },
   });
 
@@ -104,7 +104,7 @@ let mediaEvent1 =await prisma.media.create({
       email: 'inesdebichi1995@gmail.com',
       phone: '44444444',
       address: 'tunis',
-      avatarClientId: avatarClient4.id ,
+      avatarClientId: avatarClient4.id,
     },
   });
 
@@ -114,8 +114,8 @@ let mediaEvent1 =await prisma.media.create({
       bio: 'String',
       email: 'String',
       phone: 'String',
-      address :'string',
-      avatarId:avatarClient4.id 
+      address: 'string',
+      avatarId: avatarClient4.id,
     },
   });
   let employee2 = await prisma.employee.create({
@@ -124,8 +124,9 @@ let mediaEvent1 =await prisma.media.create({
       bio: 'String',
       email: 'String',
       phone: 'String',
-      address :'string',
-      avatarId:avatarClient4.id 
+      address: 'string',
+      avatarId: avatarClient4.id,
+      directManegerId: employee1.id,
     },
   });
   let employee3 = await prisma.employee.create({
@@ -134,8 +135,53 @@ let mediaEvent1 =await prisma.media.create({
       bio: 'String',
       email: 'String',
       phone: 'String',
-      address :'string',
-      avatarId:avatarClient4.id 
+      address: 'string',
+      avatarId: avatarClient4.id,
+      directManegerId: employee1.id,
+    },
+  });
+  let employee4 = await prisma.employee.create({
+    data: {
+      name: 'ghada',
+      bio: 'String',
+      email: 'String',
+      phone: 'String',
+      address: 'string',
+      avatarId: avatarClient4.id,
+      directManegerId: employee2.id,
+    },
+  });
+  let employee5 = await prisma.employee.create({
+    data: {
+      name: 'aymen',
+      bio: 'String',
+      email: 'String',
+      phone: 'String',
+      address: 'string',
+      avatarId: avatarClient4.id,
+      directManegerId: employee2.id,
+    },
+  });
+  let employee6 = await prisma.employee.create({
+    data: {
+      name: 'slim',
+      bio: 'String',
+      email: 'String',
+      phone: 'String',
+      address: 'string',
+      avatarId: avatarClient4.id,
+      directManegerId: employee2.id,
+    },
+  });
+  let employee7 = await prisma.employee.create({
+    data: {
+      name: 'ahmed',
+      bio: 'String',
+      email: 'String',
+      phone: 'String',
+      address: 'string',
+      avatarId: avatarClient4.id,
+      directManegerId: employee2.id,
     },
   });
   // create users
@@ -213,6 +259,16 @@ let mediaEvent1 =await prisma.media.create({
       // mediaId   :  media.id,
     },
   });
+  let user8 = await prisma.user.create({
+    data: {
+      name: 'ghada',
+      email: 'ghada@gmail.com',
+      employeeId: employee4.id,
+      password: await bcrypt.hash('1234', salt),
+      isClient: false,
+      // mediaId   :  media.id,
+    },
+  });
   let contract = await prisma.media.create({
     data: {
       path: 'https://www.africau.edu/images/default/sample.pdf',
@@ -229,8 +285,8 @@ let mediaEvent1 =await prisma.media.create({
       duration: '2 months',
       projectManagerId: employee1.id,
       consultantId: employee2.id,
-      startAt: new Date("01/05/2023"),
-      endAt: new Date("01/07/2023"),
+      startAt: new Date('01/05/2023'),
+      endAt: new Date('01/07/2023'),
       status: 'pending',
       contractId: contract.id,
       coverId: cover1.id,
@@ -245,8 +301,8 @@ let mediaEvent1 =await prisma.media.create({
       duration: 'One month',
       projectManagerId: employee1.id,
       consultantId: employee2.id,
-      startAt: new Date("01/05/2023"),
-      endAt: new Date("01/07/2023"),
+      startAt: new Date('01/05/2023'),
+      endAt: new Date('01/07/2023'),
       status: 'in_progress',
       coverId: cover2.id,
     },
@@ -259,11 +315,10 @@ let mediaEvent1 =await prisma.media.create({
       duration: 'One month',
       projectManagerId: employee1.id,
       consultantId: employee2.id,
-      startAt: new Date("01/05/2023"),
-      endAt: new Date("01/07/2023"),
+      startAt: new Date('01/05/2023'),
+      endAt: new Date('01/07/2023'),
       status: 'completed',
       coverId: cover3.id,
-      
     },
   });
 
@@ -274,8 +329,8 @@ let mediaEvent1 =await prisma.media.create({
       decription:
         'Improve the visual design and user experience of the e-commerce website.',
       projectId: project1.id,
-      startAt: new Date("01/05/2023"),
-      endAt: new Date("01/08/2023"),
+      startAt: new Date('01/05/2023'),
+      endAt: new Date('01/08/2023'),
       status: 'in_progress',
     },
   });
@@ -286,8 +341,8 @@ let mediaEvent1 =await prisma.media.create({
       decription:
         'Develop the server-side functionality and integrate the database for the e-commerce website.',
       projectId: project1.id,
-      startAt: new Date("01/05/2023"),
-      endAt: new Date("01/09/2023"),
+      startAt: new Date('01/05/2023'),
+      endAt: new Date('01/09/2023'),
       status: 'in_progress',
     },
   });
@@ -297,26 +352,26 @@ let mediaEvent1 =await prisma.media.create({
       decription:
         'Integrate a secure and reliable payment gateway to facilitate smooth and secure online transactions.',
       projectId: project1.id,
-      startAt: new Date("01/05/2023"),
-      endAt: new Date("01/07/2023"),
+      startAt: new Date('01/05/2023'),
+      endAt: new Date('01/07/2023'),
     },
   });
 
   let objective4Project1 = await prisma.objective.create({
     data: {
-      name:'Performance Optimization',
+      name: 'Performance Optimization',
       decription:
         'Optimize the performance of the e-commerce website to ensure fast loading times and efficient resource utilization.',
       projectId: project1.id,
-      startAt: new Date("01/05/2023"),
-      endAt: new Date("01/09/2023"),
+      startAt: new Date('01/05/2023'),
+      endAt: new Date('01/09/2023'),
     },
   });
 
   // create sub_Objective
   let subObjective1Ojective1Project1 = await prisma.subObjective.create({
     data: {
-      name:'User Interface Design',
+      name: 'User Interface Design',
       objectiveId: objective1Project1.id,
       description:
         'Create an intuitive and visually appealing user interface for the e-commerce website.',
@@ -325,7 +380,7 @@ let mediaEvent1 =await prisma.media.create({
   });
   let subObjective2Ojective1Project1 = await prisma.subObjective.create({
     data: {
-      name:'Responsive Design',
+      name: 'Responsive Design',
       objectiveId: objective1Project1.id,
       description:
         'Ensure that the e-commerce website is responsive and optimally displayed on different devices and screen sizes.',
@@ -342,7 +397,7 @@ let mediaEvent1 =await prisma.media.create({
   });
   let subObjective1Objective4Project1 = await prisma.subObjective.create({
     data: {
-      name:'Performance Analysis and Profiling',
+      name: 'Performance Analysis and Profiling',
       objectiveId: objective4Project1.id,
       description:
         "Conduct a comprehensive performance analysis of the e-commerce website to identify bottlenecks and areas for optimization. Use profiling tools to measure and analyze the application's resource usage and performance metrics.",
@@ -425,8 +480,8 @@ let mediaEvent1 =await prisma.media.create({
     data: {
       name: 'UX design',
       porcentage: '20',
-      startAt: new Date("01/05/2023"),
-      endAt: new Date("01/07/2023"),
+      startAt: new Date('01/05/2023'),
+      endAt: new Date('01/07/2023'),
       objectiveId: objective1Project1.id,
       previousStageId: stage1Project1.id,
     },
@@ -435,8 +490,8 @@ let mediaEvent1 =await prisma.media.create({
     data: {
       name: 'Testing',
       porcentage: '20',
-      startAt: new Date("01/05/2023"),
-      endAt: new Date("01/07/2023"),
+      startAt: new Date('01/05/2023'),
+      endAt: new Date('01/07/2023'),
       objectiveId: objective1Project1.id,
       previousStageId: stage2Project1.id,
     },
@@ -536,30 +591,29 @@ let mediaEvent1 =await prisma.media.create({
     },
   });
   let decision1 = await prisma.decision.create({
-    data : {
-      content : "decision number 1",
-      DecisionApply:{create:[{employeeId:employee1.id}]}
-    }
+    data: {
+      content: 'decision number 1',
+      DecisionApply: { create: [{ employeeId: employee1.id }] },
+    },
   });
   let decision2 = await prisma.decision.create({
-    data : {
-      content : "decision number 2",
-      DecisionApply:{create:[{employeeId:employee2.id}]}
-    }
+    data: {
+      content: 'decision number 2',
+      DecisionApply: { create: [{ employeeId: employee2.id }] },
+    },
   });
 
   //create Events
   let event1 = await prisma.event.create({
-    data : {
-      name:"Event Name 1" ,
-      description :"description Event Number one ",
+    data: {
+      name: 'Event Name 1',
+      description: 'description Event Number one ',
       startAt: new Date('01/05/2023'),
       endAt: new Date('01/07/2023'),
-      employeeId:employee1.id,
-      MediaEvent: {create:[{mediaId:mediaEvent1.id}]}
-    }
-  })
-
+      employeeId: employee1.id,
+      MediaEvent: { create: [{ mediaId: mediaEvent1.id }] },
+    },
+  });
 }
 main()
   .then((res) => console.log('seeding completed'))

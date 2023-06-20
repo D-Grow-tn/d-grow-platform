@@ -27,10 +27,12 @@ function AutoSelect({
   };
   return (
     <>
-    {readOnly?
-    <TextView value={value} label={label} />
-    :
-      freeSolo && multiple ? (
+      {readOnly ? (
+        <TextView
+          value={typeof value === "string" ? value : value[optionLabel]}
+          label={label}
+        />
+      ) : freeSolo && multiple ? (
         <Autocomplete
           multiple={multiple}
           freeSolo={freeSolo}
@@ -62,9 +64,13 @@ function AutoSelect({
         />
       ) : (
         <Autocomplete
+          value={value}
           placeholder={placeholder}
           options={options}
-          getOptionLabel={(option) => option[optionLabel]}
+          getOptionLabel={(option) => {
+            if (typeof option === "string") return option;
+            return option[optionLabel];
+          }}
           defaultValue={defaultValue}
           sx={style}
           renderInput={(params) => (
@@ -78,9 +84,10 @@ function AutoSelect({
           onChange={(e, value) => {
             if (typeof value === "string") {
               onChange(value);
-            }else {
-              onChange(value[valueLabel])
-            }
+            } else if (typeof value === "object"&&value) {
+             
+              onChange(value[valueLabel]);
+            } else onChange(null);
           }}
         />
       )}

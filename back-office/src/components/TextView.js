@@ -1,25 +1,19 @@
 import React, { useEffect, useState } from "react";
 
-function TextView({ value, label,width }) {
+function TextView({ value, label, width }) {
   const [widthlabel, setWidthlabel] = useState(50);
   useEffect(() => {
-   let aux= document.getElementById("label")?.offsetWidth
+    let aux = document.getElementById("label")?.offsetWidth;
     if (aux) {
       setWidthlabel(aux);
     }
   }, [document.getElementById("label")?.offsetWidth]);
-  
-  console.log(typeof width);
-
- 
-
-
 
   return (
     <div
       style={{
         height: 55,
-        width:width?width: 250 ,
+        width: width ? width : 250,
         border: "1px solid #b2b9bc",
         borderRadius: 8,
       }}
@@ -38,7 +32,7 @@ function TextView({ value, label,width }) {
       <label
         id="label"
         className="position-absolute"
-        style={{ top: -11, left: 15, fontSize: 12,color:"#5d6062" }}
+        style={{ top: -11, left: 15, fontSize: 12, color: "#5d6062" }}
       >
         {label}
       </label>
