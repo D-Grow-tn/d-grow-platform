@@ -8,10 +8,10 @@ import { ApiTags } from '@nestjs/swagger';
 export class RequestsController {
   constructor(private readonly requestsService: RequestsService) {}
 
-  @Post()
-  create(@Body() createRequestDto: CreateRequestDto) {
-    return this.requestsService.create(createRequestDto);
-  }
+  // @Post()
+  // create(@Body() createRequestDto: CreateRequestDto) {
+  //   return this.requestsService.create(createRequestDto);
+  // }
 
   @Get()
   findAll() {
@@ -23,9 +23,9 @@ export class RequestsController {
   findOne(@Param('id') id: string) {
     return this.requestsService.findOne(id);
   }
-  @Get('by_employee/:employeeId')
-  findAllByEmployee(@Param('employeeId')employeeId:string){
-    return this.requestsService.findAllByEmployee(employeeId);
+  @Get('by_employee/:senderId')
+  findAllByEmployee(@Param('senderId')senderId:string){
+    return this.requestsService.findAllBySender(senderId);
   }
 
   @Patch(':id')

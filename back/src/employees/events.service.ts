@@ -115,7 +115,7 @@ export class EventsService {
         if (mediaIds) {
           let event = await this.findOne(id, prisma);
           event.MediaEvent.forEach(async (elem) => {
-            if (mediaIds.includes(elem.mediaId)) {
+            if (!mediaIds.includes(elem.mediaId)) {
               await prisma.mediaEvent.delete({
                 where: {
                   eventMedia: { mediaId: elem.mediaId, eventId: id },

@@ -11,29 +11,29 @@ export class RequestsService {
     private readonly prisma: PrismaService,
     private readonly helper: HelpersService,
   ) {}
-  async create(createRequestDto: CreateRequestDto) {
-    const { mediaIds, ...rest } = createRequestDto;
-    let data = rest;
-    await this.helper.notFound('employee', 'findFirstOrThrow', {
-      where: { id: data.employeeId },
-    });
-    if (mediaIds) {
-      await this.helper.nestedCreateOrUpdateWithMedia(
-        mediaIds,
-        data,
-        'MediaRequest',
-        'create',
-        'id',
-        'unique',
-      );
-    }
-    return await this.prisma.request.create({
-      data,
-      include: {
-        MediaRequest: { include: { media: true } },
-      },
-    });
-  }
+  // async create(createRequestDto: CreateRequestDto) {
+  //   const { mediaIds, ...rest } = createRequestDto;
+  //   let data = rest;
+  //   await this.helper.notFound('sender', 'findFirstOrThrow', {
+  //     where: { id: data.senderId },
+  //   });
+  //   if (mediaIds) {
+  //     await this.helper.nestedCreateOrUpdateWithMedia(
+  //       mediaIds,
+  //       data,
+  //       'MediaRequest',
+  //       'create',
+  //       'id',
+  //       'unique',
+  //     );
+  //   }
+  //   return await this.prisma.request.create({
+  //     data,
+  //     include: {
+  //       MediaRequest: { include: { media: true } },
+  //     },
+  //   });
+  // }
 
   async findAll() {
     return await this.prisma.request.findMany({
@@ -58,20 +58,27 @@ export class RequestsService {
     });
   }
 
-  async findAllByEmployee(employeeId:string){
+  async findAllByReceiver(recieverId:string){
+    return  await this.prisma.behavior.findMany({ 
+      where:{recieverId}
+    })
+  }
+
+  async findAllBySender(senderId:string){
     return await this.prisma.request.findMany({
-      where:{employeeId}
+      where:{senderId}
     
     })
   }
+  
 
   async update(id: string, dto: UpdateRequestDto) {
     const { mediaIds, ...rest } = dto;
     let data = { ...rest };
 
-    await this.helper.notFound('employee', 'findFirstOrThrow', {
-      where: { id: rest.employeeId },
-    });
+    // await this.helper.notFound('employee', 'findFirstOrThrow', {
+    //   where: { id: rest. },
+    // });
     return await this.prisma.$transaction(async (prisma)=>{
     if (mediaIds) {
       let request=  await this.findOne(id,prisma);
