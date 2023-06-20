@@ -1,4 +1,4 @@
-import { ApiProperty } from "@nestjs/swagger";
+import { ApiProperty } from '@nestjs/swagger';
 export class CreateUserDto {
   @ApiProperty({ required: true })
   name: string;
@@ -10,6 +10,8 @@ export class CreateUserDto {
   employeeId: string;
   @ApiProperty({ required: true })
   password: string;
+  @ApiProperty({ required: false })
+  isClient: boolean;
   @ApiProperty({ required: false })
   mediaId: string;
 }

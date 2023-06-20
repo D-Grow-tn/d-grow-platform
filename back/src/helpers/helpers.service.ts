@@ -13,6 +13,31 @@ export class HelpersService {
       throw new HttpException(model + ' not found', HttpStatus.BAD_REQUEST);
     }
   }
+  async notFoundMany(
+    array: any[],
+    modelId:string,
+    model: string,
+    findType: string,
+    
+  ) {
+    let errors = [];
+    await Promise.all(
+      array.map(async (id) => {
+        try {
+          return await this.prisma[model][findType]({where:{id}});
+        } catch (e) {
+          errors.push(id);
+        }
+      }),
+    );
+    if (errors.length) {
+      let str = '';
+      errors.forEach((error) => {
+        str += modelId + error + ' ';
+      });
+      throw new HttpException(str + 'not found', HttpStatus.BAD_REQUEST);
+    }
+  }
   async nestedCreateOrUpdateWithMedia(
     mediaIds: string[],
     data: any,

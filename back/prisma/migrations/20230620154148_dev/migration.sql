@@ -1,22 +1,26 @@
-/*
-  Warnings:
-
-  - You are about to drop the column `lastName` on the `User` table. All the data in the column will be lost.
-  - Added the required column `email` to the `User` table without a default value. This is not possible if the table is not empty.
-  - Added the required column `password` to the `User` table without a default value. This is not possible if the table is not empty.
-
-*/
 -- CreateEnum
 CREATE TYPE "Status" AS ENUM ('pending', 'in_progress', 'completed', 'on_hold', 'cancelled', 'reviewed', 'refused', 'accepted');
 
--- AlterTable
-ALTER TABLE "User" DROP COLUMN "lastName",
-ADD COLUMN     "clientId" TEXT,
-ADD COLUMN     "email" TEXT NOT NULL,
-ADD COLUMN     "employeeId" TEXT,
-ADD COLUMN     "isClient" BOOLEAN NOT NULL DEFAULT false,
-ADD COLUMN     "mediaId" TEXT,
-ADD COLUMN     "password" TEXT NOT NULL;
+-- CreateEnum
+CREATE TYPE "TypeMainComponent" AS ENUM ('footer', 'header', 'sidebar', 'page');
+
+-- CreateEnum
+CREATE TYPE "PositionSubComponent" AS ENUM ('left', 'right', 'top', 'bottom', 'middle', 'section');
+
+-- CreateTable
+CREATE TABLE "User" (
+    "id" TEXT NOT NULL,
+    "name" TEXT NOT NULL,
+    "email" TEXT NOT NULL,
+    "confirmkey" TEXT,
+    "clientId" TEXT,
+    "employeeId" TEXT,
+    "password" TEXT NOT NULL,
+    "isClient" BOOLEAN NOT NULL DEFAULT false,
+    "mediaId" TEXT,
+
+    CONSTRAINT "User_pkey" PRIMARY KEY ("id")
+);
 
 -- CreateTable
 CREATE TABLE "Client" (
@@ -27,6 +31,7 @@ CREATE TABLE "Client" (
     "address" TEXT NOT NULL,
     "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
     "updatedAt" TIMESTAMP(3) NOT NULL,
+    "avatarClientId" TEXT,
 
     CONSTRAINT "Client_pkey" PRIMARY KEY ("id")
 );
@@ -35,15 +40,15 @@ CREATE TABLE "Client" (
 CREATE TABLE "Employee" (
     "id" TEXT NOT NULL,
     "name" TEXT NOT NULL,
-    "avatar" TEXT NOT NULL,
-    "bio" TEXT NOT NULL,
     "email" TEXT NOT NULL,
-    "departmentId" TEXT,
-    "directManegerId" TEXT NOT NULL,
     "phone" TEXT NOT NULL,
+    "address" TEXT NOT NULL,
+    "bio" TEXT NOT NULL,
     "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
     "updatedAt" TIMESTAMP(3) NOT NULL,
-    "mediaId" TEXT,
+    "avatarId" TEXT,
+    "departmentId" TEXT,
+    "directManegerId" TEXT,
 
     CONSTRAINT "Employee_pkey" PRIMARY KEY ("id")
 );
@@ -56,13 +61,16 @@ CREATE TABLE "Project" (
     "duration" TEXT NOT NULL,
     "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
     "updatedAt" TIMESTAMP(3) NOT NULL,
-    "clientId" TEXT NOT NULL,
-    "teamId" TEXT NOT NULL,
-    "startAt" TIMESTAMP(3) NOT NULL,
-    "endAt" TIMESTAMP(3) NOT NULL,
+    "clientId" TEXT,
+    "teamId" TEXT,
+    "startAt" TIMESTAMP(3),
+    "endAt" TIMESTAMP(3),
     "status" "Status" NOT NULL DEFAULT 'pending',
-    "projectManagerId" TEXT NOT NULL,
-    "consultantId" TEXT NOT NULL,
+    "projectManagerId" TEXT,
+    "consultantId" TEXT,
+    "contractId" TEXT,
+    "coverId" TEXT,
+    "mediaId" TEXT,
 
     CONSTRAINT "Project_pkey" PRIMARY KEY ("id")
 );
@@ -71,7 +79,7 @@ CREATE TABLE "Project" (
 CREATE TABLE "Technology" (
     "id" TEXT NOT NULL,
     "name" TEXT NOT NULL,
-    "description" TEXT NOT NULL,
+    "description" TEXT,
     "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
     "updatedAt" TIMESTAMP(3) NOT NULL,
 
@@ -90,6 +98,8 @@ CREATE TABLE "Objective" (
     "name" TEXT NOT NULL,
     "decription" TEXT NOT NULL,
     "projectId" TEXT NOT NULL,
+    "startAt" TIMESTAMP(3),
+    "endAt" TIMESTAMP(3),
     "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
     "updatedAt" TIMESTAMP(3) NOT NULL,
     "status" "Status" NOT NULL DEFAULT 'pending',
@@ -98,7 +108,7 @@ CREATE TABLE "Objective" (
 );
 
 -- CreateTable
-CREATE TABLE "Subobjective" (
+CREATE TABLE "SubObjective" (
     "id" TEXT NOT NULL,
     "name" TEXT NOT NULL,
     "description" TEXT NOT NULL,
@@ -107,7 +117,7 @@ CREATE TABLE "Subobjective" (
     "status" "Status" NOT NULL DEFAULT 'pending',
     "objectiveId" TEXT NOT NULL,
 
-    CONSTRAINT "Subobjective_pkey" PRIMARY KEY ("id")
+    CONSTRAINT "SubObjective_pkey" PRIMARY KEY ("id")
 );
 
 -- CreateTable
@@ -115,12 +125,13 @@ CREATE TABLE "Stage" (
     "id" TEXT NOT NULL,
     "name" TEXT NOT NULL,
     "porcentage" TEXT NOT NULL,
-    "startAt" TIMESTAMP(3) NOT NULL,
-    "endAt" TIMESTAMP(3) NOT NULL,
+    "startAt" TIMESTAMP(3),
+    "endAt" TIMESTAMP(3),
     "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
     "updatedAt" TIMESTAMP(3) NOT NULL,
     "objectiveId" TEXT NOT NULL,
     "status" "Status" NOT NULL DEFAULT 'pending',
+    "previousStageId" TEXT,
 
     CONSTRAINT "Stage_pkey" PRIMARY KEY ("id")
 );
@@ -159,6 +170,8 @@ CREATE TABLE "TeamMembership" (
 CREATE TABLE "Interaction" (
     "id" TEXT NOT NULL,
     "content" TEXT NOT NULL,
+    "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    "updatedAt" TIMESTAMP(3) NOT NULL,
     "projectId" TEXT NOT NULL,
     "UserId" TEXT NOT NULL,
 
@@ -203,10 +216,11 @@ CREATE TABLE "EmployeeQuiz" (
 CREATE TABLE "Request" (
     "id" TEXT NOT NULL,
     "subject" TEXT NOT NULL,
-    "content" TEXT NOT NULL,
+    "content" TEXT,
     "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
     "updatedAt" TIMESTAMP(3) NOT NULL,
-    "employeeId" TEXT NOT NULL,
+    "senderId" TEXT NOT NULL,
+    "recieverId" TEXT NOT NULL,
 
     CONSTRAINT "Request_pkey" PRIMARY KEY ("id")
 );
@@ -226,6 +240,14 @@ CREATE TABLE "Event" (
 );
 
 -- CreateTable
+CREATE TABLE "Membership" (
+    "eventId" TEXT NOT NULL,
+    "employeeId" TEXT NOT NULL,
+    "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    "updatedAt" TIMESTAMP(3) NOT NULL
+);
+
+-- CreateTable
 CREATE TABLE "Behavior" (
     "id" TEXT NOT NULL,
     "content" TEXT NOT NULL,
@@ -242,9 +264,16 @@ CREATE TABLE "Decision" (
     "content" TEXT NOT NULL,
     "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
     "updatedAt" TIMESTAMP(3) NOT NULL,
-    "employeeId" TEXT NOT NULL,
 
     CONSTRAINT "Decision_pkey" PRIMARY KEY ("id")
+);
+
+-- CreateTable
+CREATE TABLE "DecisionApply" (
+    "decisionId" TEXT NOT NULL,
+    "employeeId" TEXT NOT NULL,
+    "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    "updatedAt" TIMESTAMP(3) NOT NULL
 );
 
 -- CreateTable
@@ -343,7 +372,6 @@ CREATE TABLE "Media" (
     "alt" TEXT,
     "extension" TEXT NOT NULL,
     "description" TEXT,
-    "clientId" TEXT NOT NULL,
 
     CONSTRAINT "Media_pkey" PRIMARY KEY ("id")
 );
@@ -384,6 +412,46 @@ CREATE TABLE "MediaProject" (
     "projectId" TEXT NOT NULL
 );
 
+-- CreateTable
+CREATE TABLE "MainComponent" (
+    "id" TEXT NOT NULL,
+    "title" TEXT,
+    "path" TEXT,
+    "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    "updatedAt" TIMESTAMP(3) NOT NULL,
+    "type" "TypeMainComponent" NOT NULL,
+
+    CONSTRAINT "MainComponent_pkey" PRIMARY KEY ("id")
+);
+
+-- CreateTable
+CREATE TABLE "SubComponent" (
+    "id" TEXT NOT NULL,
+    "name" TEXT,
+    "mainId" TEXT NOT NULL,
+    "position" "PositionSubComponent" NOT NULL,
+    "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    "updatedAt" TIMESTAMP(3) NOT NULL,
+
+    CONSTRAINT "SubComponent_pkey" PRIMARY KEY ("id")
+);
+
+-- CreateTable
+CREATE TABLE "ContentSubComponent" (
+    "id" TEXT NOT NULL,
+    "title" TEXT NOT NULL,
+    "navigateTo" TEXT,
+    "content" TEXT NOT NULL,
+    "subComponentId" TEXT NOT NULL,
+    "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    "updatedAt" TIMESTAMP(3) NOT NULL,
+
+    CONSTRAINT "ContentSubComponent_pkey" PRIMARY KEY ("id")
+);
+
+-- CreateIndex
+CREATE UNIQUE INDEX "User_email_key" ON "User"("email");
+
 -- CreateIndex
 CREATE UNIQUE INDEX "ProjectTechnology_technologyId_projectId_key" ON "ProjectTechnology"("technologyId", "projectId");
 
@@ -395,6 +463,12 @@ CREATE UNIQUE INDEX "EmployeeTest_employeeId_testId_key" ON "EmployeeTest"("empl
 
 -- CreateIndex
 CREATE UNIQUE INDEX "EmployeeQuiz_employeeId_quizId_key" ON "EmployeeQuiz"("employeeId", "quizId");
+
+-- CreateIndex
+CREATE UNIQUE INDEX "Membership_eventId_employeeId_key" ON "Membership"("eventId", "employeeId");
+
+-- CreateIndex
+CREATE UNIQUE INDEX "DecisionApply_decisionId_employeeId_key" ON "DecisionApply"("decisionId", "employeeId");
 
 -- CreateIndex
 CREATE UNIQUE INDEX "MediaUser_mediaId_userId_key" ON "MediaUser"("mediaId", "userId");
@@ -414,6 +488,9 @@ CREATE UNIQUE INDEX "MediaRequest_mediaId_requestId_key" ON "MediaRequest"("medi
 -- CreateIndex
 CREATE UNIQUE INDEX "MediaProject_mediaId_projectId_key" ON "MediaProject"("mediaId", "projectId");
 
+-- CreateIndex
+CREATE UNIQUE INDEX "MainComponent_path_key" ON "MainComponent"("path");
+
 -- AddForeignKey
 ALTER TABLE "User" ADD CONSTRAINT "User_clientId_fkey" FOREIGN KEY ("clientId") REFERENCES "Client"("id") ON DELETE SET NULL ON UPDATE CASCADE;
 
@@ -424,25 +501,37 @@ ALTER TABLE "User" ADD CONSTRAINT "User_employeeId_fkey" FOREIGN KEY ("employeeI
 ALTER TABLE "User" ADD CONSTRAINT "User_mediaId_fkey" FOREIGN KEY ("mediaId") REFERENCES "Media"("id") ON DELETE SET NULL ON UPDATE CASCADE;
 
 -- AddForeignKey
+ALTER TABLE "Client" ADD CONSTRAINT "Client_avatarClientId_fkey" FOREIGN KEY ("avatarClientId") REFERENCES "Media"("id") ON DELETE SET NULL ON UPDATE CASCADE;
+
+-- AddForeignKey
+ALTER TABLE "Employee" ADD CONSTRAINT "Employee_avatarId_fkey" FOREIGN KEY ("avatarId") REFERENCES "Media"("id") ON DELETE SET NULL ON UPDATE CASCADE;
+
+-- AddForeignKey
 ALTER TABLE "Employee" ADD CONSTRAINT "Employee_departmentId_fkey" FOREIGN KEY ("departmentId") REFERENCES "Department"("id") ON DELETE SET NULL ON UPDATE CASCADE;
 
 -- AddForeignKey
-ALTER TABLE "Employee" ADD CONSTRAINT "Employee_directManegerId_fkey" FOREIGN KEY ("directManegerId") REFERENCES "Employee"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
+ALTER TABLE "Employee" ADD CONSTRAINT "Employee_directManegerId_fkey" FOREIGN KEY ("directManegerId") REFERENCES "Employee"("id") ON DELETE SET NULL ON UPDATE CASCADE;
 
 -- AddForeignKey
-ALTER TABLE "Employee" ADD CONSTRAINT "Employee_mediaId_fkey" FOREIGN KEY ("mediaId") REFERENCES "Media"("id") ON DELETE SET NULL ON UPDATE CASCADE;
+ALTER TABLE "Project" ADD CONSTRAINT "Project_clientId_fkey" FOREIGN KEY ("clientId") REFERENCES "Client"("id") ON DELETE SET NULL ON UPDATE CASCADE;
 
 -- AddForeignKey
-ALTER TABLE "Project" ADD CONSTRAINT "Project_clientId_fkey" FOREIGN KEY ("clientId") REFERENCES "Client"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
+ALTER TABLE "Project" ADD CONSTRAINT "Project_teamId_fkey" FOREIGN KEY ("teamId") REFERENCES "Team"("id") ON DELETE SET NULL ON UPDATE CASCADE;
 
 -- AddForeignKey
-ALTER TABLE "Project" ADD CONSTRAINT "Project_teamId_fkey" FOREIGN KEY ("teamId") REFERENCES "Team"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
+ALTER TABLE "Project" ADD CONSTRAINT "Project_projectManagerId_fkey" FOREIGN KEY ("projectManagerId") REFERENCES "Employee"("id") ON DELETE SET NULL ON UPDATE CASCADE;
 
 -- AddForeignKey
-ALTER TABLE "Project" ADD CONSTRAINT "Project_projectManagerId_fkey" FOREIGN KEY ("projectManagerId") REFERENCES "Employee"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
+ALTER TABLE "Project" ADD CONSTRAINT "Project_consultantId_fkey" FOREIGN KEY ("consultantId") REFERENCES "Employee"("id") ON DELETE SET NULL ON UPDATE CASCADE;
 
 -- AddForeignKey
-ALTER TABLE "Project" ADD CONSTRAINT "Project_consultantId_fkey" FOREIGN KEY ("consultantId") REFERENCES "Employee"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
+ALTER TABLE "Project" ADD CONSTRAINT "Project_contractId_fkey" FOREIGN KEY ("contractId") REFERENCES "Media"("id") ON DELETE SET NULL ON UPDATE CASCADE;
+
+-- AddForeignKey
+ALTER TABLE "Project" ADD CONSTRAINT "Project_coverId_fkey" FOREIGN KEY ("coverId") REFERENCES "Media"("id") ON DELETE SET NULL ON UPDATE CASCADE;
+
+-- AddForeignKey
+ALTER TABLE "Project" ADD CONSTRAINT "Project_mediaId_fkey" FOREIGN KEY ("mediaId") REFERENCES "Media"("id") ON DELETE SET NULL ON UPDATE CASCADE;
 
 -- AddForeignKey
 ALTER TABLE "ProjectTechnology" ADD CONSTRAINT "ProjectTechnology_projectId_fkey" FOREIGN KEY ("projectId") REFERENCES "Project"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
@@ -454,7 +543,13 @@ ALTER TABLE "ProjectTechnology" ADD CONSTRAINT "ProjectTechnology_technologyId_f
 ALTER TABLE "Objective" ADD CONSTRAINT "Objective_projectId_fkey" FOREIGN KEY ("projectId") REFERENCES "Project"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
 
 -- AddForeignKey
-ALTER TABLE "Subobjective" ADD CONSTRAINT "Subobjective_objectiveId_fkey" FOREIGN KEY ("objectiveId") REFERENCES "Objective"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
+ALTER TABLE "SubObjective" ADD CONSTRAINT "SubObjective_objectiveId_fkey" FOREIGN KEY ("objectiveId") REFERENCES "Objective"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
+
+-- AddForeignKey
+ALTER TABLE "Stage" ADD CONSTRAINT "Stage_objectiveId_fkey" FOREIGN KEY ("objectiveId") REFERENCES "Objective"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
+
+-- AddForeignKey
+ALTER TABLE "Stage" ADD CONSTRAINT "Stage_previousStageId_fkey" FOREIGN KEY ("previousStageId") REFERENCES "Stage"("id") ON DELETE SET NULL ON UPDATE CASCADE;
 
 -- AddForeignKey
 ALTER TABLE "Task" ADD CONSTRAINT "Task_stageId_fkey" FOREIGN KEY ("stageId") REFERENCES "Stage"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
@@ -487,10 +582,19 @@ ALTER TABLE "EmployeeQuiz" ADD CONSTRAINT "EmployeeQuiz_employeeId_fkey" FOREIGN
 ALTER TABLE "EmployeeQuiz" ADD CONSTRAINT "EmployeeQuiz_quizId_fkey" FOREIGN KEY ("quizId") REFERENCES "Quiz"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
 
 -- AddForeignKey
-ALTER TABLE "Request" ADD CONSTRAINT "Request_employeeId_fkey" FOREIGN KEY ("employeeId") REFERENCES "Employee"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
+ALTER TABLE "Request" ADD CONSTRAINT "Request_senderId_fkey" FOREIGN KEY ("senderId") REFERENCES "Employee"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
+
+-- AddForeignKey
+ALTER TABLE "Request" ADD CONSTRAINT "Request_recieverId_fkey" FOREIGN KEY ("recieverId") REFERENCES "Employee"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
 
 -- AddForeignKey
 ALTER TABLE "Event" ADD CONSTRAINT "Event_employeeId_fkey" FOREIGN KEY ("employeeId") REFERENCES "Employee"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
+
+-- AddForeignKey
+ALTER TABLE "Membership" ADD CONSTRAINT "Membership_eventId_fkey" FOREIGN KEY ("eventId") REFERENCES "Event"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
+
+-- AddForeignKey
+ALTER TABLE "Membership" ADD CONSTRAINT "Membership_employeeId_fkey" FOREIGN KEY ("employeeId") REFERENCES "Employee"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
 
 -- AddForeignKey
 ALTER TABLE "Behavior" ADD CONSTRAINT "Behavior_senderId_fkey" FOREIGN KEY ("senderId") REFERENCES "Employee"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
@@ -499,7 +603,10 @@ ALTER TABLE "Behavior" ADD CONSTRAINT "Behavior_senderId_fkey" FOREIGN KEY ("sen
 ALTER TABLE "Behavior" ADD CONSTRAINT "Behavior_recieverId_fkey" FOREIGN KEY ("recieverId") REFERENCES "Employee"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
 
 -- AddForeignKey
-ALTER TABLE "Decision" ADD CONSTRAINT "Decision_employeeId_fkey" FOREIGN KEY ("employeeId") REFERENCES "Employee"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
+ALTER TABLE "DecisionApply" ADD CONSTRAINT "DecisionApply_decisionId_fkey" FOREIGN KEY ("decisionId") REFERENCES "Decision"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
+
+-- AddForeignKey
+ALTER TABLE "DecisionApply" ADD CONSTRAINT "DecisionApply_employeeId_fkey" FOREIGN KEY ("employeeId") REFERENCES "Employee"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
 
 -- AddForeignKey
 ALTER TABLE "ProductType" ADD CONSTRAINT "ProductType_ProductId_fkey" FOREIGN KEY ("ProductId") REFERENCES "Product"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
@@ -521,9 +628,6 @@ ALTER TABLE "EmployeeChatRoom" ADD CONSTRAINT "EmployeeChatRoom_chatRoomId_fkey"
 
 -- AddForeignKey
 ALTER TABLE "EmployeeChatRoom" ADD CONSTRAINT "EmployeeChatRoom_employeeId_fkey" FOREIGN KEY ("employeeId") REFERENCES "Employee"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
-
--- AddForeignKey
-ALTER TABLE "Media" ADD CONSTRAINT "Media_clientId_fkey" FOREIGN KEY ("clientId") REFERENCES "Client"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
 
 -- AddForeignKey
 ALTER TABLE "MediaUser" ADD CONSTRAINT "MediaUser_mediaId_fkey" FOREIGN KEY ("mediaId") REFERENCES "Media"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
@@ -560,3 +664,9 @@ ALTER TABLE "MediaProject" ADD CONSTRAINT "MediaProject_mediaId_fkey" FOREIGN KE
 
 -- AddForeignKey
 ALTER TABLE "MediaProject" ADD CONSTRAINT "MediaProject_projectId_fkey" FOREIGN KEY ("projectId") REFERENCES "Project"("id") ON DELETE CASCADE ON UPDATE CASCADE;
+
+-- AddForeignKey
+ALTER TABLE "SubComponent" ADD CONSTRAINT "SubComponent_mainId_fkey" FOREIGN KEY ("mainId") REFERENCES "MainComponent"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
+
+-- AddForeignKey
+ALTER TABLE "ContentSubComponent" ADD CONSTRAINT "ContentSubComponent_subComponentId_fkey" FOREIGN KEY ("subComponentId") REFERENCES "SubComponent"("id") ON DELETE RESTRICT ON UPDATE CASCADE;

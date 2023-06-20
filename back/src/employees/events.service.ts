@@ -14,7 +14,7 @@ export class EventsService {
   async create(createEventDto: CreateEventDto) {
     const { mediaIds, membershipIds, ...rest } = createEventDto;
     let data = rest;
-    let employee=await this.helper.notFound('employee', 'findUniqueOrThrow', {
+    let employee = await this.helper.notFound('employee', 'findUniqueOrThrow', {
       where: { id: data.employeeId },
     });
 
@@ -27,9 +27,14 @@ export class EventsService {
         'id',
         'unique',
       );
-      
     }
     if (membershipIds) {
+      await this.helper.notFoundMany(
+        membershipIds,
+        'membershipId :',
+        'employee',
+        'findUniqueOrThrow',
+      );
       data['Membership'] = {
         create: membershipIds.map((id) => {
           return {
@@ -40,19 +45,17 @@ export class EventsService {
     }
     return await this.prisma.event.create({
       data,
-      include:{
-        employee:true,
-     
-      MediaEvent:{include:{media:true}},
-
-      }
+      include: {
+        employee: true,
+        MediaEvent: { include: { media: true } },
+      },
     });
   }
 
   async findAll() {
     return await this.prisma.event.findMany({
       include: {
-        employee:true,
+        employee: true,
         Membership: {
           include: {
             employee: true,
@@ -83,14 +86,14 @@ export class EventsService {
   }
 
   async findOne(id: string, prisma: Prisma.TransactionClient = this.prisma) {
-    return await prisma.event.findFirst({
+    return await prisma.event.findFirstOrThrow({
       where: {
         id,
       },
       include: {
-        employee:true,
+        employee: true,
         Membership: true,
-        MediaEvent:{include:{media:true}}
+        MediaEvent: { include: { media: true } },
       },
     });
   }
@@ -100,55 +103,52 @@ export class EventsService {
     let data = { ...rest };
     return await this.prisma.$transaction(async (prisma) => {
       const event = await this.findOne(id, prisma);
-      event.Membership.forEach(async (member) => {
-        if (!membershipIds.includes(member.employeeId)) {
-          await prisma.membership.delete({
-            where: {
-              membership: { employeeId: member.employeeId, eventId: id },
-            },
-         
-          });
-        }
-      });
-      await this.helper.notFound('mediaId', 'findFirstOrThrow', {
-        where: { id: rest.employeeId },
-      });
-      return await this.prisma.$transaction(async (prisma) => {
-        if (mediaIds) {
-          let event = await this.findOne(id, prisma);
-          event.MediaEvent.forEach(async (elem) => {
-            if (!mediaIds.includes(elem.mediaId)) {
-              await prisma.mediaEvent.delete({
-                where: {
-                  eventMedia: { mediaId: elem.mediaId, eventId: id },
-                },
-              });
-            }
-          });
-
-          await this.helper.nestedCreateOrUpdateWithMedia(
-            mediaIds,
-            data,
-            'MediaEvent',
-            'update',
-            id,
-            'eventMedia',
-          );
-        }
-        return await prisma.event.update({
-          where: { id },
-          data: {
-            ...rest,
-            Membership: {
-              connectOrCreate: membershipIds.map((member) => ({
-                create: { employeeId: member },
-                where: { membership: { employeeId: member, eventId: id } },
-              
-              })),
-            },
-          },
-          include: { employee:true,MediaEvent: { include: { media: true } } },
+      if (membershipIds) {
+        await this.helper.notFoundMany(
+          membershipIds,
+          'membershipId :',
+          'employee',
+          'findUniqueOrThrow',
+        );
+        event.Membership.forEach(async (member) => {
+          if (!membershipIds.includes(member.employeeId)) {
+            await prisma.membership.delete({
+              where: {
+                membership: { employeeId: member.employeeId, eventId: id },
+              },
+            });
+          }
         });
+        data['Membership'] = {
+          connectOrCreate: membershipIds.map((member) => ({
+            create: { employeeId: member },
+            where: { membership: { employeeId: member, eventId: id } },
+          })),
+        };
+      }
+      if (mediaIds) {
+        event.MediaEvent.forEach(async (elem) => {
+          if (!mediaIds.includes(elem.mediaId)) {
+            await prisma.mediaEvent.delete({
+              where: {
+                eventMedia: { mediaId: elem.mediaId, eventId: id },
+              },
+            });
+          }
+        });
+        await this.helper.nestedCreateOrUpdateWithMedia(
+          mediaIds,
+          data,
+          'MediaEvent',
+          'update',
+          id,
+          'eventMedia',
+        );
+      }
+      return await prisma.event.update({
+        where: { id },
+        data,
+        include: { employee: true, MediaEvent: { include: { media: true } } },
       });
     });
   }

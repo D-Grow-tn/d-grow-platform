@@ -61,7 +61,8 @@ function OneEvent() {
         options: employees,
         optionLabel: "name",
         valueLabel: "id",
-        value: auxEvent?.employee.name || "",
+        
+        value: auxEvent?.employee ,
         onChange: (value) => {
          setAuxEvent((Event) => ({ ...Event, employeeId: value }));
         },
@@ -76,7 +77,7 @@ function OneEvent() {
       ...prevState,
       [name]: value,
     }));
-    console.log(" from oneEvent", auxEvent)
+   
   };
 
   const onSubmit = (e) => {
