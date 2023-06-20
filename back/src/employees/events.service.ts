@@ -41,6 +41,9 @@ export class EventsService {
       data,
       include:{
         employee:true,
+     
+      MediaEvent:{include:{media:true}},
+
       }
     });
   }
@@ -86,7 +89,7 @@ export class EventsService {
       include: {
         employee:true,
         Membership: true,
-        MediaEvent: true,
+        MediaEvent:{include:{media:true}}
       },
     });
   }

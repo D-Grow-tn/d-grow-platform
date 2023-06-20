@@ -5,6 +5,8 @@ import employee from "./employees";
 import request from "./request";
 import projects from "./projects";
 import event from "./event";
+import user from "./users";
+
 
 export const store = configureStore({
   reducer: {
@@ -14,6 +16,7 @@ export const store = configureStore({
     request,
     projects,
     event,
+    user
   },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware({

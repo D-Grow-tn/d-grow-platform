@@ -68,7 +68,7 @@ function TextInput({
           readOnly
         />
       ) : (
-        <TextView value={value} label={label} />
+        <TextView value={value} label={label} width={width}  />
       )}
     </>
   );

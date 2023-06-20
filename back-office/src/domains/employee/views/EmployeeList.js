@@ -9,9 +9,13 @@ import RemoveRedEyeIcon from "@mui/icons-material/RemoveRedEye";
 import { useDispatch, useSelector } from "react-redux";
 import DisplayLottie from "../../../constants/DisplayLottie";
 import loading from "../../../constants/loading.json";
-import { fetchEmployees } from "../../../store/employees";
+import { fetchEmployees, removeEmployee } from "../../../store/employees";
 import EditEmployee from "./OneEmployee";
 import { useNavigate } from "react-router-dom";
+import DeleteModal from "../../../components/DeleteModal";
+import { showErrorToast, showSuccessToast } from "../../../utils/toast";
+import OneEmployee from "./OneEmployee";
+
 
 function EmployeeList() {
   const dispatch = useDispatch();
@@ -19,6 +23,7 @@ function EmployeeList() {
   const navigate = useNavigate();
   const [isOpen, setIsOpen] = useState(false);
   const [rows, setRows] = useState([]);
+  const [selected, setSelected] = useState(null);
 
   console.log("from client component", Employees);
 
@@ -36,16 +41,21 @@ function EmployeeList() {
     }
   }, [Employees]);
 
-  const togglePopup = () => {
-    setIsOpen(!isOpen);
+  const openPopup = (select) => {
+    setSelected(select);
+    setIsOpen(true);
+    console.log(isOpen);
   };
 
-  const handleDelete = (id) => {
-    console.log("Delete row with ID:", id);
-  };
-
-  const handleUpdate = (id) => {
-    console.log("Update row with ID:", id);
+  const handleDelete = () => {
+    dispatch(removeEmployee(selected.id)).then((result) => {
+      if (!result.error) {
+        showSuccessToast("Employee has been deleted");
+        setIsOpen(false)
+      } else {
+        showErrorToast(result.error.message);
+      }
+    });
   };
 
   const columns = useMemo(
@@ -105,12 +115,15 @@ function EmployeeList() {
         filterable: false,
         renderCell: (params) => (
           <div>
-            <IconButton onClick={()=>navigate('one/'+params.row.id)} color="primary" aria-label="update">
+            <IconButton 
+            onClick={() => handleUpdate(params.row.id)}
+              color="primary"
+              aria-label="update">
               <RemoveRedEyeIcon />
             </IconButton>
 
             <IconButton
-              onClick={() => handleDelete(params.row.id)}
+              onClick={() => openPopup(params.row)}
               color="error"
               aria-label="delete"
             >
@@ -123,6 +136,9 @@ function EmployeeList() {
     []
   );
 
+  const handleUpdate = (id) => {
+    navigate("one/" + id);
+  };
   if (!Employees) {
     return (
       <div>
@@ -142,7 +158,16 @@ function EmployeeList() {
       />
 
       <Table columns={columns} rows={rows} />
-      {isOpen && <EditEmployee EditEmployee={Employees} />}
+     
+      {isOpen && (
+        <DeleteModal
+          close={() => setIsOpen(false)}
+          title={selected.name}
+          width={300}
+          height={250}
+          fnDelete={handleDelete}
+        />
+      )}
     </div>
   );
 }
