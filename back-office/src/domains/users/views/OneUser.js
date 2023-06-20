@@ -121,37 +121,36 @@ function OneUser() {
             alt="Avatar"
           />
 {console.log(user?.avatar?.path)} */}
-            <h1
-              className="darkBlue"
-              style={{
-                fontSize: "45px",
-              }}
-            >
-              {user?.name}
-            </h1>
-            <h3>({user?.isClient ? "Client" : "Employee"})</h3>
-          </div>
-
-          {readOnly && (
-            <button
-              type="button"
-              class="btn"
-              style={{
-                height: "40px",
-                background: "#2351AD",
-                color: "white",
-                borderRadius: "8px",
-                marginRight: "50px",
-              }}
-              onClick={() => {
-                setReadOnly(false);
-              }}
-            >
-              Edit User <i class="fa-solid fa-play fa-fade px-2"></i>
-            </button>
-          )}
+          <h1
+            className="darkBlue"
+            style={{
+              fontSize: "45px",
+            }}
+          >
+            {user?.name}  
+          </h1><i class="fa-solid fa-play fa-fade px-2"></i>
+          <h3>({user?.isClient ? "Client" : "Employee"})</h3>
         </div>
-
+        {readOnly && (
+          <button
+            type="button"
+            class="btn"
+            style={{
+              height: "40px",
+              background: "#2351AD",
+              color: "white",
+              borderRadius: "8px",
+              marginRight: "50px",
+            }}
+            onClick={() => {
+              setReadOnly(false);
+             
+            }}
+          >
+            Edit Client <i class="fa-solid fa-play fa-fade px-2"></i>
+          </button>
+        )}
+         </div>
         <div className=" d-flex justify-content-center">
           <div
             className=" rounded-5 p-3 m-5  "
@@ -174,7 +173,8 @@ function OneUser() {
               buttons={!readOnly ? buttons : []}
             />
           </div>
-        </div>
+       
+      </div>
       </div>
     </div>
   );

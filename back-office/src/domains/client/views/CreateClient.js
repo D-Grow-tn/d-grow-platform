@@ -131,10 +131,10 @@ const handleChange = (e) => {
             columnGap: 100,
             // border: "1px solid black",
           }}
-          numberInputPerRow={3}
+          numberInputPerRow={1}
           inputs={inputs}
           buttons={buttons}
-          buttonsClassName="mt-5 d-flex justify-content-end gap-3"
+          buttonsClassName="mt-5 d-flex justify-content-center gap-3"
           onSubmit={onSubmit}
           onChange={handleChange}
         />
