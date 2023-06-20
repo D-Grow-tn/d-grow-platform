@@ -114,6 +114,7 @@ let mediaEvent1 =await prisma.media.create({
       bio: 'String',
       email: 'String',
       phone: 'String',
+      address :'string',
       avatarId:avatarClient4.id 
     },
   });
@@ -123,6 +124,7 @@ let mediaEvent1 =await prisma.media.create({
       bio: 'String',
       email: 'String',
       phone: 'String',
+      address :'string',
       avatarId:avatarClient4.id 
     },
   });
@@ -132,6 +134,7 @@ let mediaEvent1 =await prisma.media.create({
       bio: 'String',
       email: 'String',
       phone: 'String',
+      address :'string',
       avatarId:avatarClient4.id 
     },
   });
