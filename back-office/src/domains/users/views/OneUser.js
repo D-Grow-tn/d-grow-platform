@@ -2,29 +2,28 @@ import React, { useEffect, useState } from "react";
 import Form from "../../../components/Form";
 import HeaderPage from "../../../components/HeaderPage";
 import { useDispatch, useSelector } from "react-redux";
-import { fetchEmployee,updateEmployee } from "../../../store/employees";
+import { fetchUser,updateUser} from "../../../store/users";
 import { useParams } from "react-router-dom";
 import { showErrorToast, showSuccessToast } from "../../../utils/toast";
 
 
 
-function OneEmployee({employees,department,setDepartment}) {
-  const { employeeId } = useParams();
+function OneUser() {
+  const { userId } = useParams();
   const dispatch = useDispatch();
-  const employee = useSelector((state) => state.employee.employee);
+  const user = useSelector((state) => state.user.user);
 
   const [readOnly, setReadOnly] = useState(true);
-  const [auxEmployee, setAuxEmployee] = useState(null);
+  const [auxUser, setAuxUser] = useState(null);
   const [inputs, setInputs] = useState([]);
 
-
   useEffect(() => {
-    dispatch(fetchEmployee(employeeId));
+    dispatch(fetchUser(userId));
   }, [dispatch]);
 
   useEffect(() => {
-    setAuxEmployee(employee);
-  }, [employee]);
+    setAuxUser(user);
+  }, [user]);
 
   useEffect(() => {
     setInputs([
@@ -32,71 +31,39 @@ function OneEmployee({employees,department,setDepartment}) {
         name: "name",
         label: "Name",
         required: true,
-        value: auxEmployee?.name,
+        value: auxUser?.name,
       },
       {
         name: "email",
         label: "Email",
         required: true,
-        value: auxEmployee?.email,
+        value: auxUser?.email,
       },
-      {
-        name: "phone",
-        label: "Phone",
-        required: true,
-        value: auxEmployee?.phone,
-      },
-      {
-        name: "address",
-        label: "Address",
-        required: true,
-        value: auxEmployee?.address,
-      },
+     
       {
         category: "select",
-        label: "Direct Manager",
-        placeholder: "Select Employee",
-        name: "directManegerId",
+        label: "Role",
+        placeholder: "Select Role",
+        name: "isClient",
         width: 250,
         required: true,
-        options: employees,
-        optionLabel: "name",
-        valueLabel: "id",
+        options: [
+          { value: true, label: "Client" },
+          { value: false, label: "Employee" },
+        ],
+      
+        value: auxUser?.isClient ? true : false,
         onChange: (value) => {
-          auxEmployee
-          ((Employee) => ({ ...Employee, directManegerId: value }));
+          setAuxUser((user) => ({ ...user, isClient: value }));
         },
-      },
-      {
-        category: "select",
-        label: "Department",
-        placeholder: "Select Department",
-        name: "departmentId",
-        width: 250,
-        required: true,
-        options: employees,
-        optionLabel: "name",
-        valueLabel: "id",
-        onChange: (value) => {
-          setDepartment((department) => ({ ...department, departmentId: value }));
-        },
-      },
-      {
-        name: "bio",
-        label: "Bio",
-        required: true,
-        value: auxEmployee?.bio,
-        width:"600px",
-        height:"300"
-       
-      },
+      }
     
     ]);
-  }, [auxEmployee]);
+  }, [auxUser]);
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
-    setAuxEmployee((prevState) => ({
+    setAuxUser((prevState) => ({
       ...prevState,
       [name]: value,
     }));
@@ -106,12 +73,12 @@ function OneEmployee({employees,department,setDepartment}) {
 
   const onSubmit = (e) => {
     e.preventDefault();
-    console.log(auxEmployee);
-    const { name, email, phone, address,bio } = auxEmployee;
-    dispatch(updateEmployee({ name, phone, address, email,bio, employeeId })).then(
+    console.log(auxUser);
+    const { name, email, phone, address,bio } = auxUser
+    dispatch(updateUser({ name, phone, address, email,bio, userId })).then(
       (result) => {
         if (!result.error) {
-          showSuccessToast("Employee has been updated");
+          showSuccessToast("User has been updated");
           setReadOnly(true);
         } else {
           showErrorToast(result.error.message);
@@ -126,7 +93,7 @@ function OneEmployee({employees,department,setDepartment}) {
       name: "Cancel",
       onClick: () => {
         setReadOnly(true);
-        setAuxEmployee(employee);
+        auxUser(user);
       },
     },
     {
@@ -134,11 +101,13 @@ function OneEmployee({employees,department,setDepartment}) {
       name: "Save",
       onSubmit,
     },
+    
   ];
+
 
   return (
     <div style={{}}>
-    <HeaderPage title="Employee Information" />
+    <HeaderPage title="User Information" />
 
     <div
       className=" rounded-5  mt-3"
@@ -149,25 +118,24 @@ function OneEmployee({employees,department,setDepartment}) {
     >
       <div className="d-flex  justify-content-between align-items-center px-3 flex-wrap headerProfile">
         <div className="d-flex  align-items-center  gap-3 pb-3 ">
-          <img
-            src={employee?.avatar?.path}
+          {/* <img
+            src={user?.avatar?.path}
             class="rounded-circle "
             style={{
               width: "100px",
             }}
             alt="Avatar"
           />
-
+{console.log(user?.avatar?.path)} */}
           <h1
             className="darkBlue"
             style={{
-              // textAlign: "center",
-              // paddingBottom: "30px",
               fontSize: "45px",
             }}
           >
-            {employee?.name}
+            {user?.name} 
           </h1>
+          <h3>({user?.isClient ? "Client" : "Employee"})</h3>
         </div>
 
         {readOnly && (
@@ -186,27 +154,37 @@ function OneEmployee({employees,department,setDepartment}) {
              
             }}
           >
-            Edit Client <i class="fa-solid fa-play fa-fade px-2"></i>
+            Edit User <i class="fa-solid fa-play fa-fade px-2"></i>
           </button>
         )}
       </div>
-      <div className=" d-flex justify-content-center mt-5">
+
+      <div className=" d-flex justify-content-center">
+      <div
+        className=" rounded-5 p-3 m-5  "
+        style={{
+          boxShadow: "0px 0px 8px #54b4d3", //old boxShadow #9E9E9E
+          backgroundColor: "white",
+          width:"70%",
+          height:"500px"
+        }}
+      >
         <Form
-           inputsClassName="d-flex flex-wrap justify-content-center mt-5"
           onSubmit={onSubmit}
           inputs={inputs}
-          inputsStyle={{ rowGap: 20 ,columnGap: 100}}
-          numberInputPerRow={2}
+          inputsClassName="d-flex flex-wrap justify-content-center mt-5"
+          inputsStyle={{ rowGap: 20 ,columnGap: 100,}}
+          numberInputPerRow={1}
           readOnly={readOnly}
           onChange={handleInputChange}
           buttonsClassName="mt-5 d-flex justify-content-center gap-3"
           buttons={!readOnly ? buttons : []}
         />
-
+</div>
       </div>
     </div>
     </div>
   );
 }
 
-export default OneEmployee;
+export default OneUser;

@@ -48,7 +48,7 @@ import NewPassword from "../pages/NewPassword";
 import User from "../domains/users/User";
 import UsersList from "../domains/users/views/UsersList";
 import CreateUser from "../domains/users/views/CreateUser";
-import EditUser from "../domains/users/views/EditUser";
+import EditUser from "../domains/users/views/OneUser";
 import Providers from "../domains/providers/Providers";
 import ProviderList from "../domains/providers/ProviderList";
 import CreateProvider from "../domains/providers/CreateProvider";
@@ -141,7 +141,7 @@ function Router() {
               <Route path="user" element={<User />}>
                 <Route index element={<UsersList />} />
                 <Route path="create" element={<CreateUser />} />
-                <Route path="edit/:userId" element={<EditUser />} />
+                <Route path="one/:userId" element={<EditUser />} />
               </Route>
               <Route path="provider" element={<Providers />}>
                 <Route index element={<ProviderList />} />

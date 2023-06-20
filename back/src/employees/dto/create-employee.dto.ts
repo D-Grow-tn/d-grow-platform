@@ -3,6 +3,7 @@ export class CreateEmployeeDto {
     bio:string;
     email: string;
     phone: string;
+    address: string;
     avatarId: string;
     password: string
 }

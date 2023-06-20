@@ -6,22 +6,30 @@ import HeaderPage from "../../../components/HeaderPage";
 import Form from "../../../components/Form";
 import { Button } from "react-bootstrap";
 import { createEmployee, fetchEmployees } from "../../../store/employees";
+import OneEmployee from "./OneEmployee";
 
 function CreateEmployee() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const employees = useSelector((state) => state.employee.employees.items);
-  const [employee, setEmployee] = useState(null);
+  const [department, setDepartment] = useState(null);
   const [inputs, setInputs] = useState([]);
+  const [isOpen, setIsOpen] = useState(false);
+  const [employee, setEmployee] = useState(null);
+
+
+
+
   useEffect(() => {
     dispatch(fetchEmployees());
-    // dispatch(fetchDepartments())
+    
   }, [dispatch]);
+  
   useEffect(() => {
     setInputs([
       {
         label: "Name",
-        placeholder: "john",
+        placeholder: "Name",
         name: "name",
         required: true,
         width: 300,
@@ -33,13 +41,13 @@ function CreateEmployee() {
         width: 300,
         required: true,
       },
-      // {
-      //   label: "Adress",
-      //   placeholder: "5 street d-grow",
-      //   name: "adress",
-      //   width: 300,
-      //   required: true,
-      // },
+      {
+        label: "Adress",
+        placeholder: "5 street d-grow",
+        name: "adress",
+        width: 300,
+        required: true,
+      },
       {
         label: "Phone Number",
         placeholder: "20 200 200",
@@ -47,15 +55,7 @@ function CreateEmployee() {
         width: 300,
         required: true,
       },
-      {
-        // rows: 2,
-        multiline: true,
-        label: "Bio",
-        placeholder: "Write your bio here",
-        name: "bio",
-        width: 300,
-        required: true,
-      },
+     
       {
         category: "select",
         label: "Direct Manager",
@@ -69,6 +69,30 @@ function CreateEmployee() {
         onChange: (value) => {
           setEmployee((Employee) => ({ ...Employee, directManegerId: value }));
         },
+      },
+      {
+        category: "select",
+        label: "Department",
+        placeholder: "Select Department",
+        name: "departmentId",
+        width: 300,
+        required: true,
+        options: employees,
+        optionLabel: "name",
+        valueLabel: "id",
+        onChange: (value) => {
+          setDepartment((department) => ({ ...department, departmentId: value }));
+        },
+      },
+      {
+        // rows: 2,
+        multiline: true,
+        label: "Bio",
+        placeholder: "Write your bio here",
+        name: "bio",
+        width: 500,
+        height: 300,
+        required: true,
       },
     ]);
   }, [employees]);
@@ -110,7 +134,7 @@ function CreateEmployee() {
   return (
     <div className="">
       <HeaderPage title="Create employee" />
-      <div className="py-5"></div>
+      <div className="py-3"></div>
       <div
         className=" rounded-5 p-3  "
         style={{
@@ -146,13 +170,14 @@ function CreateEmployee() {
             rowGap: 20,
             columnGap: 100,
           }}
-          numberInputPerRow={3}
+          numberInputPerRow={2}
           inputs={inputs}
           buttons={buttons}
-          buttonsClassName="mt-5 d-flex justify-content-end gap-3"
+          buttonsClassName="mt-5 d-flex justify-content-center gap-3"
           onSubmit={onSubmit}
           onChange={handleChange}
         />
+         {isOpen&& (<OneEmployee  employees={employees} department={department} setDepartment={setDepartment} />) }
       </div>
     </div>
   );

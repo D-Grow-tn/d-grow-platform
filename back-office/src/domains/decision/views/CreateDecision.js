@@ -1,3 +1,4 @@
+
 import React from 'react';
 import HeaderPage from '../../../components/HeaderPage';
 import Form from "../../../components/Form";
@@ -70,6 +71,7 @@ function CreateDecision() {
       style: { width: 100 },
     },
   ];
+
   return (
     <div>
       <HeaderPage title="Create Decision" />

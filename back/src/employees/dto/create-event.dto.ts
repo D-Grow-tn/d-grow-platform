@@ -16,7 +16,9 @@ export class CreateEventDto {
   @ApiProperty()
   membershipIds:string[]
   @ApiProperty()
+
   // @IsEmpty()
+
   mediaIds:string[]
 
 }

@@ -27,6 +27,7 @@ export class EventsService {
         'id',
         'unique',
       );
+      
     }
     if (membershipIds) {
       data['Membership'] = {
@@ -41,6 +42,9 @@ export class EventsService {
       data,
       include:{
         employee:true,
+     
+      MediaEvent:{include:{media:true}},
+
       }
     });
   }
@@ -86,7 +90,7 @@ export class EventsService {
       include: {
         employee:true,
         Membership: true,
-        MediaEvent: true,
+        MediaEvent:{include:{media:true}}
       },
     });
   }
@@ -102,6 +106,7 @@ export class EventsService {
             where: {
               membership: { employeeId: member.employeeId, eventId: id },
             },
+         
           });
         }
       });
@@ -112,7 +117,7 @@ export class EventsService {
         if (mediaIds) {
           let event = await this.findOne(id, prisma);
           event.MediaEvent.forEach(async (elem) => {
-            if (mediaIds.includes(elem.mediaId)) {
+            if (!mediaIds.includes(elem.mediaId)) {
               await prisma.mediaEvent.delete({
                 where: {
                   eventMedia: { mediaId: elem.mediaId, eventId: id },
@@ -138,10 +143,11 @@ export class EventsService {
               connectOrCreate: membershipIds.map((member) => ({
                 create: { employeeId: member },
                 where: { membership: { employeeId: member, eventId: id } },
+              
               })),
             },
           },
-          include: { MediaEvent: { include: { media: true } } },
+          include: { employee:true,MediaEvent: { include: { media: true } } },
         });
       });
     });

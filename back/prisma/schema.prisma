@@ -35,8 +35,8 @@ model Client {
   address        String
   createdAt      DateTime      @default(now())
   updatedAt      DateTime      @updatedAt
-  avatarClientId String
-  avatar         Media         @relation(fields: [avatarClientId], references: [id])
+  avatarClientId String?
+  avatar         Media ?        @relation(fields: [avatarClientId], references: [id])
   project        Project[]
   User           User[]
   MediaClient    MediaClient[]
@@ -47,6 +47,7 @@ model Employee {
   name             String
   email            String
   phone            String
+  address          String
   bio              String
   createdAt        DateTime           @default(now())
   updatedAt        DateTime           @updatedAt
@@ -58,7 +59,6 @@ model Employee {
   directManeger    Employee?          @relation(fields: [directManegerId], references: [id], name: "directManeger")
   User             User[]
   task             Task[]
-  request          Request[]
   employeeTest     EmployeeTest[]
   event            Event[]
   teamMembership   TeamMembership[]
@@ -73,7 +73,9 @@ model Employee {
   Message          Message[]
   MediaEmployee    MediaEmployee[]
   DecisionApply    DecisionApply[]
-  Membership       Membership[]
+  Membership       Membership[]       
+  SenderReq        Request[]          @relation("senderreq")
+  RecieverReq      Request[]          @relation("recieverreq")
 }
 
 model Project {
@@ -251,9 +253,12 @@ model Request {
   content      String?
   createdAt    DateTime       @default(now())
   updatedAt    DateTime       @updatedAt
-  employeeId   String
-  employee     Employee       @relation(fields: [employeeId], references: [id])
+  senderId     String
+  senderReq       Employee       @relation(fields: [senderId], references: [id], name: "senderreq")
+  recieverId   String
+  receiverReq     Employee       @relation(fields: [recieverId], references: [id], name: "recieverreq")
   MediaRequest MediaRequest[]
+ 
 }
 
 model Event {

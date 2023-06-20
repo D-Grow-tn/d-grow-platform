@@ -27,10 +27,41 @@ export const createEmployee = createAsyncThunk(
       body
     );
     dispatch(fetchEmployees())
+    console.log("create datazaaaaaaaaa",response.data);
     return response.data
   }
 );
 
+export const updateEmployee = createAsyncThunk("employees/Update", async (form) => {
+  const { employeeId, ...rest } = form;
+  await axios.patch(`${config.API_ENDPOINT}/employees/${employeeId}`, {
+    ...rest,
+  });
+
+  const updatedEmployeeResponse = await axios.get(
+    `${config.API_ENDPOINT}/employees/${employeeId}`
+  );
+  console.log("cccccc", updatedEmployeeResponse.data);
+  return updatedEmployeeResponse.data;
+});
+
+export const removeEmployee = createAsyncThunk(
+  "employees/deleteEmployee",
+  async (id, { dispatch }) => {
+    let token = JSON.parse(localStorage.getItem("tokenAdmin"));
+    const configs = {
+      headers: {
+        Authorization: "Bearer " + token.Authorization,
+      },
+    };
+    const response = await axios.delete(
+      `${config.API_ENDPOINT}/employees/${id}`,
+      configs
+    );
+    dispatch(fetchEmployees());
+    return response.data;
+  }
+);
 export const employeeSlice = createSlice({
   name: "employee",
   initialState: {
@@ -52,6 +83,9 @@ export const employeeSlice = createSlice({
     });
 
     builder.addCase(fetchEmployee.fulfilled, (state, action) => {
+      state.employee = action.payload;
+    });
+    builder.addCase(updateEmployee.fulfilled, (state, action) => {
       state.employee = action.payload;
     });
   },

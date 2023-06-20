@@ -1,3 +1,4 @@
+
 import React from "react";
 import HeaderPage from "../../../components/HeaderPage";
 import Table from "../../../components/Table";
@@ -138,6 +139,7 @@ function DecisionList() {
     );
   }
 
+
   return (
     <div>
       <HeaderPage title="Decisions List"
@@ -145,6 +147,7 @@ function DecisionList() {
         
       buttonFunction={()=>navigate('create')}
       text={"Create Decision"} />
+
       
       <Table columns={columns} rows={rows} />
       {isOpen && (
@@ -156,6 +159,7 @@ function DecisionList() {
           fnDelete={handleDelete}
         />
       )}
+
     </div>
   );
 }

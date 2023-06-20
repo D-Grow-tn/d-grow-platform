@@ -42,6 +42,7 @@ function Table({columns,rows}) {
     
       />
      <TablePagination
+     style={{textAlign:"center",alignItems:"center"}}
         component="div"
         count={rows.length}
         page={page}
