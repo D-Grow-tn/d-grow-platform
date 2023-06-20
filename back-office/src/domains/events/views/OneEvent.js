@@ -6,19 +6,21 @@ import { useDispatch, useSelector } from "react-redux";
 import { useParams, useNavigate } from "react-router-dom";
 import { fetchEvent, updateEvent } from "../../../store/event";
 import { showErrorToast, showSuccessToast } from "../../../utils/toast";
+import { fetchEmployees } from "../../../store/employees";
 
 function OneEvent() {
   const { eventId } = useParams();
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const event = useSelector((state) => state.event.event);
-
+  const employees = useSelector((state) => state.employee.employees.items);
   const [readOnly, setReadOnly] = useState(true);
   const [auxEvent, setAuxEvent] = useState(null);
   const [inputs, setInputs] = useState([]);
 
   useEffect(() => {
     dispatch(fetchEvent(eventId));
+    dispatch(fetchEmployees());
   }, [dispatch]);
 
   useEffect(() => {
@@ -51,6 +53,20 @@ function OneEvent() {
         required: true,
         value: auxEvent?.endAt,
       },
+      {
+        category:"select",
+        label: "Employee",
+        name: "employeeId",
+        required: true,
+        options: employees,
+        optionLabel: "name",
+        valueLabel: "id",
+        value: auxEvent?.employee.name || "",
+        onChange: (value) => {
+         setAuxEvent((Event) => ({ ...Event, employeeId: value }));
+        },
+
+      }
     ]);
   }, [auxEvent]);
 
@@ -60,14 +76,14 @@ function OneEvent() {
       ...prevState,
       [name]: value,
     }));
+    console.log(" from oneEvent", auxEvent)
   };
 
   const onSubmit = (e) => {
     e.preventDefault();
-
     console.log(auxEvent);
-    const { name, description, startAt, endAt } = auxEvent;
-    dispatch(updateEvent({ name, description, startAt, endAt, eventId })).then(
+    const { name, description, startAt, endAt,employeeId } = auxEvent;
+    dispatch(updateEvent({ name, description, startAt, endAt,employeeId, eventId })).then(
       (result) => {
         if (!result.error) {
           showSuccessToast("Event has been updated");
@@ -104,9 +120,8 @@ function OneEvent() {
         buttonFunction={() => setReadOnly(false)}
         text={"Edit Event"}
       />
-      {/* <div className="popup">
-        <h2 className="darkBlue">Client Information</h2> */}
-      <div className="d-flex   align-items-center flex-wrap gap-3">
+     
+      <div className="d-flex   align-items-center  justify-content-center flex-wrap gap-3">
         <img
           src={event?.MediaEvent[0]?.media?.path}
           style={{
@@ -115,13 +130,14 @@ function OneEvent() {
             borderRadius: "40px",
             paddingTop: "20px",
           }}
+          alt="Image"
         />
       </div>
 
       <Form
         onSubmit={onSubmit}
         inputs={inputs}
-        inputsClassName="d-flex flex-wrap px-3 gap-5"
+        inputsClassName="d-flex flex-wrap justify-content-center px-3 gap-5"
         inputsStyle={{ rowGap: 20 }}
         numberInputPerRow={2}
         readOnly={readOnly}

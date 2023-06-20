@@ -27,6 +27,7 @@ export class EventsService {
         'id',
         'unique',
       );
+      
     }
     if (membershipIds) {
       data['Membership'] = {
@@ -105,6 +106,7 @@ export class EventsService {
             where: {
               membership: { employeeId: member.employeeId, eventId: id },
             },
+         
           });
         }
       });
@@ -141,10 +143,11 @@ export class EventsService {
               connectOrCreate: membershipIds.map((member) => ({
                 create: { employeeId: member },
                 where: { membership: { employeeId: member, eventId: id } },
+              
               })),
             },
           },
-          include: { MediaEvent: { include: { media: true } } },
+          include: { employee:true,MediaEvent: { include: { media: true } } },
         });
       });
     });
