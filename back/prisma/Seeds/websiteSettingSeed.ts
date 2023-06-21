@@ -1,11 +1,11 @@
-import { PrismaClient } from "@prisma/client";
+import { ContentType, Prisma, PrismaClient } from '@prisma/client';
 
-export const websiteSettingsSeed = async (prisma:PrismaClient) => {
+export const websiteSettingsSeed = async (prisma: PrismaClient) => {
   //create web setting  seed
   let footer = await prisma.mainComponent.create({
     data: {
       title: 'Footer',
-      path: '/footer',
+
       type: 'footer',
     },
   });
@@ -13,7 +13,7 @@ export const websiteSettingsSeed = async (prisma:PrismaClient) => {
   let header = await prisma.mainComponent.create({
     data: {
       title: 'Header',
-      path: '/header',
+
       type: 'header',
     },
   });
@@ -22,6 +22,27 @@ export const websiteSettingsSeed = async (prisma:PrismaClient) => {
     data: {
       title: 'HomePage',
       path: '/',
+      type: 'page',
+    },
+  });
+  let aboutPage = await prisma.mainComponent.create({
+    data: {
+      title: 'AboutPage',
+      path: '/about',
+      type: 'page',
+    },
+  });
+  let contactPage = await prisma.mainComponent.create({
+    data: {
+      title: 'ContactPage',
+      path: '/contact',
+      type: 'page',
+    },
+  });
+  let servicesPage = await prisma.mainComponent.create({
+    data: {
+      title: 'ServicesPage',
+      path: '/services',
       type: 'page',
     },
   });
@@ -50,8 +71,6 @@ export const websiteSettingsSeed = async (prisma:PrismaClient) => {
     },
   });
 
-  //create subComponent sidebar
-
   //create subComponent page
   let homePageSection1 = await prisma.subComponent.create({
     data: {
@@ -77,9 +96,23 @@ export const websiteSettingsSeed = async (prisma:PrismaClient) => {
     },
   });
 
-  let shomePageSection4 = await prisma.subComponent.create({
+  let homePageSection4 = await prisma.subComponent.create({
     data: {
       name: 'section4',
+      mainId: homePage.id,
+      position: 'section',
+    },
+  });
+  let homePageSection5 = await prisma.subComponent.create({
+    data: {
+      name: 'section5',
+      mainId: homePage.id,
+      position: 'section',
+    },
+  });
+  let homePageSection6 = await prisma.subComponent.create({
+    data: {
+      name: 'section6',
       mainId: homePage.id,
       position: 'section',
     },
@@ -87,11 +120,11 @@ export const websiteSettingsSeed = async (prisma:PrismaClient) => {
 
   //create content sub component Left Header
 
-  let contentSubComponents1 = await prisma.contentSubComponent.create({
+  let HeaderLeftContent = await prisma.contentSubComponent.create({
     data: {
-      title: 'paragraph',
-      navigateTo: '',
-      content: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.',
+      title: 'logo',
+      navigateTo: '/',
+      content: 'D-grow',
       subComponentId: headerLeft.id,
     },
   });
@@ -106,19 +139,37 @@ export const websiteSettingsSeed = async (prisma:PrismaClient) => {
   });
   //create content sub component Middle Header
   let contents = [
-    { name: 'Home', path: '/' },
-    { name: 'About us', path: '/about-as' },
-    { name: 'About us', path: '/contact-us' },
-    { name: 'Services', path: '/services' },
+    { name: 'Home', path: '/', type: 'button' },
+    { name: 'About', path: '/about-as', type: 'button' },
+    { name: 'Contact', path: '/contact', type: 'button' },
+    {
+      type: 'select',
+      name: 'Services',
+      path: '/services',
+      subContent: [
+        { path: '/', item: 'Website applications' },
+        { path: '/', item: 'Mobile applications' },
+        { path: '/', item: 'Something else' },
+      ],
+    },
   ];
-  for (let i = 0; i < contents.length; i++) {
-    prisma.contentSubComponent.create({
-      data: {
-        title: 'button',
-        navigateTo: contents[i].path,
-        content: contents[i].name,
-        subComponentId: headerMiddle.id,
-      },
-    });
-  }
+  await Promise.all(
+    contents.map(async elem=>{
+        let data = {
+            title: 'button',
+            type: elem.type as ContentType,
+            navigateTo: elem.path,
+            content: elem.name,
+            subComponentId: headerMiddle.id,
+           
+        };
+        if (elem.type === 'select') {
+          data['subContent']=elem.subContent as Prisma.JsonArray
+        }
+        await prisma.contentSubComponent.create({
+          data
+        });
+    })
+  )
+  
 };

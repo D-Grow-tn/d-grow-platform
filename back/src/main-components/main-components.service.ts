@@ -23,6 +23,13 @@ export class MainComponentsService {
       where:{id,}
     });
   }
+ async findOneByTitle(title: string) {
+    return await this.prisma.mainComponent.findFirst({
+      where:{title},
+      include:{SubComponent:{include:{ContentSubComponent:true}}}
+
+    });
+  }
 
   async update(id: string, updateMainComponentDto: UpdateMainComponentDto) {
     return this.prisma.mainComponent.update({
