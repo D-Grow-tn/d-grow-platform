@@ -42,9 +42,9 @@ function CreateEmployee() {
         required: true,
       },
       {
-        label: "Adress",
+        label: "Address",
         placeholder: "5 street d-grow",
-        name: "adress",
+        name: "address",
         width: 300,
         required: true,
       },

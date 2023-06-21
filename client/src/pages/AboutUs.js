@@ -286,7 +286,6 @@ function AboutUs() {
                   color: "white",
                 }}
 
-               
                 href="#aboutus"
               >
                 
