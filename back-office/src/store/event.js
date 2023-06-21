@@ -38,6 +38,15 @@ export const updateEvent = createAsyncThunk(
   }
 );
 
+export const removeEvent = createAsyncThunk(
+  "events/deleteEvent",
+  async (id, { dispatch }) => {
+    const response = await axios.delete(`${config.API_ENDPOINT}/events/${id}`);
+    dispatch(fetchEvents());
+    return response.data;
+  }
+);
+
 export const eventSlice = createSlice({
   name: "event",
   initialState: {
