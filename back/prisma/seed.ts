@@ -616,7 +616,7 @@ async function main() {
     },
   });
 
-  websiteSettingsSeed(prisma);
+ await websiteSettingsSeed(prisma);
 }
 
 main()
