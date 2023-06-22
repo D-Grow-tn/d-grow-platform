@@ -59,17 +59,19 @@ function CreateEmployee() {
       {
         category: "select",
         label: "Direct Manager",
-        placeholder: "Select Employee",
+        placeholder: "Select Manager",
         name: "directManegerId",
         width: 300,
         required: true,
         options: employees,
         optionLabel: "name",
         valueLabel: "id",
+        value: employees.directManegerId || "",
         onChange: (value) => {
           setEmployee((Employee) => ({ ...Employee, directManegerId: value }));
         },
       },
+   
       {
         category: "select",
         label: "Department",
@@ -84,6 +86,7 @@ function CreateEmployee() {
           setDepartment((department) => ({ ...department, departmentId: value }));
         },
       },
+
       {
         // rows: 2,
         multiline: true,
