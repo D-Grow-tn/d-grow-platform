@@ -33,7 +33,7 @@ function ClientList() {
   const openPopup = (select) => {
     setSelected(select);
     setIsOpen(true);
-    console.log(isOpen);
+
   };
   const handleDelete = () => {
     dispatch(removeClient(selected.id)).then((result) => {

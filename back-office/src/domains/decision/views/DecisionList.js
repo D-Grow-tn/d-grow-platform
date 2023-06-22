@@ -81,6 +81,7 @@ function DecisionList() {
       headerName: "Employees",
       headerClassName: "header-blue",
       width: 170,
+      renderCell: (params) =>(<div>{params.row.DecisionApply[1].employee.name}</div>)
      
     },
       {
