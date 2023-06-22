@@ -466,13 +466,12 @@ model MediaProject {
 }
 
 model MainComponent {
-  id        String            @id @default(uuid())
-  title     String?
-  path      String?           @unique
-  createdAt DateTime          @default(now())
-  updatedAt DateTime          @updatedAt
-  type      TypeMainComponent
-
+  id           String            @id @default(uuid())
+  title        String            @unique
+  path         String?           @unique
+  createdAt    DateTime          @default(now())
+  updatedAt    DateTime          @updatedAt
+  type         TypeMainComponent
   SubComponent SubComponent[]
 }
 
@@ -492,6 +491,8 @@ model ContentSubComponent {
   title          String
   navigateTo     String?
   content        String
+  type           ContentType  @default(button)
+  subContent     Json?
   subComponent   SubComponent @relation(fields: [subComponentId], references: [id])
   subComponentId String
   createdAt      DateTime     @default(now())
@@ -525,4 +526,11 @@ enum PositionSubComponent {
   bottom
   middle
   section
+}
+
+enum ContentType {
+  button
+  paragraph
+  image
+  select
 }

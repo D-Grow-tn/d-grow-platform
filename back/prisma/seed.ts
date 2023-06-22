@@ -1,5 +1,6 @@
 import { PrismaClient } from '@prisma/client';
 import * as bcrypt from 'bcrypt';
+import { websiteSettingsSeed } from './Seeds/websiteSettingSeed';
 
 const prisma = new PrismaClient();
 
@@ -614,7 +615,10 @@ async function main() {
       MediaEvent: { create: [{ mediaId: mediaEvent1.id }] },
     },
   });
+
+ await websiteSettingsSeed(prisma);
 }
+
 main()
   .then((res) => console.log('seeding completed'))
   .catch((err) => console.log(err));
