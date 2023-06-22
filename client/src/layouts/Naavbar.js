@@ -46,14 +46,12 @@ function Naavbar() {
       } `}
     >
       <Container fluid>
-        <Navbar.Brand href="/" id="logo" className="dark-bleu">
-          {" "}
-          {
-            left?.ContentSubComponent?.filter(
-              (elem) => elem.title === "logo"
-            )[0]?.content
-          }{" "}
-        </Navbar.Brand>
+        {left?.ContentSubComponent?.map((elem, i) => (
+          <Navbar.Brand href="/" id="logo" className="dark-bleu">
+            {" "}
+            {elem?.content}{" "}
+          </Navbar.Brand>
+        ))}
         <Navbar.Toggle aria-controls="navbarScroll" />
         <Navbar.Collapse id="navbarScroll" className="justify-content-between">
           <div style={{ marginLeft: -120 }}></div>
@@ -61,7 +59,7 @@ function Naavbar() {
             {middle?.ContentSubComponent.map((elem, i) =>
               elem.type === "select" ? (
                 <Nav.Link
-                key={i}
+                  key={i}
                   href={elem?.navigateTo}
                   className="d-flex  align-items-center px-3"
                   style={{ color: "#213764" }}
