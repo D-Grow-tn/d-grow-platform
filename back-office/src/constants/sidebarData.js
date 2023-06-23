@@ -106,15 +106,15 @@ export const menuItem = [
     icon: <FaTools />,
     children: [
       {
-        name: "Home",
+        name: "Main",
         path: "/*",
         icon: <FaHome />,
       },
-      {
-        name: "About us",
-        path: "/*",
-        icon: <FaInfoCircle />,
-      },
+      // {
+      //   name: "About us",
+      //   path: "/*",
+      //   icon: <FaInfoCircle />,
+      // },
     ],
   },
   {
