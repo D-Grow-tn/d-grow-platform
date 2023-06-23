@@ -42,7 +42,7 @@ import Role from "./../domains/role/Role";
 import RoleList from "./../domains/role/views/RoleList";
 import CreateRole from "./../domains/role/views/CreateRole";
 import EditRole from "./../domains/role/views/EditRole";
-
+import Mains from "../domains/Main/Main"
 import ValidateCode from "../pages/ValidateCode";
 import NewPassword from "../pages/NewPassword";
 import User from "../domains/users/User";
@@ -60,6 +60,9 @@ import Request from "../domains/request/Request";
 import { useDispatch, useSelector } from "react-redux";
 import { me } from "../store/auth";
 import AuthAdmin from "../apps/AuthAdmin";
+import MainList from "../domains/Main/views/MainList";
+import CreateMain from "../domains/Main/views/CreateMain";
+import EditMain from "../domains/Main/views/EditMain";
 
 
 function Router() {
@@ -126,6 +129,11 @@ function Router() {
                 <Route path="create" element={<CreateClient />} />
                 <Route path="one/:clientId" element={<EditClient />} />
               </Route>
+              <Route path="main" element={<Main />}>
+                <Route index element={<MainList />} />
+                <Route path="create" element={<CreateMain />} />
+                <Route path="one/:mainId" element={<EditMain />} />
+              </Route>
 
               <Route path="project" element={<Project />}>
                 <Route index element={<ProjectList />} />
@@ -153,6 +161,11 @@ function Router() {
                 <Route index element={<RequestList />} />
                 <Route path="create" element={<CreateRequest />} />
                 <Route path="edit/:requestId" element={<EditRequest />} />
+              </Route>
+              <Route path="mains" element={<Mains />}>
+                <Route index element={<MainList />} />
+                <Route path="create" element={<CreateMain />} />
+                <Route path="one/:mainId" element={<EditMain />} />
               </Route>
             </Route>
           )}

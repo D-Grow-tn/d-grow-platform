@@ -107,7 +107,7 @@ export const menuItem = [
     children: [
       {
         name: "Main",
-        path: "/*",
+        path: "/mains",
         icon: <FaHome />,
       },
       // {

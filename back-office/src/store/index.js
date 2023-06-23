@@ -7,7 +7,7 @@ import projects from "./projects";
 import event from "./event";
 
 import decision from "./decision";
-
+import main from "./main";
 import user from "./users";
 
 
@@ -19,7 +19,7 @@ export const store = configureStore({
     request,
     projects,
     event,
-
+    main,
     decision,
 
     user,
