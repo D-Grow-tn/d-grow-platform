@@ -1,48 +1,61 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
 import config from "../configs";
-console.log(config);
 
-export const fetchDecisions = createAsyncThunk("decisions/decisions", async () => {
-  const response = await axios.get(`${config.API_ENDPOINT}/Decisions`);
-  console.log("from the store", response.data);
-  return response.data;
-});
-
-export const createDecision = createAsyncThunk(
-  "decision/create",
-  async (body,{dispatch}) => {
-    const response = await axios.post(
-      `${config.API_ENDPOINT}/Decisions`,
-      body
-    );
-    dispatch(fetchDecisions())
-    return response.data
+export const fetchDecisions = createAsyncThunk(
+  "decisions/decisions",
+  async () => {
+    const response = await axios.get(`${config.API_ENDPOINT}/Decisions`);
+    return response.data;
   }
 );
 
-export const fetchDecision = createAsyncThunk("decisions/decision", async (id) => {
-  const response = await axios.get(`${config.API_ENDPOINT}/Decisions/${id}`);
-  return response.data;
-});
+export const createDecision = createAsyncThunk(
+  "decision/create",
+  async (body, { dispatch }) => {
+    const response = await axios.post(`${config.API_ENDPOINT}/Decisions`, body);
+    dispatch(fetchDecisions());
+    console.log("decisionNNNN", response.data);
+    return response.data;
+  }
+);
 
-export const fetchDecisionByEmployee = createAsyncThunk("decisions/byEmployee", async (id) => {
-  const response = await axios.get(`${config.API_ENDPOINT}/Decisions/by_employee/${id}`);
-  return response.data;
-});
+export const fetchDecision = createAsyncThunk(
+  "decisions/decision",
+  async (id) => {
+    const response = await axios.get(`${config.API_ENDPOINT}/Decisions/${id}`);
+    return response.data;
+  }
+);
 
-export const updateDecision = createAsyncThunk("decisions/Update", async (form) => {
-  const { decisionId, ...rest } = form;
-  await axios.patch(`${config.API_ENDPOINT}/Decisions/${decisionId}`, {
-    ...rest,
-  });
+export const fetchDecisionByEmployee = createAsyncThunk(
+  "decisions/byEmployee",
+  async (id) => {
+    const response = await axios.get(
+      `${config.API_ENDPOINT}/Decisions/by_employee/${id}`
+    );
+    console.log("====================================");
+    console.log(response.data, "wayou");
+    console.log("====================================");
+    return response.data;
+  }
+);
 
-  const updatedDecisionResponse = await axios.get(
-    `${config.API_ENDPOINT}/Decisions/${decisionId}`
-  );
-  console.log("cccccc", updatedDecisionResponse.data);
-  return updatedDecisionResponse.data;
-});
+export const updateDecision = createAsyncThunk(
+  "decisions/Update",
+  async (form) => {
+    const { decisionId, ...rest } = form;
+    await axios.patch(`${config.API_ENDPOINT}/Decisions/${decisionId}`, {
+      ...rest,
+    });
+
+    const updatedDecisionResponse = await axios.get(
+      `${config.API_ENDPOINT}/Decisions/${decisionId}`
+    );
+    console.log("cccccc", updatedDecisionResponse.data);
+    return updatedDecisionResponse.data;
+  }
+);
 
 export const removeDecision = createAsyncThunk(
   "decisions/deleteDecision",
@@ -78,6 +91,10 @@ export const decisionSlice = createSlice({
   reducers: {},
 
   extraReducers(builder) {
+    builder.addCase(fetchDecisions.fulfilled, (state, action) => {
+      state.decisions.items = action.payload;
+    });
+    
     builder.addCase(fetchDecisionByEmployee.fulfilled, (state, action) => {
       state.decisions.items = action.payload;
     });

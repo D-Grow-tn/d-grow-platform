@@ -33,6 +33,9 @@ function CreateEvents() {
     console.log("ev", event);
 
     let aux = Object.assign({}, event);
+    console.log('====================================');
+    console.log(aux,"aux");
+    console.log('====================================');
 
     dispatch(createEvent(aux)).then((res) => {
       if (!res.error) {

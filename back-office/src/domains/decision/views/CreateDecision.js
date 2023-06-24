@@ -5,54 +5,77 @@ import Form from "../../../components/Form";
 import { useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { showErrorToast, showSuccessToast } from "../../../utils/toast";
-import { createDecision, fetchDecisions } from "../../../store/decision";
+import { showErrorToast } from "../../../utils/toast";
+import { createDecision } from "../../../store/decision";
+import { fetchEmployees } from "../../../store/employees";
 
 function CreateDecision() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const decisions = useSelector((state) => state.decision.decisions.items);
+  const employees = useSelector((state) => state.employee.employees.items);
   const [decision, setDecision] = useState(null);
   const [inputs, setInputs] = useState([]);
   useEffect(() => {
-    dispatch(fetchDecisions());
-    // dispatch(fetchDepartments())
-  }, [dispatch])
+    dispatch(fetchEmployees());
+  }, [dispatch]);
   
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setDecision((Decision) => ({ ...Decision, [name]: value }));
+  };
+  
+  const onSubmit = (e) => {
+    e.preventDefault();
+
+    let aux = Object.assign({}, decision);
+    console.log('====================================');
+    console.log(aux,"aUUUUUUUx");
+    console.log('====================================');
+
+    dispatch(createDecision(aux)).then((res) => {
+      if (!res.error) {
+        navigate(`/decision`);
+      } else {
+        console.log(res);
+        showErrorToast(res.error.message);
+      }
+    });
+  };
   useEffect(() => {
     setInputs([
-      // {
-      //   label: "Title",
-      //   placeholder: "Add title",
-      //   name: "title",
-      //   required: true,
-      //   width: 300,
-      // },
       {
         label: "Content",
         placeholder: "Add content",
         name: "content",
         required: true,
+        width: 700,
+        height:200
+      },
+      {
+        category: "select",
+        label: "Employee",
+        placeholder: "Select an employee",
+        name: "DecisionApply",
         width: 500,
+        required: true,
+         valueLabel: "id",
+        optionLabel: "label",
+        options: employees.map((employee) => ({ label: employee.name, value: employee.id })),
+        value: (decisions[0]?.DecisionApply?.employeeId) || "",
+   
+       
+        onChange: (value) => {
+      console.log("valueeee",value);
+       
+          setDecision((Decision) => ({ ...Decision, employeeId: value }));
+        },
       },
     ])}, [decisions]);
   
-    const handleChange = (e) => {
-    const { name, value } = e.target;
-    setDecision((Decision) => ({ ...Decision, [name]: value }));
-  };
-  const onSubmit = (e) => {
-    e.preventDefault();
-    console.log(decision);
-    dispatch(createDecision(decision)).then((result) => {
-      if (!result.error) {
-        showSuccessToast("Decision has been created");
-        navigate(-1);
-      } else {
-        showErrorToast(result.error.message);
-      }
-    });
-  };
+   
+  
+
 
   
   const buttons = [
@@ -75,21 +98,31 @@ function CreateDecision() {
   return (
     <div>
       <HeaderPage title="Create Decision" />
+      <div className="py-3"></div>
+      <div
+        className=" rounded-5 p-3  "
+        style={{
+          boxShadow: "0px 0px 8px #54b4d3",
+          backgroundColor: "white",
+        }}
+      >
       <Form
           className=" pt-4  "
-          inputsClassName="d-flex flex-wrap justify-content-center  "
+          inputsClassName="d-flex flex-wrap justify-content-center "
           inputsStyle={{
             rowGap: 20,
             columnGap: 100,
           }}
-          numberInputPerRow={2}
+          numberInputPerRow={1}
           inputs={inputs}
           buttons={buttons}
-          buttonsClassName="mt-5 d-flex justify-content-end gap-3"
+          buttonsClassName="mt-5 d-flex justify-content-center gap-3"
           onSubmit={onSubmit}
           onChange={handleChange}
         />
     </div>
+    </div>
+   
   )
 }
 
