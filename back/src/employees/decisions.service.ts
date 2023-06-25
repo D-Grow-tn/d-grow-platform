@@ -55,9 +55,7 @@ export class DecisionsService {
       },
       include: {
         DecisionApply: {
-          where: {
-            employeeId,
-          },
+        
           include: { employee: true },
         },
       },

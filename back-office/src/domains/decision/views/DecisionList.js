@@ -69,6 +69,7 @@ function DecisionList() {
         headerClassName: "header-blue",
         width: 170,
       },
+
       {
         field: "DecisionApply",
         headerName: "Employees",
@@ -78,6 +79,7 @@ function DecisionList() {
           <div>{params.row.DecisionApply[0].employee.name}</div>
         ),
       },
+
       {
         field: "createdAt",
         headerName: "Created At",

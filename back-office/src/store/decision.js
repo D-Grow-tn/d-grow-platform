@@ -28,18 +28,18 @@ export const fetchDecision = createAsyncThunk(
   }
 );
 
+
 export const fetchDecisionByEmployee = createAsyncThunk(
   "decisions/byEmployee",
   async (id) => {
     const response = await axios.get(
       `${config.API_ENDPOINT}/Decisions/by_employee/${id}`
     );
-    console.log("====================================");
-    console.log(response.data, "wayou");
-    console.log("====================================");
+
     return response.data;
   }
 );
+
 
 export const updateDecision = createAsyncThunk(
   "decisions/Update",
