@@ -2,21 +2,23 @@ import React, { useEffect, useState } from "react";
 import Form from "../../../components/Form";
 import HeaderPage from "../../../components/HeaderPage";
 import { useDispatch, useSelector } from "react-redux";
-import { useParams, useNavigate } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import { fetchDecision, updateDecision } from "../../../store/decision";
 import { showErrorToast, showSuccessToast } from "../../../utils/toast";
+import { fetchEmployees } from "../../../store/employees";
 
 function OneDecision() {
   const dispatch = useDispatch();
   const { decisionId } = useParams();
-  const navigate = useNavigate();
   const decision = useSelector((state) => state.decision.decision);
+  const employees = useSelector((state) => state.employee.employees.items);
   const [readOnly, setReadOnly] = useState(true);
   const [auxDecision, setAuxDecision] = useState(null);
   const [inputs, setInputs] = useState([]);
 
   useEffect(() => {
     dispatch(fetchDecision(decisionId));
+    dispatch(fetchEmployees());
   }, [dispatch]);
 
   useEffect(() => {
@@ -26,11 +28,29 @@ function OneDecision() {
   useEffect(() => {
     setInputs([
       {
-        name: "content",
+        field: "content",
         label: "Content",
         required: true,
         value: auxDecision?.content,
+        width: 700,
+        height: 200
       },
+      {
+        category:"select",
+        label: "Employee",
+        name: "DecisionApply.employeeId",
+        required: true,
+        options: employees,
+        optionLabel: "name",
+        valueLabel: "id",
+        width:500,
+        
+        value: auxDecision?.DecisionApply[0].employee?.name,
+        onChange: (value) => {
+         setAuxDecision((decision) => ({ ...decision, employeeId: value }));
+        },
+
+      }
     ]);
   }, [auxDecision]);
 
@@ -59,13 +79,6 @@ function OneDecision() {
     );
   };
 
-//   const countProjects = () => {
-//     if (client?.project?.length <= 1) {
-//       return "project";
-//     }
-//     return "projects";
-//   };
-
   const buttons = [
     {
       category: "save",
@@ -85,136 +98,71 @@ function OneDecision() {
     },
   ];
 
-//   const columns = [
-//     { id: "name", label: "Project", minWidth: 170 },
-//     { id: "status", label: "Status", minWidth: 100 },
-//     {
-//       id: "projectManager",
-//       label: "Project Manager",
-//       minWidth: 170,
-//       align: "right",
-//       format: (value) => value.toLocaleString("en-US"),
-//     },
-//     {
-//       id: "team",
-//       label: "Team",
-//       minWidth: 170,
-//       align: "right",
-//       format: (value) => value.toLocaleString("en-US"),
-//     },
-//     {
-//       id: "density",
-//       label: "Technogies",
-//       minWidth: 170,
-//       align: "right",
-//       format: (value) => value.toFixed(2),
-//     },
-//   ];
-
   return (
-    <div style={{}}>
+     <div style={{}}>
       <HeaderPage title="Decision Information" />
 
-      <div
-        className=" rounded-5  mt-3"
+<div
+  className=" rounded-5  mt-3"
+  style={{
+    boxShadow: "0px 0px 8px #9E9E9E",
+    padding: "50px",
+  }}
+>
+  <div className="d-flex  justify-content-between align-items-center p-3 flex-wrap headerProfile">
+    <div className="d-flex  align-items-center  gap-3 pb-3 ">
+   
+
+      <h1
+        className="darkBlue"
         style={{
-          boxShadow: "0px 0px 8px #9E9E9E",
-          padding: "50px",
+          // textAlign: "center",
+          // paddingBottom: "30px",
+          fontSize: "45px",
         }}
       >
-        <div className="d-flex  justify-content-between align-items-center px-3 flex-wrap headerProfile">
-          <div className="d-flex  align-items-center  gap-3 pb-3 ">
-            {/* <img
-              src={client?.avatar.path}
-              class="rounded-circle "
-              style={{
-                width: "100px",
-              }}
-              alt="Avatar"
-            /> */}
-
-            <h1
-              className="darkBlue"
-              style={{
-                // textAlign: "center",
-                // paddingBottom: "30px",
-                fontSize: "45px",
-              }}
-            >
-              {decision?.content}
-            </h1>
-          </div>
-
-          {readOnly && (
-            <button
-              type="button"
-              class="btn"
-              style={{
-                height: "40px",
-                background: "#2351AD",
-                color: "white",
-                borderRadius: "8px",
-                marginRight: "50px",
-              }}
-              onClick={() => {
-                setReadOnly(false);
-               
-              }}
-            >
-              Edit Decision <i class="fa-solid fa-play fa-fade px-2"></i>
-            </button>
-          )}
-        </div>
-        <div className="d-flex align-items-center ">
-          <Form
-            onSubmit={onSubmit}
-            inputs={inputs}
-            inputsClassName="d-flex flex-wrap px-3 gap-5"
-            inputsStyle={{ rowGap: 20 }}
-            numberInputPerRow={2}
-            readOnly={readOnly}
-            onChange={handleInputChange}
-            buttonsClassName="d-flex justify-content-end gap-3"
-            buttons={!readOnly ? buttons : []}
-          />
-
-          <Form style={{ paddingRight: "50px" }} />
-        </div>
-
-        {/* <div style={{ marginTop: "80px" }}>
-          <div className="d-flex  justify-content-between align-items-center my-5 py-4  flex-wrap headerProfile">
-            <h1 className="darkBlue">Projects</h1>
-
-            <div>
-              <button
-                type="button"
-                class="btn"
-                style={{
-                  height: "40px",
-                  background: "#2351AD",
-                  color: "white",
-                  borderRadius: "8px",
-                  marginRight: "50px",
-                }}
-                onClick={() => {
-                  setShowProject(!showProject);
-                }}
-              >
-                {client?.project?.length} {countProjects()}
-                <i class="fa-solid fa-play fa-fade px-2"></i>
-              </button>
-            </div>
-          </div>
-        </div> */}
-
-        {/* {showProject && (
-          <ProjectTable
-            columns={columns}
-            rows={client?.project ? client.project : []}
-          />
-        )} */}
-      </div>
+        {decision?.content}
+      </h1>
     </div>
+
+    {readOnly && (
+      <button
+        type="button"
+        class="btn"
+        style={{
+          height: "40px",
+          background: "#2351AD",
+          color: "white",
+          borderRadius: "8px",
+          marginRight: "50px",
+        }}
+        onClick={() => {
+          setReadOnly(false);
+         
+        }}
+      >
+        Edit Decision <i class="fa-solid fa-play fa-fade px-2"></i>
+      </button>
+    )}
+  </div>
+  <div className="d-flex align-items-center ">
+    <Form
+       className=" pt-4  "
+      onSubmit={onSubmit}
+      inputs={inputs}
+      inputsClassName="d-flex flex-wrap justify-content-center "
+      inputsStyle={{ rowGap: 20 , columnGap: 100}}
+      numberInputPerRow={1}
+      readOnly={readOnly}
+      onChange={handleInputChange}
+      buttonsClassName=" mt-5 d-flex justify-content-center gap-3"
+      buttons={!readOnly ? buttons : []}
+    />
+
+    <Form style={{ paddingRight: "50px" }} />
+  </div>
+      </div>
+      </div>
   );
 }
 

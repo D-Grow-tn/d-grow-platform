@@ -1,5 +1,5 @@
-import React from "react";
-import HeaderPage from "../../../components/HeaderPage";
+import React from "react";    
+import HeaderPage from "../../../components/HeaderPage";    
 import Table from "../../../components/Table";
 import { useMemo, useEffect, useState } from "react";
 import {Avatar ,IconButton } from "@mui/material";
@@ -10,7 +10,7 @@ import { useDispatch, useSelector } from "react-redux";
 import DisplayLottie from "../../../constants/DisplayLottie";
 import loading from "../../../constants/loading.json";
 import { fetchEvents, removeEvent } from "../../../store/event";
-import EditEvent from "./OneEvent";
+// import EditEvent from "./OneEvent"; 
 import { useNavigate } from "react-router-dom";
 import { Image } from 'mui-image'
 import DeleteModal from "../../../components/DeleteModal";
@@ -86,7 +86,10 @@ function EventList() {
         headerName: "Orgniser",
         headerClassName: "header-blue",
         width: 200,
-        renderCell: (params) =>(<div>{params.row.employee.name}</div>)
+        renderCell: (params) =>(<div>{params.row.employee.name}
+        {
+        console.log(params.row,"this")
+        }</div>)
       },
       {
         field: "active",
