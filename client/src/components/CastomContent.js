@@ -3,42 +3,57 @@ import  "../assets/css/Servies.css"
 function CastomContent({ title, ContentTitle, image, title2, ContentTitle2 }) {
   return (
     <div>
-      <div className="container mt-5 ">
-        <div className="row content">
-          <div className="col-lg-6  mt-5 ">
-            <h2 style={{ color: "#213764", textAlign: "center" }}>{title}</h2>
+ <section className="container " style={{paddingTop:"100px"}}>
+          <div className="row content gap-5 ">
+            <div
+              className="col-lg-6 pt-5 pt-lg-0 
+              mt-5  py-5 dark-bleu "
+              style={{ textAlign: "center" }}
+            >
+              <h1
+                style={{
+                  fontWeight: "bold",
+                  paddingBottom: "30px",
+                  color:"#00ac9e"
+                 
+                }}
+              >{title}</h1>
             <p style={{ color: "#213764", textAlign: "center" }}>
               {ContentTitle}
             </p>
           </div>
           <div
-            className="col-lg-5  "
-            style={{ marginTop: "20px", marginLeft: "100px" }}
+            className="col-lg-5   " 
           >
-            <img
-              src={image}
-              width="500px"
-              height=""
-              style={{ borderRadius: "30px" }}
-            />
+            <div>{image}</div>
           </div>
         </div>
-      </div>
-      <div
+      </section>
+
+
+      <section className="mt-5 py-5"
         style={{
           display: "flex",
           flexDirection: "column",
           alignItems: "center",
           justifyContent: "center",
+        
+     
         }}
-        className="mt-5"
+       
       >
-        <h2 style={{ color: "#213764", textAlign: "center" }}>{title2}</h2>
+        <h2    style={{
+                  fontWeight: "bold",
+                  paddingTop:"50px",
+                  paddingBottom: "30px",
+                  color:"#00ac9e"
+                 
+                }}>{title2}</h2>
 
         <p style={{ color: "#213764", textAlign: "center", maxWidth: "60rem" }}>
           {ContentTitle2}
         </p>
-      </div>
+      </section>
     </div>
   );
 }

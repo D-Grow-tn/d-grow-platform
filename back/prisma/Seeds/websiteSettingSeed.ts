@@ -171,5 +171,37 @@ export const websiteSettingsSeed = async (prisma: PrismaClient) => {
         });
     })
   )
+  //Services Page
+    //create subcomponent services
+  //   let section1= await prisma.subComponent.create({
+  //     data: {
+  //       name: 'section1',
+  //       mainId: servicesPage.id,
+  //       position: 'section',
+  //     },
+  //   });
+  //   let section2= await prisma.subComponent.create({
+  //     data: {
+  //       name: 'section2',
+  //       mainId: servicesPage.id,
+  //       position: 'section',
+  //     },
+  //   });
+  //   let section3= await prisma.subComponent.create({
+  //     data: {
+  //       name: 'section3',
+  //       mainId: servicesPage.id,
+  //       position: 'section',
+  //     },
+  //   });
   
+  // //create contentSubComponent servicesPage
+  // let section1Content = await prisma.contentSubComponent.create({
+  //   data: {
+  //     title: 'image',
+  //     navigateTo: '',
+  //     content: '/',
+  //     subComponentId: section1.id,
+  //   },
+  // });
 };

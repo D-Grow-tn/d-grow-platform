@@ -615,7 +615,68 @@ async function main() {
       MediaEvent: { create: [{ mediaId: mediaEvent1.id }] },
     },
   });
-
+//Create services
+let productcover1 = await prisma.media.create({
+  data: {
+    path: 'https://fr.yeeply.com/wp-content/uploads/2017/01/webapp.jpg',
+    type: 'cover',
+    extension: 'png',
+  },
+});
+let productcover2 = await prisma.media.create({
+  data: {
+    path: 'https://blog.flytagger.com/wp-content/uploads/2018/02/Application-mobile.jpg',
+    type: 'cover',
+    extension: 'png',
+  },
+});
+let productcover3 = await prisma.media.create({
+  data: {
+    path: 'https://fr.yeeply.com/wp-content/uploads/2017/01/webapp.jpg',
+    type: 'cover',
+    extension: 'png',
+  },
+});
+  let product1 = await prisma.product.create({
+    data: {
+      name: 'Web Front-End SOLUTIONS',
+      description: 'Our web application development service is designed to provide you with tailored solutions to meet your unique business requirements. We specialize in developing high-quality, scalable, and user-friendly web applications using the latest technologies and best practices.',
+      type:'web site application',
+      productCoverId:productcover1.id,
+    },
+  });
+  let product2 = await prisma.product.create({
+    data: {
+      name: 'UX/UI WEBsite AND MOBILE app',
+      description : 'Our mobile app development service offers end-to-end solutions for creating robust and user-friendly applications for iOS and Android platforms. We combine creativity, technical expertise, and industry best practices to deliver mobile apps that engage users and drive business growth.',
+      type:'mobile application',
+        productCoverId:productcover2.id,
+    },
+  });
+  let product3 = await prisma.product.create({
+    data: {
+      name: 'BRANDING AND CORPORATE DESIGN',
+      description: 'description Event Number one',
+      type:'design application',
+        productCoverId:productcover3.id,
+    },
+  });
+  let product4 = await prisma.product.create({
+    data: {
+      name: 'BRANDING AND CORPORATE DESIGN',
+      description: 'description Event Number one',
+      type:'design application',
+        productCoverId:productcover3.id,
+    },
+  });
+//create produtTye
+let productype1 = await prisma.productType.create({
+  data: {
+    name: 'BRANDING AND CORPORATE DESIGN',
+    description: 'description Event Number one',
+ ProductId:product1.id
+  },
+});
  await websiteSettingsSeed(prisma);
 }
 

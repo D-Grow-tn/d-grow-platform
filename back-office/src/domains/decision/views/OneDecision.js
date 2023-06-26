@@ -124,14 +124,7 @@ function OneDecision() {
       >
         <div className="d-flex  justify-content-between align-items-center px-3 flex-wrap headerProfile">
           <div className="d-flex  align-items-center  gap-3 pb-3 ">
-            {/* <img
-              src={client?.avatar.path}
-              class="rounded-circle "
-              style={{
-                width: "100px",
-              }}
-              alt="Avatar"
-            /> */}
+         
 
             <h1
               className="darkBlue"

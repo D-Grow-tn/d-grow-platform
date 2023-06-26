@@ -315,12 +315,15 @@ model DecisionApply {
 }
 
 model Product {
-  id          String        @id @default(uuid())
-  name        String
-  createdAt   DateTime      @default(now())
-  updatedAt   DateTime      @updatedAt
-  type        String
-  productType ProductType[]
+  id             String        @id @default(uuid())
+  name           String
+  description    String
+  createdAt      DateTime      @default(now())
+  updatedAt      DateTime      @updatedAt
+  type           String
+  productType    ProductType[]
+  productCover   Media?        @relation(fields: [productCoverId], references: [id], name: "productCover")
+  productCoverId String?
 }
 
 model ProductType {
@@ -329,8 +332,9 @@ model ProductType {
   createdAt   DateTime @default(now())
   updatedAt   DateTime @updatedAt
   description String
-  ProductId   String
-  Product     Product  @relation(fields: [ProductId], references: [id])
+
+  ProductId String
+  Product   Product @relation(fields: [ProductId], references: [id])
 }
 
 model Branches {
@@ -409,6 +413,9 @@ model Media {
   cover          Project[]       @relation("coverRelation")
   contract       Project[]       @relation("contractRelation")
   Project        Project[]
+
+  Product Product[]             @relation("productCover")
+
 }
 
 model MediaUser {
