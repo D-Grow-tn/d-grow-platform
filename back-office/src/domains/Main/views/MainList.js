@@ -2,41 +2,43 @@ import React, { useEffect, useMemo, useState } from "react";
 import HeaderPage from "../../../components/HeaderPage";
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { fetchMains} from "../../../store/main";
+import { fetchMains, removeMain} from "../../../store/main";
 import Table from "../../../components/Table";
 import { Avatar, IconButton } from "@mui/material";
 import moment from "moment";
 import RemoveRedEyeIcon from "@mui/icons-material/RemoveRedEye";
 import DeleteIcon from "@mui/icons-material/Delete";
+import DeleteModal from "../../../components/DeleteModal";
+import { showErrorToast, showSuccessToast } from "../../../utils/toast";
 
 
 function MainList() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const mains = useSelector((state)=>state.main.mains.items)
-  console.log("🚀 ~ file: MainList.js:11 ~ MainList ~ mains:", mains)
   const [selected, setSelected] = useState(null);
-
   const [isOpen, setIsOpen] = useState(false);
+  
   const openPopup = (select) => {
     setSelected(select);
     setIsOpen(true);
     console.log(isOpen);
+  };
+  const handleDelete = () => {
+    dispatch(removeMain(selected.id)).then((result) => {
+      if (!result.error) {
+        showSuccessToast("Client has been deleted");
+        setIsOpen(false)
+      } else {
+        showErrorToast(result.error.message);
+      }
+    });
   };
   useEffect(()=>{
     dispatch(fetchMains())
   },[])
   const columns = useMemo(
     () => [
-    //   {
-    //     field: "photoURL",
-    //     headerName: "Avatar",
-    //     headerClassName: "header-blue",
-    //     width: 100,
-    //     renderCell: (params) => <Avatar src={params.row.avatar?.path} />,
-    //     sortable: false,
-    //     filterable: false,
-    //   },
       {
         field: "title",
         headerName: "Title",
@@ -111,7 +113,15 @@ function MainList() {
         text={"Create Client"}
       />
       <Table columns={columns} rows={mains.length ? mains : []} />
-
+      {isOpen && (
+        <DeleteModal
+          close={() => setIsOpen(false)}
+          title={selected.name}
+          width={300}
+          height={250}
+          fnDelete={handleDelete}
+        />
+      )}
     </div>
   );
 }
