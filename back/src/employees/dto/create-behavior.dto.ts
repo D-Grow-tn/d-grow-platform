@@ -5,5 +5,5 @@ export class CreateBehaviorDto {
   @ApiProperty()
   senderId: string;
   @ApiProperty()
-  recieverId: string;
+  receiverId: string;
 }

@@ -37,7 +37,7 @@ function CreateRequest() {
         category: "select",
         label: "Send to",
         placeholder: "Send to",
-        name: "recieverId",
+        name: "receiverId",
         required: true,
         optionLabel: "name",
         valueLabel: "id",
@@ -46,7 +46,7 @@ function CreateRequest() {
     ]);
   }, [employees]);
 
-  const handlChange = (e) => {
+  const handleChange = (e) => {
     const { name, value } = e.target;
     setRequest((request) => ({ ...request, [name]: value }));
   };
@@ -111,7 +111,7 @@ function CreateRequest() {
             buttons={buttons}
             buttonsClassName="mt-5 d-flex justify-content-end gap-3"
             onSubmit={onSubmit}
-            onChange={handlChange}
+            onChange={handleChange}
           />
         </div>
       </div>
