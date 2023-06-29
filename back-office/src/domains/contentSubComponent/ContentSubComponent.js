@@ -1,8 +1,11 @@
 import React from 'react'
+import { Outlet } from 'react-router-dom';
 
 function ContentSubComponent() {
   return (
-    <div>ContentSubComponent</div>
+    <div>
+         <Outlet /> 
+    </div>
   )
 }
 

@@ -67,6 +67,10 @@ import SubComponet from "../domains/SubComponet/SubComponet";
 import SubComponetList from "../domains/SubComponet/views/SubComponetList";
 import CreateSubCompont from "../domains/SubComponet/views/CreateSubCompont";
 import OneSubComponet from "../domains/SubComponet/views/OneSubComponet";
+import ContentSubComponent from "../domains/contentSubComponent/ContentSubComponent";
+import ContentSubComponentList from "../domains/contentSubComponent/views/ContentSubComponentList";
+import CreateContentSubComponent from "../domains/contentSubComponent/views/CreateContentSubComponent";
+import OneContentSubComponent from "../domains/contentSubComponent/views/OneContentSubComponent";
 
 
 function Router() {
@@ -170,6 +174,11 @@ function Router() {
                 <Route index element={<SubComponetList />} />
                 <Route path="createSub" element={<CreateSubCompont />} />
                 <Route path="one/:subcomponetId" element={<OneSubComponet />} />
+              </Route>
+              <Route path="contentsubcomponet" element={<ContentSubComponent />}>
+                <Route index element={<ContentSubComponentList />} />
+                <Route path="create" element={<CreateContentSubComponent />} />
+                <Route path="one/:contentsubcomponetId" element={<OneContentSubComponent />} />
               </Route>
             </Route>
             

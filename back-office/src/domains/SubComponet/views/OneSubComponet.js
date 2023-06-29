@@ -5,11 +5,12 @@ import { fetchSubComponet, updateSubComponet } from '../../../store/subComponet'
 import { showErrorToast, showSuccessToast } from '../../../utils/toast';
 import { useDispatch, useSelector } from "react-redux";
 import { useParams, useNavigate } from "react-router-dom";
+import ContentSubComponentList from '../../contentSubComponent/views/ContentSubComponentList';
 
 function OneSubComponet() {
   const dispatch = useDispatch();
   const { subcomponetId } = useParams();
-  const subComponet = useSelector((state) => state.subComponet.subcomponet);
+  const subComponet = useSelector((state) => state?.subComponet?.subcomponet);
   console.log("🚀 ~ file: OneSubComponet.js:13 ~ OneSubComponet ~ subComponet:", subComponet)
   const [inputs, setInputs] = useState([]);
   const [show,setShow]= useState(false)
@@ -149,7 +150,7 @@ function OneSubComponet() {
     
       <div style={{ marginTop: "80px" }}>
         <div className="d-flex  justify-content-between align-items-center my-5 py-4  flex-wrap headerProfile">
-          <h1 className="darkBlue">Sub componet</h1>
+          <h1 className="darkBlue">Content Sub componet</h1>
 
           <div>
             <button
@@ -166,13 +167,13 @@ function OneSubComponet() {
                 setShow(!show);
               }}
             >
-              {subComponet.ContentSubComponent.length} {countProjects()}
+              {subComponet?.ContentSubComponent.length} {countProjects()}
               <i class="fa-solid fa-play fa-fade px-2"></i>
             </button>
           </div>
         </div>
 
-         {/* {show && <SubComponetList mainId={mainId}/>} */}
+         {show && <ContentSubComponentList/>}
       </div>
       
      
