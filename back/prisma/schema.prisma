@@ -327,14 +327,23 @@ model Product {
 }
 
 model ProductType {
-  id          String   @id @default(uuid())
-  name        String
-  createdAt   DateTime @default(now())
-  updatedAt   DateTime @updatedAt
-  description String
+  id               String             @id @default(uuid())
+  name             String
+  createdAt        DateTime           @default(now())
+  updatedAt        DateTime           @updatedAt
+  description      String
+  ProductId        String
+  Product          Product            @relation(fields: [ProductId], references: [id])
+  MediaProductType MediaProductType[]
+}
 
-  ProductId String
-  Product   Product @relation(fields: [ProductId], references: [id])
+model MediaProductType {
+  media         Media       @relation(fields: [mediaId], references: [id])
+  mediaId       String
+  productType   ProductType @relation(fields: [productTypeId], references: [id], onDelete: Cascade)
+  productTypeId String
+
+  @@unique(fields: [mediaId, productTypeId], name: "productTypeMedia")
 }
 
 model Branches {
@@ -414,8 +423,9 @@ model Media {
   contract       Project[]       @relation("contractRelation")
   Project        Project[]
 
-  Product Product[]             @relation("productCover")
+  Product Product[] @relation("productCover")
 
+  MediaProductType MediaProductType[]
 }
 
 model MediaUser {

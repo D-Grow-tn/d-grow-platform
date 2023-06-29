@@ -637,6 +637,27 @@ let productcover3 = await prisma.media.create({
     extension: 'png',
   },
 });
+let mediaProductType1 = await prisma.media.create({
+  data: {
+    path: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRqT2JqbKydMKkGdvNu6pqIof8IO-9p15sKMA&usqp=CAU',
+    type: 'cover',
+    extension: 'png',
+  },
+});
+let mediaProductType2 = await prisma.media.create({
+  data: {
+    path: 'https://cdn.antaranews.com/cache/730x487/2022/06/08/instagram-pin.jpg',
+    type: 'cover',
+    extension: 'png',
+  },
+});
+let mediaProductType3 = await prisma.media.create({
+  data: {
+    path: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTF2DuU-UK6owVNABE9THPsA3eBy2uOyzi-jw&usqp=CAU',
+    type: 'cover',
+    extension: 'png',
+  },
+});
   let product1 = await prisma.product.create({
     data: {
       name: 'Web Front-End SOLUTIONS',
@@ -664,7 +685,7 @@ let productcover3 = await prisma.media.create({
   let product4 = await prisma.product.create({
     data: {
       name: 'BRANDING AND CORPORATE DESIGN',
-      description: 'description Event Number one',
+      description: 'description Brand',
       type:'design application',
         productCoverId:productcover3.id,
     },
@@ -674,7 +695,16 @@ let productype1 = await prisma.productType.create({
   data: {
     name: 'BRANDING AND CORPORATE DESIGN',
     description: 'description Event Number one',
- ProductId:product1.id
+ ProductId:product1.id,
+ MediaProductType:{ create: [{ mediaId: mediaProductType3.id }] },
+  },
+});
+let productype2 = await prisma.productType.create({
+  data: {
+    name: 'Instagram',
+    description: 'A popular social media app that allows users to share photos and videos, apply filters and effects, and engage with others by following, liking, and commenting on posts. ',
+ ProductId:product2.id,
+ MediaProductType:{ create: [{ mediaId: mediaProductType1.id  },{ mediaId: mediaProductType2.id}] },
   },
 });
  await websiteSettingsSeed(prisma);

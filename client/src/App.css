@@ -857,3 +857,10 @@ section {
   overflow: hidden;
       padding: 20px 0;
 }
+
+.card-button-container {
+  position: absolute;
+  bottom: 20px;
+  left: 60%;
+  transform: translateX(-20%);
+}

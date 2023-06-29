@@ -11,11 +11,17 @@ export const fetchProduct = createAsyncThunk("products/products", async () => {
 
 export const fetchProducType = createAsyncThunk("products/productype", async () => {
     const response = await axios.get(`${config.API_ENDPOINT}/producttype`);
-    console.log("res",response.data);
+    console.log("ressssssss",response.data);
     return response.data;
   });
   
 
+  export const fetchOneProduct = createAsyncThunk("products/oneProduct", async (id) => {
+    const response = await axios.get(`${config.API_ENDPOINT}/producttype/${id}`);
+    console.log("ressssssssoooooooooooooop",response.data);
+    return response.data;
+  });
+  
 
   export const productSlice= createSlice({
     name: "product",
@@ -37,7 +43,11 @@ export const fetchProducType = createAsyncThunk("products/productype", async () 
     reducers: {},
 
     extraReducers(builder) {
-    
+       
+        builder.addCase(fetchOneProduct.fulfilled, (state, action) => {
+            state.product = action.payload;
+          });
+
       builder.addCase(fetchProduct.fulfilled, (state, action) => {
         state.products.items = action.payload;
       });

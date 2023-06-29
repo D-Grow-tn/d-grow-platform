@@ -18,7 +18,7 @@ function CastomContent({ title, ContentTitle, image, title2, ContentTitle2 }) {
                  
                 }}
               >{title}</h1>
-            <p style={{ color: "#213764", textAlign: "center" }}>
+            <p style={{ color: "#213764", textAlign: "center" ,fontSize:"18px"}}>
               {ContentTitle}
             </p>
           </div>
@@ -31,26 +31,20 @@ function CastomContent({ title, ContentTitle, image, title2, ContentTitle2 }) {
       </section>
 
 
-      <section className="mt-5 py-5"
-        style={{
-          display: "flex",
-          flexDirection: "column",
-          alignItems: "center",
-          justifyContent: "center",
-        
-     
-        }}
+      <section className="d-flex jutify-content-center align-items-center flex-column mt-5 py-5"
+      
        
       >
         <h2    style={{
                   fontWeight: "bold",
                   paddingTop:"50px",
                   paddingBottom: "30px",
-                  color:"#00ac9e"
+                  color:"#00ac9e",
+                  textAlign:"center"
                  
                 }}>{title2}</h2>
 
-        <p style={{ color: "#213764", textAlign: "center", maxWidth: "60rem" }}>
+        <p style={{ color: "#213764", textAlign: "center", maxWidth: "60rem" ,fontSize:"18px"}}>
           {ContentTitle2}
         </p>
       </section>

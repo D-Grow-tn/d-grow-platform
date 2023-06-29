@@ -1,6 +1,5 @@
 import React ,{ useState ,useEffect}from "react";
 import { useNavigate } from "react-router-dom";
-import Data from "../assets/demyData/ServicesData";
 import CastomCard from "../components/CastomCard";
 import { fetchProduct } from "../store/products";
 import { useDispatch, useSelector } from "react-redux";
@@ -13,7 +12,6 @@ function Services() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const services = useSelector((state) => state.product.products.items);
-  // const [services, setServices] = useState(Data);
   const handleNavigate = (id) => {
     navigate(`/applications/${id}`);
   };
@@ -45,7 +43,7 @@ function Services() {
         test, and deploy software that meets specific functionalities, user experience, and scalability needs."
       />
 
-      <div className="d-flex justify-content-around align-items-end  mt-2 ">
+      <div className="d-flex flex-wrap m-5  gap-5 justify-content-center">
         {services.map((service) => (
           <CastomCard
             title={service.name}

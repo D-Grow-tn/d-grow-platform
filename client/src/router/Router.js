@@ -94,7 +94,7 @@ function Router() {
               element={<LoadComponent Component={Applications} />}
             />
               <Route
-              path="applicationDetails/:params1/:params2"
+              path="applicationDetails/:id"
               element={<LoadComponent Component={ApplicationDetails} />}
             />
             {/* <Route

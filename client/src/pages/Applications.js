@@ -1,48 +1,46 @@
-import React from "react";
-import { Button } from "react-bootstrap";
+import React, { useEffect } from "react";
 import { useNavigate, useParams } from "react-router-dom";
-import data3 from "../assets/demyData/EComerceAppData";
-import data1 from "../assets/demyData/MobileAppData";
-import data2 from "../assets/demyData/WebAppData";
+import { useDispatch, useSelector } from "react-redux";
 import CastomCard from "../components/CastomCard";
 import CastomContent from "../components/CastomContent";
+import { fetchProducType } from "../store/products";
 
 function Applications() {
   const navigate = useNavigate();
+  const dispatch = useDispatch();
   const { id } = useParams();
+  const productTypes = useSelector((state) => state.product.productTypes.items);
 
+  useEffect(() => {
+    dispatch(fetchProducType());
+  }, [dispatch]);
 
-  let applicationData;
-
-  if (id === "1") {
-    applicationData = data1;
-  } else if (id === "2") {
-    applicationData = data2;
-  } else {
-    applicationData = data3;
-  }
+  const handleNavigate = (id) => {
+    navigate(`/applicationDetails/${id}`);
+  };
+  const applicationData = productTypes.filter((productType) => productType.ProductId === id);
 
   return (
-    <div style={{marginTop:"-35%"}}>
-      {/* <h1 className="section-title dark-bleu mt-2">Our Applications</h1>  */}
+    <div style={{ marginTop: "-35%" }}>
       {applicationData.map((application) => (
-      <CastomContent  
-        title={application.title1}
-        image={application.image1}
-        ContentTitle={application.description1}
-      />
-    ))}  
-    <div className="d-flex justify-content-around align-items-end mt-5">
-      {applicationData.map((application) => (
-        <CastomCard
-          title={application.title}
-          image={application.image}
-          description={application.description}
-          ButtonName="See Details"
-          onClick={() => navigate(`/applicationDetails/${id}/${application.id}`)}
+        <CastomContent
+          key={application.id}
+          title={application.name}
+          // image={application.image1}
+          ContentTitle={application.description}
         />
       ))}
-    </div>
+      <div className="d-flex flex-wrap m-5  gap-5 justify-content-center">
+        {applicationData.map((application) => (
+          <CastomCard
+            key={application.id}
+            title={application.name}
+            image={application.MediaProductType[0]?.media?.path}
+            description={application.description}
+            onClick={() => handleNavigate(application.id)}
+          />
+        ))}
+      </div>
     </div>
   );
 }
