@@ -62,7 +62,11 @@ import { me } from "../store/auth";
 import AuthAdmin from "../apps/AuthAdmin";
 import MainList from "../domains/Main/views/MainList";
 import CreateMain from "../domains/Main/views/CreateMain";
-import EditMain from "../domains/Main/views/EditMain";
+import OneMain from "../domains/Main/views/OneMain";
+import SubComponet from "../domains/SubComponet/SubComponet";
+import SubComponetList from "../domains/SubComponet/views/SubComponetList";
+import CreateSubCompont from "../domains/SubComponet/views/CreateSubCompont";
+import OneSubComponet from "../domains/SubComponet/views/OneSubComponet";
 
 
 function Router() {
@@ -129,12 +133,7 @@ function Router() {
                 <Route path="create" element={<CreateClient />} />
                 <Route path="one/:clientId" element={<EditClient />} />
               </Route>
-              <Route path="main" element={<Main />}>
-                <Route index element={<MainList />} />
-                <Route path="create" element={<CreateMain />} />
-                <Route path="one/:mainId" element={<EditMain />} />
-              </Route>
-
+              
               <Route path="project" element={<Project />}>
                 <Route index element={<ProjectList />} />
                 <Route path="create" element={<CreateProject />} />
@@ -165,9 +164,15 @@ function Router() {
               <Route path="mains" element={<Mains />}>
                 <Route index element={<MainList />} />
                 <Route path="create" element={<CreateMain />} />
-                <Route path="one/:mainId" element={<EditMain />} />
+                <Route path="one/:mainId" element={<OneMain />} />
+              </Route>
+              <Route path="subcomponet" element={<SubComponet />}>
+                <Route index element={<SubComponetList />} />
+                <Route path="createSub" element={<CreateSubCompont />} />
+                <Route path="one/:subcomponetId" element={<OneSubComponet />} />
               </Route>
             </Route>
+            
           )}
           {!user && (
             <Route path="/" element={<AuthAdmin />}>

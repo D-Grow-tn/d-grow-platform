@@ -9,7 +9,7 @@ import event from "./event";
 import decision from "./decision";
 import main from "./main";
 import user from "./users";
-
+import subComponet from "./subComponet";
 
 export const store = configureStore({
   reducer: {
@@ -23,7 +23,7 @@ export const store = configureStore({
     decision,
 
     user,
-
+    subComponet,
   },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware({

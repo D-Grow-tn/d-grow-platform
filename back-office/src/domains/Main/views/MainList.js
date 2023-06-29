@@ -24,10 +24,13 @@ function MainList() {
     setIsOpen(true);
     console.log(isOpen);
   };
+  const handleUpdate = (id) => {
+    navigate("one/" + id);
+  };
   const handleDelete = () => {
     dispatch(removeMain(selected.id)).then((result) => {
       if (!result.error) {
-        showSuccessToast("Client has been deleted");
+        showSuccessToast("Main has been deleted");
         setIsOpen(false)
       } else {
         showErrorToast(result.error.message);
@@ -85,7 +88,7 @@ function MainList() {
         renderCell: (params) => (
           <div>
             <IconButton
-            //   onClick={() => handleUpdate(params.row.id)}
+              onClick={() => handleUpdate(params.row.id)}
               color="primary"
               aria-label="update"
             >
@@ -110,7 +113,7 @@ function MainList() {
         title="Main List"
         showButton={true}
         buttonFunction={() => navigate("create")}
-        text={"Create Client"}
+        text="Create Main"
       />
       <Table columns={columns} rows={mains.length ? mains : []} />
       {isOpen && (
