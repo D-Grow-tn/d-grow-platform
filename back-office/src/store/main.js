@@ -4,24 +4,24 @@ import config from "../configs";
 
 
 export const fetchMains = createAsyncThunk("mains/mains",async()=>{
-    const response = await axios.get(`${config.API_ENDPOINT}/main-components`)
+    const response = await axios.get(`${config.API_ENDPOINT}/website-settings`)
     return response.data
 })
 export const fetchMain = createAsyncThunk("mains/main",async(id)=>{
-  const response = await axios.get(`${config.API_ENDPOINT}/main-components/${id}`)
+  const response = await axios.get(`${config.API_ENDPOINT}/website-settings/one/${id}`)
   return response.data
 })
 export const createMain = createAsyncThunk("mains/main",async(body)=>{
-    const response = await axios.post(`${config.API_ENDPOINT}/main-components`,body)
+    const response = await axios.post(`${config.API_ENDPOINT}/website-settings`,body)
     return response.data
 })
 export const removeMain = createAsyncThunk("mains/removemain",async(id,{dispatch})=>{
-  const response = await axios.delete(`${config.API_ENDPOINT}/main-components/${id}`)
+  const response = await axios.delete(`${config.API_ENDPOINT}/website-settings/${id}`)
   return response.data
 })
 export const updateMain = createAsyncThunk("mains/updatemain",async(body)=>{
   const {mainId,...rest} = body
-  const response = await axios.patch(`${config.API_ENDPOINT}/main-components/${mainId}`,{...rest})
+  const response = await axios.patch(`${config.API_ENDPOINT}/website-settings/${mainId}`,{...rest})
   return response.data
 })
 export const mainSlice = createSlice({

@@ -2,7 +2,7 @@ import React, { useEffect, useMemo, useState } from "react";
 import HeaderPage from "../../../components/HeaderPage";
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { fetchMains, removeMain} from "../../../store/main";
+import { fetchMains, removeMain } from "../../../store/main";
 import Table from "../../../components/Table";
 import { Avatar, IconButton } from "@mui/material";
 import moment from "moment";
@@ -11,14 +11,13 @@ import DeleteIcon from "@mui/icons-material/Delete";
 import DeleteModal from "../../../components/DeleteModal";
 import { showErrorToast, showSuccessToast } from "../../../utils/toast";
 
-
 function MainList() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const mains = useSelector((state)=>state.main.mains.items)
+  const mains = useSelector((state) => state.main.mains.items);
   const [selected, setSelected] = useState(null);
   const [isOpen, setIsOpen] = useState(false);
-  
+
   const openPopup = (select) => {
     setSelected(select);
     setIsOpen(true);
@@ -31,15 +30,15 @@ function MainList() {
     dispatch(removeMain(selected.id)).then((result) => {
       if (!result.error) {
         showSuccessToast("Main has been deleted");
-        setIsOpen(false)
+        setIsOpen(false);
       } else {
         showErrorToast(result.error.message);
       }
     });
   };
-  useEffect(()=>{
-    dispatch(fetchMains())
-  },[])
+  useEffect(() => {
+    dispatch(fetchMains());
+  }, []);
   const columns = useMemo(
     () => [
       {
@@ -60,7 +59,7 @@ function MainList() {
         headerClassName: "header-blue",
         width: 200,
       },
-     
+
       {
         field: "createdAt",
         headerName: "Created At",

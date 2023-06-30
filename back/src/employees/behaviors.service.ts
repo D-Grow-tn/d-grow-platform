@@ -14,9 +14,10 @@ export class BehaviorsService {
 
   async findAll() {
     return await this.prisma.behavior.findMany({
-      include:{
-        sender:true, reciever:true
-      }
+      include: {
+        sender: true,
+        receiver: true,
+      },
     });
   }
 
@@ -28,17 +29,17 @@ export class BehaviorsService {
     });
   }
 
-  async findAllByReceiver(recieverId:string){
-    return  await this.prisma.behavior.findMany({ 
-      where:{recieverId}
-    })
+  async findAllByReceiver(receiverId: string) {
+    return await this.prisma.behavior.findMany({
+      where: { receiverId },
+    });
   }
 
-async findAllBySender(senderId:string){
-  return  await this.prisma.behavior.findMany({ 
-    where:{senderId}
-  })
-}
+  async findAllBySender(senderId: string) {
+    return await this.prisma.behavior.findMany({
+      where: { senderId },
+    });
+  }
   async update(id: string, updateBehaviorDto: UpdateBehaviorDto) {
     return await this.prisma.behavior.update({
       where: { id },

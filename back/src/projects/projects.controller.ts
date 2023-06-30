@@ -36,6 +36,11 @@ export class ProjectsController {
     return this.projectsService.findAllByClient(clientId);
   }
 
+  @Get('by_projectManager/:projectManagerId')
+  findAllByPM(@Param('projectManagerId') projectManagerId: string) {
+    return this.projectsService.findAllByPM(projectManagerId);
+  }
+
   @Patch(':id')
   update(@Param('id') id: string, @Body() updateProjectDto: UpdateProjectDto) {
     return this.projectsService.update(id, updateProjectDto);

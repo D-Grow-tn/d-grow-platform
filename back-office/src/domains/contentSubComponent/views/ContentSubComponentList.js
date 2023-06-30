@@ -1,35 +1,41 @@
-import React, { useEffect, useMemo, useState } from 'react'
-import { fetchContentSubComponets, removeContentSubComponet } from '../../../store/contentsubcomponet';
-import { showErrorToast, showSuccessToast } from '../../../utils/toast';
+import React, { useEffect, useMemo, useState } from "react";
+import {
+  fetchContentSubComponets,
+  removeContentSubComponet,
+} from "../../../store/contentsubcomponet";
+import { showErrorToast, showSuccessToast } from "../../../utils/toast";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import moment from "moment";
 import { Avatar, IconButton } from "@mui/material";
 import RemoveRedEyeIcon from "@mui/icons-material/RemoveRedEye";
 import DeleteIcon from "@mui/icons-material/Delete";
-import HeaderPage from '../../../components/HeaderPage';
-import Table from '../../../components/Table';
-import DeleteModal from '../../../components/DeleteModal';
+import HeaderPage from "../../../components/HeaderPage";
+import Table from "../../../components/Table";
+import DeleteModal from "../../../components/DeleteModal";
 
-function ContentSubComponentList() {
-    const navigate = useNavigate()
-    const dispatch = useDispatch();
-  const contentsubcomponet = useSelector((state)=>state?.contentsubcomponet?.contentsubcomponets?.items)
+function ContentSubComponentList({subcomponetID}) {
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
+  const contentsubcomponet = useSelector(
+    (state) => state?.contentsubcomponet?.contentsubcomponets?.items.filter(
+      (contentsubcomponet) => contentsubcomponet.subcomponetId === subcomponetID
+    )
+  );
   const [isOpen, setIsOpen] = useState(false);
   const [selected, setSelected] = useState(null);
-  useEffect(()=>{
-    dispatch(fetchContentSubComponets())
-  },[])
+  useEffect(() => {
+    dispatch(fetchContentSubComponets());
+  }, []);
   const openPopup = (select) => {
     setSelected(select);
     setIsOpen(true);
-
-  }
+  };
   const handleDelete = () => {
     dispatch(removeContentSubComponet(selected.id)).then((result) => {
       if (!result.error) {
         showSuccessToast("Content SubComponet has been deleted");
-        setIsOpen(false)
+        setIsOpen(false);
       } else {
         showErrorToast(result.error.message);
       }
@@ -106,25 +112,28 @@ function ContentSubComponentList() {
     []
   );
   return (
-    <div>   
-  <HeaderPage
-    title="Content SubComponet List"
-    showButton={true}
-    buttonFunction={() => navigate("/contentsubcomponet/create")}
-    text="Create Content SubComponet"
-  />
-  <Table columns={columns} rows={contentsubcomponet?.length ? contentsubcomponet : []} />
-  {isOpen && (
-    <DeleteModal
-      close={() => setIsOpen(false)}
-      title={selected.name}
-      width={300}
-      height={250}
-      fnDelete={handleDelete}
-    />
-  )}
-</div>
-  )
+    <div>
+      <HeaderPage
+        title="Content SubComponet List"
+        showButton={true}
+        buttonFunction={() => navigate("/contentsubcomponet/create")}
+        text="Create Content SubComponet"
+      />
+      <Table
+        columns={columns}
+        rows={contentsubcomponet?.length ? contentsubcomponet : []}
+      />
+      {isOpen && (
+        <DeleteModal
+          close={() => setIsOpen(false)}
+          title={selected.name}
+          width={300}
+          height={250}
+          fnDelete={handleDelete}
+        />
+      )}
+    </div>
+  );
 }
 
-export default ContentSubComponentList
+export default ContentSubComponentList;

@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import {Container,Nav,Navbar} from "react-bootstrap";
+import { Container, Nav, Navbar } from "react-bootstrap";
 
 import PersonOutlineIcon from "@mui/icons-material/PersonOutline";
 
@@ -7,9 +7,16 @@ import TextHoverUnderline from "../components/TextHoverUnderline";
 import { Link } from "react-router-dom";
 import { useSelector } from "react-redux";
 import Dropdown from "react-bootstrap/Dropdown";
+import config from "../configs";
+import axios from "axios";
 function Naavbar() {
   const [scroll, setScroll] = useState(0);
   // const navigate = useNavigate();
+  const [left, setLeft] = useState(null);
+
+  const [middle, setMiddle] = useState(null);
+  const [right, setRight] = useState(null);
+
   const me = useSelector((state) => state.auth.me);
 
   useEffect(() => {
@@ -17,6 +24,19 @@ function Naavbar() {
       setScroll(window.scrollY);
     });
   }, []);
+  useEffect(() => {
+    axios
+      .get(`${config.API_ENDPOINT}/website-settings/by-title/Header`)
+      .then((res) => {
+        setLeft(
+          res.data?.SubComponent.filter((elem) => elem.position === "left")[0]
+        );
+        setMiddle(
+          res.data?.SubComponent.filter((elem) => elem.position === "middle")[0]
+        );
+      });
+  }, []);
+  console.log(middle?.ContentSubComponent);
 
   return (
     <Navbar
@@ -27,78 +47,61 @@ function Naavbar() {
       } `}
     >
       <Container fluid>
-        <Navbar.Brand href="/" id="logo" className="dark-bleu">
-          {" "}
-          D-Grow{" "}
-        </Navbar.Brand>
+        {left?.ContentSubComponent?.map((elem, i) => (
+          <Navbar.Brand href="/" id="logo" className="dark-bleu">
+            {" "}
+            {elem?.content}{" "}
+          </Navbar.Brand>
+        ))}
         <Navbar.Toggle aria-controls="navbarScroll" />
         <Navbar.Collapse id="navbarScroll" className="justify-content-between">
           <div style={{ marginLeft: -120 }}></div>
           <Nav className="gap-3 " style={{ maxHeight: "200px" }} navbarScroll>
-            <Nav.Link
-              href="/"
-              className="d-flex  align-items-center nav-font px-3 "
-              style={{ fontSize: "40px" }}
-            >
-              <TextHoverUnderline
-                bgColor="blue"
-                duration="300"
-                type="linear"
-                content="Home"
-                width={50}
-                fontSize={21}
-              />
-            </Nav.Link>
-
-            <Nav.Link
-              href="/about-us"
-              className="d-flex  align-items-center px-3"
-              style={{ color: "#213764" }}
-            >
-              <TextHoverUnderline
-                bgColor="blue"
-                duration="300"
-                type="linear"
-                content="About"
-                width={60}
-                fontSize={21}
-              />
-            </Nav.Link>
-            <Nav.Link
-              href="/contact"
-              className="d-flex  align-items-center px-3"
-              style={{ color: "#213764" }}
-            >
-              <TextHoverUnderline
-                bgColor="blue"
-                duration="300"
-                type="linear"
-                content="Contact"
-                width={60}
-                fontSize={21}
-              />
-            </Nav.Link>
-            <Nav.Link
-              href="/services"
-              className="d-flex  align-items-center px-3"
-              style={{ color: "#213764" }}
-            >
-              <div class="dropdown">
-                <TextHoverUnderline
-                  bgColor="blue"
-                  duration="300"
-                  type="linear"
-                  content="Services"
-                  width={60}
-                  fontSize={21}
-                />
-                <div class="dropdown-content">
-                  <a href="/"> Website applications</a>
-                  <a href="/"> Mobile applications</a>
-                  <a href="/"> Something else</a>
-                </div>
-              </div>
-            </Nav.Link>
+            {middle?.ContentSubComponent.map((elem, i) =>
+              elem.type === "select" ? (
+                <Nav.Link
+                  key={i}
+                  href={elem?.navigateTo}
+                  className="d-flex  align-items-center px-3"
+                  style={{ color: "#213764" }}
+                >
+                  <div className="dropdown">
+                    <TextHoverUnderline
+                      bgColor="blue"
+                      duration="300"
+                      type="linear"
+                      content={elem?.content}
+                      width={60}
+                      fontSize={21}
+                    />
+                    <div className="dropdown-content">
+                      {elem.subContent.map((el, j) => (
+                        <a key={j} href={el.path}>
+                          {" "}
+                          {el.item}
+                        </a>
+                      ))}
+                    </div>
+                  </div>
+                </Nav.Link>
+              ) : (
+                <Nav.Link
+                  key={i}
+                  href={elem?.navigateTo}
+                  className={`d-flex  align-items-center  px-3`}
+                  style={{ fontSize: "40px" }}
+                >
+                  <TextHoverUnderline
+                    bgColor="blue"
+                    duration="300"
+                    type="linear"
+                    content={elem?.content}
+                    width={50}
+                    fontSize={21}
+                  />
+                </Nav.Link>
+              )
+            )}
           </Nav>
 
           <Dropdown>
@@ -108,7 +111,7 @@ function Naavbar() {
               style={{ all: "unset" }}
             >
               <Link
-              to={!me &&"/auth/login"}
+                to={!me && "/auth/login"}
                 className="d-flex gap-2 align-items-center"
                 style={{ color: "#213764" }}
                 // onClick={() => {

@@ -1,5 +1,5 @@
-import React from "react";
-import HeaderPage from "../../../components/HeaderPage";
+import React from "react";    
+import HeaderPage from "../../../components/HeaderPage";    
 import Table from "../../../components/Table";
 import { useMemo, useEffect, useState } from "react";
 import {Avatar ,IconButton } from "@mui/material";
@@ -9,10 +9,12 @@ import RemoveRedEyeIcon from "@mui/icons-material/RemoveRedEye";
 import { useDispatch, useSelector } from "react-redux";
 import DisplayLottie from "../../../constants/DisplayLottie";
 import loading from "../../../constants/loading.json";
-import { fetchEvents } from "../../../store/event";
-import EditEvent from "./OneEvent";
+import { fetchEvents, removeEvent } from "../../../store/event";
+// import EditEvent from "./OneEvent"; 
 import { useNavigate } from "react-router-dom";
 import { Image } from 'mui-image'
+import DeleteModal from "../../../components/DeleteModal";
+import { showErrorToast, showSuccessToast } from "../../../utils/toast";
 
 function EventList() {
   const dispatch = useDispatch();
@@ -20,6 +22,7 @@ function EventList() {
   const navigate = useNavigate();
   const [isOpen, setIsOpen] = useState(false);
   const [rows, setRows] = useState([]);
+  const [selected, setSelected] = useState(null);
 
   console.log("from client component", Events);
 
@@ -27,6 +30,9 @@ function EventList() {
     dispatch(fetchEvents());
   }, []);
 
+  const handleUpdate = (id) => {
+    navigate("one/" + id);
+  };
   useEffect(() => {
     if (Events.length) {
       let aux = Events.map((e) => {
@@ -37,17 +43,24 @@ function EventList() {
     }
   }, [Events]);
 
-  const togglePopup = () => {
-    setIsOpen(!isOpen);
+ const openPopup = (select) => {
+    setSelected(select);
+    setIsOpen(true);
+    console.log(isOpen);
   };
 
-  const handleDelete = (id) => {
-    console.log("Delete row with ID:", id);
+  const handleDelete = () => {
+    dispatch(removeEvent(selected.id)).then((result) => {
+      if (!result.error) {
+        showSuccessToast("Event has been deleted");
+        setIsOpen(false)
+      } else {
+        showErrorToast(result.error.message);
+      }
+    });
   };
 
-  const handleUpdate = (id) => {
-    console.log("Update row with ID:", id);
-  };
+
 
   const columns = useMemo(
     () => [
@@ -73,7 +86,10 @@ function EventList() {
         headerName: "Orgniser",
         headerClassName: "header-blue",
         width: 200,
-        renderCell: (params) =>(<div>{params.row.employee.name}</div>)
+        renderCell: (params) =>(<div>{params.row.employee.name}
+        {
+        console.log(params.row,"this")
+        }</div>)
       },
       {
         field: "active",
@@ -109,12 +125,12 @@ function EventList() {
         filterable: false,
         renderCell: (params) => (
           <div>
-            <IconButton onClick={()=>navigate('one/'+params.row.id)} color="primary" aria-label="update">
+            <IconButton onClick={()=>handleUpdate(params.row.id)} color="primary" aria-label="update">
               <RemoveRedEyeIcon />
             </IconButton>
 
             <IconButton
-              onClick={() => handleDelete(params.row.id)}
+              onClick={() => openPopup(params.row)}
               color="error"
               aria-label="delete"
             >
@@ -146,7 +162,16 @@ function EventList() {
       />
 
       <Table columns={columns} rows={rows} />
-      {isOpen && <EditEvent EditEvent={Events} />}
+      {/* {isOpen && <EditEvent EditEvent={Events} />} */}
+      {isOpen && (
+        <DeleteModal
+          close={() => setIsOpen(false)}
+          title={selected.name}
+          width={300}
+          height={250}
+          fnDelete={handleDelete}
+        />
+      )}
     </div>
   );
 }

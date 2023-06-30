@@ -3,7 +3,7 @@ import auth from "./auth";
 import client from "./client";
 import employee from "./employees";
 import request from "./request";
-import projects from "./projects";
+import project from "./projects";
 import event from "./event";
 
 import decision from "./decision";
@@ -17,7 +17,7 @@ export const store = configureStore({
     client,
     employee,
     request,
-    projects,
+    project,
     event,
     main,
     decision,

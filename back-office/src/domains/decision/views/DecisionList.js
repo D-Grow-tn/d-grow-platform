@@ -1,4 +1,3 @@
-
 import React from "react";
 import HeaderPage from "../../../components/HeaderPage";
 import Table from "../../../components/Table";
@@ -8,7 +7,10 @@ import moment from "moment";
 import DeleteIcon from "@mui/icons-material/Delete";
 import RemoveRedEyeIcon from "@mui/icons-material/RemoveRedEye";
 import { useDispatch, useSelector } from "react-redux";
-import { fetchDecisionByEmployee, removeDecision } from "../../../store/decision";
+import {
+  fetchDecisionByEmployee,
+  removeDecision,
+} from "../../../store/decision";
 import DisplayLottie from "../../../constants/DisplayLottie";
 import loading from "../../../constants/loading.json";
 import { useNavigate } from "react-router-dom";
@@ -19,18 +21,16 @@ function DecisionList() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const decision = useSelector((state) => state.decision.decisions.items);
-  const me=useSelector((state) => state.auth.me);
+  const me = useSelector((state) => state.auth.me);
   const [selected, setSelected] = useState(null);
   const [rows, setRows] = useState([]);
   const [isOpen, setIsOpen] = useState(false);
 
   useEffect(() => {
-    if (me){
-    dispatch(fetchDecisionByEmployee(me.employee.id))
-    ;}
-  }, [dispatch,me]);
-
-
+    if (me) {
+      dispatch(fetchDecisionByEmployee(me.employee.id));
+    }
+  }, [dispatch, me]);
 
   useEffect(() => {
     if (decision.length) {
@@ -55,7 +55,7 @@ function DecisionList() {
     dispatch(removeDecision(selected.id)).then((result) => {
       if (!result.error) {
         showSuccessToast("Decision has been deleted");
-        setIsOpen(false)
+        setIsOpen(false);
       } else {
         showErrorToast(result.error.message);
       }
@@ -69,20 +69,17 @@ function DecisionList() {
         headerClassName: "header-blue",
         width: 170,
       },
-      // {
-      //   field: "active",
-      //   headerClassName: "header-blue",
-      //   headerName: "Active",
-      //   width: 110,
-      //   type: "boolean",
-      //   editable: true,
-      // },
-     { field: "DecisionApply",
-      headerName: "Employees",
-      headerClassName: "header-blue",
-      width: 170,
-     
-    },
+
+      {
+        field: "DecisionApply",
+        headerName: "Employees",
+        headerClassName: "header-blue",
+        width: 170,
+        renderCell: (params) => (
+          <div>{params.row.DecisionApply[0].employee.name}</div>
+        ),
+      },
+
       {
         field: "createdAt",
         headerName: "Created At",
@@ -139,16 +136,15 @@ function DecisionList() {
     );
   }
 
-
   return (
     <div>
-      <HeaderPage title="Decisions List"
-      showButton={true}
-        
-      buttonFunction={()=>navigate('create')}
-      text={"Create Decision"} />
+      <HeaderPage
+        title="Decisions List"
+        showButton={true}
+        buttonFunction={() => navigate("create")}
+        text={"Create Decision"}
+      />
 
-      
       <Table columns={columns} rows={rows} />
       {isOpen && (
         <DeleteModal
@@ -159,7 +155,6 @@ function DecisionList() {
           fnDelete={handleDelete}
         />
       )}
-
     </div>
   );
 }
