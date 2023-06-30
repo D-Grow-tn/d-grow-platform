@@ -50,6 +50,7 @@ function ProjectList() {
   
   const handleDelete = () => {
     dispatch(removeProject(selected.id)).then((result) => {
+      console.log(selected.id,"selected")
       if (!result.error) {
         showSuccessToast("Project has been deleted");
         setIsOpen(false);
@@ -80,6 +81,12 @@ function ProjectList() {
         width: 170,
       },
       {
+        field: "status",
+        headerName: "Status",
+        headerClassName: "header-blue",
+        width: 170,
+      },
+      {
         field: "projectManagerId",
         headerName: "Project Manager",
         headerClassName: "header-blue",
@@ -100,14 +107,6 @@ function ProjectList() {
         headerClassName: "header-blue",
         width: 200,
         renderCell: (params) =>(<div>{params.row.client?.name}</div>)
-      },
-      {
-        field: "active",
-        headerClassName: "header-blue",
-        headerName: "Active",
-        width: 110,
-        type: "boolean",
-        editable: true,
       },
       {
         field: "Start At",
@@ -165,7 +164,7 @@ function ProjectList() {
   return (
     <div>
         <HeaderPage 
-        title={'Projects'}
+        title={'Project List'}
         showButton={true}
         buttonFunction={()=>navigate('create')}
         text={"Create Project"}
