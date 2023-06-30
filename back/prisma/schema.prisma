@@ -65,7 +65,7 @@ model Employee {
   projectManager   Project[]          @relation("projectManager")
   consultant       Project[]          @relation("consultant")
   sender           Behavior[]         @relation("sender")
-  reciever         Behavior[]         @relation("reciever")
+  receiver         Behavior[]         @relation("receiver")
   headDepartment   Department[]       @relation("headDepartment")
   employee         Employee[]         @relation("directManeger")
   EmployeeQuiz     EmployeeQuiz[]
@@ -74,8 +74,8 @@ model Employee {
   MediaEmployee    MediaEmployee[]
   DecisionApply    DecisionApply[]
   Membership       Membership[]
-  SenderReq        Request[]          @relation("senderreq")
-  RecieverReq      Request[]          @relation("recieverreq")
+  SenderReq        Request[]          @relation("senderRequest")
+  ReceiverReq      Request[]          @relation("receiverRequest")
 }
 
 model Project {
@@ -254,9 +254,9 @@ model Request {
   createdAt    DateTime       @default(now())
   updatedAt    DateTime       @updatedAt
   senderId     String
-  senderReq    Employee       @relation(fields: [senderId], references: [id], name: "senderreq")
-  recieverId   String
-  receiverReq  Employee       @relation(fields: [recieverId], references: [id], name: "recieverreq")
+  senderReq    Employee       @relation(fields: [senderId], references: [id], name: "senderRequest")
+  receiverId   String
+  receiverReq  Employee       @relation(fields: [receiverId], references: [id], name: "receiverRequest")
   MediaRequest MediaRequest[]
 }
 
@@ -291,8 +291,8 @@ model Behavior {
   senderId   String
   createdAt  DateTime @default(now())
   sender     Employee @relation(fields: [senderId], references: [id], name: "sender")
-  recieverId String
-  reciever   Employee @relation(fields: [recieverId], references: [id], name: "reciever")
+  receiverId String
+  receiver   Employee @relation(fields: [receiverId], references: [id], name: "receiver")
 }
 
 model Decision {

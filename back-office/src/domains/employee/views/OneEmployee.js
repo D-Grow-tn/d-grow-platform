@@ -8,10 +8,11 @@ import { showErrorToast, showSuccessToast } from "../../../utils/toast";
 
 
 
-function OneEmployee({employees,department,setDepartment}) {
+function OneEmployee({setDepartment,department}) {
   const { employeeId } = useParams();
   const dispatch = useDispatch();
   const employee = useSelector((state) => state.employee.employee);
+  const employees = useSelector((state) => state.employee.employees.items);
 
   const [readOnly, setReadOnly] = useState(true);
   const [auxEmployee, setAuxEmployee] = useState(null);
@@ -55,18 +56,49 @@ function OneEmployee({employees,department,setDepartment}) {
       {
         category: "select",
         label: "Direct Manager",
-        placeholder: "Select Employee",
+        placeholder: "Select Manager",
         name: "directManegerId",
         width: 250,
         required: true,
         options: employees,
         optionLabel: "name",
         valueLabel: "id",
+        value:  auxEmployee?.employee,
         onChange: (value) => {
-          auxEmployee
-          ((Employee) => ({ ...Employee, directManegerId: value }));
+          setAuxEmployee((Employee) => ({ ...Employee, directManegerId: value }));
         },
       },
+      // {
+      //   category: "select",
+      //   label: "Direct Manager",
+      //   placeholder: "Select Employee",
+      //   name: "directManegerId",
+      //   width: 250,
+      //   required: true,
+      //   options: employees,
+      //   optionLabel: "name",
+      //   valueLabel: "id",
+      //   value:  auxEmployee?.employee ,
+      //   onChange: (value) => {
+      //     setAuxEmployee
+      //     ((Employee) => ({ ...Employee, directManegerId: value }));
+      //   },
+      // },
+      // {
+      //   category:"select",
+      //   label: "Employee",
+      //   name: "employeeId",
+      //   required: true,
+      //   options: employees,
+      //   optionLabel: "name",
+      //   valueLabel: "id",
+        
+      //   value: auxEvent?.employee ,
+      //   onChange: (value) => {
+      //    setAuxEvent((Event) => ({ ...Event, employeeId: value }));
+      //   },
+
+      // },
       {
         category: "select",
         label: "Department",
@@ -107,8 +139,8 @@ function OneEmployee({employees,department,setDepartment}) {
   const onSubmit = (e) => {
     e.preventDefault();
     console.log(auxEmployee);
-    const { name, email, phone, address,bio } = auxEmployee;
-    dispatch(updateEmployee({ name, phone, address, email,bio, employeeId })).then(
+    const { name, email, phone, address,bio,directManegerId } = auxEmployee;
+    dispatch(updateEmployee({ name, phone, address, email,bio,directManegerId, employeeId })).then(
       (result) => {
         if (!result.error) {
           showSuccessToast("Employee has been updated");
