@@ -19,6 +19,18 @@ export const fetchProject = createAsyncThunk("projects/oneProject", async (id) =
   return response.data;
 });
 
+export const createProject = createAsyncThunk(
+  "projects/createProject",
+  async (body, { dispatch }) => {
+    console.log(body,"body")    
+    const response = await axios.post(`${config.API_ENDPOINT}/projects`, body);
+    dispatch(fetchProject(response.data));
+    console.log("event from store", response.data);
+    return response.data;
+  }
+);
+
+
 export const fetchProjectByPM = createAsyncThunk("projects/project", async (id) => {
   const response = await axios.get(`${config.API_ENDPOINT}/projects/by_projectManager/${id}`);
   return response.data;
@@ -26,17 +38,10 @@ export const fetchProjectByPM = createAsyncThunk("projects/project", async (id) 
   });
  
 export const removeProject = createAsyncThunk(
-    "decisions/deleteProject",
+    "projects/deleteProject",
     async (id, { dispatch }) => {
-      let token = JSON.parse(localStorage.getItem("tokenAdmin"));
-      const configs = {
-        headers: {
-          Authorization: "Bearer " + token.Authorization,
-        },
-      };
       const response = await axios.delete(
-        `${config.API_ENDPOINT}/projects/${id}`,
-        configs
+        `${config.API_ENDPOINT}/projects/${id}`
       );
       dispatch(fetchProjects());
       return response.data;
