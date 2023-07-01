@@ -1,12 +1,12 @@
-import React, { useRef } from "react";
+import React, { useRef, useState, useEffect } from "react";
 import DisplayLottie from "../constants/DisplayLottie";
-import imgabout from "../constants/imgabout.json";
-
+// import imgabout from "../constants/imgabout.json";
+import config from "../configs";
+import axios from "axios";
 import Marquee from "react-fast-marquee";
 import "../assets/css/aboutus.css";
 import sliderPartners from "../components/aboutsliderdata.js";
-import { useMediaQuery } from 'react-responsive'
-
+import { useMediaQuery } from "react-responsive";
 
 import {
   jalyss1,
@@ -32,55 +32,64 @@ import {
 import Carousel from "react-bootstrap/Carousel";
 
 function AboutUs() {
-  // Listen for Click -----------------------------------------------------------
-  const isMobile = useMediaQuery({ query: '(max-width: 600px)' })
-  const membersLists = [
-    [
-      {
-        name: "Olive Yew",
-        image: member1,
-        role: "Web Developer",
-      },
-      {
-        name: "Olive Tree",
-        image: member2,
-        role: "Backend Developer",
-      },
-      {
-        name: "Maureen Biologist",
-        image: member3,
-        role: "Web Desginer",
-      },
-      {
-        name: "Lynn O’Leeum",
-        image: member4,
-        role: "Product Manager",
-      },
-    ],
-    [
-      {
-        name: "Simon Sais",
-        image: member5,
-        role: "Web Developer",
-      },
-      {
-        name: "Audie Yose",
-        image: member6,
-        role: "UX Developer",
-      },
-      {
-        name: "Anita Bath",
-        image: member7,
-        role: "Comunity Manager",
-      },
-      {
-        name: "Stan Dupp",
-        image: member8,
-        role: "Web Developer",
-      },
-    ]
+  const [section1p, setSection1p] = useState(null);
+  const [section1I, setSection1I] = useState(null);
+  const [section1b, setSection1b] = useState(null);
+  const [section2p, setSection2p] = useState(null);
+  const [section3, setSection3] = useState(null);
+  const [section4, setSection4] = useState(null);
+  const [section5, setSection5] = useState(null);
+  useEffect(() => {
+    axios
+      .get(`${config.API_ENDPOINT}/website-settings/by-title/AboutPage`)
+      .then((res) => {
+        setSection1p(
+          res.data?.SubComponent[0].ContentSubComponent.filter(
+            (elem) => elem.title === "paragraph"
+          )
+       
+        );
+        console.log("section1",res.data);
+        setSection1I(
+          res.data?.SubComponent[0].ContentSubComponent.filter(
+            (elem) => elem.title === "image"
+          )
+        );
 
-  ];
+        setSection1b(
+          res.data?.SubComponent[0].ContentSubComponent.filter(
+            (elem) => elem.title === "button"
+          )
+        );
+
+        setSection2p(
+          res.data?.SubComponent[1].ContentSubComponent.filter((elem) => elem.title === "section2")
+       
+          );
+          setSection3(
+            res.data?.SubComponent[2].ContentSubComponent.filter((elem) => elem.title === "section3")
+         
+            );
+          
+            setSection4(
+              res.data?.SubComponent[3].ContentSubComponent.filter((elem) => elem.title === "section4")
+           
+              );
+              setSection5(
+                res.data?.SubComponent[4].ContentSubComponent.filter((elem) => elem.title === "section5")
+             
+                )
+        
+          console.log("s3",res.data);
+      });
+    
+  }, []);
+
+  console.log("section5",section5);
+
+  // Listen for Click -----------------------------------------------------------
+  const isMobile = useMediaQuery({ query: "(max-width: 600px)" });
+  
 
   document.addEventListener("click", (e) => {
     if (e.target.classList.contains("slider-prev")) {
@@ -255,110 +264,106 @@ function AboutUs() {
   }
   return (
     <div>
-     <section >
-      <div className="container " style={{paddingTop:"-42px"}}>
+      <section>
+        <div className="container " style={{ paddingTop: "-42px" }}>
           <div className="row content ">
             <div
               className="col-lg-6  pt-lg-0 
               mt-5  py-5 dark-bleu "
               style={{ textAlign: "center" }}
             >
-              <h2  style={{
+              <h2
+                style={{
                   fontWeight: "bold",
                   paddingBottom: "30px",
-                }}>D-Grow</h2>
-              <p style={{ color: "#213764", textAlign: "center" }}>
-                D-Grow, an industry-leading provider of innovative digital
-                solutions, stands at the forefront of revolutionizing the way
-                businesses interact with the digital world. 
-                With our unwavering commitment to excellence, we specialize in
-                crafting exceptional websites and mobile applications that
-                redefine user experiences.
-              </p>
-              <a
-           
-                type="button"
-                class="btn mt-5"
-                style={{
-                  width: "150px",
-                  height: "40px",
-                  background: "#00ac9e",
-                  color: "white",
                 }}
-
-                href="#aboutus"
               >
-                
-                show more
-             
-              </a>
+                D-Grow
+              </h2>
+              {section1p?.map((elem, i) => (
+                <p style={{ color: "#213764", textAlign: "center" }}>
+                  {elem?.content}
+                </p>
+              ))}
+              {section1b?.map((el, i) => (
+                <a
+                  type={el?.type}
+                  class="btn mt-5"
+                  style={{
+                    width: "150px",
+                    height: "40px",
+                    background: "#00ac9e",
+                    color: "white",
+                  }}
+                  href={el?.navigateTo}
+                >
+                  {el?.content}
+                </a>
+              ))}
             </div>
             <div className="col-lg-6 ">
-              <DisplayLottie animationData={imgabout}  style={{marginTop:"-90px"}}/>
+              {/* {section1I?.map((e, i) => (
+                <DisplayLottie
+                  animationData={e?.content}
+                  style={{ marginTop: "-90px" }}
+                />
+              ))} */}
             </div>
           </div>
         </div>
       </section>
       <section className="section-header">
-        <header className="section-header" style={{ height: "150px" }}>
-          <h3>| Our Clients </h3>
-          <p style={{ color: "#213764" }}>
-            We work with business owners across all industries in all cities. We
-            love meeting (in-person or virtually) with each of our clients to
-            discover who they are, what they do, and why they shine.
-            <br />
-            <br />
-            By choosing D-Grow as your digital partner, you can establish a
-            strong online presence and unlock the full potential of the digital
-            realm. Join us on this transformative journey, where innovation
-            meets elegance and technology merges with imagination. Together, we
-            will pave the way for your digital success. Our clients include:
-            <h3>JALYSS.COM</h3>
-          </p>
+      <h3>| Our Clients </h3>
+      
+      {section2p?.map((el, i) => (
+        <header >
+            
+            <p style={{ color: "#213764" }}>
+              {el?.content}
+              
+            </p>
+            
         </header>
-        <div className="home section-header" style={{ height: "500px" }}>
+      
+        ))}
+
+        <div className="home section-header">
           <div className="home-popular">
             <div className="slider">
               <div className="slider-prev " />
-              <ul>
-                <li>
-                  <img
-                    className="item small1"
-                    style={{ order: 0 }}
-                    src={jalyss1}
-                  />
-                </li>
-                <li>
-                  <img
-                    className="item big1"
-                    style={{ order: 1 }}
-                    src={jalyss2}
-                  />
-                </li>
-                <li>
-                  <img
-                    className="item focus"
-                    style={{ order: 2 }}
-                    src={jalyss3}
-                  />
-                </li>
-                <li>
-                  <img
-                    className="item big2"
-                    style={{ order: 3 }}
-                    src={jalyss4}
-                  />
-                </li>
-                <li>
-                  <img
-                    className="item small2"
-                    style={{ order: 4 }}
-                    src={jalyss5}
-                  />
-                </li>
-              </ul>
+              
+              {section2p?.map((el, i) => (
+          <>
+                {el?.subContent?.map((elem,j) => (
+              
+                 
+              
+              <ul key={j}>
+              <li>
+                <img className="item small1" style={{ order: 0 }} src={elem.src1} alt="" />
+              </li>
+              <li>
+                <img className="item big1" style={{ order: 1 }} src={elem.src2} alt="" />
+              </li>
+              <li>
+                <img className="item focus" style={{ order: 2 }} src={elem.src3} alt="" />
+              </li>
+              <li>
+                <img className="item big2" style={{ order: 3 }} src={elem.src4} alt="" />
+              </li>
+              <li>
+                <img className="item small2" style={{ order: 4 }} src={elem.src5} alt="" />
+              </li>
+            </ul>
+               
+                ))}
+             </>
+        ))}
+              
               <div className="slider-next" />
+
             </div>
+            
             <div className="description">
               <h3 data-index={4}></h3>
               <h3 data-index={3}></h3>
@@ -376,249 +381,255 @@ function AboutUs() {
           </div>
           <div className="home-header"></div>
         </div>
+       
+    
+      </section>
+      <section>
+  
+        <header className="section-header" style={{ paddingBottom: "20px" }}>
+          <h3> | Our Team </h3> 
+          {section3?.map((el, k) => {
+  return (
+  
+    <p style={{ color: "#213764" }}>
+      {el?.content}
+    </p>
+     ) })}
+        
+        </header>
+       
+        {section3?.map((el, k) => {
+  return (
+    <>
+        <Carousel className="d-flex">
+          {!isMobile &&
+            el?.subContent?.map((members) => {
+              return (
+                <Carousel.Item className="d-flex-nowrap">
+                  <div className="container">
+                    <div className="row row1">
+                      {members?.map((m) => {
+                        return (
+                          <div className="col-12 col-sm-6 col-md-4 col-lg-3 cad">
+                            <div className="our-team">
+                              <div className="picture">
+                                <img className="img-fluid" src={m.image} />
+                              </div>
+                              <div className="team-content">
+                                <h3 className="name">{m.name}</h3>
+                                <h4 className="title">{m.role}</h4>
+                              </div>
+                              <ul className="social">
+                                <li>
+                                  <a
+                                    href="https://codepen.io/collection/XdWJOQ/"
+                                    className="fa fa-facebook"
+                                    aria-hidden="true"
+                                  ></a>
+                                </li>
+                                <li>
+                                  <a
+                                    href="https://codepen.io/collection/XdWJOQ/"
+                                    className="fa fa-twitter"
+                                    aria-hidden="true"
+                                  ></a>
+                                </li>
+                                <li>
+                                  <a
+                                    href="https://codepen.io/collection/XdWJOQ/"
+                                    className="fa fa-google-plus"
+                                    aria-hidden="true"
+                                  ></a>
+                                </li>
+                                <li>
+                                  <a
+                                    href="https://codepen.io/collection/XdWJOQ/"
+                                    className="fa fa-linkedin"
+                                    aria-hidden="true"
+                                  ></a>
+                                </li>
+                              </ul>
+                            </div>
+                          </div>
+                        );
+                      })}
+                    </div>
+                  </div>
+                </Carousel.Item>
+              );
+            })}
+
+          {isMobile &&
+            el?.subContent?.flat().map((m) => {
+              return (
+                <Carousel.Item className="d-flex-nowrap">
+                  <div className="container">
+                    <div className="row row1">
+                      <div className="col-12 col-sm-6 col-md-4 col-lg-3 cad">
+                        <div className="our-team">
+                          <div className="picture">
+                            <img className="img-fluid" src={m.image} />
+                          </div>
+                          <div className="team-content">
+                            <h3 className="name">{m.name}</h3>
+                            <h4 className="title">{m.role}</h4>
+                          </div>
+                          <ul className="social">
+                            <li>
+                              <a
+                                href="https://codepen.io/collection/XdWJOQ/"
+                                className="fa fa-facebook"
+                                aria-hidden="true"
+                              ></a>
+                            </li>
+                            <li>
+                              <a
+                                href="https://codepen.io/collection/XdWJOQ/"
+                                className="fa fa-twitter"
+                                aria-hidden="true"
+                              ></a>
+                            </li>
+                            <li>
+                              <a
+                                href="https://codepen.io/collection/XdWJOQ/"
+                                className="fa fa-google-plus"
+                                aria-hidden="true"
+                              ></a>
+                            </li>
+                            <li>
+                              <a
+                                href="https://codepen.io/collection/XdWJOQ/"
+                                className="fa fa-linkedin"
+                                aria-hidden="true"
+                              ></a>
+                            </li>
+                          </ul>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </Carousel.Item>
+              );
+            })}
+        </Carousel>
+        </>
+        );
+          })}
+      
+   
+    
+          
       </section>
 
-      <header className="section-header" style={{ paddingBottom: "20px" }}>
-        <h3> | Our Team </h3>
-        <p style={{ color: "#213764" }}>
-          Our team consists of a group of highly skilled professionals who are
-          passionate about leveraging the power of technology to create digital
-          solutions that propel businesses to new heights. Drawing from our
-          extensive industry expertise and a deep understanding of the
-          ever-evolving digital landscape, we are dedicated to delivering
-          solutions that exceed expectations.
-        </p>
-      </header>
-
-      <Carousel className="d-flex">
-        {!isMobile && membersLists?.map((members) => {
-          return (
-            <Carousel.Item className="d-flex-nowrap">
-              <div className="container">
-                <div className="row row1">
-                  {members?.map((m) => {
-                    return (
-                      <div className="col-12 col-sm-6 col-md-4 col-lg-3 cad">
-                        <div className="our-team">
-                          <div className="picture">
-                            <img className="img-fluid" src={m.image} />
-                          </div>
-                          <div className="team-content">
-                            <h3 className="name">{m.name}</h3>
-                            <h4 className="title">{m.role}</h4>
-                          </div>
-                          <ul className="social">
-                            <li>
-                              <a
-                                href="https://codepen.io/collection/XdWJOQ/"
-                                className="fa fa-facebook"
-                                aria-hidden="true"
-                              ></a>
-                            </li>
-                            <li>
-                              <a
-                                href="https://codepen.io/collection/XdWJOQ/"
-                                className="fa fa-twitter"
-                                aria-hidden="true"
-                              ></a>
-                            </li>
-                            <li>
-                              <a
-                                href="https://codepen.io/collection/XdWJOQ/"
-                                className="fa fa-google-plus"
-                                aria-hidden="true"
-                              ></a>
-                            </li>
-                            <li>
-                              <a
-                                href="https://codepen.io/collection/XdWJOQ/"
-                                className="fa fa-linkedin"
-                                aria-hidden="true"
-                              ></a>
-                            </li>
-                          </ul>
-                        </div>
-                      </div>
-                    );
-                  })}
+      <section className="services" id="services">
+  <div className="container">
+    <header className="section-header">
+      <h3>| Our Websites</h3>
+      {section4?.map((el, i) => {
+        return <p key={i}>{el?.content}</p>;
+      })}
+    </header>
+    {section4?.map((el, i) => {
+      return (
+        <div className="row" style={{ paddingLeft: "52px" }} key={i}>
+          {el?.subContent?.map((elem, j) => {
+            {console.log("elem",elem)}
+            return (
+              <React.Fragment key={j}>
+                <div className="col-md-6 col-lg-4">
+                  <div className="box">
+                    <div className="icon" style={{ background: "#fff" }}>
+                      <i
+                        className="fa fa-briefcase service-icon"
+                        style={{ color: "#1A408C" }}
+                      />
+                    </div>
+                    <h4 className="title">
+                      <a href="">{elem[0].name}</a>
+                     
+                    </h4>
+                    <p className="description">{elem[0].description}</p>
+                  </div>
                 </div>
-              </div>
-            </Carousel.Item>
-          );
-        })}
-
-        {isMobile && membersLists?.flat().map((m) => {
-          return (
-            <Carousel.Item className="d-flex-nowrap">
-              <div className="container">
-                <div className="row row1">
-                      <div className="col-12 col-sm-6 col-md-4 col-lg-3 cad">
-                        <div className="our-team">
-                          <div className="picture">
-                            <img className="img-fluid" src={m.image} />
-                          </div>
-                          <div className="team-content">
-                            <h3 className="name">{m.name}</h3>
-                            <h4 className="title">{m.role}</h4>
-                          </div>
-                          <ul className="social">
-                            <li>
-                              <a
-                                href="https://codepen.io/collection/XdWJOQ/"
-                                className="fa fa-facebook"
-                                aria-hidden="true"
-                              ></a>
-                            </li>
-                            <li>
-                              <a
-                                href="https://codepen.io/collection/XdWJOQ/"
-                                className="fa fa-twitter"
-                                aria-hidden="true"
-                              ></a>
-                            </li>
-                            <li>
-                              <a
-                                href="https://codepen.io/collection/XdWJOQ/"
-                                className="fa fa-google-plus"
-                                aria-hidden="true"
-                              ></a>
-                            </li>
-                            <li>
-                              <a
-                                href="https://codepen.io/collection/XdWJOQ/"
-                                className="fa fa-linkedin"
-                                aria-hidden="true"
-                              ></a>
-                            </li>
-                          </ul>
-                        </div>
-                      </div>
+                <div className="col-md-6 col-lg-4">
+                  <div className="box">
+                    <div className="icon" style={{ background: "#fff" }}>
+                      <i
+                        className="fa fa-clipboard service-icon"
+                        style={{ color: "#1A408C" }}
+                      />
+                    </div>
+                    <h4 className="title">
+                      <a href="">{elem[1].name}</a>
+                    </h4>
+                    <p className="description">{elem[1].description}</p>
+                  </div>
                 </div>
-              </div>
-            </Carousel.Item>
-          );
-        })}
-
-      </Carousel>
-
-      <section className="services " id="services">
-        <div className="container">
-          <header className="section-header">
-            <h3>| Our Websites</h3>
-            <p>
-              At D-Grow, we offer comprehensive digital strategy consulting
-              services. Our experts develop customized strategies aligned with
-              your goals, leveraging the latest trends and technologies. We
-              provide valuable insights through market analysis, consumer
-              behavior, and competitor landscapes. Our commitment to excellence
-              ensures high-quality solutions from concept to execution,
-              exceeding your expectations.
-            </p>
-          </header>
-          <div className="row" style={{ paddingLeft: "52px" }}>
-            <div className="col-md-6 col-lg-4">
-              <div className="box">
-                <div className="icon" style={{ background: "#fff" }}>
-                  <i
-                    className="fa fa-briefcase service-icon"
-                    style={{ color: "#1A408C" }}
-                  />
+                <div className="col-md-6 col-lg-4">
+                  <div className="box">
+                    <div className="icon" style={{ background: "#fff" }}>
+                      <i
+                        className="fa fa-chart-bar service-icon"
+                        style={{ color: "#1A408C" }}
+                      />
+                    </div>
+                    <h4 className="title">
+                      <a href="">{elem[2].name}</a>
+                    </h4>
+                    <p className="description">{elem[2].description}</p>
+                  </div>
                 </div>
-                <h4 className="title">
-                  <a href="">Full Control</a>
-                </h4>
-                <p className="description">
-                  You can make changes anytime, anywhere.
-                </p>
-              </div>
-            </div>
-            <div className="col-md-6 col-lg-4">
-              <div className="box">
-                <div className="icon" style={{ background: "#fff" }}>
-                  <i
-                    className="fa fa-clipboard service-icon"
-                    style={{ color: "#1A408C" }}
-                  />
+                <div className="col-md-6 col-lg-4">
+                  <div className="box">
+                    <div className="icon" style={{ background: "#fff" }}>
+                      <i
+                        className="fa fa-binoculars service-icon"
+                        style={{ color: "#1A408C" }}
+                      />
+                    </div>
+                    <h4 className="title">
+                      <a href="">{elem[3].name}</a>
+                    </h4>
+                    <p className="description">{elem[3].description}</p>
+                  </div>
                 </div>
-                <h4 className="title">
-                  <a href="">Mobile Responsiveness</a>
-                </h4>
-                <p className="description">
-                  Your website will look great on mobile, tablet, and desktop.
-                </p>
-              </div>
-            </div>
-            <div className="col-md-6 col-lg-4">
-              <div className="box">
-                <div className="icon" style={{ background: "#fff" }}>
-                  <i
-                    className="fa fa-chart-bar service-icon"
-                    style={{ color: "#1A408C" }}
-                  />
+                <div className="col-md-6 col-lg-4">
+                  <div className="box">
+                    <div className="icon" style={{ background: "#fff" }}>
+                      <i
+                        className="fa fa-cog service-icon"
+                        style={{ color: "#1A408C" }}
+                      />
+                    </div>
+                    <h4 className="title">
+                      <a href="">{elem[4].name}</a>
+                    </h4>
+                    <p className="description">{elem[4].description}</p>
+                  </div>
                 </div>
-                <h4 className="title">
-                  <a href="">Gorgeous Design</a>
-                </h4>
-                <p className="description">
-                  Beautiful, sleek design tailored to you and your business.
-                </p>
-              </div>
-            </div>
-
-            <div className="col-md-6 col-lg-4">
-              <div className="box">
-                <div className="icon" style={{ background: "#fff" }}>
-                  <i
-                    className="fa fa-binoculars service-icon"
-                    style={{ color: "#1A408C" }}
-                  />
+                <div className="col-md-6 col-lg-4">
+                  <div className="box">
+                    <div className="icon" style={{ background: "#fff" }}>
+                      <i
+                        className="fa fa-calendar-alt service-icon"
+                        style={{ color: "#1A408C" }}
+                      />
+                    </div>
+                    <h4 className="title">
+                      <a href="">{elem[5].name}</a>
+                    </h4>
+                    <p className="description">{elem[5].description}</p>
+                  </div>
                 </div>
-                <h4 className="title">
-                  <a href="">Friendly Support</a>
-                </h4>
-                <p className="description">
-                  Our staff is always happy to help, even after your website has
-                  been delivered!
-                </p>
-              </div>
-            </div>
-            <div className="col-md-6 col-lg-4">
-              <div className="box">
-                <div className="icon" style={{ background: "#fff" }}>
-                  <i
-                    className="fa fa-cog service-icon"
-                    style={{ color: "#1A408C" }}
-                  />
-                </div>
-                <h4 className="title">
-                  <a href="">Strategized Advertising</a>
-                </h4>
-                <p className="description">
-                  Get your website featured on top searches to be chosen ahead
-                  of competitors.
-                </p>
-              </div>
-            </div>
-            <div className="col-md-6 col-lg-4">
-              <div className="box">
-                <div className="icon" style={{ background: "#fff" }}>
-                  <i
-                    className="fa fa-calendar-alt service-icon"
-                    style={{ color: "#1A408C" }}
-                  />
-                </div>
-                <h4 className="title">
-                  <a href="">SEO</a>
-                </h4>
-                <p className="description">
-                  Rank high on search engine results to increase your visitors –
-                  and customers!
-                </p>
-              </div>
-            </div>
-          </div>
+              </React.Fragment>
+            );
+          })}
         </div>
-      </section>
+      );
+    })}
+  </div>
+</section>
+
 
       <section className="aboutus" id="aboutus">
         <div className="container">
@@ -628,31 +639,18 @@ function AboutUs() {
               style={{ paddingTop: "-30px", width: " 1320px" }}
             >
               <h2 style={{ color: "#213764", textAlign: "center" }}>D-Grow</h2>
+              {section5?.map((el, i) => (
+                
               <p style={{ color: "#213764", textAlign: "center" }}>
-                D-Grow, an industry-leading provider of innovative digital
-                solutions, stands at the forefront of revolutionizing the way
-                businesses interact with the digital world. With our unwavering
-                commitment to excellence, we specialize in crafting exceptional
-                websites and mobile applications that redefine user experiences.
-                <br />
-                When it comes to mobile application development, we pride
-                ourselves on our ability to transform ideas into captivating and
-                feature-rich applications. Whether it's creating a user-friendly
-                interface, implementing complex functionalities, or optimizing
-                performance across various devices, our team excels in crafting
-                mobile applications that stand out from the competition In the
-                realm of web development, we strive to build websites that leave
-                a lasting impression. We go beyond just aesthetics and focus on
-                developing websites that seamlessly blend visual appeal with
-                intuitive navigation and robust functionality. Our approach
-                ensures that every website we create not only captures attention
-                but also delivers a smooth and engaging user experience.
+                {el?.content}
               </p>
+              ))
+              }
             </div>
           </div>
         </div>
       </section>
-      <div>
+      {/* <div>
         <Marquee autoFill={true}>
           <section>
             <div className="container">
@@ -697,7 +695,7 @@ function AboutUs() {
             </section>
           </Marquee>
         </div>
-      </div>
+      </div> */}
     </div>
   );
 }

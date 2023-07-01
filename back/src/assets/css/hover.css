@@ -1,0 +1,12 @@
+.hover-underline-transition-line {
+  position: absolute !important;
+  width: 0px !important;
+  height: 1px !important;
+  /* transition: width 1s linear !important; */
+  background-color: red;
+  bottom: 0px !important;
+  left: 0px !important;
+}
+.hover-underline-transition:hover .hover-underline-transition-line {
+  width: 100% !important;
+}
