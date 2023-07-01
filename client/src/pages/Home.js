@@ -1,4 +1,4 @@
-import React  from "react";
+import React, { useEffect ,useState}  from "react";
 import { useNavigate } from "react-router-dom";
 import dev from "../constants/dev.json";
 import plan from "../constants/plan.json";
@@ -7,9 +7,13 @@ import Marquee from "react-fast-marquee";
 import sliderPartners from "../components/aboutsliderdata.js";
 import DisplayLottie from "../constants/DisplayLottie";
 import Carousel from "react-bootstrap/Carousel";
-
+import axios from "axios";
+import config from "../configs";
 function Home() {
   const navigate = useNavigate();
+  const [section1p, setSection1p] = useState(null);
+  const [section1I, setSection1I] = useState(null);
+
   const services = [
     {
       image:
@@ -32,6 +36,22 @@ function Home() {
   ];
  
 
+
+  useEffect(()=>{
+    axios
+    .get(`${config.API_ENDPOINT}/website-settings/by-title/HomePage`)
+    .then((res) =>{
+      setSection1p(
+        // res.data?.SubComponent[0].ContentSubComponent.filter((elem) => elem.title === "paragraph")
+   
+        )
+      setSection1I(
+            //  res.data?.SubComponent[0].ContentSubComponent.filter((elem) => elem.title === "image")
+      )
+     
+    })
+  });
+  // console.log("paragraph", section1[0].content);
   return (
     <div className="bg-light">
      {/* PART 1 */}
@@ -92,11 +112,12 @@ function Home() {
                 Transforming Businesses with Exquisite Websites and Powerful
                 Mobile Applications <br />{" "}
               </h4>
+              {section1p?.map((elem, i) => (
               <p>
-                we pride ourselves on delivering high-quality solutions that
-                combine cutting-edge technology, aesthetic design, and
-                user-centric functionality.
+                 {elem?.content}
               </p>
+              ))
+            }
               <button
                 type="button"
                 class="btn mt-5"
@@ -113,6 +134,7 @@ function Home() {
             </div>
 
             <div className="col-lg-6 ">
+              
               <DisplayLottie animationData={plan} style={{ width: "500px" }} />
             </div>
           </div>
