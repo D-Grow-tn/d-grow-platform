@@ -4,7 +4,7 @@ import CastomCard from "../components/CastomCard";
 import { fetchProduct } from "../store/products";
 import { useDispatch, useSelector } from "react-redux";
 import DisplayLottie from "../constants/DisplayLottie";
-import service from "../constants/service.json"
+// import imgabout from "../constants/imgabout.json";
 import CastomContent from "../components/CastomContent";
 
 

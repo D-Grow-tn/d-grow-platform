@@ -69,6 +69,7 @@ export class ProjectsService {
     return await this.prisma.project.findUnique({
       where: { id },
       include: {
+        team:{include:{teamMembership:{include:{employee:true}}}},
         objective: { include: { subobjective: true, Stage: true } },
         projectManager: true,
         consultant: true,
@@ -82,6 +83,20 @@ export class ProjectsService {
     return await this.prisma.project.findMany({
       where: { clientId },
       include: { cover: true },
+    });
+  }
+  // PM = ProjectManager
+  async findAllByPM(projectManagerId: string) {
+    return await this.prisma.project.findMany({
+      where: { projectManagerId },
+      include : 
+      {
+        projectManager: true,
+        consultant: true,
+        client: true,
+      }
+
+    
     });
   }
 

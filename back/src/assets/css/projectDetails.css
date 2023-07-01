@@ -1,0 +1,82 @@
+
+
+/* .objective {
+   
+  } */
+  
+  .objective.active {
+    /* styles for the active/selected objective */
+    background-color: blue;
+    color: white;
+    /* additional styles */
+  }
+  .rotate {
+    transform: rotate(180deg); 
+  }
+  
+ .team-area {
+  display: grid;
+
+ }
+ .section-title h1{
+  font-size: 32px;
+  text-align: center;
+  margin-bottom: 0;
+ }
+ .team-box{
+  display: inline-flex;
+ }
+ .box{
+  width: 280px;
+  /* margin: 20px; */
+  padding: 30px 10px;
+  background: #ececec;
+  text-align: center;
+  border-radius: 5px;
+  /* overflow: hidden; */
+  box-shadow: 10px 10px 15px #c7c4c4, -10px -10px 15px #fff;
+ }
+ .box img{
+  width: 200px;
+  height: 220px;
+  border-radius: 100%;
+  padding: 5px;
+  margin-bottom: 10px;
+  border: 2px solid #dee2e6;
+  /* backface-visibility: hidden; */
+  transition: all .5s ease-in-out;
+ }
+ .box:hover img{
+  transform: scale(1.2);
+ }
+ .box h2{
+  font-size: 20px;
+  line-height: 3;
+  margin-bottom: 0;
+ }
+ .box span {
+  font-size: 14px;
+  display: block;
+  font-style: italic;
+  margin-bottom: 25px;
+
+ }
+ .modal-dialog {
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  margin: auto !important;
+  height: 100%;
+  width: 100% !important;
+ }
+
+.modal-content{
+  height: 100%;
+}
+
+ @media(max-width:767px ){
+  .team-box{
+    display: block;
+  }
+ }
+ 

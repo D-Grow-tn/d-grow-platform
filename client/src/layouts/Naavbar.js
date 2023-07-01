@@ -29,13 +29,19 @@ function Naavbar() {
       .then((res) => {
         setLeft(
           res.data?.SubComponent.filter((elem) => elem.position === "left")[0]
-        );
+          
+          
+          );
+          
         setMiddle(
           res.data?.SubComponent.filter((elem) => elem.position === "middle")[0]
         );
+        
+        
       });
   }, []);
-  // console.log(middle?.ContentSubComponent);
+ 
+  console.log(middle?.ContentSubComponent);
 
   return (
     <Navbar
