@@ -42,7 +42,7 @@ import Role from "./../domains/role/Role";
 import RoleList from "./../domains/role/views/RoleList";
 import CreateRole from "./../domains/role/views/CreateRole";
 import EditRole from "./../domains/role/views/EditRole";
-
+import Mains from "../domains/Main/Main"
 import ValidateCode from "../pages/ValidateCode";
 import NewPassword from "../pages/NewPassword";
 import User from "../domains/users/User";
@@ -60,6 +60,17 @@ import Request from "../domains/request/Request";
 import { useDispatch, useSelector } from "react-redux";
 import { me } from "../store/auth";
 import AuthAdmin from "../apps/AuthAdmin";
+import MainList from "../domains/Main/views/MainList";
+import CreateMain from "../domains/Main/views/CreateMain";
+import OneMain from "../domains/Main/views/OneMain";
+import SubComponet from "../domains/SubComponet/SubComponet";
+import SubComponetList from "../domains/SubComponet/views/SubComponetList";
+import CreateSubCompont from "../domains/SubComponet/views/CreateSubCompont";
+import OneSubComponet from "../domains/SubComponet/views/OneSubComponet";
+import ContentSubComponent from "../domains/contentSubComponent/ContentSubComponent";
+import ContentSubComponentList from "../domains/contentSubComponent/views/ContentSubComponentList";
+import CreateContentSubComponent from "../domains/contentSubComponent/views/CreateContentSubComponent";
+import OneContentSubComponent from "../domains/contentSubComponent/views/OneContentSubComponent";
 
 
 function Router() {
@@ -126,11 +137,12 @@ function Router() {
                 <Route path="create" element={<CreateClient />} />
                 <Route path="one/:clientId" element={<EditClient />} />
               </Route>
-
+              
               <Route path="project" element={<Project />}>
                 <Route index element={<ProjectList />} />
                 <Route path="create" element={<CreateProject />} />
                 <Route path="edit/:projectId" element={<EditProject />} />
+                <Route path="one/:projectId" element={<EditProject />} />
               </Route>
 
               <Route path="decision" element={<Decision />}>
@@ -154,7 +166,23 @@ function Router() {
                 <Route path="create" element={<CreateRequest />} />
                 <Route path="edit/:requestId" element={<EditRequest />} />
               </Route>
+              <Route path="mains" element={<Mains />}>
+                <Route index element={<MainList />} />
+                <Route path="create" element={<CreateMain />} />
+                <Route path="one/:mainId" element={<OneMain />} />
+              </Route>
+              <Route path="subcomponet" element={<SubComponet />}>
+                <Route index element={<SubComponetList />} />
+                <Route path="createSub" element={<CreateSubCompont />} />
+                <Route path="one/:subcomponetId" element={<OneSubComponet />} />
+              </Route>
+              <Route path="contentsubcomponet" element={<ContentSubComponent />}>
+                <Route index element={<ContentSubComponentList />} />
+                <Route path="create" element={<CreateContentSubComponent />} />
+                <Route path="one/:contentsubcomponetId" element={<OneContentSubComponent />} />
+              </Route>
             </Route>
+            
           )}
           {!user && (
             <Route path="/" element={<AuthAdmin />}>

@@ -22,7 +22,8 @@ function CreateDecision() {
   
   const handleChange = (e) => {
     const { name, value } = e.target;
-    setDecision((Decision) => ({ ...Decision, [name]: value }));
+    setDecision((decision) => ({ ...decision, [name]: value }));
+    console.log(decision,"mmmmmmm");
   };
   
   const onSubmit = (e) => {
@@ -42,6 +43,8 @@ function CreateDecision() {
       }
     });
   };
+  const id = decisions[0]?.DecisionApply[0].employeeId
+  console.log(decisions,"decisions")
   useEffect(() => {
     setInputs([
       {
@@ -59,23 +62,21 @@ function CreateDecision() {
         name: "DecisionApply",
         width: 500,
         required: true,
-         valueLabel: "id",
+        valueLabel: "id",
         optionLabel: "label",
         options: employees.map((employee) => ({ label: employee.name, value: employee.id })),
-        value: (decisions[0]?.DecisionApply?.employeeId) || "",
-   
-       
+        value: (decisions[0]?.DecisionApply[0].employeeId) || "",
+        
         onChange: (value) => {
-      console.log("valueeee",value);
+          
+          
        
-          setDecision((Decision) => ({ ...Decision, employeeId: value }));
+          setDecision((Decision) => ({ ...Decision, decisionApplyIds: [id] }));
+          console.log("id",id);
         },
       },
     ])}, [decisions]);
-  
-   
-  
-
+    console.log(employees,"employees")
 
   
   const buttons = [

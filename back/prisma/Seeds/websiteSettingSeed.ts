@@ -30,7 +30,7 @@ export const websiteSettingsSeed = async (prisma: PrismaClient) => {
   let aboutPage = await prisma.mainComponent.create({
     data: {
       title: 'AboutPage',
-      path: '/about',
+      path: '/about-us',
       type: 'page',
     },
   });
@@ -431,7 +431,7 @@ let data4 = await prisma.contentSubComponent.create({
   //create content sub component Middle Header
   let contents = [
     { name: 'Home', path: '/', type: 'button' },
-    { name: 'About', path: '/aboutus', type: 'button' },
+    { name: 'About', path: '/about-us', type: 'button' },
     { name: 'Contact', path: '/contact', type: 'button' },
     {
       type: 'select',

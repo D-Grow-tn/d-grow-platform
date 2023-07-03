@@ -7,10 +7,10 @@ import project from "./projects";
 import event from "./event";
 
 import decision from "./decision";
-
+import main from "./main";
 import user from "./users";
-
-
+import subComponet from "./subComponet";
+import contentsubcomponet from "./contentsubcomponet";
 export const store = configureStore({
   reducer: {
     auth,
@@ -19,11 +19,12 @@ export const store = configureStore({
     request,
     project,
     event,
-
+    main,
     decision,
 
     user,
-
+    subComponet,
+    contentsubcomponet,
   },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware({

@@ -20,7 +20,11 @@ export class MainComponentsService {
 
  async findOne(id: string) {
     return await this.prisma.mainComponent.findFirst({
-      where:{id,}
+      where:{id,},
+      include:{
+        SubComponent:true
+      }
+
     });
   }
  async findOneByTitle(title: string) {
