@@ -47,6 +47,18 @@ export const removeProject = createAsyncThunk(
       return response.data;
     }
   );
+  export const updateProject = createAsyncThunk(
+    "projects/updateProject",
+    async ({ projectId, ...body }, { dispatch }) => {
+      console.log(body,'body')
+      const response = await axios.patch(
+        `${config.API_ENDPOINT}/projects/${projectId}`,
+        body
+      );
+      dispatch(fetchProject(response.data.id));
+      return response.data;
+    }
+  );
 
   export const projectSlice = createSlice({
     name: "project",

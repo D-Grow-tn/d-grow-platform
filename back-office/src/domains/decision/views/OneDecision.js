@@ -6,6 +6,7 @@ import { useParams } from "react-router-dom";
 import { fetchDecision, updateDecision } from "../../../store/decision";
 import { showErrorToast, showSuccessToast } from "../../../utils/toast";
 import { fetchEmployees } from "../../../store/employees";
+import { useNavigate } from "react-router-dom";
 
 function OneDecision() {
   const dispatch = useDispatch();
@@ -15,6 +16,7 @@ function OneDecision() {
   const [readOnly, setReadOnly] = useState(true);
   const [auxDecision, setAuxDecision] = useState(null);
   const [inputs, setInputs] = useState([]);
+  const navigate = useNavigate()
 
   useEffect(() => {
     dispatch(fetchDecision(decisionId));
@@ -24,12 +26,13 @@ function OneDecision() {
   useEffect(() => {
     setAuxDecision(decision);
   }, [decision]);
+  console.log(auxDecision,"auxDecision")
 
   useEffect(() => {
     setInputs([
       {
-        field: "content",
         label: "Content",
+        name:"content",
         required: true,
         value: auxDecision?.content,
         width: 700,
@@ -45,7 +48,7 @@ function OneDecision() {
         valueLabel: "id",
         width:500,
         
-        value: auxDecision?.DecisionApply[0].employee?.name,
+        value: (auxDecision?.DecisionApply[0].employeeId),
         onChange: (value) => {
          setAuxDecision((decision) => ({ ...decision, employeeId: value }));
         },
@@ -53,7 +56,8 @@ function OneDecision() {
       }
     ]);
   }, [auxDecision]);
-
+  console.log(auxDecision?.DecisionApply[0].employeeId,"auxdecisions")
+ 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
     setAuxDecision((prevState) => ({
@@ -66,12 +70,16 @@ function OneDecision() {
   const onSubmit = (e) => {
     e.preventDefault();
     console.log(auxDecision);
+    const { employeeId,decisionId } = auxDecision.DecisionApply[0];
     const { content } = auxDecision;
-    dispatch(updateDecision({ content, decisionId })).then(
+    const decisionApplyIds = [employeeId]
+    console.log(employeeId,"02")
+    dispatch(updateDecision({decisionApplyIds,content,decisionId})).then(
       (result) => {
         if (!result.error) {
           showSuccessToast("Decision has been updated");
           setReadOnly(true);
+          navigate(`/decision`);
         } else {
           showErrorToast(result.error.message);
         }

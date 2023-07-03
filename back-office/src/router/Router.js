@@ -131,6 +131,7 @@ function Router() {
                 <Route index element={<ProjectList />} />
                 <Route path="create" element={<CreateProject />} />
                 <Route path="edit/:projectId" element={<EditProject />} />
+                <Route path="one/:projectId" element={<EditProject />} />
               </Route>
 
               <Route path="decision" element={<Decision />}>
