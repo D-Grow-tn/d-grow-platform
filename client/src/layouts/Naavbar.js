@@ -13,6 +13,7 @@ function Naavbar() {
   const [scroll, setScroll] = useState(0);
   // const navigate = useNavigate();
   const [left, setLeft] = useState(null);
+
   const [middle, setMiddle] = useState(null);
   const [right, setRight] = useState(null);
 

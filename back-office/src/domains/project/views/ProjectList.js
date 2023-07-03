@@ -39,7 +39,7 @@ function ProjectList() {
   }, [projects]);
 
   const handleUpdate = (id) => {
-    navigate("one/" + id);
+    navigate("edit/" + id);
   };
   
   const openPopup = (select) => {

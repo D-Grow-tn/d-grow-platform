@@ -20,6 +20,7 @@ function CreateEmployee() {
 
 
 
+
   useEffect(() => {
     dispatch(fetchEmployees());
     
@@ -103,6 +104,7 @@ function CreateEmployee() {
   const handleChange = (e) => {
     const { name, value } = e.target;
     setEmployee((Employee) => ({ ...Employee, [name]: value }));
+    console.log(Employee,"===hhhhhh======");
   };
 
   const onSubmit = (e) => {

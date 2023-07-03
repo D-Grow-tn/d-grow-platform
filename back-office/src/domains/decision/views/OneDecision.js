@@ -15,6 +15,7 @@ function OneDecision() {
   const employees = useSelector((state) => state.employee.employees.items);
   const [readOnly, setReadOnly] = useState(true);
   const [auxDecision, setAuxDecision] = useState(null);
+  console.log("🚀 ~ file: OneDecision.js:17 ~ OneDecision ~ auxDecision:", auxDecision)
   const [inputs, setInputs] = useState([]);
   const navigate = useNavigate()
 
@@ -50,7 +51,7 @@ function OneDecision() {
         
         value: (auxDecision?.DecisionApply[0].employeeId),
         onChange: (value) => {
-         setAuxDecision((decision) => ({ ...decision, employeeId: value }));
+         setAuxDecision((decision) => ({ ...decision, decisionApplyIds: [value] }));
         },
 
       }
@@ -64,7 +65,7 @@ function OneDecision() {
       ...prevState,
       [name]: value,
     }));
-    console.log("teeeest", auxDecision);
+    console.log("teeeest", auxDecision.DecisionApply.decisionId);
   };
 
   const onSubmit = (e) => {

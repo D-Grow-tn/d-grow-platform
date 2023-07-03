@@ -20,7 +20,10 @@ export class SubComponentsService {
 
  async findOne(id: string) {
     return await this.prisma.subComponent.findFirst({
-      where:{id}
+      where:{id},
+      include:{
+        ContentSubComponent:true
+      }
     });
   }
 

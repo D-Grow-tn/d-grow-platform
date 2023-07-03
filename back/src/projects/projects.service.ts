@@ -122,6 +122,10 @@ export class ProjectsService {
         }}
       })
     })
+    // return await this.prisma.project.update({
+    //       where: {id},
+    //       data:data
+    // })
   }
 
   async remove(id: string) {
