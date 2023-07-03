@@ -31,7 +31,7 @@ export class BehaviorsService {
 
   async findAllByReceiver(receiverId: string) {
     return await this.prisma.behavior.findMany({
-      // where: { receiverId },
+      where: { receiverId },
     });
   }
 
