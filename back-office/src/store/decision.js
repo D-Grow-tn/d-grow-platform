@@ -13,6 +13,7 @@ export const fetchDecisions = createAsyncThunk(
 export const createDecision = createAsyncThunk(
   "decision/create",
   async (body, { dispatch }) => {
+    console.log(body,"-------------");
     const response = await axios.post(`${config.API_ENDPOINT}/Decisions`, body);
     dispatch(fetchDecisions());
     console.log("decisionNNNN", response.data);
@@ -43,10 +44,11 @@ export const fetchDecisionByEmployee = createAsyncThunk(
 
 export const updateDecision = createAsyncThunk(
   "decisions/Update",
-  async (form) => {
-    const { decisionId, ...rest } = form;
-    await axios.patch(`${config.API_ENDPOINT}/Decisions/${decisionId}`, {
-      ...rest,
+  async ({content,DecisionApply,employeeId}) => {
+    console.log(content,DecisionApply,employeeId,'======');
+   
+    await axios.patch(`${config.API_ENDPOINT}/Decisions/${DecisionApply[0].decisionId}`, {
+      content,employeeId
     });
 
     const updatedDecisionResponse = await axios.get(

@@ -14,6 +14,7 @@ function OneDecision() {
   const employees = useSelector((state) => state.employee.employees.items);
   const [readOnly, setReadOnly] = useState(true);
   const [auxDecision, setAuxDecision] = useState(null);
+  console.log("🚀 ~ file: OneDecision.js:17 ~ OneDecision ~ auxDecision:", auxDecision)
   const [inputs, setInputs] = useState([]);
 
   useEffect(() => {
@@ -28,8 +29,9 @@ function OneDecision() {
   useEffect(() => {
     setInputs([
       {
-        field: "content",
+
         label: "Content",
+        name:"content",
         required: true,
         value: auxDecision?.content,
         width: 700,
@@ -47,7 +49,7 @@ function OneDecision() {
         
         value: auxDecision?.DecisionApply[0].employee?.name,
         onChange: (value) => {
-         setAuxDecision((decision) => ({ ...decision, employeeId: value }));
+         setAuxDecision((decision) => ({ ...decision, decisionApplyIds: [value] }));
         },
 
       }
@@ -60,14 +62,16 @@ function OneDecision() {
       ...prevState,
       [name]: value,
     }));
-    console.log("teeeest", auxDecision);
+    console.log("teeeest", auxDecision.DecisionApply.decisionId);
   };
 
   const onSubmit = (e) => {
     e.preventDefault();
-    console.log(auxDecision);
-    const { content } = auxDecision;
-    dispatch(updateDecision({ content, decisionId })).then(
+    console.log(auxDecision?.DecisionApply);
+    const { content ,DecisionApply} = auxDecision;
+    const employeeId = auxDecision.DecisionApply[0].employeeId
+
+    dispatch(updateDecision({content,DecisionApply,employeeId})).then(
       (result) => {
         if (!result.error) {
           showSuccessToast("Decision has been updated");

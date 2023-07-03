@@ -2,74 +2,105 @@ import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
 import config from "../configs";
 
-export const fetchProjects = createAsyncThunk(
-  "projects/projects",
-  async () => {
-    const response = await axios.get(`${config.API_ENDPOINT}/projects`);
-    console.log('====================================');
-    console.log(response.data,'wayou');
-    console.log('====================================');
+export const fetchProjects = createAsyncThunk("projects/projects", async () => {
+  const response = await axios.get(`${config.API_ENDPOINT}/projects`);
+  console.log("====================================");
+  console.log(response.data, "wayou");
+  console.log("====================================");
+  return response.data;
+});
+
+export const fetchProject = createAsyncThunk(
+  "projects/oneProject",
+  async (id) => {
+    const response = await axios.get(`${config.API_ENDPOINT}/projects/${id}`);
+    console.log("res", response.data);
     return response.data;
   }
 );
 
-export const fetchProject = createAsyncThunk("projects/oneProject", async (id) => {
-  const response = await axios.get(`${config.API_ENDPOINT}/projects/${id}`);
-  console.log("res",response.data);
-  return response.data;
-});
+export const createProject = createAsyncThunk(
+  "projects/createProject",
+  async (body, { dispatch }) => {
+    console.log(body, "body");
+    const response = await axios.post(`${config.API_ENDPOINT}/projects`, body);
+    dispatch(fetchProject(response.data));
+    console.log("event from store", response.data);
+    return response.data;
+  }
+);
 
-export const fetchProjectByPM = createAsyncThunk("projects/project", async (id) => {
-  const response = await axios.get(`${config.API_ENDPOINT}/projects/by_projectManager/${id}`);
-  return response.data;
-  
-  });
- 
+export const fetchProjectByPM = createAsyncThunk(
+  "projects/project",
+  async (id) => {
+    const response = await axios.get(
+      `${config.API_ENDPOINT}/projects/by_projectManager/${id}`
+    );
+    return response.data;
+  }
+);
+
 export const removeProject = createAsyncThunk(
-    "decisions/deleteProject",
-    async (id, { dispatch }) => {
-      let token = JSON.parse(localStorage.getItem("tokenAdmin"));
-      const configs = {
-        headers: {
-          Authorization: "Bearer " + token.Authorization,
-        },
-      };
-      const response = await axios.delete(
-        `${config.API_ENDPOINT}/projects/${id}`,
-        configs
-      );
-      dispatch(fetchProjects());
-      return response.data;
-    }
-  );
+  "projects/deleteProject",
+  async (id, { dispatch }) => {
+    const response = await axios.delete(
+      `${config.API_ENDPOINT}/projects/${id}`
+    );
+    dispatch(fetchProjects());
+    return response.data;
+  }
+);
+export const updateProject = createAsyncThunk(
+  "projects/updateProject",
+  async ({id,...body}, { dispatch }) => {
+    console.log("🚀 ~ file: projects.js:56 ~ body:", body)
+    // const {
+    //   name,
+    //   description,
+    //   duration,
+    //   client,
+    //   startAt,
+    //   endAt,
+    //   status,
+    //   projectManager,
+    //   consultant,
 
-  export const projectSlice = createSlice({
-    name: "project",
-    initialState: {
-      project:null,
-       projects: {
-        items: [],
-       
-      },
-      error: null,
-      deleteError: null,
-      saveError: null,
-      createProjectError: null,
+    // } = body;
+    const response = await axios.patch(
+      `${config.API_ENDPOINT}/projects/${id}`,
+     body
+    );
+    dispatch(fetchProjects());
+    return response.data;
+  }
+);
+
+export const projectSlice = createSlice({
+  name: "project",
+  initialState: {
+    project: null,
+    projects: {
+      items: [],
     },
+    error: null,
+    deleteError: null,
+    saveError: null,
+    createProjectError: null,
+  },
 
-    reducers: {},
+  reducers: {},
 
-    extraReducers(builder) {
-      // builder.addCase(fetchProjects.fulfilled, (state, action) => {
-      //   state.projects.items = action.payload;   
-      // });
-      builder.addCase(fetchProject.fulfilled, (state, action) => {
-        state.project = action.payload;
-      });
+  extraReducers(builder) {
+    // builder.addCase(fetchProjects.fulfilled, (state, action) => {
+    //   state.projects.items = action.payload;
+    // });
+    builder.addCase(fetchProject.fulfilled, (state, action) => {
+      state.project = action.payload;
+    });
 
-      builder.addCase(fetchProjectByPM.fulfilled, (state, action) => {
-        state.projects.items = action.payload;
-      });
-    },
-  });
-  export default projectSlice.reducer;
+    builder.addCase(fetchProjectByPM.fulfilled, (state, action) => {
+      state.projects.items = action.payload;
+    });
+  },
+});
+export default projectSlice.reducer;
