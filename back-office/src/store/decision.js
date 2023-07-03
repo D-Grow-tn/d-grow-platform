@@ -6,14 +6,16 @@ export const fetchDecisions = createAsyncThunk(
   "decisions/decisions",
   async () => {
     const response = await axios.get(`${config.API_ENDPOINT}/Decisions`);
+    console.log(response,"response")
     return response.data;
   }
+  
 );
 
 export const createDecision = createAsyncThunk(
   "decision/create",
   async (body, { dispatch }) => {
-    console.log(body,"-------------");
+    console.log(body,"body")
     const response = await axios.post(`${config.API_ENDPOINT}/Decisions`, body);
     dispatch(fetchDecisions());
     console.log("decisionNNNN", response.data);
@@ -44,11 +46,12 @@ export const fetchDecisionByEmployee = createAsyncThunk(
 
 export const updateDecision = createAsyncThunk(
   "decisions/Update",
-  async ({content,DecisionApply,employeeId}) => {
-    console.log(content,DecisionApply,employeeId,'======');
-   
-    await axios.patch(`${config.API_ENDPOINT}/Decisions/${DecisionApply[0].decisionId}`, {
-      content,employeeId
+  async (form) => {
+    console.log(form,"form")
+    const { decisionId, content,decisionApplyIds } = form
+    await axios.patch(`${config.API_ENDPOINT}/Decisions/${decisionId}`, {
+      content,
+      decisionApplyIds
     });
 
     const updatedDecisionResponse = await axios.get(
@@ -62,15 +65,10 @@ export const updateDecision = createAsyncThunk(
 export const removeDecision = createAsyncThunk(
   "decisions/deleteDecision",
   async (id, { dispatch }) => {
-    let token = JSON.parse(localStorage.getItem("tokenAdmin"));
-    const configs = {
-      headers: {
-        Authorization: "Bearer " + token.Authorization,
-      },
-    };
+    
     const response = await axios.delete(
       `${config.API_ENDPOINT}/Decisions/${id}`,
-      configs
+      
     );
     dispatch(fetchDecisions());
     return response.data;

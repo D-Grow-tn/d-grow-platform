@@ -1,0 +1,39 @@
+.carousel-image {
+    width: 50%;
+    height: 300px; /* Adjust the height as per your requirement */
+    /* object-fit: cover; */
+  }
+  /* ApplicationDetails.css */
+
+.description {
+    /* margin-top: 20px; */
+    font-size: 18px;
+    color: #333;
+  }
+  .description-box {
+    background-color: #DAEAF0;
+    border: 1px solid #ccc;
+    padding: 10px;
+    border-radius: 5px;
+    margin-top: 20px;
+    text-align: center;
+    max-width: 60rem;
+    
+  }
+  .description-box h1 {
+    margin-top: 0;
+    font-weight: bold;
+  }
+  
+  .description-box p {
+    margin: 0;
+  }
+  .container-box{
+    background-color: #f0f0f0;
+    border: 1px solid #ccc;
+
+
+
+
+  }
+  

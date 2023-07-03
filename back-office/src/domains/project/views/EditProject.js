@@ -1,122 +1,135 @@
-import React, { useEffect, useState } from 'react'
-import HeaderPage from '../../../components/HeaderPage'
+import React, { useEffect, useState } from "react";
+import Form from "../../../components/Form";
+import HeaderPage from "../../../components/HeaderPage";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams, useNavigate } from "react-router-dom";
-import { fetchProject, updateProject } from '../../../store/projects';
-import { showErrorToast, showSuccessToast } from '../../../utils/toast';
-import Form from '../../../components/Form';
-function EditProject() {
-  const dispatch = useDispatch();
-  const { projectId } = useParams();
-  const project = useSelector((state) => state?.project?.project);
+import { fetchProject, updateProject } from "../../../store/projects";
+import { showErrorToast, showSuccessToast } from "../../../utils/toast";
+import { fetchEmployees } from "../../../store/employees";
+import { fetchClients } from "../../../store/client";
 
-  const [inputs, setInputs] = useState([]);
-  const [show, setShow] = useState(false);
+function EditProject() {
+  const { projectId } = useParams();
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+  const project = useSelector((state) => state.project.project);
+  const employees = useSelector((state) => state.employee.employees.items);
+  const clients = useSelector((state) => state.client.clients.items);
   const [readOnly, setReadOnly] = useState(true);
-  const [aux, setAux] = useState(null)
-  console.log("🚀 ~ file: EditProject.js:17 ~ EditProject ~ aux:", aux)
+  const [auxProject, setAuxProject] = useState(null);
+  const [inputs, setInputs] = useState([]);
 
   useEffect(() => {
     dispatch(fetchProject(projectId));
+    dispatch(fetchEmployees());
+    dispatch(fetchClients());
   }, [dispatch]);
+
   useEffect(() => {
-    setAux(project);
+    setAuxProject(project);
   }, [project]);
+  console.log(auxProject,'auxproject')
   useEffect(() => {
     setInputs([
       {
         name: "name",
         label: "Name",
         required: true,
-        value: aux?.name,
+        value: auxProject?.name,
       },
       {
         name: "description",
         label: "Description",
         required: true,
-        value: aux?.description,
+        value: auxProject?.description,
       },
       {
         name: "duration",
         label: "Duration",
         required: true,
-        value: aux?.duration,
-      },
-      // {
-      //   name: "client",
-      //   label: "Client",
-      //   required: true,
-      //   value: aux?.client,
-      // },
-      {
-        name: "startAt",
-        label: "startAt",
-        required: true,
-        value: aux?.startAt,
-      },
-        {
-        name: "endAt",
-        label: "endAt",
-        required: true,
-        value: aux?.startAt,
+        value: auxProject?.duration,
       },
       {
         name: "status",
         label: "Status",
         required: true,
-        value: aux?.status,
+        value: auxProject?.status,
       },
-      // {
-      //   name: "projectManager",
-      //   label: "ProjectManager",
-      //   required: true,
-      //   value: aux?.projectManager,
-      // },
       {
-        name: "consultant",
-        label: "Consultant",
+        name: "startAt",
+        label: "Start At",
         required: true,
-        value: aux?.consultant?.name,
+        value: auxProject?.startAt,
       },
-  
+      {
+        name: "endAt",
+        label: "End At",
+        required: true,
+        value: auxProject?.endAt,
+      },
+      {
+        category:"select",
+        label: "Project Manager",
+        name: "projectManagerId",
+        required: true,
+        options: employees,
+        optionLabel: "name",
+        valueLabel: "id",
+        
+        value: auxProject?.projectManager?.name ,
+        onChange: (value) => {
+         setAuxProject((Project) => ({ ...Project, projectManagerId: value }));
+        },
+
+      },
+      {
+        category:"select",
+        label: "Consultant",
+        name: "consultant",
+        required: true,
+        options: employees,
+        optionLabel: "name",
+        valueLabel: "id",
+        
+        value: auxProject?.consultant?.name ,
+        onChange: (value) => {
+         setAuxProject((Project) => ({ ...Project, consultantId: value }));
+        },
+
+      },
+      {
+        category:"select",
+        label: "Client",
+        name: "clientId",
+        required: true,
+        options: clients,
+        optionLabel: "name",
+        valueLabel: "id",
+        
+        value: auxProject?.client?.name ,
+        onChange: (value) => {
+         setAuxProject((Project) => ({ ...Project, clientId: value }));
+        },
+
+      },
+      
     ]);
-  }, [aux]);
+  }, [auxProject]);
   const handleInputChange = (e) => {
     const { name, value } = e.target;
-    setAux((prevState) => ({
+    setAuxProject((prevState) => ({
       ...prevState,
       [name]: value,
     }));
+   
   };
   const onSubmit = (e) => {
     e.preventDefault();
-    const  {
-      name,
-      description,
-      duration,
-      client,
-      startAt,
-      endAt,
-      status,
-      projectManager,
-      consultant,
-      id
-    } = aux;
-    dispatch(updateProject( {
-      name,
-      description,
-      duration,
-      // client,
-      // startAt,
-      // endAt,
-      // status,
-      // projectManager,
-      // consultant,
-      id
-    })).then(
+    const { name, description,duration,status, startAt, endAt } = auxProject;
+    dispatch(updateProject({ name, description,duration,status, startAt, endAt, projectId })).then(
       (result) => {
         if (!result.error) {
-          showSuccessToast("Client has been updated");
+          showSuccessToast("Project has been updated");
           setReadOnly(true);
         } else {
           showErrorToast(result.error.message);
@@ -135,76 +148,36 @@ function EditProject() {
       type: "button",
       name: "Cancel",
       onClick: () => {
-        setAux(project);
+        setAuxProject(project);
         setReadOnly(true);
       },
     },
   ];
-  const countProjects = () => {
-    if (project?.project?.length <= 1) {
-      return "ContentSubComponent";
-    }
-    return "ContentSubComponents";
-  };
+  
   return (
-    <div>
-      <HeaderPage title=" Project Information" />
-      <div
-        className=" rounded-5  mt-3"
-        style={{
-          boxShadow: "0px 0px 8px #9E9E9E",
-          padding: "50px",
-        }}
-      >
-        <div className="d-flex  justify-content-between align-items-center px-3 flex-wrap headerProfile">
-          <div className="d-flex  align-items-center  gap-3 pb-3 ">
-            <h1
-              className="darkBlue"
-              style={{
-                fontSize: "45px",
-              }}
-            >
-              {project?.name}
-            </h1>
-          </div>
-
-          {readOnly && (
-            <button
-              type="button"
-              class="btn"
-              style={{
-                height: "40px",
-                background: "#2351AD",
-                color: "white",
-                borderRadius: "8px",
-                marginRight: "50px",
-              }}
-              onClick={() => {
-                setReadOnly(false);
-              }}
-            >
-              Edit {project?.name}
-              <i class="fa-solid fa-play fa-fade px-2"></i>
-            </button>
-          )}
-        </div>
-
-        <div className="d-flex justify-content-center mt-5 ">
-          <Form
-            onSubmit={onSubmit}
-            inputs={inputs}
-            inputsClassName="d-flex flex-wrap justify-content-center mt-5"
-            inputsStyle={{ rowGap: 20, columnGap: 100 }}
-            numberInputPerRow={2}
-            readOnly={readOnly}
-            onChange={handleInputChange}
-            buttonsClassName="mt-5 d-flex justify-content-center gap-3"
-            buttons={!readOnly ? buttons : []}
-          />
-        </div>
-
-       
+    <div style={{}}>
+      <HeaderPage
+        title="Project Information"
+        showButton={readOnly ? true : false}
+        buttonFunction={() => setReadOnly(false)}
+        text={"Edit Project"}
+      />
+     
+      <div className="d-flex   align-items-center  justify-content-center flex-wrap gap-3">
       </div>
+
+      <Form
+        onSubmit={onSubmit}
+        inputs={inputs}
+        inputsClassName="d-flex flex-wrap justify-content-center px-3 gap-5"
+        inputsStyle={{ rowGap: 20 }}
+        numberInputPerRow={2}
+        readOnly={readOnly}
+        onChange={handleInputChange}
+        buttonsClassName="d-flex justify-content-end gap-3"
+        buttons={!readOnly ? buttons : []}
+      />
+      {/* </div> */}
     </div>
 
   )

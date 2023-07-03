@@ -4,7 +4,7 @@ import Data from "../assets/demyData/ServicesData";
 import { useState } from "react";
 import CastomCard from "../components/CastomCard";
 import DisplayLottie from "../constants/DisplayLottie";
-import imgabout from "../constants/imgabout.json";
+// import imgabout from "../constants/imgabout.json";
 import CastomContent from "../components/CastomContent";
 
 

@@ -41,39 +41,29 @@ export const fetchProjectByPM = createAsyncThunk(
 );
 
 export const removeProject = createAsyncThunk(
-  "projects/deleteProject",
-  async (id, { dispatch }) => {
-    const response = await axios.delete(
-      `${config.API_ENDPOINT}/projects/${id}`
-    );
-    dispatch(fetchProjects());
-    return response.data;
-  }
-);
-export const updateProject = createAsyncThunk(
-  "projects/updateProject",
-  async ({id,...body}, { dispatch }) => {
-    console.log("🚀 ~ file: projects.js:56 ~ body:", body)
-    // const {
-    //   name,
-    //   description,
-    //   duration,
-    //   client,
-    //   startAt,
-    //   endAt,
-    //   status,
-    //   projectManager,
-    //   consultant,
+    "projects/deleteProject",
+    async (id, { dispatch }) => {
+      const response = await axios.delete(
+        `${config.API_ENDPOINT}/projects/${id}`
+      );
+      dispatch(fetchProjects());
+      return response.data;
+    }
+  );
+  export const updateProject = createAsyncThunk(
+    "projects/updateProject",
+    async ({ projectId, ...body }, { dispatch }) => {
+      console.log(body,'body')
+      const response = await axios.patch(
+        `${config.API_ENDPOINT}/projects/${projectId}`,
+        body
+      );
+      dispatch(fetchProject(response.data.id));
+      return response.data;
+    }
+  );
 
-    // } = body;
-    const response = await axios.patch(
-      `${config.API_ENDPOINT}/projects/${id}`,
-     body
-    );
-    dispatch(fetchProjects());
-    return response.data;
-  }
-);
+ 
 
 export const projectSlice = createSlice({
   name: "project",

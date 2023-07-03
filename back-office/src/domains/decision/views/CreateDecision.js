@@ -43,7 +43,8 @@ function CreateDecision() {
       }
     });
   };
-  const id =decisions[0]?.DecisionApply[0].employeeId
+  const id = decisions[0]?.DecisionApply[0].employeeId
+  console.log(decisions,"decisions")
   useEffect(() => {
     setInputs([
       {
@@ -64,22 +65,18 @@ function CreateDecision() {
         valueLabel: "id",
         optionLabel: "label",
         options: employees.map((employee) => ({ label: employee.name, value: employee.id })),
-        value: (decisions[0]?.DecisionApply?.employeeId) || "",
-        
-        
+        value: (decisions[0]?.DecisionApply[0].employeeId) || "",
         
         onChange: (value) => {
-          console.log("valueeee",value);
-          console.log("🚀 ~ file: CreateDecision.js:47 ~ CreateDecision ~ id:", id)
+          
+          
        
-          setDecision((Decision) => ({ ...Decision, decisionApplyIds:[ id] }));
+          setDecision((Decision) => ({ ...Decision, decisionApplyIds: [id] }));
+          console.log("id",id);
         },
       },
     ])}, [decisions]);
-  
-   
-  
-
+    console.log(employees,"employees")
 
   
   const buttons = [
