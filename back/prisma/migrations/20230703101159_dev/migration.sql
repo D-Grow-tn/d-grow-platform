@@ -7,6 +7,9 @@ CREATE TYPE "TypeMainComponent" AS ENUM ('footer', 'header', 'sidebar', 'page');
 -- CreateEnum
 CREATE TYPE "PositionSubComponent" AS ENUM ('left', 'right', 'top', 'bottom', 'middle', 'section');
 
+-- CreateEnum
+CREATE TYPE "ContentType" AS ENUM ('button', 'paragraph', 'image', 'select');
+
 -- CreateTable
 CREATE TABLE "User" (
     "id" TEXT NOT NULL,
@@ -220,7 +223,7 @@ CREATE TABLE "Request" (
     "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
     "updatedAt" TIMESTAMP(3) NOT NULL,
     "senderId" TEXT NOT NULL,
-    "recieverId" TEXT NOT NULL,
+    "receiverId" TEXT NOT NULL,
 
     CONSTRAINT "Request_pkey" PRIMARY KEY ("id")
 );
@@ -253,7 +256,7 @@ CREATE TABLE "Behavior" (
     "content" TEXT NOT NULL,
     "senderId" TEXT NOT NULL,
     "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
-    "recieverId" TEXT NOT NULL,
+    "receiverId" TEXT NOT NULL,
 
     CONSTRAINT "Behavior_pkey" PRIMARY KEY ("id")
 );
@@ -415,7 +418,7 @@ CREATE TABLE "MediaProject" (
 -- CreateTable
 CREATE TABLE "MainComponent" (
     "id" TEXT NOT NULL,
-    "title" TEXT,
+    "title" TEXT NOT NULL,
     "path" TEXT,
     "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
     "updatedAt" TIMESTAMP(3) NOT NULL,
@@ -442,6 +445,8 @@ CREATE TABLE "ContentSubComponent" (
     "title" TEXT NOT NULL,
     "navigateTo" TEXT,
     "content" TEXT NOT NULL,
+    "type" "ContentType" NOT NULL DEFAULT 'button',
+    "subContent" JSONB,
     "subComponentId" TEXT NOT NULL,
     "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
     "updatedAt" TIMESTAMP(3) NOT NULL,
@@ -487,6 +492,9 @@ CREATE UNIQUE INDEX "MediaRequest_mediaId_requestId_key" ON "MediaRequest"("medi
 
 -- CreateIndex
 CREATE UNIQUE INDEX "MediaProject_mediaId_projectId_key" ON "MediaProject"("mediaId", "projectId");
+
+-- CreateIndex
+CREATE UNIQUE INDEX "MainComponent_title_key" ON "MainComponent"("title");
 
 -- CreateIndex
 CREATE UNIQUE INDEX "MainComponent_path_key" ON "MainComponent"("path");
@@ -585,7 +593,7 @@ ALTER TABLE "EmployeeQuiz" ADD CONSTRAINT "EmployeeQuiz_quizId_fkey" FOREIGN KEY
 ALTER TABLE "Request" ADD CONSTRAINT "Request_senderId_fkey" FOREIGN KEY ("senderId") REFERENCES "Employee"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
 
 -- AddForeignKey
-ALTER TABLE "Request" ADD CONSTRAINT "Request_recieverId_fkey" FOREIGN KEY ("recieverId") REFERENCES "Employee"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
+ALTER TABLE "Request" ADD CONSTRAINT "Request_receiverId_fkey" FOREIGN KEY ("receiverId") REFERENCES "Employee"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
 
 -- AddForeignKey
 ALTER TABLE "Event" ADD CONSTRAINT "Event_employeeId_fkey" FOREIGN KEY ("employeeId") REFERENCES "Employee"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
@@ -600,7 +608,7 @@ ALTER TABLE "Membership" ADD CONSTRAINT "Membership_employeeId_fkey" FOREIGN KEY
 ALTER TABLE "Behavior" ADD CONSTRAINT "Behavior_senderId_fkey" FOREIGN KEY ("senderId") REFERENCES "Employee"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
 
 -- AddForeignKey
-ALTER TABLE "Behavior" ADD CONSTRAINT "Behavior_recieverId_fkey" FOREIGN KEY ("recieverId") REFERENCES "Employee"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
+ALTER TABLE "Behavior" ADD CONSTRAINT "Behavior_receiverId_fkey" FOREIGN KEY ("receiverId") REFERENCES "Employee"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
 
 -- AddForeignKey
 ALTER TABLE "DecisionApply" ADD CONSTRAINT "DecisionApply_decisionId_fkey" FOREIGN KEY ("decisionId") REFERENCES "Decision"("id") ON DELETE RESTRICT ON UPDATE CASCADE;

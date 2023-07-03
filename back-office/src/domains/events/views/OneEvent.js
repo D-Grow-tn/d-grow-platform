@@ -2,7 +2,6 @@ import React, { useEffect, useState } from "react";
 import Form from "../../../components/Form";
 import HeaderPage from "../../../components/HeaderPage";
 import { useDispatch, useSelector } from "react-redux";
-
 import { useParams, useNavigate } from "react-router-dom";
 import { fetchEvent, updateEvent } from "../../../store/event";
 import { showErrorToast, showSuccessToast } from "../../../utils/toast";
