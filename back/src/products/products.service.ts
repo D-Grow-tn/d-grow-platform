@@ -13,7 +13,11 @@ export class ProductsService {
   }
 
   async findAll() {
-    return await this.prisma.product.findMany({});
+    return await this.prisma.product.findMany({
+      include:{
+        productCover:true,
+      }
+    });
   }
 
   async findOne(id: string) {
@@ -21,8 +25,11 @@ export class ProductsService {
       where: {
         id,
       },
+      include:{
+        productCover:true,
+      }
     });
-  }
+    }
 
   async update(id: string, updateProductDto: UpdateProductDto) {
     return await this.prisma.product.update({

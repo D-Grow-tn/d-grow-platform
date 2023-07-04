@@ -9,11 +9,11 @@ import {
   MDBListGroup,
   MDBListGroupItem,
 } from "mdb-react-ui-kit";
-import { Button } from "react-bootstrap";
-function CastomCard({ title, image, description, onClick, ButtonName }) {
+
+function CastomCard({ title, image, description, onClick }) {
   return (
-    <div className="d-flex justify-content-around align-items-end mt-5">
-     {title && <MDBCard style={{ maxWidth: "18rem" }}   className="shadow proCard">
+    <div >
+     {title && <MDBCard style={{ maxWidth: "20rem",height:"35rem",borderRadius:"10px" }}   className="shadow proCard">
         <MDBCardImage
           src={image}
           style={{
@@ -21,9 +21,26 @@ function CastomCard({ title, image, description, onClick, ButtonName }) {
           }}
         />
         <MDBCardBody>
-          <MDBCardTitle> {title}</MDBCardTitle>
-          <MDBCardText>{description}</MDBCardText>
-       <Button onClick={onClick}>{ButtonName}</Button>
+          <MDBCardTitle style={{color:"#00ac9e",
+            fontWeight: "bold", textAlign: "center", paddingTop:"20px"}}> {title}</MDBCardTitle>
+          <MDBCardText style={{ color: "#1a408c"}}>{description}</MDBCardText>
+          <div className="card-button-container">
+         <button
+                type="button"
+                class="btn mt-5 "
+                style={{
+                  maxWidth: "160px",
+                  height: "40px",
+                  background: "#00ac9e",
+                  color: "white",
+    
+                  
+                }}
+                onClick={onClick}
+              >
+               See More <i class="fa-solid fa-play fa-fade px-2"></i>
+              </button>
+              </div>
         </MDBCardBody>
       </MDBCard>}
     </div>

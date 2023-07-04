@@ -315,22 +315,35 @@ model DecisionApply {
 }
 
 model Product {
-  id          String        @id @default(uuid())
-  name        String
-  createdAt   DateTime      @default(now())
-  updatedAt   DateTime      @updatedAt
-  type        String
-  productType ProductType[]
+  id             String        @id @default(uuid())
+  name           String
+  description    String
+  createdAt      DateTime      @default(now())
+  updatedAt      DateTime      @updatedAt
+  type           String
+  productType    ProductType[]
+  productCover   Media?        @relation(fields: [productCoverId], references: [id], name: "productCover")
+  productCoverId String?
 }
 
 model ProductType {
-  id          String   @id @default(uuid())
-  name        String
-  createdAt   DateTime @default(now())
-  updatedAt   DateTime @updatedAt
-  description String
-  ProductId   String
-  Product     Product  @relation(fields: [ProductId], references: [id])
+  id               String             @id @default(uuid())
+  name             String
+  createdAt        DateTime           @default(now())
+  updatedAt        DateTime           @updatedAt
+  description      String
+  ProductId        String
+  Product          Product            @relation(fields: [ProductId], references: [id])
+  MediaProductType MediaProductType[]
+}
+
+model MediaProductType {
+  media         Media       @relation(fields: [mediaId], references: [id])
+  mediaId       String
+  productType   ProductType @relation(fields: [productTypeId], references: [id], onDelete: Cascade)
+  productTypeId String
+
+  @@unique(fields: [mediaId, productTypeId], name: "productTypeMedia")
 }
 
 model Branches {
@@ -409,6 +422,10 @@ model Media {
   cover          Project[]       @relation("coverRelation")
   contract       Project[]       @relation("contractRelation")
   Project        Project[]
+
+  Product Product[] @relation("productCover")
+
+  MediaProductType MediaProductType[]
 }
 
 model MediaUser {

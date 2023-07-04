@@ -615,7 +615,98 @@ async function main() {
       MediaEvent: { create: [{ mediaId: mediaEvent1.id }] },
     },
   });
-
+//Create services
+let productcover1 = await prisma.media.create({
+  data: {
+    path: 'https://fr.yeeply.com/wp-content/uploads/2017/01/webapp.jpg',
+    type: 'cover',
+    extension: 'png',
+  },
+});
+let productcover2 = await prisma.media.create({
+  data: {
+    path: 'https://blog.flytagger.com/wp-content/uploads/2018/02/Application-mobile.jpg',
+    type: 'cover',
+    extension: 'png',
+  },
+});
+let productcover3 = await prisma.media.create({
+  data: {
+    path: 'https://fr.yeeply.com/wp-content/uploads/2017/01/webapp.jpg',
+    type: 'cover',
+    extension: 'png',
+  },
+});
+let mediaProductType1 = await prisma.media.create({
+  data: {
+    path: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRqT2JqbKydMKkGdvNu6pqIof8IO-9p15sKMA&usqp=CAU',
+    type: 'cover',
+    extension: 'png',
+  },
+});
+let mediaProductType2 = await prisma.media.create({
+  data: {
+    path: 'https://cdn.antaranews.com/cache/730x487/2022/06/08/instagram-pin.jpg',
+    type: 'cover',
+    extension: 'png',
+  },
+});
+let mediaProductType3 = await prisma.media.create({
+  data: {
+    path: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTF2DuU-UK6owVNABE9THPsA3eBy2uOyzi-jw&usqp=CAU',
+    type: 'cover',
+    extension: 'png',
+  },
+});
+  let product1 = await prisma.product.create({
+    data: {
+      name: 'Web Front-End SOLUTIONS',
+      description: 'Our web application development service is designed to provide you with tailored solutions to meet your unique business requirements. We specialize in developing high-quality, scalable, and user-friendly web applications using the latest technologies and best practices.',
+      type:'web site application',
+      productCoverId:productcover1.id,
+    },
+  });
+  let product2 = await prisma.product.create({
+    data: {
+      name: 'UX/UI WEBsite AND MOBILE app',
+      description : 'Our mobile app development service offers end-to-end solutions for creating robust and user-friendly applications for iOS and Android platforms. We combine creativity, technical expertise, and industry best practices to deliver mobile apps that engage users and drive business growth.',
+      type:'mobile application',
+        productCoverId:productcover2.id,
+    },
+  });
+  let product3 = await prisma.product.create({
+    data: {
+      name: 'BRANDING AND CORPORATE DESIGN',
+      description: 'description Event Number one',
+      type:'design application',
+        productCoverId:productcover3.id,
+    },
+  });
+  let product4 = await prisma.product.create({
+    data: {
+      name: 'BRANDING AND CORPORATE DESIGN',
+      description: 'description Brand',
+      type:'design application',
+        productCoverId:productcover3.id,
+    },
+  });
+//create produtTye
+let productype1 = await prisma.productType.create({
+  data: {
+    name: 'BRANDING AND CORPORATE DESIGN',
+    description: 'description Event Number one',
+ ProductId:product1.id,
+ MediaProductType:{ create: [{ mediaId: mediaProductType3.id }] },
+  },
+});
+let productype2 = await prisma.productType.create({
+  data: {
+    name: 'Instagram',
+    description: 'A popular social media app that allows users to share photos and videos, apply filters and effects, and engage with others by following, liking, and commenting on posts. ',
+ ProductId:product2.id,
+ MediaProductType:{ create: [{ mediaId: mediaProductType1.id  },{ mediaId: mediaProductType2.id}] },
+  },
+});
  await websiteSettingsSeed(prisma);
 }
 
