@@ -17,15 +17,10 @@ function CreateEmployee() {
   const [isOpen, setIsOpen] = useState(false);
   const [employee, setEmployee] = useState(null);
 
-
-
-
-
   useEffect(() => {
     dispatch(fetchEmployees());
-    
   }, [dispatch]);
-  
+
   useEffect(() => {
     setInputs([
       {
@@ -56,23 +51,23 @@ function CreateEmployee() {
         width: 300,
         required: true,
       },
-     
+
       {
         category: "select",
         label: "Direct Manager",
         placeholder: "Select Manager",
-        name: "directManegerId",
+        name: "directManagerId",
         width: 300,
         required: true,
         options: employees,
         optionLabel: "name",
         valueLabel: "id",
-        value: employees.directManegerId || "",
+        value: employees.directManagerId || "",
         onChange: (value) => {
           setEmployee((Employee) => ({ ...Employee, directManegerId: value }));
         },
       },
-   
+
       {
         category: "select",
         label: "Department",
@@ -84,7 +79,10 @@ function CreateEmployee() {
         optionLabel: "name",
         valueLabel: "id",
         onChange: (value) => {
-          setDepartment((department) => ({ ...department, departmentId: value }));
+          setDepartment((department) => ({
+            ...department,
+            departmentId: value,
+          }));
         },
       },
 
@@ -104,7 +102,7 @@ function CreateEmployee() {
   const handleChange = (e) => {
     const { name, value } = e.target;
     setEmployee((Employee) => ({ ...Employee, [name]: value }));
-    console.log(Employee,"===hhhhhh======");
+   
   };
 
   const onSubmit = (e) => {
@@ -182,7 +180,13 @@ function CreateEmployee() {
           onSubmit={onSubmit}
           onChange={handleChange}
         />
-         {isOpen&& (<OneEmployee  employees={employees} department={department} setDepartment={setDepartment} />) }
+        {isOpen && (
+          <OneEmployee
+            employees={employees}
+            department={department}
+            setDepartment={setDepartment}
+          />
+        )}
       </div>
     </div>
   );

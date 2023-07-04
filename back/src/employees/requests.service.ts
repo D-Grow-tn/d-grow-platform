@@ -61,14 +61,14 @@ export class RequestsService {
   }
 
   async findAllByReceiver(receiverId: string) {
-    return await this.prisma.behavior.findMany({
+    return await this.prisma.request.findMany({
       where: { receiverId },
     });
   }
 
   async findAllBySender(senderId: string) {
     return await this.prisma.request.findMany({
-      where: { senderId },
+      where:{senderId}
     });
   }
 
@@ -76,9 +76,7 @@ export class RequestsService {
     const { mediaIds, ...rest } = dto;
     let data = { ...rest };
 
-    // await this.helper.notFound('employee', 'findFirstOrThrow', {
-    //   where: { id: rest. },
-    // });
+    
     return await this.prisma.$transaction(async (prisma) => {
       if (mediaIds) {
         let request = await this.findOne(id, prisma);
