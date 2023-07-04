@@ -322,6 +322,7 @@ async function main() {
       coverId: cover3.id,
     },
   });
+ 
 
   // create objective
   let objective1Project1 = await prisma.objective.create({

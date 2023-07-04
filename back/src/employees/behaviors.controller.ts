@@ -24,9 +24,9 @@ export class BehaviorsController {
   findOne(@Param('id') id: string) {
     return this.BehaviorsService.findOne(id);
   }
-  @Get('by_reciever/:recieverId')
-  findAllByReceiver(@Param('recieverId') recieverId: string) {
-    return this.BehaviorsService.findAllByReceiver(recieverId);
+  @Get('by_receiver/:receiverId')
+  findAllByReceiver(@Param('receiverId') receiverId: string) {
+    return this.BehaviorsService.findAllByReceiver(receiverId);
   }
 
   @Get('by_sender/:senderId')

@@ -150,7 +150,7 @@ function EmployeeList() {
   return (
     <div>
       <HeaderPage
-        title="Emlpoyees List"
+        title="Employees List"
         showButton={true}
         
         buttonFunction={()=>navigate('create')}

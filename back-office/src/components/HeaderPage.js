@@ -40,6 +40,7 @@ const HeaderPage = ({ title, showButton,text,buttonFunction }) => {
             {text} <i class="fa-solid fa-play fa-fade px-2"></i>
           </button>
         )}
+        
        
       </div>
     </header>
