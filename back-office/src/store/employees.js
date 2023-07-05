@@ -10,47 +10,68 @@ export const fetchEmployees = createAsyncThunk(
     return response.data;
   }
 );
-export const fetchEmployeeTree=createAsyncThunk("employee/treeEmployee",async()=>{
-  let token = JSON.parse(localStorage.getItem("token"));
-  const configs = {
-    headers: {
-      Authorization: "Bearer " + token.Authorization,
-    },
-  };
-  const response = await axios.get(`${config.API_ENDPOINT}/employees/my-tree`,configs);
+export const fetchEmployeeTree = createAsyncThunk(
+  "employee/treeEmployee",
+  async () => {
+    let token = JSON.parse(localStorage.getItem("token"));
+    const configs = {
+      headers: {
+        Authorization: "Bearer " + token.Authorization,
+      },
+    };
+    const response = await axios.get(
+      `${config.API_ENDPOINT}/employees/my-tree`,
+      configs
+    );
 
-  return response.data;
-})
+    return response.data;
+  }
+);
 
 export const fetchEmployee = createAsyncThunk(
   "employee/employee",
   async (id) => {
-    const response = await axios.get(`${config.API_ENDPOINT}/employees/one/${id}`);
+    const response = await axios.get(
+      `${config.API_ENDPOINT}/employees/one/${id}`
+    );
     return response.data;
   }
 );
 
 export const createEmployee = createAsyncThunk(
   "employee/create",
-  async (body,{dispatch}) => {
+  async (body, { dispatch }) => {
+    let token = JSON.parse(localStorage.getItem("token"));
+    const configs = {
+      headers: {
+        Authorization: "Bearer " + token.Authorization,
+      },
+    };
     const response = await axios.post(
       `${config.API_ENDPOINT}/employees`,
-      body
+      body,
+      configs
     );
-    dispatch(fetchEmployees())
-    console.log("create datazaaaaaaaaa",response.data);
-    return response.data
+    dispatch(fetchEmployees());
+
+    return response.data;
   }
 );
 
-export const updateEmployee = createAsyncThunk("employees/Update", async (form) => {
-  const { employeeId, ...rest } = form;
- const response =await axios.patch(`${config.API_ENDPOINT}/employees/${employeeId}`, {
-    ...rest,
-  });
+export const updateEmployee = createAsyncThunk(
+  "employees/Update",
+  async (form) => {
+    const { employeeId, ...rest } = form;
+    const response = await axios.patch(
+      `${config.API_ENDPOINT}/employees/${employeeId}`,
+      {
+        ...rest,
+      }
+    );
 
-  return response.data;
-});
+    return response.data;
+  }
+);
 
 export const removeEmployee = createAsyncThunk(
   "employees/deleteEmployee",

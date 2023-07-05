@@ -1,44 +1,45 @@
 {
-    "dependencies": {
-      "@nestjs/mapped-types": "*",
-      "react-bootstrap": "^2.7.4"
-    },
-    "name": "@jalyss-platform/root",
-    
-    "private": true,
-    "workspaces": [
-      "back",
-      "back-office",
-      "client"
-    ],
-    "scripts": {
-      "start": "turbo run start --parallel",
-      "build": "yarn workspace front run build && yarn workspace back run build",
-      "watch": "yarn workspaces foreach run build:watch",
-      "test": "yarn workspaces foreach run test",
-      "lint": "eslint \"{src,back,front,test}/**/*.ts\"",
-      "lint:fix": "eslint \"{src,back,front,test}/**/*.ts\" --fix",
-      "studio": "yarn workspace back studio",
-      "generate": "yarn workspace back generate",
-      "migrate:deploy": " yarn workspace back run migrate:deploy",
-      "migrate:dev:create": "yarn workspace back migrate:dev:create",
-      "migrate:reset": "yarn workspace back migrate:reset",
-      "migrate:dev": "yarn workspace back migrate:dev",
-      "seed": "yarn workspace back seed",
-      "prisma:build": "yarn workspace back prisma:build"
-    },
-    "devDependencies": {
-      "cross-env": "^7.0.3",
-      "turbo": "^1.8.3"
-    },
-    "browser": {
-      "assert": false,
-      "crypto": false,
-      "fs": false,
-      "https": false,
-      "net": false,
-      "os": false,
-      "stream": false,
-      "tls": false
-    }
+  "dependencies": {
+    "@mui/lab": "^5.0.0-alpha.134",
+    "@nestjs/mapped-types": "*",
+    "react-bootstrap": "^2.7.4"
+  },
+  "name": "@jalyss-platform/root",
+  
+  "private": true,
+  "workspaces": [
+    "back",
+    "back-office",
+    "client"
+  ],
+  "scripts": {
+    "start": "turbo run start --parallel",
+    "build": "yarn workspace front run build && yarn workspace back run build",
+    "watch": "yarn workspaces foreach run build:watch",
+    "test": "yarn workspaces foreach run test",
+    "lint": "eslint \"{src,back,front,test}/**/*.ts\"",
+    "lint:fix": "eslint \"{src,back,front,test}/**/*.ts\" --fix",
+    "studio": "yarn workspace back studio",
+    "generate": "yarn workspace back generate",
+    "migrate:deploy": " yarn workspace back run migrate:deploy",
+    "migrate:dev:create": "yarn workspace back migrate:dev:create",
+    "migrate:reset": "yarn workspace back migrate:reset",
+    "migrate:dev": "yarn workspace back migrate:dev",
+    "seed": "yarn workspace back seed",
+    "prisma:build": "yarn workspace back prisma:build"
+  },
+  "devDependencies": {
+    "cross-env": "^7.0.3",
+    "turbo": "^1.8.3"
+  },
+  "browser": {
+    "assert": false,
+    "crypto": false,
+    "fs": false,
+    "https": false,
+    "net": false,
+    "os": false,
+    "stream": false,
+    "tls": false
   }
+}

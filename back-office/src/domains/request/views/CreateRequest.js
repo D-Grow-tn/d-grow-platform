@@ -2,10 +2,10 @@ import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { createRequest } from "../../../store/request";
-import { fetchEmployeeTree } from "../../../store/employees";
+import { fetchEmployeeTree, fetchEmployees } from "../../../store/employees";
 import HeaderPage from "../../../components/HeaderPage";
 import Form from "../../../components/Form";
-import { showErrorToast } from "../../../utils/toast";
+import { showErrorToast, showSuccessToast } from "../../../utils/toast";
 function CreateRequest() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -41,7 +41,10 @@ function CreateRequest() {
         required: true,
         optionLabel: "name",
         valueLabel: "id",
-        options:employees,
+        options: employees,
+        onChange: (value) => {
+          setRequest((request) => ({ ...request, receiverId: value }));
+        },
       },
     ]);
   }, [employees]);
@@ -53,10 +56,10 @@ function CreateRequest() {
 
   const onSubmit = (e) => {
     e.preventDefault();
-    console.log(request, "heeeeere");
+
     dispatch(createRequest(request)).then((result) => {
       if (!result.error) {
-        showErrorToast("request created succefully");
+        showSuccessToast("request created successfully");
         navigate(-1);
       } else {
         showErrorToast(result.error.message);

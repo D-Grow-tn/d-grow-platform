@@ -15,20 +15,65 @@ export const fetchRequest = createAsyncThunk("requests/request", async (id) => {
   return response.data;
 });
 
-export const fetchRequestsByEmployee = createAsyncThunk(
-  "requests/requestsByEmployee",
+export const fetchRequestsBySender = createAsyncThunk(
+  "requests/requestsBySender",
   async (id) => {
     const response = await axios.get(
-      `http://localhost:3001/api/v1/requests/by_employee/${id}`
+      `http://localhost:3001/api/v1/requests/by-sender/${id}`
     );
     return response.data;
   }
 );
+
+export const fetchRequestsByReceiver = createAsyncThunk(
+  "requests/requestsByReceiver",
+  async (id) => {
+    const response = await axios.get(
+      `http://localhost:3001/api/v1/requests/by-receiver/${id}`
+    );
+    return response.data;
+  }
+);
+
+
 export const createRequest = createAsyncThunk(
   "requests/createRequest",
   async (body, { dispatch }) => {
-    const response = await axios.post(`${config.API_ENDPOINT}/requests`, body);
+    let token = JSON.parse(localStorage.getItem("token"));
+    const configs = {
+      headers: {
+        Authorization: "Bearer " + token.Authorization,
+      },
+    };
+    const response = await axios.post(`${config.API_ENDPOINT}/requests`, body,configs);
     dispatch(fetchRequests());
+    return response.data;
+  }
+);
+
+export const removeRequest = createAsyncThunk(
+  "requests/deleteRequest",
+  async (id, { dispatch }) => {
+   
+    const response = await axios.delete(
+      `${config.API_ENDPOINT}/requests/${id}`,
+      
+    );
+    dispatch(fetchRequestsBySender());
+    return response.data;
+  }
+);
+export const updateRequest = createAsyncThunk(
+  "requests/UpdateRequest",
+  async ({requestId,...body},{dispatch}) => {
+    const response = await axios.patch(
+      `${config.API_ENDPOINT}/requests/${requestId}`,
+      {
+        ...body,
+      }
+    );
+    dispatch(fetchRequestsBySender(response.data.id));
+
     return response.data;
   }
 );
@@ -38,6 +83,12 @@ export const requestSlice = createSlice({
   initialState: {
     request: null,
     requests: {
+      items: [],
+    },
+    sentRequests: {
+      items: [],
+    },
+    receivedRequests: {
       items: [],
     },
 
@@ -59,11 +110,21 @@ export const requestSlice = createSlice({
        state.request = action.payload;
     });
 
-    builder.addCase(fetchRequestsByEmployee.fulfilled, (state, action) => {
-      state.requests.items = action.payload;
-      console.log("====================================");
-      console.log(state.requests.items);
-      console.log("====================================");
+    builder.addCase(fetchRequestsBySender.fulfilled, (state, action) => {
+      state.sentRequests.items = action.payload;
+      // console.log("====================================");
+      // console.log(state.sentRequests.items,"here");
+      // console.log("====================================");
+    });
+
+    
+    builder.addCase(fetchRequestsByReceiver.fulfilled, (state, action) => {
+      state.receivedRequests.items = action.payload;
+    
+   });
+
+    builder.addCase(updateRequest.fulfilled, (state, action) => {
+      state.request = action.payload;
     });
 
   },

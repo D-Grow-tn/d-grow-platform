@@ -57,7 +57,7 @@ function OneEmployee({setDepartment,department}) {
         category: "select",
         label: "Direct Manager",
         placeholder: "Select Manager",
-        name: "directManegerId",
+        name: "directManagerId",
         width: 250,
         required: true,
         options: employees,
@@ -65,7 +65,7 @@ function OneEmployee({setDepartment,department}) {
         valueLabel: "id",
         value:  auxEmployee?.employee,
         onChange: (value) => {
-          setAuxEmployee((Employee) => ({ ...Employee, directManegerId: value }));
+          setAuxEmployee((Employee) => ({ ...Employee, directManagerId: value }));
         },
       },
       // {
@@ -139,8 +139,8 @@ function OneEmployee({setDepartment,department}) {
   const onSubmit = (e) => {
     e.preventDefault();
     console.log(auxEmployee);
-    const { name, email, phone, address,bio,directManegerId } = auxEmployee;
-    dispatch(updateEmployee({ name, phone, address, email,bio,directManegerId, employeeId })).then(
+    const { name, email, phone, address,bio,directManagerId } = auxEmployee;
+    dispatch(updateEmployee({ name, phone, address, email,bio,directManagerId, employeeId })).then(
       (result) => {
         if (!result.error) {
           showSuccessToast("Employee has been updated");

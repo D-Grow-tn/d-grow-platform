@@ -25,14 +25,14 @@ export class RequestsController {
   findOne(@Param('id') id: string) {
     return this.requestsService.findOne(id);
   }
-  @Get('by_receiver/:receiverId')
+  @Get('by-receiver/:receiverId')
   findAllByReceiver(@Param('receiverId') receiverId: string) {
     return this.requestsService.findAllByReceiver(receiverId);
   }
 
-  @Get('by_sender/:senderId')
+  @Get('by-sender/:senderId')
   findAllBySender(@Param('senderId') senderId: string) {
-    return this.requestsService.findAllByReceiver(senderId);
+    return this.requestsService.findAllBySender(senderId);
   }
 
   @Patch(':id')
