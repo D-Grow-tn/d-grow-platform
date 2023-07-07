@@ -54,6 +54,7 @@ function ProjectList() {
       if (!result.error) {
         showSuccessToast("Project has been deleted");
         setIsOpen(false);
+        dispatch(fetchProjectByPM(me.employee.id));
       } else {
         showErrorToast(result.error.message);
       }
@@ -100,6 +101,13 @@ function ProjectList() {
         headerClassName: "header-blue",
         width: 200,
         renderCell: (params) =>(<div>{params.row.consultant?.name}</div>)
+      },
+      {
+        field: "teamId",
+        headerName: "Team",
+        headerClassName: "header-blue",
+        width: 200,
+        renderCell: (params) =>(<div>{params.row.team?.name}</div>)
       },
       {
         field: "clientId",
