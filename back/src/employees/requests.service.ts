@@ -63,12 +63,16 @@ export class RequestsService {
   async findAllByReceiver(receiverId: string) {
     return await this.prisma.request.findMany({
       where: { receiverId },
+      include : {senderReq:true,
+       }
     });
   }
 
   async findAllBySender(senderId: string) {
     return await this.prisma.request.findMany({
-      where:{senderId}
+      where:{senderId},
+      include : {
+      receiverReq:true}
     });
   }
 

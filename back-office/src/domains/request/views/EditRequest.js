@@ -1,13 +1,14 @@
 import React,{useEffect,useState} from 'react'
 import Form from '../../../components/Form'
 import HeaderPage from '../../../components/HeaderPage'
-import { useParams, useNavigate } from "react-router-dom";
+import { useParams, useNavigate,useLocation } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchRequest,updateRequest } from '../../../store/request';
 import { showErrorToast, showSuccessToast } from "../../../utils/toast";
 
 function EditRequest() {
-  const {requestId } = useParams();
+  const location = useLocation();
+  const { requestId } = useParams();
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const request = useSelector((state) => state.request.request )
@@ -17,8 +18,10 @@ function EditRequest() {
   const [readOnly, setReadOnly] = useState(true);
   const [auxRequests, setAuxRequests] = useState(null);
   const [inputs, setInputs] = useState([]);
-
-
+  const path =location.pathname
+ console.log('====================================');
+ console.log(path);
+ console.log('====================================');
   useEffect(() => {
     dispatch(fetchRequest(requestId));
   }, [dispatch,me]);
@@ -49,7 +52,9 @@ function EditRequest() {
     ]);
   }, [auxRequests]);
 
-
+ console.log('====================================');
+ console.log(auxRequests);
+ console.log('====================================');
   const handleInputChange = (e) => {
     const { name, value } = e.target;
     setAuxRequests((prevState) => ({
@@ -97,6 +102,7 @@ function EditRequest() {
   return (
     <div>
        <div>
+       {}
     <HeaderPage
       title={request?.name}
       showButton={readOnly ? true : false}
