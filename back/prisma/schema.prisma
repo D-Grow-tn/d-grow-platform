@@ -395,6 +395,14 @@ model Message {
   employee   Employee @relation(fields: [employeeId], references: [id])
 }
 
+model Contact{
+   id         String   @id @default(uuid())
+  name    String
+  email String
+  subject String
+  content String
+  createdAt  DateTime @default(now())
+}
 model EmployeeChatRoom {
   id         String   @id @default(uuid())
   employeeId String

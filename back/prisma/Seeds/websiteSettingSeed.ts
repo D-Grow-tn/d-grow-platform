@@ -514,5 +514,113 @@ let data4 = await prisma.contentSubComponent.create({
     }),
   );
 
+  //Services Page
+    //create subcomponent services
+    let servicePageSection1= await prisma.subComponent.create({
+      data: {
+        name: 'section1',
+        mainId: servicesPage.id,
+        position: 'section',
+      },
+    });
+    let servicePageSection2= await prisma.subComponent.create({
+      data: {
+        name: 'section2',
+        mainId: servicesPage.id,
+        position: 'section',
+      },
+    });
+    let servicePageSection3= await prisma.subComponent.create({
+      data: {
+        name: 'section3',
+        mainId: servicesPage.id,
+        position: 'section',
+      },
+    });
+
+  //create contentSubComponent servicesPage
+  //servicePageSection1
+  let serviceContent1 = [
+    { name: 'title', path: '', type: 'paragraph' },
+    { name: 'paragraph', path: '', type: 'paragraph' },
+    { name: 'image', path: '', type: 'image' },
+
+  ];
+
+  await Promise.all(
+    serviceContent1.map(async (el) => {
+      if (el.name === 'title') {
+        var data = {
+          title: 'title',
+          type: el.type as ContentType,
+          navigateTo: el.path,
+          content:'Our Services',
+           subComponentId: servicePageSection1.id,
+        };
+      } 
+     else if (el.name === 'paragraph') {
+        var data = {
+          title: 'paragraph',
+          type: el.type as ContentType,
+          navigateTo: el.path,
+          content:'Our Services, refers to the specific range of professional offerings or solutions provided by a development company or organization. These services are focused on the creation, improvement, or maintenance of software applications, websites, or other digital products. The development services provided aim to meet the specific needs and requirements of clients, often involving various stages of the software development life cycle. Here are a few examples of how',
+           subComponentId: servicePageSection1.id,
+        };
+      } else  {
+        var data = {
+          title: 'image',
+          type: el.type as ContentType,
+          navigateTo: el.path,
+          content:"C:/Users/user/Desktop/d-grow-platform/client/src/constants/imgabout.json",
+          subComponentId: servicePageSection1.id,
+          
+        };
+      } 
+      await prisma.contentSubComponent.create({
+        data,
+      });
+    }),
+  );
+
+     //create contentSubComponent servicePageSection2
+     let serviceContent2 = [
+      { name: 'title', path: '', type: 'paragraph' },
+      { name: 'paragraph', path: '', type: 'paragraph' }
+  
+    ];
+    await Promise.all(
+      serviceContent2.map(async (el) => {
+        if (el.name === 'title') {
+          var data = {
+            title: 'title',
+            type: el.type as ContentType,
+            navigateTo: el.path,
+            content:'Custom Software Development',
+             subComponentId: servicePageSection2.id,
+          };
+        } 
+       else  {
+          var data = {
+            title: 'paragraph',
+            type: el.type as ContentType,
+            navigateTo: el.path,
+            content:'Our Services in Development encompass the creation of tailor-made software solutions to address the unique requirements of businesses or individuals. We work closely with clients to understand their objectives and develop custom software applications from scratch. Our development team utilizes the latest technologies and methodologies to design, code, test, and deploy software that meets specific functionalities, user experience, and scalability needs.',
+             subComponentId: servicePageSection2.id,
+          };
+        } 
+        await prisma.contentSubComponent.create({
+          data,
+        });
+      }),
+    );
+     //create contentSubComponent servicePageSection3
+     let serviceContent3 = [
+      { name: 'title', path: '', type: 'paragraph' },
+      { name: 'paragraph', path: '', type: 'paragraph' },
+      { name: 'image', path: '', type: 'image' },
+     { name: 'See More', path: '#aboutus', type: 'button' }
+  
+    ];
+    
 
 };
