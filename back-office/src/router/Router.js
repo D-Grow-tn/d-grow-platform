@@ -165,6 +165,10 @@ function Router() {
                 <Route index element={<RequestList />} />
                 <Route path="create" element={<CreateRequest />} />
                 <Route path="edit/:requestId" element={<EditRequest />} />
+                <Route path="edit/sent/:requestId" element={<EditRequest />} />
+                <Route path="edit/received/:requestId" element={<EditRequest />} />
+                
+                
               </Route>
               <Route path="mains" element={<Mains />}>
                 <Route index element={<MainList />} />
