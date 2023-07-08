@@ -18,6 +18,8 @@ function EditProject() {
   const [readOnly, setReadOnly] = useState(true);
   const [auxProject, setAuxProject] = useState(null);
   const [inputs, setInputs] = useState([]);
+  const employeeId = auxProject?.projectTechnologies[0].technologyId
+  const projectTechnologyIds = [employeeId]
 
   useEffect(() => {
     dispatch(fetchProject(projectId));
@@ -28,7 +30,7 @@ function EditProject() {
   useEffect(() => {
     setAuxProject(project);
   }, [project]);
-  console.log(auxProject,'auxproject')
+  console.log(auxProject,"projectTechnologyIds")
   useEffect(() => {
     setInputs([
       {
@@ -99,6 +101,21 @@ function EditProject() {
       },
       {
         category:"select",
+        label: "Team",
+        name: "team",
+        required: true,
+        options: employees,
+        optionLabel: "name",
+        valueLabel: "id",
+        
+        value: auxProject?.team?.name ,
+        onChange: (value) => {
+         setAuxProject((Project) => ({ ...Project, teamId: value }));
+        },
+
+      },
+      {
+        category:"select",
         label: "Client",
         name: "clientId",
         required: true,
@@ -126,11 +143,12 @@ function EditProject() {
   const onSubmit = (e) => {
     e.preventDefault();
     const { name, description,duration,status, startAt, endAt } = auxProject;
-    dispatch(updateProject({ name, description,duration,status, startAt, endAt, projectId })).then(
+    dispatch(updateProject({ name, description,duration,status, startAt, endAt, projectId,projectTechnologyIds })).then(
       (result) => {
         if (!result.error) {
           showSuccessToast("Project has been updated");
           setReadOnly(true);
+          navigate(-1);
         } else {
           showErrorToast(result.error.message);
         }
