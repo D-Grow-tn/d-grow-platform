@@ -61,6 +61,7 @@ function CreateDecision() {
         placeholder: "Select an employee",
         name: "DecisionApply",
         width: 500,
+        multiple:true,
         required: true,
         valueLabel: "id",
         optionLabel: "label",
