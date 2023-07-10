@@ -40,6 +40,8 @@ function SubComponetList({ mainID }) {
       if (!result.error) {
         showSuccessToast("SubComponet has been deleted");
         setIsOpen(false);
+    dispatch(fetchSubComponets());
+
       } else {
         showErrorToast(result.error.message);
       }

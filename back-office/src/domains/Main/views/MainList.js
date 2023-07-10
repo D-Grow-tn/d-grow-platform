@@ -31,6 +31,7 @@ function MainList() {
       if (!result.error) {
         showSuccessToast("Main has been deleted");
         setIsOpen(false);
+        dispatch(fetchMains());
       } else {
         showErrorToast(result.error.message);
       }

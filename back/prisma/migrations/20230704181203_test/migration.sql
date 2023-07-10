@@ -283,9 +283,11 @@ CREATE TABLE "DecisionApply" (
 CREATE TABLE "Product" (
     "id" TEXT NOT NULL,
     "name" TEXT NOT NULL,
+    "description" TEXT NOT NULL,
     "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
     "updatedAt" TIMESTAMP(3) NOT NULL,
     "type" TEXT NOT NULL,
+    "productCoverId" TEXT,
 
     CONSTRAINT "Product_pkey" PRIMARY KEY ("id")
 );
@@ -300,6 +302,12 @@ CREATE TABLE "ProductType" (
     "ProductId" TEXT NOT NULL,
 
     CONSTRAINT "ProductType_pkey" PRIMARY KEY ("id")
+);
+
+-- CreateTable
+CREATE TABLE "MediaProductType" (
+    "mediaId" TEXT NOT NULL,
+    "productTypeId" TEXT NOT NULL
 );
 
 -- CreateTable
@@ -476,6 +484,9 @@ CREATE UNIQUE INDEX "Membership_eventId_employeeId_key" ON "Membership"("eventId
 CREATE UNIQUE INDEX "DecisionApply_decisionId_employeeId_key" ON "DecisionApply"("decisionId", "employeeId");
 
 -- CreateIndex
+CREATE UNIQUE INDEX "MediaProductType_mediaId_productTypeId_key" ON "MediaProductType"("mediaId", "productTypeId");
+
+-- CreateIndex
 CREATE UNIQUE INDEX "MediaUser_mediaId_userId_key" ON "MediaUser"("mediaId", "userId");
 
 -- CreateIndex
@@ -617,7 +628,16 @@ ALTER TABLE "DecisionApply" ADD CONSTRAINT "DecisionApply_decisionId_fkey" FOREI
 ALTER TABLE "DecisionApply" ADD CONSTRAINT "DecisionApply_employeeId_fkey" FOREIGN KEY ("employeeId") REFERENCES "Employee"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
 
 -- AddForeignKey
+ALTER TABLE "Product" ADD CONSTRAINT "Product_productCoverId_fkey" FOREIGN KEY ("productCoverId") REFERENCES "Media"("id") ON DELETE SET NULL ON UPDATE CASCADE;
+
+-- AddForeignKey
 ALTER TABLE "ProductType" ADD CONSTRAINT "ProductType_ProductId_fkey" FOREIGN KEY ("ProductId") REFERENCES "Product"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
+
+-- AddForeignKey
+ALTER TABLE "MediaProductType" ADD CONSTRAINT "MediaProductType_mediaId_fkey" FOREIGN KEY ("mediaId") REFERENCES "Media"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
+
+-- AddForeignKey
+ALTER TABLE "MediaProductType" ADD CONSTRAINT "MediaProductType_productTypeId_fkey" FOREIGN KEY ("productTypeId") REFERENCES "ProductType"("id") ON DELETE CASCADE ON UPDATE CASCADE;
 
 -- AddForeignKey
 ALTER TABLE "Department" ADD CONSTRAINT "Department_headDepartmentId_fkey" FOREIGN KEY ("headDepartmentId") REFERENCES "Employee"("id") ON DELETE RESTRICT ON UPDATE CASCADE;

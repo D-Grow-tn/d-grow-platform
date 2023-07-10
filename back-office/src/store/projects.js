@@ -91,6 +91,17 @@ export const projectSlice = createSlice({
     builder.addCase(fetchProjectByPM.fulfilled, (state, action) => {
       state.projects.items = action.payload;
     });
+    builder.addCase(removeProject.fulfilled, (state, action) => {
+      // Find the index of the removed project in the items array
+      const removedIndex = state.projects.items.findIndex(
+        (item) => item.id === action.payload.id
+      );
+
+      // If the project was found, remove it from the items array
+      if (removedIndex !== -1) {
+        state.projects.items.splice(removedIndex, 1);
+      }
+    });
   },
 });
 export default projectSlice.reducer;
