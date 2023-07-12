@@ -1,7 +1,44 @@
-import React from 'react'
+import React, { useState } from "react";
+import { useDispatch,  } from "react-redux";
+import { createContact } from "../store/contact";
+import { showErrorToast,showSuccessToast } from "../utils/toast";
+
 
 function Contact() {
 
+  const dispatch = useDispatch();
+  const [contact,setContact] = useState({
+    name: "",
+    email: "",
+    subject: "",
+    message: "",
+  });
+
+  const handleChange = (e) => {
+    const {name,value} = e.target;
+    setContact((prevContact)=>({...prevContact,[name]:value}));
+  };
+
+  const onSubmit = (e) => {
+    e.preventDefault();
+
+    dispatch(createContact(contact)).then((result) => {
+      if (!result.error) {
+        showSuccessToast("message created successfully");
+        setContact({
+          name: "",
+          email: "",
+          subject: "",
+          message: "",
+        });
+      } else {
+        showErrorToast(result.error.message);
+      }
+   
+    });
+    
+  };
+  
   return (
     <div className="bg-light">
       <section id="contact" className="contact">
@@ -34,27 +71,27 @@ function Contact() {
             </div>
             <div className="row justify-content-center" style={{paddingBottom:"50px"}}>
               <div className="col-lg-10">
-                <form  className="php-email-form">
+                <form  className="php-email-form" onSubmit={onSubmit}>
                   <div className="row">
                     <div className="col-md-6 form-group">
-                      <input type="text" name="name" className="form-control" id="name" placeholder="Your Name" required />
+                      <input type="text" name="name" className="form-control" id="name" placeholder="Your Name" value={contact.name} onChange={handleChange} required />
                     </div>
                     <div className="col-md-6 form-group mt-3 mt-md-0">
-                      <input type="email" className="form-control" name="email" id="email" placeholder="Your Email" required />
+                      <input type="email" className="form-control" name="email" id="email" placeholder="Your Email" value={contact.email} onChange={handleChange} required />
                     </div>
                   </div>
                   <div className="form-group mt-3">
-                    <input type="text" className="form-control" name="subject" id="subject" placeholder="Subject" required />
+                    <input type="text" className="form-control" name="subject" id="subject" placeholder="Subject" value={contact.subject} onChange={handleChange} required />
                   </div>
                   <div className="form-group mt-3">
-                    <textarea className="form-control" name="message" rows={5} placeholder="Message" required defaultValue={""} />
+                    <textarea className="form-control" name="message" rows={5} placeholder="Message" value={contact.message} onChange={handleChange} required defaultValue={""} />
                   </div>
                   <div className="my-3">
                     <div className="loading">Loading</div>
                     <div className="error-message" />
                     <div className="sent-message">Your message has been sent. Thank you!</div>
                   </div>
-                  <div className="text-center"><button type="submit">Send Message</button></div>
+                  <div className="text-center"><button type="submit" >Send Message</button></div>
                 </form>
               </div>
             </div>
