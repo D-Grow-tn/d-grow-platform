@@ -36,6 +36,7 @@ export const fetchProjectByPM = createAsyncThunk(
     const response = await axios.get(
       `${config.API_ENDPOINT}/projects/by_projectManager/${id}`
     );
+    console.log(response,"response")
     return response.data;
   }
 );

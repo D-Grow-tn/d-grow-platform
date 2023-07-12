@@ -5,7 +5,7 @@ import employee from "./employees";
 import request from "./request";
 import project from "./projects";
 import event from "./event";
-
+import technology from "./technology";
 import decision from "./decision";
 import main from "./main";
 import user from "./users";
@@ -21,7 +21,7 @@ export const store = configureStore({
     event,
     main,
     decision,
-
+    technology,
     user,
     subComponet,
     contentsubcomponet,
