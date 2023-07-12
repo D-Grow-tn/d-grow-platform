@@ -1,5 +1,4 @@
 import React, { useState, useCallback, useEffect } from "react";
-
 import { useDropzone } from "react-dropzone";
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
