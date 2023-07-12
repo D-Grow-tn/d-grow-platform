@@ -7,6 +7,7 @@ import { fetchProject, updateProject } from "../../../store/projects";
 import { showErrorToast, showSuccessToast } from "../../../utils/toast";
 import { fetchEmployees } from "../../../store/employees";
 import { fetchClients } from "../../../store/client";
+import { fetchTechnologies } from "../../../store/technology";
 
 function EditProject() {
   const { projectId } = useParams();
@@ -15,16 +16,17 @@ function EditProject() {
   const project = useSelector((state) => state.project.project);
   const employees = useSelector((state) => state.employee.employees.items);
   const clients = useSelector((state) => state.client.clients.items);
+  const technologies = useSelector((state) => state.technology.technologies.items);
   const [readOnly, setReadOnly] = useState(true);
   const [auxProject, setAuxProject] = useState(null);
   const [inputs, setInputs] = useState([]);
-  const employeeId = auxProject?.projectTechnologies[0].technologyId
+  const employeeId = auxProject?.projectTechnologies[0]?.technologyId
   const projectTechnologyIds = [employeeId]
-
   useEffect(() => {
     dispatch(fetchProject(projectId));
     dispatch(fetchEmployees());
     dispatch(fetchClients());
+    dispatch(fetchTechnologies());
   }, [dispatch]);
 
   useEffect(() => {
@@ -126,6 +128,21 @@ function EditProject() {
         value: auxProject?.client?.name ,
         onChange: (value) => {
          setAuxProject((Project) => ({ ...Project, clientId: value }));
+        },
+
+      },
+      {
+        category:"select",
+        label: "Technology",
+        name: "projectTechnologyIds",
+        required: true,
+        options: technologies,
+        optionLabel: "name",
+        valueLabel: "name ",
+        
+        value: auxProject?.projectTechnologies?.technologyId ,
+        onChange: (value) => {
+         setAuxProject((Project) => ({ ...Project, projectTechnologyIds: [value] }));
         },
 
       },
