@@ -1,3 +1,8 @@
+import Box from "@mui/material/Box";
+import Tab from "@mui/material/Tab";
+import TabContext from "@mui/lab/TabContext";
+import TabList from "@mui/lab/TabList";
+import TabPanel from "@mui/lab/TabPanel";
 import React, { useEffect, useState, useMemo } from "react";
 import HeaderPage from "../../../components/HeaderPage";
 import Table from "../../../components/Table";
@@ -11,13 +16,8 @@ import { fetchRequestsBySender, fetchRequestsByReceiver, removeRequest } from ".
 import DisplayLottie from "../../../constants/DisplayLottie";
 import loading from "../../../constants/loading.json";
 import { useNavigate } from "react-router-dom";
-import { showErrorToast, showSuccessToast } from "../../../utils/toast";
-import EditRequest from "./EditRequest";
-import Box from "@mui/material/Box";
-import Tab from "@mui/material/Tab";
-import TabContext from "@mui/lab/TabContext";
-import TabList from "@mui/lab/TabList";
-import TabPanel from "@mui/lab/TabPanel";
+import { showErrorToast, showSuccessToast } from "../../../utils/toast";;
+
 
 function RequestList() {
   const dispatch = useDispatch();

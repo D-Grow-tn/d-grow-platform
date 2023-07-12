@@ -120,6 +120,210 @@ export const websiteSettingsSeed = async (prisma: PrismaClient) => {
       position: 'section',
     },
   });
+
+  //create content sub component homePageSection2
+
+  let content = [
+    { name: 'title', path: '', type: 'paragraph' },
+    { name: 'paragraph', path: '', type: 'paragraph' },
+    { name: 'image', path: '', type: 'image' },
+    { name: 'Read more', path: '/about-us', type: 'button' },
+  ];
+let contained=[
+'Unleash Your',
+'Digital', 
+ 'Potential'
+]
+  await Promise.all(
+    content.map(async (el) => {
+      if (el.name === 'title') {
+        var data = {
+          title: 'title',
+          type: el.type as ContentType,
+          navigateTo: el.path,
+          content:'Unleash Your Digital Potential',
+          subComponentId: homePageSection2.id,
+        };
+      } 
+     else if (el.name === 'paragraph') {
+        var data = {
+          title: 'paragraph',
+          type: el.type as ContentType,
+          navigateTo: el.path,
+          content:
+            'Transforming Businesses with Exquisite Websites and Powerful Mobile Applications ',
+          subComponentId: homePageSection2.id,
+        };
+      } else if (el.name === 'image') {
+        var data = {
+          title: 'image',
+          type: el.type as ContentType,
+          navigateTo: el.path,
+          content:"C:/Users/user/Desktop/d-grow-platform/client/src/constants/dev.json",
+          subComponentId: homePageSection2.id,
+        };
+      } else  {
+        var data = {
+          title: 'button',
+          type: el.type as ContentType,
+          navigateTo: el.path,
+          content: 'Read more',
+          subComponentId: homePageSection2.id,
+        };
+      }
+      await prisma.contentSubComponent.create({
+        data,
+      });
+    }),
+  );
+ //create content sub component homePageSection3
+
+ let content3 = [
+  { name: 'title', path: '', type: 'paragraph' },
+  { name: 'paragraph', path: '', type: 'paragraph' },
+ 
+];
+
+await Promise.all(
+  content3.map(async (el) => {
+    if (el.name === 'title') {
+      var data = {
+        title: 'title',
+        type: el.type as ContentType,
+        navigateTo: el.path,
+        content:'Clients Reviews',
+        subComponentId: homePageSection3.id,
+      };
+    } 
+   else if (el.name === 'paragraph') {
+      var data = {
+        title: 'paragraph',
+        type: el.type as ContentType,
+        navigateTo: el.path,
+        content:
+          '" Since having our new website built by D-Grow, we have seen a 200% increase in the number of online contact forms being filled out and returned to us. Matt and his team worked closely with us to provide a site that met all of the criteria that we were looking for. The end result was a website that is attractive, organized and effective. Thanks to D-Grow for all of your hard work and support! "',
+        subComponentId: homePageSection3.id,
+      };
+    } else {
+      var data = {
+        title: 'image',
+        type: el.type as ContentType,
+        navigateTo: el.path,
+        content:"",
+        subComponentId: homePageSection3.id,
+      };
+    } 
+    await prisma.contentSubComponent.create({
+      data,
+    });
+  }),
+);
+
+ //create content sub component homePageSection4
+
+ let content4 = [
+  { name: 'title', path: '', type: 'paragraph' },
+  { name: 'paragraph', path: '', type: 'paragraph' },
+  { name: 'image', path: '', type: 'image' },
+  { name: 'See more', path: '/services', type: 'button' },
+];
+
+await Promise.all(
+  content4.map(async (el) => {
+    if (el.name === 'title') {
+      var data = {
+        title: 'title',
+        type: el.type as ContentType,
+        navigateTo: el.path,
+        content:'Our Services',
+        subComponentId: homePageSection4.id,
+      };
+    } 
+   else if (el.name === 'paragraph') {
+      var data = {
+        title: 'paragraph',
+        type: el.type as ContentType,
+        navigateTo: el.path,
+        content:
+       ' We offer comprehensive services to help businesses establish a strong online presence and drive their success in the digital realm.',
+        subComponentId: homePageSection4.id,
+      };
+    } else if (el.name === 'image') {
+      var data = {
+        title: 'image',
+        type: el.type as ContentType,
+        navigateTo: el.path,
+        content:"",
+        subComponentId: homePageSection4.id,
+      };
+    } else  {
+      var data = {
+        title: 'button',
+        type: el.type as ContentType,
+        navigateTo: el.path,
+        content: 'See more',
+        subComponentId: homePageSection4.id,
+      };
+    }
+    await prisma.contentSubComponent.create({
+      data,
+    });
+  }),
+);
+
+
+ //create content sub component homePageSection4
+
+ let content5 = [
+  { name: 'title', path: '', type: 'paragraph' },
+  { name: 'paragraph', path: '', type: 'paragraph' },
+  { name: 'image', path: '', type: 'image' },
+  { name: 'Contact-Us', path: '/contact', type: 'button' },
+];
+
+await Promise.all(
+  content5.map(async (el) => {
+    if (el.name === 'title') {
+      var data = {
+        title: 'title',
+        type: el.type as ContentType,
+        navigateTo: el.path,
+        content:'Elevate your Digital Presence',
+        subComponentId: homePageSection5.id,
+      };
+    } 
+   else if (el.name === 'paragraph') {
+      var data = {
+        title: 'paragraph',
+        type: el.type as ContentType,
+        navigateTo: el.path,
+        content:
+       'Contact us today to unlock the full potential of your business with our expert web and mobile development services.',
+        subComponentId: homePageSection5.id,
+      };
+    } else if (el.name === 'image') {
+      var data = {
+        title: 'image',
+        type: el.type as ContentType,
+        navigateTo: el.path,
+        content:"",
+        subComponentId: homePageSection5.id,
+      };
+    } else  {
+      var data = {
+        title: 'button',
+        type: el.type as ContentType,
+        navigateTo: el.path,
+        content: 'Contact-Us',
+        subComponentId: homePageSection5.id,
+      };
+    }
+    await prisma.contentSubComponent.create({
+      data,
+    });
+  }),
+);
+//AboutUs Page
 //create subComponent pageabout Us
 let aboutPageSection1 = await prisma.subComponent.create({
   data: {
@@ -472,47 +676,6 @@ let data4 = await prisma.contentSubComponent.create({
     }),
   );
 
-  //create content sub component homePageSection1
-
-  let content = [
-    { name: 'paragraph', path: '', type: 'paragraph' },
-    { name: 'image', path: '', type: 'image' },
-    { name: 'Show more', path: '/about-us', type: 'button' },
-  ];
-
-  await Promise.all(
-    content.map(async (el) => {
-      if (el.name === 'paragraph') {
-        var data = {
-          title: 'paragraph',
-          type: el.type as ContentType,
-          navigateTo: el.path,
-          content:
-            'Unleash Your Digital Potential Transforming Businesses with Exquisite Websites and Powerful Mobile Applications  we pride ourselves on delivering high-quality solutions that combine cutting-edge technology, aesthetic design, and user-centric functionality.',
-          subComponentId: homePageSection1.id,
-        };
-      } else if (el.name === 'image') {
-        var data = {
-          title: 'image',
-          type: el.type as ContentType,
-          navigateTo: el.path,
-          content:"C:/Users/user/Desktop/d-grow-platform/client/src/constants/dev.json",
-          subComponentId: homePageSection1.id,
-        };
-      } else  {
-        var data = {
-          title: 'button',
-          type: el.type as ContentType,
-          navigateTo: el.path,
-          content: 'Read more',
-          subComponentId: homePageSection1.id,
-        };
-      }
-      await prisma.contentSubComponent.create({
-        data,
-      });
-    }),
-  );
 
   //Services Page
     //create subcomponent services

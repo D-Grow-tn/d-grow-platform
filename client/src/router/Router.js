@@ -9,7 +9,7 @@ import { me } from "../store/auth";
 import Applications from "../pages/Applications";
 import ApplicationDetails from "../pages/ApplicationDetails";
 // import Signup from "../pages/Signup"
-import LoadComponent from"./LoadComponent"
+import LoadComponent from "./LoadComponent";
 import Services from "../pages/Services";
 const Client = React.lazy(() => import("./../apps/Client"));
 
@@ -61,7 +61,7 @@ function Router() {
           Loading
         </div>
       )}
-      <BrowserRouter >
+      <BrowserRouter>
         <Routes>
           {!user && (
             <Route path="/auth" element={<Auth />}>
@@ -85,12 +85,15 @@ function Router() {
               element={<LoadComponent Component={Services} />}
             />
 
-            
-             <Route
+            <Route
+              path="/coming"
+              element={<LoadComponent Component={ComingSoon} />}
+            />
+            <Route
               path="applications/:id"
               element={<LoadComponent Component={Applications} />}
             />
-              <Route
+            <Route
               path="applicationDetails/:id"
               element={<LoadComponent Component={ApplicationDetails} />}
             />
@@ -139,7 +142,6 @@ function Router() {
           </Route>
         </Routes>
       </BrowserRouter>
-
     </div>
   );
 }

@@ -66,10 +66,10 @@ function CreateDecision() {
         valueLabel: "id",
         optionLabel: "label",
         options: employees.map((employee) => ({ label: employee.name, value: employee.id })),
-        value: (decisions[0]?.DecisionApply[0].employeeId) || "",
+        value: (decisions[0]?.DecisionApply[0]?.employeeId) || "",
         
         onChange: (value) => {
-          
+        
           
        
           setDecision((Decision) => ({ ...Decision, decisionApplyIds: [id] }));
