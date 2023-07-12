@@ -29,7 +29,7 @@ function RequestList() {
   const [selected, setSelected] = useState(null);
   const [sentRows, setSentRows] = useState([]);
   const [receivedRows, setReceivedRows] = useState([]);
-  const [selectedTab, setSelectedTab] = useState("sent");
+  const [selectedTab, setSelectedTab] = useState("received");
   const [sent,setSent]=useState(null); 
    console.log('====================================');
    console.log(sentRequests);
@@ -99,20 +99,14 @@ function RequestList() {
     },
     {
       field: "createdAt",
-      headerName: "Created At",
+      headerName: selectedTab === "sent" ? "Sent At":"Received At",
       headerClassName: "header-blue",
       width: 200,
       renderCell: (params) =>
         moment(params.row.createdAt).format("YYYY-MM-DD HH:MM:SS"),
     },
-    {
-      field: "UpdatedAt",
-      headerName: "Updated At",
-      headerClassName: "header-blue",
-      width: 200,
-      renderCell: (params) =>
-        moment(params.row.createdAt).format("YYYY-MM-DD HH:MM:SS"),
-    },
+    
+
   
     {
       field : "name",
