@@ -17,6 +17,9 @@ function EditProject() {
   const clients = useSelector((state) => state.client.clients.items);
   const [readOnly, setReadOnly] = useState(true);
   const [auxProject, setAuxProject] = useState(null);
+  console.log("🚀 ~ file: EditProject.js:20 ~ EditProject ~ auxProject:", auxProject)
+const employeeId = auxProject?.projectTechnologies[0]?.technologyId 
+  const projectTechnologyIds = [employeeId]
   const [inputs, setInputs] = useState([]);
 
   useEffect(() => {
@@ -95,7 +98,7 @@ function EditProject() {
         onChange: (value) => {
          setAuxProject((Project) => ({ ...Project, consultantId: value }));
         },
-
+        multiple: true,
       },
       {
         category:"select",
@@ -110,7 +113,8 @@ function EditProject() {
         onChange: (value) => {
          setAuxProject((Project) => ({ ...Project, clientId: value }));
         },
-
+        multiple: true,
+      
       },
       
     ]);
@@ -125,8 +129,10 @@ function EditProject() {
   };
   const onSubmit = (e) => {
     e.preventDefault();
-    const { name, description,duration,status, startAt, endAt } = auxProject;
-    dispatch(updateProject({ name, description,duration,status, startAt, endAt, projectId })).then(
+    // const { name, description,duration,status, startAt, endAt } = auxProject;
+    // dispatch(updateProject({ name, description,duration,status, startAt, endAt, projectId })).then(
+      const { name, description,duration,status, startAt, endAt } = auxProject;
+    dispatch(updateProject({ name, description,duration,status, startAt, endAt, projectId,projectTechnologyIds })).then(
       (result) => {
         if (!result.error) {
           showSuccessToast("Project has been updated");
@@ -176,6 +182,7 @@ function EditProject() {
         onChange={handleInputChange}
         buttonsClassName="d-flex justify-content-end gap-3"
         buttons={!readOnly ? buttons : []}
+        // multiple={true}
       />
       {/* </div> */}
     </div>

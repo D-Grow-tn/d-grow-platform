@@ -123,6 +123,8 @@ function CreateProject() {
         onChange: (value) => {
           setProject((Project) => ({ ...Project, consultantId: value }));
         },
+        multiple: true,
+
       },
       {
         category: "select",

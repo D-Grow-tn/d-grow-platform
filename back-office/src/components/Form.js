@@ -31,6 +31,7 @@ function Form({
   buttonsStyle,
   link,
   readOnly,
+
 }) {
   const renderInput = (category, rest) => {
     switch (category) {
