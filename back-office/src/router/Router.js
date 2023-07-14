@@ -71,7 +71,10 @@ import ContentSubComponent from "../domains/contentSubComponent/ContentSubCompon
 import ContentSubComponentList from "../domains/contentSubComponent/views/ContentSubComponentList";
 import CreateContentSubComponent from "../domains/contentSubComponent/views/CreateContentSubComponent";
 import OneContentSubComponent from "../domains/contentSubComponent/views/OneContentSubComponent";
-
+import Technology from "../domains/technology/Technology";
+import CreateTechnology from "../domains/technology/views/CreateTechnology";
+import TechnologiesList from "../domains/technology/views/TechnologiesList";
+import OneTechnology from "../domains/technology/views/OneTechnology"
 
 function Router() {
   const dispatch = useDispatch();
@@ -167,6 +170,13 @@ function Router() {
                 <Route path="edit/:requestId" element={<EditRequest />} />
                 <Route path="edit/sent/:requestId" element={<EditRequest />} />
                 <Route path="edit/received/:requestId" element={<EditRequest />} />
+                
+                
+              </Route>
+              <Route path="technology" element={<Technology />}>
+                <Route index element={<TechnologiesList />} />
+                <Route path="create" element={<CreateTechnology />} />
+                <Route path="edit/:technologyId" element={<OneTechnology />} />
                 
                 
               </Route>

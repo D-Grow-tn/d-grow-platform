@@ -323,6 +323,19 @@ async function main() {
     },
   });
  
+  // create technology 
+  let technolgy1 = await prisma.technology.create({
+    data: {
+      name: 'NestJS',
+      description: 'backend technology',
+    },
+  });
+  let technolgy2 = await prisma.technology.create({
+    data: {
+      name: 'React',
+      description: 'frontend technology',
+    },
+  });
 
   // create objective
   let objective1Project1 = await prisma.objective.create({
