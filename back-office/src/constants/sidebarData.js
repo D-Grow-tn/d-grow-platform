@@ -99,6 +99,11 @@ export const menuItem = [
         path: "/project",
         icon: <FaProjectDiagram />,
       },
+      {
+        name: "Technology",
+        path: "/technology",
+        icon: <FaTools />,
+      },
     ],
   },
   {

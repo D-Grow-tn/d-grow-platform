@@ -176,7 +176,7 @@ function Router() {
               <Route path="technology" element={<Technology />}>
                 <Route index element={<TechnologiesList />} />
                 <Route path="create" element={<CreateTechnology />} />
-                <Route path="edit/:technologyId" element={<OneTechnology />} />
+                <Route path="one/:technologyId" element={<OneTechnology />} />
                 
                 
               </Route>
