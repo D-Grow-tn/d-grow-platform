@@ -25,7 +25,6 @@ export const createProject = createAsyncThunk(
     console.log(body, "body");
     const response = await axios.post(`${config.API_ENDPOINT}/projects`, body);
     dispatch(fetchProject(response.data));
-    console.log("event from store", response.data);
     return response.data;
   }
 );
