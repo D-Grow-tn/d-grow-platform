@@ -31,12 +31,13 @@ function Form({
   buttonsStyle,
   link,
   readOnly,
+  setData
 
 }) {
   const renderInput = (category, rest) => {
     switch (category) {
       case "select":
-        return <AutoSelect {...rest}  readOnly={readOnly} />;
+        return <AutoSelect {...rest}  readOnly={readOnly} setData={setData}/>;
     }
     return <TextInput {...rest} onChange={onChange} readOnly={readOnly} />;
   };

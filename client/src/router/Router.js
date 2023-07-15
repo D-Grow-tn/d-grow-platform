@@ -85,10 +85,7 @@ function Router() {
               element={<LoadComponent Component={Services} />}
             />
 
-            {/* <Route
-              path="signup"
-              element={<LoadComponent Component={Signup} />}
-            /> */}
+            
              <Route
               path="applications/:id"
               element={<LoadComponent Component={Applications} />}

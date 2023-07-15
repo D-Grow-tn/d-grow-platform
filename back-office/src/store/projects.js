@@ -36,6 +36,7 @@ export const fetchProjectByPM = createAsyncThunk(
     const response = await axios.get(
       `${config.API_ENDPOINT}/projects/by_projectManager/${id}`
     );
+    console.log(response,"response")
     return response.data;
   }
 );
@@ -43,6 +44,7 @@ export const fetchProjectByPM = createAsyncThunk(
 export const removeProject = createAsyncThunk(
     "projects/deleteProject",
     async (id, { dispatch }) => {
+      console.log(id)
       const response = await axios.delete(
         `${config.API_ENDPOINT}/projects/${id}`
       );
@@ -52,13 +54,14 @@ export const removeProject = createAsyncThunk(
   );
   export const updateProject = createAsyncThunk(
     "projects/updateProject",
-    async ({ projectId, ...body }, { dispatch }) => {
-      console.log(body,'body')
+    async (body) => {
+      const {projectId,...rest} = body
+      console.log(rest,'rest')
       const response = await axios.patch(
         `${config.API_ENDPOINT}/projects/${projectId}`,
-        body
+        {...rest}
       );
-      dispatch(fetchProject(response.data.id));
+      
       return response.data;
     }
   );

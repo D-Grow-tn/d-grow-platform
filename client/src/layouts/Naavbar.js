@@ -42,7 +42,7 @@ function Naavbar() {
       });
   }, []);
  
-  console.log(middle?.ContentSubComponent);
+  // console.log(middle?.ContentSubComponent);
 
   return (
     <Navbar

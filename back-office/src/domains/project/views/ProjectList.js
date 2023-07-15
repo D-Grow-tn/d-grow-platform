@@ -1,5 +1,5 @@
-import React from 'react'
-import HeaderPage from '../../../components/HeaderPage'
+import React from "react";
+import HeaderPage from "../../../components/HeaderPage";
 import Table from "../../../components/Table";
 import { useMemo, useEffect, useState } from "react";
 import { IconButton } from "@mui/material";
@@ -12,22 +12,23 @@ import loading from "../../../constants/loading.json";
 import { useNavigate } from "react-router-dom";
 import DeleteModal from "../../../components/DeleteModal";
 import { showErrorToast, showSuccessToast } from "../../../utils/toast";
-import { fetchProjectByPM,removeProject } from "../../../store/projects";
+import { fetchProjectByPM, removeProject } from "../../../store/projects";
+import { Image } from "mui-image";
 
 function ProjectList() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const projects = useSelector((state) => state.project.projects.items) ;
+  const projects = useSelector((state) => state.project.projects.items);
   const me = useSelector((state) => state.auth.me);
   const [selected, setSelected] = useState(null);
   const [rows, setRows] = useState([]);
   const [isOpen, setIsOpen] = useState(false);
 
   useEffect(() => {
-     if (me) {
+    if (me) {
       dispatch(fetchProjectByPM(me.employee.id));
     }
-  }, [dispatch,me]);
+  }, [dispatch, me]);
 
   useEffect(() => {
     if (projects.length) {
@@ -41,27 +42,28 @@ function ProjectList() {
   const handleUpdate = (id) => {
     navigate("edit/" + id);
   };
-  
+
   const openPopup = (select) => {
     setSelected(select);
     setIsOpen(true);
-    console.log(isOpen);
   };
-  
+
   const handleDelete = () => {
     dispatch(removeProject(selected.id)).then((result) => {
-      console.log(selected.id,"selected")
+      console.log(selected.id, "selected");
       if (!result.error) {
         showSuccessToast("Project has been deleted");
         setIsOpen(false);
+        dispatch(fetchProjectByPM(me.employee.id));
       } else {
         showErrorToast(result.error.message);
       }
     });
   };
-  const columns = useMemo( 
+
+  const columns = useMemo(
     () => [
-     
+   
       {
         field: "name",
         headerName: "Name",
@@ -91,38 +93,41 @@ function ProjectList() {
         headerName: "Project Manager",
         headerClassName: "header-blue",
         width: 200,
-        renderCell: (params) =>(<div>{params.row.projectManager?.name}</div>)
+        renderCell: (params) => <div>{params.row.projectManager?.name}</div>,
       },
-      
+
       {
         field: "consultantId",
         headerName: "Consultant",
         headerClassName: "header-blue",
         width: 200,
-        renderCell: (params) =>(<div>{params.row.consultant?.name}</div>)
+        renderCell: (params) => {
+          return <div>{params.row.consultant?.name}</div>;
+        },
+      },
+      {
+        field: "teamId",
+        headerName: "Team",
+        headerClassName: "header-blue",
+        width: 200,
+        renderCell: (params) => <div>{params.row.team?.name}</div>,
       },
       {
         field: "clientId",
-        headerName: "Client ID",
+        headerName: "Client",
         headerClassName: "header-blue",
         width: 200,
-        renderCell: (params) =>(<div>{params.row.client?.name}</div>)
+        renderCell: (params) => <div>{params.row.client?.name}</div>,
       },
       {
-        field: "Start At",
-        headerName: "Start At",
+        field: "projectTechnologies",
+        headerName: "Technology",
         headerClassName: "header-blue",
         width: 200,
-        renderCell: (params) =>
-          moment(params.row.startAt).format("YYYY-MM-DD HH:MM:SS"),
-      },
-      {
-        field: "End At",
-        headerName: "End At",
-        headerClassName: "header-blue",
-        width: 200,
-        renderCell: (params) =>
-          moment(params.row.endAt).format("YYYY-MM-DD HH:MM:SS"),
+        renderCell: (params) => {
+          console.log(params.row,"params")
+          return <div>{params.row.projectTechnologies.map((e)=>e.technologies?.name).join(" | ")}</div>;
+        },
       },
 
       {
@@ -134,7 +139,11 @@ function ProjectList() {
         filterable: false,
         renderCell: (params) => (
           <div>
-            <IconButton onClick={()=>handleUpdate(params.row.id)} color="primary" aria-label="update">
+            <IconButton
+              onClick={() => handleUpdate(params.row.id)}
+              color="primary"
+              aria-label="update"
+            >
               <RemoveRedEyeIcon />
             </IconButton>
 
@@ -148,10 +157,9 @@ function ProjectList() {
           </div>
         ),
       },
-  ],
-  []
+    ],
+    []
   );
-  
   if (!projects) {
     return (
       <div>
@@ -160,18 +168,18 @@ function ProjectList() {
       </div>
     );
   }
-  
+
   return (
     <div>
-        <HeaderPage 
-        title={'Project List'}
+      <HeaderPage
+        title={"Project List"}
         showButton={true}
-        buttonFunction={()=>navigate('create')}
+        buttonFunction={() => navigate("create")}
         text={"Create Project"}
-        />
-        
-        <Table columns={columns} rows={rows} />
-        {isOpen && (
+      />
+
+      <Table columns={columns} rows={rows} />
+      {isOpen && (
         <DeleteModal
           close={() => setIsOpen(false)}
           title={selected.name}
@@ -180,9 +188,8 @@ function ProjectList() {
           fnDelete={handleDelete}
         />
       )}
-
     </div>
-  )
+  );
 }
 
-export default ProjectList
+export default ProjectList;

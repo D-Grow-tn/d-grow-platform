@@ -75,7 +75,9 @@ export class ProjectsService {
         consultant: true,
         interaction: { include: { User: true } },
         contract: true,
-        projectTechnologies:true,
+        projectTechnologies: { include: { technologies: true } },
+
+
       },
     });
   }
@@ -94,6 +96,8 @@ export class ProjectsService {
         projectManager: true,
         consultant: true,
         client: true,
+        projectTechnologies: { include: { technologies: true } },
+        
       }
 
     
@@ -128,20 +132,36 @@ export class ProjectsService {
     // })
   }
 
+  // async remove(id: string) {
+  //   return await this.prisma.$transaction(async (prisma) => {
+  //      await prisma.projectTechnology.deleteMany({
+  //        where: {
+  //          technologyId: id,
+  //        },
+  //      });
+  //     return await prisma.project.delete({
+  //        where: {
+  //          id,
+  //        },
+  //      });
+  //    });
+  //  }
   async remove(id: string) {
     return await this.prisma.$transaction(async (prisma) => {
-       await prisma.projectTechnology.deleteMany({
-         where: {
-           technologyId: id,
-         },
-       });
+      await prisma.projectTechnology.deleteMany({
+        where: {
+          projectId: id, 
+        },
+      });
+  
       return await prisma.project.delete({
-         where: {
-           id,
-         },
-       });
-     });
-   }
+        where: {
+          id,
+        },
+      });
+    });
+  }
+  
    
  }
  

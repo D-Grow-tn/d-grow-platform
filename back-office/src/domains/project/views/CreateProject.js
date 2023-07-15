@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import HeaderPage from "../../../components/HeaderPage";
@@ -7,13 +7,19 @@ import { createProject } from "../../../store/projects";
 import { showErrorToast } from "../../../utils/toast";
 import { fetchEmployees } from "../../../store/employees";
 import { fetchClients } from "../../../store/client";
+import { useDropzone } from "react-dropzone";
+import { fetchTechnologies } from "../../../store/technology";
 
 function CreateProject() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const [project, setProject] = useState({});
+  const [data, setData] = useState();
   const employees = useSelector((state) => state.employee.employees.items);
   const clients = useSelector((state) => state.client.clients.items);
+  const technologies = useSelector(
+    (state) => state.technology.technologies.items
+  );
   // const [employee, setEmployee] = useState(null);
   const [client, setClient] = useState(null);
   const [inputs, setInputs] = useState([]);
@@ -22,31 +28,35 @@ function CreateProject() {
   useEffect(() => {
     dispatch(fetchEmployees());
     dispatch(fetchClients());
+    dispatch(fetchTechnologies());
   }, [dispatch]);
+
   const handleChange = (e) => {
     const { name, value } = e.target;
     setProject((project) => ({ ...project, [name]: value }));
-    console.log(project,"project")
   };
-  
   const onSubmit = (e) => {
     e.preventDefault();
 
-    let aux = Object.assign({}, project);
-
+    const { projectTechnologyIds, ...rest } = project;
+    const aux = { ...rest, projectTechnologyIds: data };
+    console.log(aux, "test");
     dispatch(createProject(aux)).then((res) => {
       if (!res.error) {
         navigate(`/project`);
       } else {
-        console.log(aux,"test");
         showErrorToast(res.error.message);
       }
     });
   };
+  const onDrop = useCallback((acceptedFiles) => {
+    setDroppedFiles(acceptedFiles.map((file) => URL.createObjectURL(file)));
+  }, []);
+
+  const { getRootProps, getInputProps, isDragActive } = useDropzone({ onDrop });
 
   useEffect(() => {
     setInputs([
-
       {
         label: "Name",
         placeholder: "Name",
@@ -123,9 +133,22 @@ function CreateProject() {
         onChange: (value) => {
           setProject((Project) => ({ ...Project, consultantId: value }));
         },
-        multiple: true,
-
       },
+      // {
+      //   category: "select",
+      //   label: "Team",
+      //   placeholder: "Select a team",
+      //   name: "team",
+      //   width: 250,
+      //   required: true,
+      //   options: employees,
+      //   optionLabel: "name",
+      //   valueLabel: "id",
+      //   value: project.teamId || "",
+      //   onChange: (value) => {
+      //     setProject((Project) => ({ ...Project, teamId: value }));
+      //   },
+      // },
       {
         category: "select",
         label: "Client",
@@ -141,8 +164,25 @@ function CreateProject() {
           setProject((Project) => ({ ...Project, clientId: value }));
         },
       },
+      {
+        category: "select",
+        label: "Technology",
+        placeholder: "Select Technology",
+        name: "projectTechnologyIds",
+        width: 250,
+        required: true,
+        options: technologies,
+        optionLabel: "name",
+        valueLabel: "id",
+        value: technologies.id || {},
+        onChange: (value) => {
+          setProject((Project) => ({ ...Project }));
+          setProject({ ...project, projectTechnologyIds: data });
+        },
+        multiple: true,
+      },
     ]);
-  }, [employees,clients]);
+  }, [employees, clients, technologies]);
 
   const buttons = [
     {
@@ -167,6 +207,35 @@ function CreateProject() {
       <div className="d-flex flex-wrap align-items-center justify-content-center px-3 pt-5 ">
         <div className="py-5  rounded-5  ">
           <div class="d-flex justify-content-center  mb-4">
+            <div
+              {...getRootProps()}
+              className={`dropzone ${isDragActive ? "active" : ""}`}
+            >
+              <Form {...getInputProps()} onChange={onDrop} />
+
+              {isDragActive ? (
+                <p>Drop the files here...</p>
+              ) : (
+                <p>Drag and drop files here, or click to select files</p>
+              )}
+
+              {/* Display the dropped image previews */}
+              {droppedFiles.length > 0 && (
+                <div>
+                  <h3>Dropped Images:</h3>
+                  <div className="image-preview-container ">
+                    {droppedFiles.map((imageUrl, index) => (
+                      <img
+                        key={index}
+                        src={imageUrl}
+                        alt={`Dropped Image ${index + 1}`}
+                        className="container"
+                      />
+                    ))}
+                  </div>
+                </div>
+              )}
+            </div>
 
             <Form
               className=" rounded-5 d-flex flex-wrap  justify-content-center align-items-center  "
@@ -183,12 +252,13 @@ function CreateProject() {
               onChange={handleChange}
               buttons={buttons}
               buttonsClassName=" d-flex justify-content-end gap-3"
+              setData={setData}
             />
           </div>
         </div>
       </div>
     </div>
-  )
+  );
 }
 
-export default CreateProject
+export default CreateProject;

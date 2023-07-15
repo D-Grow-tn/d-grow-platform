@@ -18,6 +18,7 @@ function AutoSelect({
   onChange,
   freeSolo,
   multiple,
+  setData
 }) {
   const style = {
     backgroundColor: "#daeaf088",
@@ -27,8 +28,10 @@ function AutoSelect({
   };
   const getOptionLabel = (option) => {
     if (typeof option === "string") return option;
+    if (Array.isArray(option) && option.length === 0) return "";
     return option[optionLabel];
   };
+  
 
 
   const getOptionValue = (option) => {
@@ -82,6 +85,7 @@ function AutoSelect({
           renderTags={(value, getTagProps) =>
             value.map((option, index) => (
               <Chip
+                key={index}
                 variant="outlined"
                 label={option[optionLabel]}
                 {...getTagProps({ index })}
@@ -98,7 +102,9 @@ function AutoSelect({
           )}
           placeholder={placeholder}
           onChange={(e, value) => {
-            console.log(value);
+            const selectedValues = value.map((value) => value[valueLabel]);
+            console.log(selectedValues)
+            setData(selectedValues)
           }}
         />
       ) : (

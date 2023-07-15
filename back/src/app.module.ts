@@ -25,6 +25,7 @@ import { EmployeeChatRoomsModule } from './employee-chat-rooms/employee-chat-roo
 import { MainComponentsModule } from './main-components/main-components.module';
 import { SubComponentsModule } from './sub-components/sub-components.module';
 import { ContentSubComponentsModule } from './content-sub-components/content-sub-components.module';
+import { ContactModule } from './contact/contact.module';
 
 @Module({
   imports: [
@@ -50,6 +51,7 @@ import { ContentSubComponentsModule } from './content-sub-components/content-sub
     MainComponentsModule,
     SubComponentsModule,
     ContentSubComponentsModule,
+    ContactModule,
   ],
   controllers: [AppController],
   providers: [
