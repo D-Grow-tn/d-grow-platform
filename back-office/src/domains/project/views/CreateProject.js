@@ -14,9 +14,12 @@ function CreateProject() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const [project, setProject] = useState({});
+  const [data, setData] = useState();
   const employees = useSelector((state) => state.employee.employees.items);
   const clients = useSelector((state) => state.client.clients.items);
-  const technologies = useSelector((state) => state.technology.technologies.items);
+  const technologies = useSelector(
+    (state) => state.technology.technologies.items
+  );
   // const [employee, setEmployee] = useState(null);
   const [client, setClient] = useState(null);
   const [inputs, setInputs] = useState([]);
@@ -27,37 +30,33 @@ function CreateProject() {
     dispatch(fetchClients());
     dispatch(fetchTechnologies());
   }, [dispatch]);
-  
+
   const handleChange = (e) => {
     const { name, value } = e.target;
     setProject((project) => ({ ...project, [name]: value }));
-    
   };
-  console.log(technologies,"projects")
   const onSubmit = (e) => {
     e.preventDefault();
 
-    let aux = Object.assign({}, project);
-    console.log(aux,"test");
+    const { projectTechnologyIds, ...rest } = project;
+    const aux = { ...rest, projectTechnologyIds: data };
+    console.log(aux, "test");
     dispatch(createProject(aux)).then((res) => {
       if (!res.error) {
         navigate(`/project`);
       } else {
-        
         showErrorToast(res.error.message);
       }
     });
   };
   const onDrop = useCallback((acceptedFiles) => {
     setDroppedFiles(acceptedFiles.map((file) => URL.createObjectURL(file)));
-
   }, []);
 
   const { getRootProps, getInputProps, isDragActive } = useDropzone({ onDrop });
 
   useEffect(() => {
     setInputs([
-
       {
         label: "Name",
         placeholder: "Name",
@@ -175,13 +174,15 @@ function CreateProject() {
         options: technologies,
         optionLabel: "name",
         valueLabel: "id",
-        value: technologies.id || "",
+        value: technologies.id || {},
         onChange: (value) => {
-          setProject((Project) => ({ ...Project, projectTechnologyIds: [value] }));
+          setProject((Project) => ({ ...Project }));
+          setProject({ ...project, projectTechnologyIds: data });
         },
+        multiple: true,
       },
     ]);
-  }, [employees,clients,technologies]);
+  }, [employees, clients, technologies]);
 
   const buttons = [
     {
@@ -210,8 +211,7 @@ function CreateProject() {
               {...getRootProps()}
               className={`dropzone ${isDragActive ? "active" : ""}`}
             >
-              
-              <Form {...getInputProps()}   onChange={onDrop}/>
+              <Form {...getInputProps()} onChange={onDrop} />
 
               {isDragActive ? (
                 <p>Drop the files here...</p>
@@ -230,7 +230,6 @@ function CreateProject() {
                         src={imageUrl}
                         alt={`Dropped Image ${index + 1}`}
                         className="container"
-                      
                       />
                     ))}
                   </div>
@@ -253,6 +252,7 @@ function CreateProject() {
               onChange={handleChange}
               buttons={buttons}
               buttonsClassName=" d-flex justify-content-end gap-3"
+              setData={setData}
             />
           </div>
         </div>
@@ -261,4 +261,4 @@ function CreateProject() {
   );
 }
 
-export default CreateProject
+export default CreateProject;

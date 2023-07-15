@@ -48,6 +48,17 @@ export const mainSlice = createSlice({
       builder.addCase(updateMain.fulfilled,(state,action)=>{
         state.main = action.payload
       })
+      // builder.addCase(removeMain.fulfilled, (state, action) => {
+      //   // Find the index of the removed project in the items array
+      //   const removedIndex = state.mains.items.findIndex(
+      //     (item) => item.id === action.payload.id
+      //   );
+  
+      //   // If the project was found, remove it from the items array
+      //   if (removedIndex !== -1) {
+      //     state.mains.items.splice(removedIndex, 1);
+      //   }
+      // });
       // builder.addCase(createMain.fulfilled,(state,action)=>{
       //   state.mains.items = action.payload
       // })

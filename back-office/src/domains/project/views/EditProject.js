@@ -14,14 +14,20 @@ function EditProject() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const project = useSelector((state) => state.project.project);
+  console.log("🚀 ~ file: EditProject.js:17 ~ EditProject ~ project:", project)
+
   const employees = useSelector((state) => state.employee.employees.items);
   const clients = useSelector((state) => state.client.clients.items);
-  const technologies = useSelector((state) => state.technology.technologies.items);
+  const technologies = useSelector(
+    (state) => state.technology.technologies.items
+  );
   const [readOnly, setReadOnly] = useState(true);
   const [auxProject, setAuxProject] = useState(null);
+  const [data, setData] = useState();
+
   const [inputs, setInputs] = useState([]);
-  const employeeId = auxProject?.projectTechnologies[0]?.technologyId
-  const projectTechnologyIds = [employeeId]
+  const projectTechnologyIds = data;
+
   useEffect(() => {
     dispatch(fetchProject(projectId));
     dispatch(fetchEmployees());
@@ -32,7 +38,7 @@ function EditProject() {
   useEffect(() => {
     setAuxProject(project);
   }, [project]);
-  console.log(auxProject,"projectTechnologyIds")
+
   useEffect(() => {
     setInputs([
       {
@@ -72,81 +78,77 @@ function EditProject() {
         value: auxProject?.endAt,
       },
       {
-        category:"select",
+        category: "select",
         label: "Project Manager",
         name: "projectManagerId",
         required: true,
         options: employees,
         optionLabel: "name",
         valueLabel: "id",
-        
-        value: auxProject?.projectManager?.name ,
-        onChange: (value) => {
-         setAuxProject((Project) => ({ ...Project, projectManagerId: value }));
-        },
 
+        value: auxProject?.projectManager?.name,
+        onChange: (value) => {
+          setAuxProject((Project) => ({ ...Project, projectManagerId: value }));
+        },
       },
       {
-        category:"select",
+        category: "select",
         label: "Consultant",
         name: "consultant",
         required: true,
         options: employees,
         optionLabel: "name",
         valueLabel: "id",
-        
-        value: auxProject?.consultant?.name ,
-        onChange: (value) => {
-         setAuxProject((Project) => ({ ...Project, consultantId: value }));
-        },
 
+        value: auxProject?.consultant?.name,
+        onChange: (value) => {
+          setAuxProject((Project) => ({ ...Project, consultantId: value }));
+        },
       },
       {
-        category:"select",
+        category: "select",
         label: "Team",
         name: "team",
         required: true,
         options: employees,
         optionLabel: "name",
         valueLabel: "id",
-        
-        value: auxProject?.team?.name ,
-        onChange: (value) => {
-         setAuxProject((Project) => ({ ...Project, teamId: value }));
-        },
 
+        value: auxProject?.team?.name,
+        onChange: (value) => {
+          setAuxProject((Project) => ({ ...Project, teamId: value }));
+        },
+        multiple:true
       },
       {
-        category:"select",
+        category: "select",
         label: "Client",
         name: "clientId",
         required: true,
         options: clients,
         optionLabel: "name",
         valueLabel: "id",
-        
-        value: auxProject?.client?.name ,
-        onChange: (value) => {
-         setAuxProject((Project) => ({ ...Project, clientId: value }));
-        },
 
+        value: auxProject?.client?.name,
+        onChange: (value) => {
+          setAuxProject((Project) => ({ ...Project, clientId: value }));
+        },
       },
       {
-        category:"select",
+        category: "select",
         label: "Technology",
         name: "projectTechnologyIds",
         required: true,
         options: technologies,
         optionLabel: "name",
-        valueLabel: "name ",
-        
-        value: auxProject?.projectTechnologies?.technologyId ,
-        onChange: (value) => {
-         setAuxProject((Project) => ({ ...Project, projectTechnologyIds: [value] }));
-        },
+        valueLabel: "id",
 
+        value: data,
+        onChange: (value) => {
+          setAuxProject({ ...project, projectTechnologyIds: data });
+        },
+        multiple: true,
       },
-      
     ]);
   }, [auxProject]);
   const handleInputChange = (e) => {
@@ -155,22 +157,31 @@ function EditProject() {
       ...prevState,
       [name]: value,
     }));
-   
   };
+
   const onSubmit = (e) => {
     e.preventDefault();
-    const { name, description,duration,status, startAt, endAt } = auxProject;
-    dispatch(updateProject({ name, description,duration,status, startAt, endAt, projectId,projectTechnologyIds })).then(
-      (result) => {
-        if (!result.error) {
-          showSuccessToast("Project has been updated");
-          setReadOnly(true);
-          navigate(-1);
-        } else {
-          showErrorToast(result.error.message);
-        }
+    const { name, description, duration, status, startAt, endAt } = auxProject;
+    dispatch(
+      updateProject({
+        name,
+        description,
+        duration,
+        status,
+        startAt,
+        endAt,
+        projectId,
+        projectTechnologyIds,
+      })
+    ).then((result) => {
+      if (!result.error) {
+        showSuccessToast("Project has been updated");
+        setReadOnly(true);
+        navigate(-1);
+      } else {
+        showErrorToast(result.error.message);
       }
-    );
+    });
   };
   const buttons = [
     {
@@ -188,7 +199,7 @@ function EditProject() {
       },
     },
   ];
-  
+
   return (
     <div style={{}}>
       <HeaderPage
@@ -197,9 +208,8 @@ function EditProject() {
         buttonFunction={() => setReadOnly(false)}
         text={"Edit Project"}
       />
-     
-      <div className="d-flex   align-items-center  justify-content-center flex-wrap gap-3">
-      </div>
+
+      <div className="d-flex   align-items-center  justify-content-center flex-wrap gap-3"></div>
 
       <Form
         onSubmit={onSubmit}
@@ -211,11 +221,10 @@ function EditProject() {
         onChange={handleInputChange}
         buttonsClassName="d-flex justify-content-end gap-3"
         buttons={!readOnly ? buttons : []}
+        setData={setData}
       />
-      {/* </div> */}
     </div>
-
-  )
+  );
 }
 
-export default EditProject
+export default EditProject;

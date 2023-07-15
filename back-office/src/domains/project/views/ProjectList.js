@@ -60,23 +60,10 @@ function ProjectList() {
       }
     });
   };
-  // console.log(projects[7].projectTechnologies[0].technologyId,"tech");
+
   const columns = useMemo(
     () => [
-      // {
-      //   field: "MediaProject",
-      //   headerName: "Image",
-      //   headerClassName: "header-blue",
-      //   width: 100,
-
-      //   renderCell: (params) => {
-      //     console.log(params);
-      //     return <Image src={params.row} />;
-      //   },
-
-      //   sortable: false,
-      //   filterable: false,
-      // },
+   
       {
         field: "name",
         headerName: "Name",
@@ -138,8 +125,8 @@ function ProjectList() {
         headerClassName: "header-blue",
         width: 200,
         renderCell: (params) => {
-          console.log(params.row.projectTechnologies[0]?.technologies.name ,"params")
-          return <div>{params.row.projectTechnologies[0]?.technologies?.name}</div>;
+          console.log(params.row,"params")
+          return <div>{params.row.projectTechnologies.map((e)=>e.technologies?.name).join(" | ")}</div>;
         },
       },
 
