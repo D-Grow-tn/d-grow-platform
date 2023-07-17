@@ -1,8 +1,10 @@
 import React from 'react'
-
+import { Outlet } from 'react-router-dom';
 function Team() {
   return (
-    <div>Team</div>
+    <div>
+         <Outlet />
+     </div>
   )
 }
 

@@ -19,8 +19,10 @@ import {
   FaUserAlt,
   FaCalendarAlt,
   FaQuestionCircle,
-  FaCheckCircle
+  FaCheckCircle,
+  AiOutlineTeam
 } from "react-icons/fa";
+
 export const menuItem = [
   {
     path: "/",
@@ -104,6 +106,11 @@ export const menuItem = [
         path: "/technology",
         icon: <FaTools />,
       },
+      {
+        name: "Team",
+        path: "/team",
+        // icon: <AiOutlineTeam />,
+      }, 
     ],
   },
   {
