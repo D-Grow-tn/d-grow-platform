@@ -1,54 +1,49 @@
-import React, { useEffect, useMemo, useState } from "react";
-import DeleteModal from "../../../components/DeleteModal";
+import React from "react";
 import HeaderPage from "../../../components/HeaderPage";
 import Table from "../../../components/Table";
-import { Avatar, IconButton } from "@mui/material";
+import { useMemo, useEffect, useState } from "react";
+import { IconButton } from "@mui/material";
 import moment from "moment";
-import RemoveRedEyeIcon from "@mui/icons-material/RemoveRedEye";
 import DeleteIcon from "@mui/icons-material/Delete";
+import RemoveRedEyeIcon from "@mui/icons-material/RemoveRedEye";
 import { useDispatch, useSelector } from "react-redux";
+import { fetchTechnologies, removeTechnology } from "../../../store/technology";
+import DisplayLottie from "../../../constants/DisplayLottie";
+import loading from "../../../constants/loading.json";
 import { useNavigate } from "react-router-dom";
-import {
-  fetchSubComponets,
-  removeSubComponet,
-} from "../../../store/subComponet";
+import DeleteModal from "../../../components/DeleteModal";
 import { showErrorToast, showSuccessToast } from "../../../utils/toast";
 
-function SubComponetList({ mainID }) {
-  const navigate = useNavigate();
- 
+function TechnologyList() {
   const dispatch = useDispatch();
-  const subcomponets = useSelector(
-    (state) => state.subComponet.subcomponets.items.filter(
-      (subcomponet) => subcomponet.mainId === mainID
-    )
-  );
-
+  const navigate = useNavigate();
+  const technologies = useSelector((state) => state.technology.technologies.items);
+  const [selected, setSelected] = useState(null);
 
   const [isOpen, setIsOpen] = useState(false);
-  const [selected, setSelected] = useState(null);
+
   useEffect(() => {
-    dispatch(fetchSubComponets());
+    dispatch(fetchTechnologies());
   }, []);
+
+  const handleUpdate = (id) => {
+    navigate("one/" + id);
+  };
+
   const openPopup = (select) => {
     setSelected(select);
     setIsOpen(true);
-    console.log(isOpen);
+
   };
   const handleDelete = () => {
-    dispatch(removeSubComponet(selected.id)).then((result) => {
+    dispatch(removeTechnology(selected.id)).then((result) => {
       if (!result.error) {
-        showSuccessToast("SubComponet has been deleted");
-        setIsOpen(false);
-    dispatch(fetchSubComponets());
-
+        showSuccessToast("Technology has been deleted");
+        setIsOpen(false)
       } else {
         showErrorToast(result.error.message);
       }
     });
-  };
-  const handleUpdate = (id) => {
-    navigate("/subcomponet/one/" + id);
   };
   const columns = useMemo(
     () => [
@@ -59,12 +54,11 @@ function SubComponetList({ mainID }) {
         width: 170,
       },
       {
-        field: "position",
-        headerName: "Position",
+        field: "description",
+        headerName: "Description",
         headerClassName: "header-blue",
         width: 200,
       },
-
       {
         field: "createdAt",
         headerName: "Created At",
@@ -111,18 +105,25 @@ function SubComponetList({ mainID }) {
     ],
     []
   );
+
+  if (!technologies) {
+    return (
+      <div>
+        {" "}
+        <DisplayLottie animationData={loading} />
+      </div>
+    );
+  }
+
   return (
     <div>
       <HeaderPage
-        title="SubComponet List"
+        title={"Technology List"}
         showButton={true}
-        buttonFunction={() => navigate("/subcomponet/createSub")}
-        text="Create SubComponet"
+        buttonFunction={() => navigate("create")}
+        text={"Create Technology"}
       />
-      <Table
-        columns={columns}
-        rows={subcomponets?.length ? subcomponets : []}
-      />
+      <Table columns={columns} rows={technologies.length ? technologies : []} />
       {isOpen && (
         <DeleteModal
           close={() => setIsOpen(false)}
@@ -136,4 +137,4 @@ function SubComponetList({ mainID }) {
   );
 }
 
-export default SubComponetList;
+export default TechnologyList;

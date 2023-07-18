@@ -29,7 +29,18 @@ function RequestList() {
   const [selected, setSelected] = useState(null);
   const [sentRows, setSentRows] = useState([]);
   const [receivedRows, setReceivedRows] = useState([]);
-  const [selectedTab, setSelectedTab] = useState("sent");
+  const [selectedTab, setSelectedTab] = useState("received");
+  const [sent,setSent]=useState(null); 
+   console.log('====================================');
+   console.log(sentRequests);
+   console.log('====================================');
+
+  useEffect (()=> {
+    setSent(receivedRequests)
+  },[sent]);
+ console.log('====================================');
+ console.log(sent);
+ console.log('====================================');
 
   useEffect(() => {
     if (me) {
@@ -50,7 +61,7 @@ function RequestList() {
   useEffect(() => {
     if (receivedRequests?.length) {
       let aux = receivedRequests.map((e) => {
-        return { ...e };
+        return { ...e, };
       });
       setReceivedRows(aux);
     }
@@ -76,48 +87,42 @@ function RequestList() {
   const columns = useMemo(() => [
     {
       field: "subject",
-      headerName: "subject",
+      headerName: "Subject",
       headerClassName: "header-blue",
       width: 170,
     },
     {
       field: "content",
-      headerName: "content",
+      headerName: "Content",
       headerClassName: "header-blue",
       width: 200,
     },
     {
       field: "createdAt",
-      headerName: "Created At",
+      headerName: selectedTab === "sent" ? "Sent At":"Received At",
       headerClassName: "header-blue",
       width: 200,
       renderCell: (params) =>
         moment(params.row.createdAt).format("YYYY-MM-DD HH:MM:SS"),
     },
+    
+
+  
     {
-      field: "UpdatedAt",
-      headerName: "Updated At",
+      field : "name",
       headerClassName: "header-blue",
-      width: 200,
+      headerName: selectedTab === "sent" ? " Sent to " :  "From " ,
+      width: 110,
       renderCell: (params) =>
-        moment(params.row.createdAt).format("YYYY-MM-DD HH:MM:SS"),
+      selectedTab === "sent"
+       ? params.row.receiverReq.name
+       : params.row.senderReq.name,
+
+  
     },
-    {
-      field: "employeeId",
-      headerClassName: "header-blue",
-      headerName: "employee",
-      width: 110,
-      type: "boolean",
-      editable: true,
-    },
-    {
-      field: "mediaId",
-      headerClassName: "header-blue",
-      headerName: "mediaId",
-      width: 110,
-      type: "boolean",
-      editable: true,
-    },
+   
+
+
     {
       field: "actions",
       headerName: "Actions",
@@ -127,13 +132,24 @@ function RequestList() {
       filterable: false,
       renderCell: (params) => (
         <div>
-          <IconButton
-            onClick={() => navigate("edit/" + params.row.id)}
-            color="primary"
-            aria-label="update"
-          >
-            <RemoveRedEyeIcon />
-          </IconButton>
+        {selectedTab === "sent" ?
+        <IconButton
+              onClick={() => navigate("edit/sent/" + params.row.id)}
+              color="primary"
+              aria-label="update"
+            >
+              <RemoveRedEyeIcon />
+            </IconButton>
+        :      <IconButton
+              onClick={() => navigate("edit/received/" + params.row.id)}
+              color="primary"
+              aria-label="update"
+            >
+              <RemoveRedEyeIcon />
+            </IconButton>
+          }
+            
+        
           <IconButton
             onClick={() => openPopup(params.row.id)}
             color="error"
@@ -144,8 +160,10 @@ function RequestList() {
         </div>
       ),
     },
-  ], []);
-
+  ], [selectedTab]);
+console.log('====================================');
+console.log();
+console.log('====================================');
   if (!sentRequests || !receivedRequests) {
     return (
       <div>
@@ -179,10 +197,10 @@ function RequestList() {
           </TabList>
         </Box>
         <TabPanel value="sent">
-          <Table columns={columns} rows={sentRequests} />
+          <Table columns={columns} rows={sentRows} />
         </TabPanel>
         <TabPanel value="received">
-          <Table columns={columns} rows={receivedRequests} />
+          <Table columns={columns} rows={receivedRows} />
         </TabPanel>
       </TabContext>
       {isOpen && (

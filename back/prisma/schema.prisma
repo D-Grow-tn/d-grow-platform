@@ -400,7 +400,7 @@ model Contact {
   name      String
   email     String
   subject   String
-  content   String
+  message   String
   createdAt DateTime @default(now())
 }
 

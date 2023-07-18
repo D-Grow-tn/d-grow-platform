@@ -15,7 +15,11 @@ function CreateDecision() {
   const decisions = useSelector((state) => state.decision.decisions.items);
   const employees = useSelector((state) => state.employee.employees.items);
   const [decision, setDecision] = useState(null);
+  const [employeeId, setEmployeeId] = useState(null);
+  console.log("🚀 ~ file: CreateDecision.js:19 ~ CreateDecision ~ employeeId:", employeeId)
+
   const [inputs, setInputs] = useState([]);
+  console.log("🚀 ~ file: CreateDecision.js:22 ~ CreateDecision ~ inputs:", inputs)
   useEffect(() => {
     dispatch(fetchEmployees());
   }, [dispatch]);
@@ -66,10 +70,10 @@ function CreateDecision() {
         valueLabel: "id",
         optionLabel: "label",
         options: employees.map((employee) => ({ label: employee.name, value: employee.id })),
-        value: (decisions[0]?.DecisionApply[0]?.employeeId) || "",
+        value: (decisions[0]?.DecisionApply[0].employeeId) || "",
         
         onChange: (value) => {
-        
+          
           
        
           setDecision((Decision) => ({ ...Decision, decisionApplyIds: [id] }));
