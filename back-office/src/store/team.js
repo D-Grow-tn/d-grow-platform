@@ -20,10 +20,21 @@ export const createTeam = createAsyncThunk(
   async (body, { dispatch }) => {
     console.log(body, "body");
     const response = await axios.post(`${config.API_ENDPOINT}/teams`, body);
-    dispatch(fetchTechnology(response.data));
+    dispatch(fetchTeams(response.data));
     return response.data;
   }
 );
+export const createTeamMemberShip = createAsyncThunk(
+    "teams/MemberShip",
+    async (body) => {
+      console.log(body, "body");
+      const {teamId , employeeId} = body 
+      const response = await axios.post(`${config.API_ENDPOINT}/team-menberships`, {teamId,employeeId});
+
+      console.log("🚀 ~ file: team.js:33 ~ response:", response)
+      return response.data;
+    }
+  );
 export const removeTeam = createAsyncThunk(
   "teams/deleteTeam",
   async (id, { dispatch }) => {
@@ -38,10 +49,10 @@ export const removeTeam = createAsyncThunk(
 export const updateTeam = createAsyncThunk(
   "teams/updateTeam",
   async (body) => {
-    const {technologyId,...rest} = body
+    const {teamId,...rest} = body
     console.log(rest,'rest')
     const response = await axios.patch(
-      `${config.API_ENDPOINT}/teams/${technologyId}`,
+      `${config.API_ENDPOINT}/teams/${teamId}`,
       {...rest}
     );
     
