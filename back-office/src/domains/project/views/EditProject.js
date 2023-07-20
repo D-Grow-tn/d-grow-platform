@@ -8,7 +8,7 @@ import { showErrorToast, showSuccessToast } from "../../../utils/toast";
 import { fetchEmployees } from "../../../store/employees";
 import { fetchClients } from "../../../store/client";
 import { fetchTechnologies } from "../../../store/technology";
-
+import Status from "./projectStatus";
 function EditProject() {
   const { projectId } = useParams();
   const dispatch = useDispatch();
@@ -23,7 +23,7 @@ function EditProject() {
   );
   const [readOnly, setReadOnly] = useState(true);
   const [auxProject, setAuxProject] = useState(null);
-  const [data, setData] = useState();
+  const [data, setData] = useState([]);
 
   const [inputs, setInputs] = useState([]);
   const projectTechnologyIds = data;
@@ -38,7 +38,7 @@ function EditProject() {
   useEffect(() => {
     setAuxProject(project);
   }, [project]);
-
+    console.log(auxProject,"auxproject")
   useEffect(() => {
     setInputs([
       {
@@ -60,10 +60,15 @@ function EditProject() {
         value: auxProject?.duration,
       },
       {
-        name: "status",
+        category: "select",
         label: "Status",
+        name: "status",
         required: true,
+        options: Object.values(Status),
         value: auxProject?.status,
+        onChange: (value) => {
+          setAuxProject((project) => ({ ...project, status: value }));
+        },
       },
       {
         name: "startAt",
@@ -142,10 +147,10 @@ function EditProject() {
         options: technologies,
         optionLabel: "name",
         valueLabel: "id",
-
-        value: data,
+  
+        value: data, // Use the data state here
         onChange: (value) => {
-          setAuxProject({ ...project, projectTechnologyIds: data });
+          setData(value); // Update the data state with the selected values
         },
         multiple: true,
       },
@@ -171,7 +176,7 @@ function EditProject() {
         startAt,
         endAt,
         projectId,
-        projectTechnologyIds,
+        projectTechnologyIds:data,
       })
     ).then((result) => {
       if (!result.error) {
