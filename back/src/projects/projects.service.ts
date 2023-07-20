@@ -76,7 +76,7 @@ export class ProjectsService {
         interaction: { include: { User: true } },
         contract: true,
         projectTechnologies: { include: { technologies: true } },
-
+        
 
       },
     });
