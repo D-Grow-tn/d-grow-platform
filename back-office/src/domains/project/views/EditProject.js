@@ -38,7 +38,7 @@ function EditProject() {
   useEffect(() => {
     setAuxProject(project);
   }, [project]);
-    console.log(auxProject,"auxproject")
+  console.log(auxProject,"auxproject")  
   useEffect(() => {
     setInputs([
       {
@@ -144,18 +144,16 @@ function EditProject() {
         label: "Technology",
         name: "projectTechnologyIds",
         required: true,
-        options: technologies,
-        optionLabel: "name",
-        valueLabel: "id",
-  
-        value: data, // Use the data state here
+        options: technologies.map((tech) => ({ label: tech.name, value: tech.id })),
+        value: data,
         onChange: (value) => {
-          setData(value); // Update the data state with the selected values
+          setData(value);
         },
         multiple: true,
       },
     ]);
-  }, [auxProject]);
+  }, [auxProject, clients, technologies]);
+  
   const handleInputChange = (e) => {
     const { name, value } = e.target;
     setAuxProject((prevState) => ({
