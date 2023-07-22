@@ -97,6 +97,7 @@ export class ProjectsService {
         consultant: true,
         client: true,
         projectTechnologies: { include: { technologies: true } },
+        team:true,
         
       }
 
