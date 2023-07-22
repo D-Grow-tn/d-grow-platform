@@ -15,9 +15,7 @@ function EditProject() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const project = useSelector((state) => state.project.project);
-  console.log("🚀 ~ file: EditProject.js:17 ~ EditProject ~ project:", project)
-  const teams = useSelector((state)=>state.team.teams.items)
-  console.log("🚀 ~ file: EditProject.js:20 ~ EditProject ~ teams:", teams)
+  const teams = useSelector((state) => state.team.teams.items);
   const employees = useSelector((state) => state.employee.employees.items);
   const clients = useSelector((state) => state.client.clients.items);
   const technologies = useSelector(
@@ -25,21 +23,19 @@ function EditProject() {
   );
   const [readOnly, setReadOnly] = useState(true);
   const [auxProject, setAuxProject] = useState(null);
-  console.log("🚀 ~ file: EditProject.js:28 ~ EditProject ~ auxProject:", auxProject?.team.id)
+
   const [data, setData] = useState(null);
-  console.log("🚀 ~ file: EditProject.js:30 ~ EditProject ~ data:", data)
 
   const [inputs, setInputs] = useState([]);
   const projectTechnologyIds = data;
   // const teamId = data?.toString()
-
 
   useEffect(() => {
     dispatch(fetchProject(projectId));
     dispatch(fetchEmployees());
     dispatch(fetchClients());
     dispatch(fetchTechnologies());
-    dispatch(fetchTeams())
+    dispatch(fetchTeams());
   }, [dispatch]);
 
   useEffect(() => {
@@ -120,11 +116,9 @@ function EditProject() {
         options: teams,
         optionLabel: "name",
         valueLabel: "id",
-
-        value:  auxProject?.team.id
-        ,
+        value: auxProject?.team?.name,
         onChange: (value) => {
-          setAuxProject((project) => ({ ...project, teamId:value }));
+          setAuxProject((project) => ({ ...project, teamId: value }));
         },
         // multiple:true
       },
@@ -136,13 +130,10 @@ function EditProject() {
         options: clients,
         optionLabel: "name",
         valueLabel: "id",
-
         value: auxProject?.client?.name,
         onChange: (value) => {
           setAuxProject((Project) => ({ ...Project, clientId: value }));
         },
-
-
       },
       {
         category: "select",
@@ -152,15 +143,17 @@ function EditProject() {
         options: technologies,
         optionLabel: "name",
         valueLabel: "id",
-
-        value: data,
+        value: auxProject?.projectTechnologies?.map((e) => {
+          console.log(e.technologies.name);
+          return e?.technologies?.name;
+        }),
         onChange: (value) => {
-          setAuxProject({ ...project, projectTechnologyIds: data });
+          setAuxProject({ ...project, projectTechnologyIds: value });
         },
         multiple: true,
       },
     ]);
-  }, [auxProject,teams]);
+  }, [auxProject, teams]);
   const handleInputChange = (e) => {
     const { name, value } = e.target;
     setAuxProject((prevState) => ({
@@ -171,7 +164,8 @@ function EditProject() {
 
   const onSubmit = (e) => {
     e.preventDefault();
-    const { name, description, duration, status, startAt, endAt,teamId } = auxProject;
+    const { name, description, duration, status, startAt, endAt, teamId } =
+      auxProject;
     dispatch(
       updateProject({
         name,
@@ -182,7 +176,7 @@ function EditProject() {
         endAt,
         projectId,
         projectTechnologyIds,
-        teamId
+        teamId,
       })
     ).then((result) => {
       if (!result.error) {

@@ -4,11 +4,12 @@ import { useDispatch, useSelector } from "react-redux";
 import HeaderPage from "../../../components/HeaderPage";
 import Form from "../../../components/Form";
 import { createProject } from "../../../store/projects";
-import { showErrorToast } from "../../../utils/toast";
+import { showErrorToast, showSuccessToast } from "../../../utils/toast";
 import { fetchEmployees } from "../../../store/employees";
 import { fetchClients } from "../../../store/client";
 import { useDropzone } from "react-dropzone";
 import { fetchTechnologies } from "../../../store/technology";
+import { fetchTeams } from "../../../store/team";
 
 function CreateProject() {
   const dispatch = useDispatch();
@@ -20,6 +21,9 @@ function CreateProject() {
   const technologies = useSelector(
     (state) => state.technology.technologies.items
   );
+  const teams = useSelector(
+    (state) => state.team.teams.items
+  );
   // const [employee, setEmployee] = useState(null);
   const [client, setClient] = useState(null);
   const [inputs, setInputs] = useState([]);
@@ -29,6 +33,7 @@ function CreateProject() {
     dispatch(fetchEmployees());
     dispatch(fetchClients());
     dispatch(fetchTechnologies());
+    dispatch(fetchTeams())
   }, [dispatch]);
 
   const handleChange = (e) => {
@@ -42,6 +47,7 @@ function CreateProject() {
     const aux = { ...rest, projectTechnologyIds: data };
     console.log(aux, "test");
     dispatch(createProject(aux)).then((res) => {
+      showSuccessToast("Create Project succsesfuly ")
       if (!res.error) {
         navigate(`/project`);
       } else {
@@ -134,21 +140,6 @@ function CreateProject() {
           setProject((Project) => ({ ...Project, consultantId: value }));
         },
       },
-      // {
-      //   category: "select",
-      //   label: "Team",
-      //   placeholder: "Select a team",
-      //   name: "team",
-      //   width: 250,
-      //   required: true,
-      //   options: employees,
-      //   optionLabel: "name",
-      //   valueLabel: "id",
-      //   value: project.teamId || "",
-      //   onChange: (value) => {
-      //     setProject((Project) => ({ ...Project, teamId: value }));
-      //   },
-      // },
       {
         category: "select",
         label: "Client",
@@ -163,6 +154,22 @@ function CreateProject() {
         onChange: (value) => {
           setProject((Project) => ({ ...Project, clientId: value }));
         },
+      },
+      {
+        category: "select",
+        label: "Team",
+        placeholder: "Select team",
+        name: "teamId",
+        width: 250,
+        required: true,
+        options: teams,
+        optionLabel: "name",
+        valueLabel: "id",
+        value: project.teamId || "",
+        onChange: (value) => {
+          setProject((Project) => ({ ...Project, teamId: value }));
+        },
+
       },
       {
         category: "select",
@@ -182,13 +189,13 @@ function CreateProject() {
         multiple: true,
       },
     ]);
-  }, [employees, clients, technologies]);
+  }, [employees, clients, technologies,teams]);
 
   const buttons = [
     {
       category: "cancel",
       name: "Cancel",
-      onClick: () => navigate - 1,
+      onClick: () => navigate (-1),
       className: "",
       style: { width: 100 },
     },
