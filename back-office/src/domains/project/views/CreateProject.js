@@ -10,6 +10,7 @@ import { fetchClients } from "../../../store/client";
 import { useDropzone } from "react-dropzone";
 import { fetchTechnologies } from "../../../store/technology";
 import { fetchTeams } from "../../../store/team";
+import Status from "./projectStatus";
 
 function CreateProject() {
   const dispatch = useDispatch();
@@ -91,6 +92,11 @@ function CreateProject() {
         value: project.status,
         name: "status",
         required: true,
+        category: "select",
+        options: Object.values(Status),
+        onChange: (value) => {
+          setProject((project) => ({ ...project, status: value }));
+        },
       },
       {
         label: "startAt",

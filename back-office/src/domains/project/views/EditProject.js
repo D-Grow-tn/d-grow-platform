@@ -10,6 +10,7 @@ import { fetchClients } from "../../../store/client";
 import { fetchTechnologies } from "../../../store/technology";
 import { fetchTeams } from "../../../store/team";
 
+import Status from "./projectStatus";
 function EditProject() {
   const { projectId } = useParams();
   const dispatch = useDispatch();
@@ -23,8 +24,7 @@ function EditProject() {
   );
   const [readOnly, setReadOnly] = useState(true);
   const [auxProject, setAuxProject] = useState(null);
-
-  const [data, setData] = useState(null);
+  const [data, setData] = useState([]);
 
   const [inputs, setInputs] = useState([]);
   const projectTechnologyIds = data;
@@ -41,7 +41,7 @@ function EditProject() {
   useEffect(() => {
     setAuxProject(project);
   }, [project]);
-
+  console.log(auxProject,"auxproject")  
   useEffect(() => {
     setInputs([
       {
@@ -63,10 +63,15 @@ function EditProject() {
         value: auxProject?.duration,
       },
       {
-        name: "status",
+        category: "select",
         label: "Status",
+        name: "status",
         required: true,
+        options: Object.values(Status),
         value: auxProject?.status,
+        onChange: (value) => {
+          setAuxProject((project) => ({ ...project, status: value }));
+        },
       },
       {
         name: "startAt",
@@ -153,7 +158,8 @@ function EditProject() {
         multiple: true,
       },
     ]);
-  }, [auxProject, teams]);
+  }, [auxProject, clients, technologies,teams]);
+  
   const handleInputChange = (e) => {
     const { name, value } = e.target;
     setAuxProject((prevState) => ({
@@ -177,6 +183,7 @@ function EditProject() {
         projectId,
         projectTechnologyIds,
         teamId,
+        // projectTechnologyIds:data,
       })
     ).then((result) => {
       if (!result.error) {

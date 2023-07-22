@@ -72,11 +72,12 @@ export class ProjectsService {
         team:{include:{teamMembership:{include:{employee:true}}}},
         objective: { include: { subobjective: true, Stage: true } },
         projectManager: true,
+        client: true,
         consultant: true,
         interaction: { include: { User: true } },
         contract: true,
         projectTechnologies: { include: { technologies: true } },
-        client: true,
+
 
 
 
