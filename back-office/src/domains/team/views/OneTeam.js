@@ -117,7 +117,7 @@ function OneTeam() {
   
     return (
       <div style={{}}>
-        <HeaderPage title="Technology Information" />
+        <HeaderPage title="Team Information" />
   
         <div
           className="rounded-5 mt-3"
@@ -142,7 +142,7 @@ function OneTeam() {
                   setReadOnly(false);
                 }}
               >
-                Edit Technology <i className="fa-solid fa-play fa-fade px-2"></i>
+                Edit Team <i className="fa-solid fa-play fa-fade px-2"></i>
               </button>
             )}
           </div>

@@ -7,6 +7,7 @@ import { PrismaService } from 'src/prisma/prisma.service';
 export class TeamMenbershipsService {
   constructor(private readonly prisma:PrismaService){}
   async create(createTeamMenbershipDto: CreateTeamMenbershipDto) {
+
     return this.prisma.teamMembership.create({
       data:createTeamMenbershipDto,
     });
