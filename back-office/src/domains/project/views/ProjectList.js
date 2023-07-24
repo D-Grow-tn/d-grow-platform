@@ -106,11 +106,13 @@ function ProjectList() {
         },
       },
       {
-        field: "teamId",
+        field: "team",
         headerName: "Team",
         headerClassName: "header-blue",
         width: 200,
-        renderCell: (params) => <div>{params.row.team?.name}</div>,
+        renderCell: (params) =>{ 
+          console.log(params.row,"paramsteam");
+        return <div>{params.row.team?.name}</div>},
       },
       {
         field: "clientId",
