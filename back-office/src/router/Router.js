@@ -75,6 +75,10 @@ import Technology from "../domains/technology/Technology";
 import CreateTechnology from "../domains/technology/views/CreateTechnology";
 import TechnologiesList from "../domains/technology/views/TechnologiesList";
 import OneTechnology from "../domains/technology/views/OneTechnology"
+import Team from "../domains/team/Team";
+import TeamList from "../domains/team/views/TeamList";
+import CreateTeam from "../domains/team/views/CreateTeam";
+import OneTeam from "../domains/team/views/OneTeam";
 
 function Router() {
   const dispatch = useDispatch();
@@ -177,8 +181,6 @@ function Router() {
                 <Route index element={<TechnologiesList />} />
                 <Route path="create" element={<CreateTechnology />} />
                 <Route path="one/:technologyId" element={<OneTechnology />} />
-                
-                
               </Route>
               <Route path="mains" element={<Mains />}>
                 <Route index element={<MainList />} />
@@ -194,6 +196,11 @@ function Router() {
                 <Route index element={<ContentSubComponentList />} />
                 <Route path="create" element={<CreateContentSubComponent />} />
                 <Route path="one/:contentsubcomponetId" element={<OneContentSubComponent />} />
+              </Route>
+              <Route path="team" element={<Team />}>
+                <Route index element={<TeamList />} />
+                <Route path="create" element={<CreateTeam />} />
+                <Route path="one/:teamId" element={<OneTeam />} />
               </Route>
             </Route>
             

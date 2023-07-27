@@ -8,14 +8,15 @@ import { showErrorToast, showSuccessToast } from "../../../utils/toast";
 import { fetchEmployees } from "../../../store/employees";
 import { fetchClients } from "../../../store/client";
 import { fetchTechnologies } from "../../../store/technology";
+import { fetchTeams } from "../../../store/team";
 
+import Status from "./projectStatus";
 function EditProject() {
   const { projectId } = useParams();
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const project = useSelector((state) => state.project.project);
-  console.log("🚀 ~ file: EditProject.js:17 ~ EditProject ~ project:", project)
-
+  const teams = useSelector((state) => state.team.teams.items);
   const employees = useSelector((state) => state.employee.employees.items);
   const clients = useSelector((state) => state.client.clients.items);
   const technologies = useSelector(
@@ -23,22 +24,24 @@ function EditProject() {
   );
   const [readOnly, setReadOnly] = useState(true);
   const [auxProject, setAuxProject] = useState(null);
-  const [data, setData] = useState();
+  const [data, setData] = useState([]);
 
   const [inputs, setInputs] = useState([]);
   const projectTechnologyIds = data;
+  // const teamId = data?.toString()
 
   useEffect(() => {
     dispatch(fetchProject(projectId));
     dispatch(fetchEmployees());
     dispatch(fetchClients());
     dispatch(fetchTechnologies());
+    dispatch(fetchTeams());
   }, [dispatch]);
 
   useEffect(() => {
     setAuxProject(project);
   }, [project]);
-
+  console.log(auxProject,"auxproject")  
   useEffect(() => {
     setInputs([
       {
@@ -60,10 +63,15 @@ function EditProject() {
         value: auxProject?.duration,
       },
       {
-        name: "status",
+        category: "select",
         label: "Status",
+        name: "status",
         required: true,
+        options: Object.values(Status),
         value: auxProject?.status,
+        onChange: (value) => {
+          setAuxProject((project) => ({ ...project, status: value }));
+        },
       },
       {
         name: "startAt",
@@ -110,15 +118,14 @@ function EditProject() {
         label: "Team",
         name: "team",
         required: true,
-        options: employees,
+        options: teams,
         optionLabel: "name",
         valueLabel: "id",
-
         value: auxProject?.team?.name,
         onChange: (value) => {
-          setAuxProject((Project) => ({ ...Project, teamId: value }));
+          setAuxProject((project) => ({ ...project, teamId: value }));
         },
-        multiple:true
+        // multiple:true
       },
       {
         category: "select",
@@ -128,7 +135,6 @@ function EditProject() {
         options: clients,
         optionLabel: "name",
         valueLabel: "id",
-
         value: auxProject?.client?.name,
         onChange: (value) => {
           setAuxProject((Project) => ({ ...Project, clientId: value }));
@@ -142,15 +148,18 @@ function EditProject() {
         options: technologies,
         optionLabel: "name",
         valueLabel: "id",
-
-        value: data,
+        value: auxProject?.projectTechnologies?.map((e) => {
+          console.log(e.technologies.name);
+          return e?.technologies?.name;
+        }),
         onChange: (value) => {
-          setAuxProject({ ...project, projectTechnologyIds: data });
+          setAuxProject({ ...project, projectTechnologyIds: value });
         },
         multiple: true,
       },
     ]);
-  }, [auxProject]);
+  }, [auxProject, clients, technologies,teams]);
+  
   const handleInputChange = (e) => {
     const { name, value } = e.target;
     setAuxProject((prevState) => ({
@@ -161,7 +170,8 @@ function EditProject() {
 
   const onSubmit = (e) => {
     e.preventDefault();
-    const { name, description, duration, status, startAt, endAt } = auxProject;
+    const { name, description, duration, status, startAt, endAt, teamId } =
+      auxProject;
     dispatch(
       updateProject({
         name,
@@ -172,6 +182,8 @@ function EditProject() {
         endAt,
         projectId,
         projectTechnologyIds,
+        teamId,
+        // projectTechnologyIds:data,
       })
     ).then((result) => {
       if (!result.error) {
