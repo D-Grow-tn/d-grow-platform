@@ -1,37 +1,66 @@
-import React, { useEffect } from "react";
-import { FaBell, FaUser, FaCommentAlt } from "react-icons/fa";
+import React, { useState, useEffect } from 'react';
+import { FaBell, FaUser, FaCommentAlt, FaPlay, FaPause } from "react-icons/fa";
 import { Dropdown } from "react-bootstrap";
 import { MDBIcon } from "mdbreact";
 import { useNavigate } from "react-router-dom";
 import avatar from "../assets/images/avatar.jpg";
 import { useSelector } from 'react-redux';
-
+import moment from 'moment';
 
 function Header({ isOpen }) {
   const navigate = useNavigate();
+  const [currentTime, setCurrentTime] = useState('');
+  const [isWorking, setIsWorking] = useState(false);
+  const me = useSelector(state => state.auth.me)
 
+  useEffect(() => {
+    const interval = setInterval(() => {
+      const time = moment().format('HH:mm A');
+      setCurrentTime(time);
+    }, 1000);
 
-  const me =useSelector (state=>state.auth.me)
- 
+    return () => clearInterval(interval);
+  }, []);
+
+  const toggleWorkingMode = () => {
+    setIsWorking(!isWorking);
+  };
+
+  const renderWorkingStatus = () => {
+    if (isWorking) {
+      return (
+        <>
+          <span className="working-status">Working</span>
+          <FaPause className="working-icon" onClick={toggleWorkingMode} />
+        </>
+      );
+    } else {
+      return (
+        <>
+          <span className="break-status">Break</span>
+          <FaPlay className="break-icon" onClick={toggleWorkingMode} />
+        </>
+      );
+    }
+  };
+
   return (
     <div className="header" style={{ paddingLeft: isOpen ? 250 : 50 }}>
-      <div className="d-flex  flex-row-reverse justify-content-between">
-        <div className="d-flex mt-2 dropdownHeader " >
-          {" "}
-          <div className="p-2 icon " style={{ color: "#1a408c" }}>
+      <div className="d-flex flex-row-reverse justify-content-between">
+        <div className="d-flex mt-2 dropdownHeader ">
+          <div className="p-2 icon" style={{ color: "#1a408c" }}>
             <FaBell />
           </div>
-          <div className="p-2 icon " style={{ color: "#1a408c"}}>
+          <div className="p-2 icon" style={{ color: "#1a408c" }}>
             <FaCommentAlt />
           </div>
-        
           <div className="icon" style={{ color: "#1a408c" }}>
             <Dropdown>
               <Dropdown.Toggle variant="secondary" id="dropdownMenu2">
                 <img
                   src={avatar}
-                  class="rounded-circle"
-                  style={{ width: "40px", marginRight:"10px"}}
+                  className="rounded-circle"
+                  style={{ width: "40px", marginRight: "10px" }}
                   alt="Avatar"
                 />
                 {me?.employee.name}
@@ -54,23 +83,10 @@ function Header({ isOpen }) {
           </div>
         </div>
 
-        <div style={{ width: "400px"}} className="mt-3 inputForm">
-          <div className="input-group md-form form-sm form-1 pl-0">
-            <div className="input-group-prepend">
-              <span
-                className="input-group-text blue lighten-3"
-                id="basic-text1"
-              >
-                <MDBIcon icon="search" />
-              </span>
-            </div>
-            <input
-              className="form-control my-0 py-1"
-              type="text"
-              placeholder="Search "
-              aria-label="Search"
-            />
-          </div>
+        <div className="time-and-status">
+          <p className="current-time">
+            {currentTime} {renderWorkingStatus()}
+          </p>
         </div>
       </div>
     </div>
