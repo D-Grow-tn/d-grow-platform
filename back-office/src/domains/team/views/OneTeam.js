@@ -19,7 +19,11 @@ function OneTeam() {
     const [inputs, setInputs] = useState([]);
     const teams = useSelector((state) => state.team.teams.items);
     const employees = useSelector((state) => state.employee.employees.items);
-
+     const teamMember = auxTeam?.teamMembership.map((e)=>{
+      console.log( e.employee.name)
+      return e.employee.name
+    })
+     console.log("🚀 ~ file: OneTeam.js:26 ~ teamMember ~ teamMember:", teamMember)
     const employeeId = data?.join(" , ")
     console.log("🚀 ~ file: OneTeam.js:24 ~ OneTeam ~ employeeId:", employeeId)
     useEffect(() => {
@@ -52,14 +56,15 @@ function OneTeam() {
             name: "employeeId",
             label: "Team Members",
             required: true,
-            value: auxTeam?.name,
+            value:teamMember ,
             options: employees,
             optionLabel: "name",
             valueLabel: "id",
+
             onChange: (value) => {
-              setAuxTeam((Team) => ({ ...Team, name: value }));
+              setAuxTeam((Team) => ({ ...Team, employeeId: value }));
             },
-        multiple: true,
+            multiple: true,
 
           },
         // {

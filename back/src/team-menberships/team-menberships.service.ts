@@ -19,7 +19,11 @@ export class TeamMenbershipsService {
 
  async findOne(teamId: string,employeeId:string) {
     return this.prisma.teamMembership.findFirst({
-      where:{teamId,employeeId,}
+      where:{teamId,employeeId,},
+      // include:{
+      //   teamMembership:true,
+ 
+      // }
     });
   }
 

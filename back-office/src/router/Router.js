@@ -79,6 +79,8 @@ import Team from "../domains/team/Team";
 import TeamList from "../domains/team/views/TeamList";
 import CreateTeam from "../domains/team/views/CreateTeam";
 import OneTeam from "../domains/team/views/OneTeam";
+import ChatRoom from "../domains/chatRoom/ChatRoom";
+import ChatRoomList from "../domains/chatRoom/views/ChatRoomList";
 
 function Router() {
   const dispatch = useDispatch();
@@ -201,6 +203,9 @@ function Router() {
                 <Route index element={<TeamList />} />
                 <Route path="create" element={<CreateTeam />} />
                 <Route path="one/:teamId" element={<OneTeam />} />
+              </Route>
+              <Route path="chatroom" element={<ChatRoom />}>
+                <Route index element={<ChatRoomList />} />
               </Route>
             </Route>
             
