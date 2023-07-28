@@ -25,6 +25,7 @@ import LoginAdmin from "../pages/LoginAdmin";
 import NoPage from "../domains/noPage/NoPage";
 import CreateProject from "./../domains/project/views/CreateProject";
 import EditProject from "./../domains/project/views/EditProject";
+import OneProject from "./../domains/project/views/OneProject"
 import ResetPassword from "./../pages/ResetPassword";
 import Events from "../domains/events/Events";
 import EventsList from "./../domains/events/views/EventsList";
@@ -149,7 +150,7 @@ function Router() {
                 <Route index element={<ProjectList />} />
                 <Route path="create" element={<CreateProject />} />
                 <Route path="edit/:projectId" element={<EditProject />} />
-                <Route path="one/:projectId" element={<EditProject />} />
+                <Route path="one/:projectId" element={<OneProject />} />
               </Route>
 
               <Route path="decision" element={<Decision />}>
