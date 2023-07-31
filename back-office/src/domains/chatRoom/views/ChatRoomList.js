@@ -1,6 +1,31 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
+import { socket } from '../../../apps/Main';
+import { useDispatch, useSelector } from "react-redux";
 
 function ChatRoomList() {
+  const [content,setContent]=useState(null)
+  const [messages, setMessages] = useState([]);
+  console.log("🚀 ~ file: ChatRoomList.js:8 ~ ChatRoomList ~ messages:", messages)
+  const me = useSelector((state) => state.auth.me);
+  console.log("🚀 ~ file: ChatRoomList.js:9 ~ ChatRoomList ~ me:", me.employee)
+  console.log("🚀 ~ file: ChatRoomList.js:7 ~ ChatRoomList ~ messages:", messages)
+ const employee =  me?.employee
+  const data = {content,employee}
+  function sendMessage(value) {
+    socket.emit('message',value); // Emit 'message' event with the content as the data
+  }
+  console.log("🚀 ~ file: ChatRoomList.js:16 ~ ChatRoomList ~ data:", data)
+
+ 
+  useEffect(() => {
+    socket.on('messagetlkol', (data) => {
+      console.log(data,"<<<<<<<<<<<");
+      setMessages(data);
+    },[socket]);
+    return () => {
+      socket.off('messagetlkol');
+    };
+  }, []);
   return (
     <div className="  mt-5 d-flex  ">
     <section
@@ -14,7 +39,8 @@ function ChatRoomList() {
       <div class=" d-flex justify-content-center align-items-center">
         <div class="col-md-6 col-lg-7 col-xl-8  ">
           <ul class="list-unstyled ">
-            {/* {interactions?.items.map((elem, i) => ( */}
+            {messages?.map((elem, i) => (
+            
               <div class="d-flex  mb-4">
                 <img
                   src="https://mdbcdn.b-cdn.net/img/Photos/Avatars/avatar-6.webp"
@@ -25,8 +51,9 @@ function ChatRoomList() {
                 <div class="card ">
                   <div class="card-header d-flex justify-content-between p-3">
                     <p class="fw-bold mb-0">
-                        {/* {elem.User.name} */}
-                        Ahmed
+
+                        {elem?.employee?.name}
+
                     </p>
                     <p class=" d-flex gap-2 text-muted small mb-0">
                       <i class="far fa-clock py-1"></i>{" "}
@@ -38,13 +65,13 @@ function ChatRoomList() {
                   </div>
                   <div class="card-body">
                     <p class="mb-0">
-                        {/* {elem.content} */}
-                        Ahmed henchiri
+                  {console.log(elem.content)}
+                        {elem.content}
                         </p>
                   </div>
                 </div>
               </div>
-            {/* ))} */}
+            ))} 
             <div className="d-flex justify-content-center align-items-center gap-3">
               {" "}
               <textarea
@@ -52,10 +79,10 @@ function ChatRoomList() {
                 class="form-control "
                 id="textAreaExample3"
                 rows="2"
-                // onChange={(e) => {
-                //   console.log(e.target.value);
-                //   setContent(e.target.value);
-                // }}
+                onChange={(e) => {
+                  console.log(e.target.value);
+                  setContent(e.target.value);
+                }}
                 style={{
                   borderRadius: "200px",
                   textAlign: "center",
@@ -63,19 +90,9 @@ function ChatRoomList() {
                 }}
               ></textarea>
               <div
-                // onClick={() => {
-                //   if (content.trim() !== "") {
-                //     let args = {
-                //       id: project.id,
-                //       body: { content, projectId: project?.id },
-                //     };
-                //     dispatch(createInteraction(args));
-                //     setContent("");
-                //   } else {
-                //     return;
-                //   }
-                // }}
+                onClick={()=>sendMessage(data)}
               >
+                send
                 {/* <FontAwesomeIcon icon={faPaperPlane} size="2x" style={{color:"1a408c"}}/> */}
                 {/* <img alt="" src={send} style={{width:50,heigh:50}}/> */}
               </div>

@@ -50,6 +50,9 @@ function ProjectDetails() {
     setFormattedEndAt(formattedEndAt);
   }, [project]);
 
+
+
+
   return (
     <div>
       <div className="container d-flex justify-content-center align-items-center ">
@@ -188,6 +191,9 @@ function ProjectDetails() {
           </Button>
         </Modal.Footer>
       </Modal>
+
+     
+
     </div>
   );
 }
