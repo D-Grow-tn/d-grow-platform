@@ -12,9 +12,11 @@ import user from "./users";
 import subComponet from "./subComponet";
 import contentsubcomponet from "./contentsubcomponet";
 import team from "./team"
+import interaction from "./interaction"
 export const store = configureStore({
   reducer: {
     auth,
+    interaction,
     client,
     employee,
     request,
