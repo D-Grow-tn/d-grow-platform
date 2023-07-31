@@ -3,11 +3,11 @@ import React, { useEffect, useState } from "react";
 import "gantt-task-react/dist/index.css";
 import { Outlet, useLocation, useNavigate, useParams } from "react-router-dom";
 import { Button, Modal, Nav } from "react-bootstrap";
-import "../assets/css/projectDetails.css";
-import { fetchProject } from "../store/projects";
+import "../../../assets/styles/projectDetails.css";
+import { fetchProject } from "../../../store/projects";
 import { useSelector } from "react-redux";
 import { useDispatch } from "react-redux";
-import projectDetailData from "../constants/projectDetailData";
+import projectDetailData from "../../../constants/projectDetailData";
 
 function ProjectDetails() {
   const { projectId } = useParams();
@@ -15,7 +15,7 @@ function ProjectDetails() {
   const me = useSelector((state) => state.auth.me);
   const dispatch = useDispatch();
   const path = useLocation().pathname;
-  const projectStore = useSelector((state) => state.projects);
+  const projectStore = useSelector((state) => state.project);
   const { project } = projectStore;
 
   const [formattedCreatedAt, setFormattedCreatedAt] = useState("");
@@ -50,13 +50,18 @@ function ProjectDetails() {
     setFormattedEndAt(formattedEndAt);
   }, [project]);
 
-
-
-
   return (
     <div>
       <div className="container d-flex justify-content-center align-items-center ">
         <div class="card  m-5 ">
+          <button
+            type="button"
+            class="btn"
+            onClick={() => navigate('weekly-sprints')}
+            style={{ backgroundColor: "#1a408c", color: "#fff" }}
+          >
+            Weekly Sprints
+          </button>
           <div class="card-header d-flex justify-content-center align-items-center ">
             Featured
           </div>
@@ -86,7 +91,8 @@ function ProjectDetails() {
                 {project?.description}
               </p>
               <p class="card-text">
-                <span class="text-muted">Project Owner:</span> {me?.client.name}
+                <span class="text-muted">Project Owner:</span>{" "}
+                {me?.client?.name}
               </p>
               <div className="d-flex align-items-center gap-3">
                 <p class="card-text m-0 ">
@@ -132,11 +138,11 @@ function ProjectDetails() {
             <Nav.Link
               style={{ all: "unset", cursor: "pointer" }}
               className="w-25 r"
-              onClick={() => navigate(`/project/${projectId}${elem.path}`)}
+              onClick={() => navigate(`/project/one/${projectId}${elem.path}`)}
             >
               <div style={{ flex: "1", textAlign: "center" }}>
                 <div className="">
-                  <img src={elem.image} height="24" width="24"alt="" />
+                  <img src={elem.image} height="24" width="24" alt="" />
                   <p
                     className="titleNavProjectDetails"
                     style={{ fontWeight: 500 }}
@@ -191,9 +197,6 @@ function ProjectDetails() {
           </Button>
         </Modal.Footer>
       </Modal>
-
-     
-
     </div>
   );
 }

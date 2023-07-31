@@ -19,7 +19,7 @@ import { QuizsModule } from './quizs/quizs.module';
 import { TeamsModule } from './teams/teams.module';
 import { DepartmentsModule } from './departments/departments.module';
 import { ChatRoomsModule } from './chat-rooms/chat-rooms.module';
-import { MessagesModule } from './messages/messages.module';
+
 import { TeamMenbershipsModule } from './team-menberships/team-menberships.module';
 import { EmployeeChatRoomsModule } from './employee-chat-rooms/employee-chat-rooms.module';
 import { MainComponentsModule } from './main-components/main-components.module';
@@ -43,7 +43,7 @@ import { ContactModule } from './contact/contact.module';
     TeamsModule,
     DepartmentsModule,
     ChatRoomsModule,
-    MessagesModule,
+  
     
     TeamMenbershipsModule,
 

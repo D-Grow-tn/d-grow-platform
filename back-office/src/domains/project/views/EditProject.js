@@ -9,8 +9,8 @@ import { fetchEmployees } from "../../../store/employees";
 import { fetchClients } from "../../../store/client";
 import { fetchTechnologies } from "../../../store/technology";
 import { fetchTeams } from "../../../store/team";
-
 import Status from "./projectStatus";
+
 function EditProject() {
   const { projectId } = useParams();
   const dispatch = useDispatch();
@@ -149,7 +149,6 @@ function EditProject() {
         optionLabel: "name",
         valueLabel: "id",
         value: auxProject?.projectTechnologies?.map((e) => {
-          console.log(e.technologies.name);
           return e?.technologies?.name;
         }),
         onChange: (value) => {
