@@ -25,7 +25,7 @@ import LoginAdmin from "../pages/LoginAdmin";
 import NoPage from "../domains/noPage/NoPage";
 import CreateProject from "./../domains/project/views/CreateProject";
 import EditProject from "./../domains/project/views/EditProject";
-import OneProject from "./../domains/project/views/OneProject"
+import OneProject from "./../domains/project/views/OneProject";
 import ResetPassword from "./../pages/ResetPassword";
 import Events from "../domains/events/Events";
 import EventsList from "./../domains/events/views/EventsList";
@@ -43,7 +43,7 @@ import Role from "./../domains/role/Role";
 import RoleList from "./../domains/role/views/RoleList";
 import CreateRole from "./../domains/role/views/CreateRole";
 import EditRole from "./../domains/role/views/EditRole";
-import Mains from "../domains/Main/Main"
+import Mains from "../domains/Main/Main";
 import ValidateCode from "../pages/ValidateCode";
 import NewPassword from "../pages/NewPassword";
 import User from "../domains/users/User";
@@ -75,13 +75,19 @@ import OneContentSubComponent from "../domains/contentSubComponent/views/OneCont
 import Technology from "../domains/technology/Technology";
 import CreateTechnology from "../domains/technology/views/CreateTechnology";
 import TechnologiesList from "../domains/technology/views/TechnologiesList";
-import OneTechnology from "../domains/technology/views/OneTechnology"
+import OneTechnology from "../domains/technology/views/OneTechnology";
 import Team from "../domains/team/Team";
 import TeamList from "../domains/team/views/TeamList";
 import CreateTeam from "../domains/team/views/CreateTeam";
 import OneTeam from "../domains/team/views/OneTeam";
 import ChatRoom from "../domains/chatRoom/ChatRoom";
 import ChatRoomList from "../domains/chatRoom/views/ChatRoomList";
+import GanttSection from "../domains/project/components/GanttSection";
+import Objectives from "../domains/project/components/Objectives";
+import InteractionSection from "../domains/project/components/InteractionSection";
+import TeamSection from "../domains/project/components/TeamSection";
+import WeeklySprints from "../domains/project/views/WeeklySprints";
+import CurrentSprint from "../domains/project/views/CurrentSprint";
 
 function Router() {
   const dispatch = useDispatch();
@@ -147,12 +153,28 @@ function Router() {
                 <Route path="create" element={<CreateClient />} />
                 <Route path="one/:clientId" element={<EditClient />} />
               </Route>
-              
+
               <Route path="project" element={<Project />}>
                 <Route index element={<ProjectList />} />
                 <Route path="create" element={<CreateProject />} />
                 <Route path="edit/:projectId" element={<EditProject />} />
-                <Route path="one/:projectId" element={<OneProject />} />
+                <Route
+                  path="one/:projectId/weekly-sprints"
+                  element={<WeeklySprints />}
+                />
+                <Route
+                  path="one/:projectId/current-sprint"
+                  element={<CurrentSprint />}
+                >
+                  <Route index element={<Objectives />} />
+                  <Route path="chat-team" element={<TeamSection />} />
+                </Route>
+                <Route path="one/:projectId" element={<OneProject />}>
+                  <Route index element={<Objectives />} />
+                  <Route path="team-section" element={<TeamSection />} />
+                  <Route path="interaction" element={<InteractionSection />} />
+                  <Route path="gantt" element={<GanttSection />} />
+                </Route>
               </Route>
 
               <Route path="decision" element={<Decision />}>
@@ -176,9 +198,10 @@ function Router() {
                 <Route path="create" element={<CreateRequest />} />
                 <Route path="edit/:requestId" element={<EditRequest />} />
                 <Route path="edit/sent/:requestId" element={<EditRequest />} />
-                <Route path="edit/received/:requestId" element={<EditRequest />} />
-                
-                
+                <Route
+                  path="edit/received/:requestId"
+                  element={<EditRequest />}
+                />
               </Route>
               <Route path="technology" element={<Technology />}>
                 <Route index element={<TechnologiesList />} />
@@ -195,10 +218,16 @@ function Router() {
                 <Route path="createSub" element={<CreateSubCompont />} />
                 <Route path="one/:subcomponetId" element={<OneSubComponet />} />
               </Route>
-              <Route path="contentsubcomponet" element={<ContentSubComponent />}>
+              <Route
+                path="contentsubcomponet"
+                element={<ContentSubComponent />}
+              >
                 <Route index element={<ContentSubComponentList />} />
                 <Route path="create" element={<CreateContentSubComponent />} />
-                <Route path="one/:contentsubcomponetId" element={<OneContentSubComponent />} />
+                <Route
+                  path="one/:contentsubcomponetId"
+                  element={<OneContentSubComponent />}
+                />
               </Route>
               <Route path="team" element={<Team />}>
                 <Route index element={<TeamList />} />
@@ -209,7 +238,6 @@ function Router() {
                 <Route index element={<ChatRoomList />} />
               </Route>
             </Route>
-            
           )}
           {!user && (
             <Route path="/" element={<AuthAdmin />}>
@@ -220,7 +248,6 @@ function Router() {
             </Route>
           )}
           <Route path="*" element={<NoPage />} />
-          
         </Routes>
       </BrowserRouter>
     </div>

@@ -7,10 +7,12 @@ function ChatRoomList() {
   const [messages, setMessages] = useState([]);
   console.log("🚀 ~ file: ChatRoomList.js:8 ~ ChatRoomList ~ messages:", messages)
   const me = useSelector((state) => state.auth.me);
-  console.log("🚀 ~ file: ChatRoomList.js:9 ~ ChatRoomList ~ me:", me.employee)
-  console.log("🚀 ~ file: ChatRoomList.js:7 ~ ChatRoomList ~ messages:", messages)
- const employee =  me?.employee
-  const data = {content,employee}
+
+
+ const employeeId =  me?.employee.id
+ const chatRoomId = "b64db876-6514-4834-b416-be8e0fc49e56"
+  const data = {content,employeeId,chatRoomId}
+
   function sendMessage(value) {
     socket.emit('message',value); // Emit 'message' event with the content as the data
   }

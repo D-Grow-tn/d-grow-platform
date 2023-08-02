@@ -5,6 +5,8 @@ import {
 } from '@nestjs/websockets';
 // import { Logger } from '@nestjs/common';
 import { Socket, Server } from 'socket.io';
+import { CreateMessageDto } from './dto/create-message.dto';
+import { MessagesService } from './messages.service';
 
 @WebSocketGateway({
   cors: {
@@ -14,7 +16,7 @@ import { Socket, Server } from 'socket.io';
 export class ChatGateway {
   users = [];
   message=[]
-  constructor() {}
+  constructor(private readonly messagesService: MessagesService) {}
   @WebSocketServer() server: Server;
   // private logger: Logger = new Logger('ChatGateway');
 
@@ -32,10 +34,14 @@ export class ChatGateway {
   
   
   @SubscribeMessage('message') 
-  handleMessage(client: Socket, data: any) {
+  async handleMessage(client: Socket, data: CreateMessageDto) {
         console.log(data,"message")
-     if (!this.message.includes(data))this.message.push(data)
-      this.server.emit("messagetlkol",this.message)
+    //  if (!this.message.includes(data))this.message.push(data)
+    //   this.server.emit("messagetlkol",this.message)
+    const newMessge = await this.messagesService.create(data)
+    const allMessages = await this.messagesService.findAll();
+    this.server.emit('messagetlkol', allMessages)
+    return newMessge;
   }
   
 }

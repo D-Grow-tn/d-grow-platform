@@ -158,6 +158,8 @@ model Stage {
   porcentage      String
   startAt         DateTime?
   endAt           DateTime?
+  startAtProd     DateTime?
+  endAtProd       DateTime?
   createdAt       DateTime  @default(now())
   updatedAt       DateTime  @updatedAt
   objectiveId     String
@@ -178,10 +180,19 @@ model Task {
   status     Status   @default(pending)
   createdAt  DateTime @default(now())
   updatedAt  DateTime @updatedAt
+  sprintId   String?
+  sprint     Sprint?   @relation(fields: [sprintId], references: [id])
   stageId    String
   stage      Stage    @relation(fields: [stageId], references: [id])
   employeeId String
   employee   Employee @relation(fields: [employeeId], references: [id])
+}
+
+model Sprint {
+  id        String   @id @default(uuid())
+  startDate DateTime
+  endDate   DateTime
+  Task      Task[]
 }
 
 model Team {
