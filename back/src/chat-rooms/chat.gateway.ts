@@ -7,6 +7,7 @@ import {
 import { Socket, Server } from 'socket.io';
 import { CreateMessageDto } from './dto/create-message.dto';
 import { MessagesService } from './messages.service';
+import { PrismaService } from 'src/prisma/prisma.service';
 
 @WebSocketGateway({
   cors: {
@@ -16,7 +17,10 @@ import { MessagesService } from './messages.service';
 export class ChatGateway {
   users = [];
   message = [];
-  constructor(private readonly messagesService: MessagesService) {}
+  constructor(
+    private readonly messagesService: MessagesService,
+    private readonly prisma: PrismaService,
+  ) {}
   @WebSocketServer() server: Server;
   // private logger: Logger = new Logger('ChatGateway');
 
@@ -34,6 +38,15 @@ export class ChatGateway {
 
   @SubscribeMessage('message')
   async handleMessage(client: Socket, data: CreateMessageDto) {
+    console.log(data);
+    const { employeeId, chatRoomId } = data;
+    await this.prisma.employeeChatRoom.findFirstOrThrow({
+      where: {
+        employeeId,
+        chatRoomId,
+      },
+    });
+
     const newMessge = await this.messagesService.create(data);
     const { id } = newMessge;
     const oneMessage = await this.messagesService.findOne(id);

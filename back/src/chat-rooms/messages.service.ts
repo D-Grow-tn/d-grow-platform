@@ -20,6 +20,17 @@ export class MessagesService {
       }
     })
   }
+  async findAllByChatRoom(chatRoomId:string) {
+    return await this.prisma.message.findMany({
+      where:{chatRoomId},
+      include:{
+        employee:true,
+        chatRoom:true,
+      },
+      orderBy:{createdAt:'desc'},
+      take:50,
+    })
+  }
 
   async findOne(id: string) {
     return await this.prisma.message.findFirst({
