@@ -12,27 +12,27 @@ function Main() {
   const me = useSelector((state) => state.auth.me);
   const [isOpen, setIsOpen] = useState(true);
 
-  useEffect(() => {
-    if (me) {
-      console.log(me);
-      socket.emit("connection", me.id);
-    }
-  }, [me]);
-  useEffect(() => {
-    function listUsers(data) {
-      console.log(data);
-    }
-    function disconnect() {
-      socket.emit("connection", me.id);
-    }
-    socket.on(`disconnect/${me.id}`, disconnect);
-    socket.on("list-users", listUsers);
+  // useEffect(() => {
+  //   if (me) {
+  //     console.log(me);
+  //     socket.emit("connection", me.id);
+  //   }
+  // }, [me]);
+  // useEffect(() => {
+  //   function listUsers(data) {
+  //     console.log(data);
+  //   }
+  //   function disconnect() {
+  //     socket.emit("connection", me.id);
+  //   }
+  //   socket.on(`disconnect/${me.id}`, disconnect);
+  //   socket.on("list-users", listUsers);
 
-    return () => {
-      socket.off(`disconnect/${me.id}`, disconnect);
-      socket.off("list-users", listUsers);
-    };
-  }, [socket, me]);
+  //   return () => {
+  //     socket.off(`disconnect/${me.id}`, disconnect);
+  //     socket.off("list-users", listUsers);
+  //   };
+  // }, [socket, me]);
   const toggle = () => {
     setIsOpen(!isOpen);
   };
