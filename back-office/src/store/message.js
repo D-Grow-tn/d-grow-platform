@@ -3,8 +3,8 @@ import axios from "axios"
 import config from "../configs";
 
 
-export const fetchMessages = createAsyncThunk("messages/messages",async()=>{
-    const response = await axios.get(`${config.API_ENDPOINT}/messages`)
+export const fetchMessagesByChatRoom = createAsyncThunk("messages/messages",async(id)=>{
+    const response = await axios.get(`${config.API_ENDPOINT}/messages/by-chat-room/${id}`)
     return response.data
 })
 export const fetchMessage = createAsyncThunk("messages/message",async(id)=>{
@@ -39,7 +39,7 @@ export const messageSlice = createSlice({
     reducers:{},
 
     extraReducers(builder){
-      builder.addCase(fetchMessages.fulfilled,(state,action)=>{
+      builder.addCase(fetchMessagesByChatRoom.fulfilled,(state,action)=>{
         state.messages.items = action.payload
       })
       builder.addCase(fetchMessage.fulfilled,(state,action)=>{

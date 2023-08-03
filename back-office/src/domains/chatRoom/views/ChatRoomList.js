@@ -1,29 +1,42 @@
 import React, { useEffect, useState } from "react";
 import { socket } from "../../../apps/Main";
 import { useDispatch, useSelector } from "react-redux";
-import { fetchMessages, removeMessage } from "../../../store/message";
+import { fetchMessagesByChatRoom, removeMessage } from "../../../store/message";
 import ConversionDate from "../../project/components/ConversionDate";
 import send from "../../../assets/images/send.png";
 import DeleteIcon from "@mui/icons-material/Delete";
 import { IconButton } from "@mui/material";
+import { useParams } from "react-router-dom";
+import { fetchProject } from "../../../store/projects";
 
 function ChatRoomList() {
-  const [content, setContent] = useState(null);
-  const [messages, setMessages] = useState(null);
-  const me = useSelector((state) => state.auth.me);
+  const { projectId } = useParams();
   const dispatch = useDispatch();
+  const me = useSelector((state) => state.auth.me);
+  const project = useSelector((state) => state.project.project);
   const Messages = useSelector((state) => state.message.messages.items);
   const employeeId = me?.employee.id;
-  const chatRoomId = "b64db876-6514-4834-b416-be8e0fc49e56";
-  const data = { content, employeeId, chatRoomId };
+  const [chatRoomId, setChatRoomId] = useState(null);
+  const [content, setContent] = useState(null);
+  const [messages, setMessages] = useState(null);
 
-  function sendMessage(value) {
-    socket.emit("message", value); // Emit 'message' event with the content as the data
+  function sendMessage(e) {
+    e.preventDefault();
+    console.log({ content, employeeId, chatRoomId });
+    if (employeeId && chatRoomId && content.length)
+      socket.emit("message", { content, employeeId, chatRoomId }); // Emit 'message' event with the content as the data
+    setContent("");
   }
 
   useEffect(() => {
-    dispatch(fetchMessages());
+    dispatch(fetchProject(projectId));
   }, [dispatch]);
+  useEffect(() => {
+    if (project) {
+      setChatRoomId(project?.ChatRoom[0].id);
+      dispatch(fetchMessagesByChatRoom(project?.ChatRoom[0].id));
+    }
+  }, [dispatch, project]);
   useEffect(() => {
     socket.on(
       "OneMessage",
@@ -42,7 +55,7 @@ function ChatRoomList() {
   const handelDelete = async (id) => {
     try {
       await dispatch(removeMessage(id));
-      await dispatch(fetchMessages());
+      await dispatch(fetchMessagesByChatRoom());
     } catch (error) {
       console.log(error);
     }
@@ -95,13 +108,17 @@ function ChatRoomList() {
                   </div>
                 </div>
               ))}
-              <div className="d-flex justify-content-center align-items-center gap-3">
+              <form
+                onSubmit={sendMessage}
+                className="d-flex justify-content-center align-items-center gap-3"
+              >
                 {" "}
-                <textarea
+                <input
+                  required
                   value={content}
                   class="form-control "
                   id="textAreaExample3"
-                  rows="2"
+                  rows="1"
                   onChange={(e) => {
                     console.log(e.target.value);
                     setContent(e.target.value);
@@ -111,11 +128,15 @@ function ChatRoomList() {
                     textAlign: "center",
                     padding: "0",
                   }}
-                ></textarea>
-                <div onClick={() => sendMessage(data)}>
+                ></input>
+                <button
+                  style={{ all: "unset", cursor: "pointer" }}
+                  type="submit"
+                  onSubmit={sendMessage}
+                >
                   <img alt="" src={send} style={{ width: 50, heigh: 50 }} />
-                </div>
-              </div>
+                </button>
+              </form>
             </ul>
 
             <div></div>

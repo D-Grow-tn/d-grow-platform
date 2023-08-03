@@ -19,7 +19,12 @@ export class MessagesController {
     return this.messagesService.findAll();
   }
 
-  @Get(':id')
+  @Get('by-chat-room/:chatRoomId')
+  findAllByChatRoom(@Param('chatRoomId') chatRoomId: string) {
+    return this.messagesService.findAllByChatRoom(chatRoomId);
+  }
+
+  @Get('one/:id')
   findOne(@Param('id') id: string) {
     return this.messagesService.findOne(id);
   }

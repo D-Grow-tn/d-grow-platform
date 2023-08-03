@@ -12,7 +12,7 @@ import loading from "../../../constants/loading.json";
 import { useNavigate } from "react-router-dom";
 import DeleteModal from "../../../components/DeleteModal";
 import { showErrorToast, showSuccessToast } from "../../../utils/toast";
-import { fetchProjectByPM, removeProject } from "../../../store/projects";
+import {  fetchProjects, removeProject } from "../../../store/projects";
 import { Image } from "mui-image";
 
 function ProjectList() {
@@ -25,9 +25,9 @@ function ProjectList() {
   const [isOpen, setIsOpen] = useState(false);
 
   useEffect(() => {
-    if (me) {
-      dispatch(fetchProjectByPM(me.employee.id));
-    }
+    
+      dispatch(fetchProjects());
+  
   }, [dispatch, me]);
 
   useEffect(() => {
@@ -54,7 +54,7 @@ function ProjectList() {
       if (!result.error) {
         showSuccessToast("Project has been deleted");
         setIsOpen(false);
-        dispatch(fetchProjectByPM(me.employee.id));
+        
       } else {
         showErrorToast(result.error.message);
       }
