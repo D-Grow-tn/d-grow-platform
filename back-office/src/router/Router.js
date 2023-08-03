@@ -167,7 +167,11 @@ function Router() {
                   element={<CurrentSprint />}
                 >
                   <Route index element={<Objectives />} />
-                  <Route path="chat-team" element={<TeamSection />} />
+                  <Route path="chat-team" element={<ChatRoom />} > 
+
+                <Route index element={<ChatRoomList />} />
+
+                  </Route>
                 </Route>
                 <Route path="one/:projectId" element={<OneProject />}>
                   <Route index element={<Objectives />} />
@@ -234,9 +238,9 @@ function Router() {
                 <Route path="create" element={<CreateTeam />} />
                 <Route path="one/:teamId" element={<OneTeam />} />
               </Route>
-              <Route path="chatroom" element={<ChatRoom />}>
+              {/* <Route     element={<ChatRoom />}>
                 <Route index element={<ChatRoomList />} />
-              </Route>
+              </Route> */}
             </Route>
           )}
           {!user && (

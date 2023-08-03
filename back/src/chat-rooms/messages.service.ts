@@ -25,6 +25,10 @@ export class MessagesService {
     return await this.prisma.message.findFirst({
       where:{
         id,
+      },
+      include:{
+        employee:true,
+        chatRoom:true,
       }
     });
   }
