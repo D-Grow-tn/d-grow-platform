@@ -80,6 +80,8 @@ import Team from "../domains/team/Team";
 import TeamList from "../domains/team/views/TeamList";
 import CreateTeam from "../domains/team/views/CreateTeam";
 import OneTeam from "../domains/team/views/OneTeam";
+import ChatRoom from "../domains/chatRoom/ChatRoom";
+import ChatRoomList from "../domains/chatRoom/views/ChatRoomList";
 import GanttSection from "../domains/project/components/GanttSection";
 import Objectives from "../domains/project/components/Objectives";
 import InteractionSection from "../domains/project/components/InteractionSection";
@@ -165,7 +167,11 @@ function Router() {
                   element={<CurrentSprint />}
                 >
                   <Route index element={<Objectives />} />
-                  <Route path="chat-team" element={<TeamSection />} />
+                  <Route path="chat-team" element={<ChatRoom />} > 
+
+                <Route index element={<ChatRoomList />} />
+
+                  </Route>
                 </Route>
                 <Route path="one/:projectId" element={<OneProject />}>
                   <Route index element={<Objectives />} />
@@ -232,6 +238,9 @@ function Router() {
                 <Route path="create" element={<CreateTeam />} />
                 <Route path="one/:teamId" element={<OneTeam />} />
               </Route>
+              {/* <Route     element={<ChatRoom />}>
+                <Route index element={<ChatRoomList />} />
+              </Route> */}
             </Route>
           )}
           {!user && (

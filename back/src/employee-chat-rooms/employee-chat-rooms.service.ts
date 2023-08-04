@@ -14,7 +14,10 @@ export class EmployeeChatRoomsService {
 
   async findAll() {
     return await this.prisma.employeeChatRoom.findMany({
-      include: {chatRoom:true}
+      include: {
+        chatRoom:true,
+        employee:true,
+      }
     });
   }
 

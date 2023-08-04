@@ -13,13 +13,33 @@ export class MessagesService {
   }
 
   async findAll() {
-    return await this.prisma.message.findMany({})
+    return await this.prisma.message.findMany({
+      include:{
+        employee:true,
+        chatRoom:true,
+      }
+    })
+  }
+  async findAllByChatRoom(chatRoomId:string) {
+    return await this.prisma.message.findMany({
+      where:{chatRoomId},
+      include:{
+        employee:true,
+        chatRoom:true,
+      },
+      orderBy:{createdAt:'desc'},
+      take:50,
+    })
   }
 
   async findOne(id: string) {
     return await this.prisma.message.findFirst({
       where:{
         id,
+      },
+      include:{
+        employee:true,
+        chatRoom:true,
       }
     });
   }
