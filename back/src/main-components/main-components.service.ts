@@ -14,7 +14,7 @@ export class MainComponentsService {
 
  async findAll() {
     return await this.prisma.mainComponent.findMany({
-      include:{SubComponent:{include:{ContentSubComponent:true}}}
+      include:{SubComponent:{include:{ContentSubComponent:{include:{previous:true}}}}}
     });
   }
 
@@ -30,7 +30,7 @@ export class MainComponentsService {
  async findOneByTitle(title: string) {
     return await this.prisma.mainComponent.findFirst({
       where:{title},
-      include:{SubComponent:{include:{ContentSubComponent:true}}}
+      include:{SubComponent:{include:{ContentSubComponent:{include:{previous:{include:{media:true}},media:true}}}}}
 
     });
   }
