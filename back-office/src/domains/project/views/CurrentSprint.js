@@ -1,16 +1,29 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Button, Modal, Nav } from "react-bootstrap";
 import { Outlet, useLocation, useNavigate, useParams } from "react-router-dom";
 import navData from "../../../constants/currentSprintData";
 import Pomodoro from "../../../components/Pomodoro"
+import { fetchProject } from "../../../store/projects";
+import { useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
+
+
 
 function CurrentSprint() {
   const { projectId } = useParams();
   const navigate = useNavigate();
+  const dispatch = useDispatch();
   const path = useLocation().pathname;
+  const projectStore = useSelector((state) => state.project);
+  const { project } = projectStore;
+
+  useEffect(() => {
+    dispatch(fetchProject(projectId));
+  }, [dispatch, projectId]);
+
   return (
     <div>
-    <Pomodoro/>
+    <Pomodoro project= {project?.name}/>
       <div
         className="container py-4 "
         style={{ backgroundColor: "#fff", borderRadius: "20px" }}

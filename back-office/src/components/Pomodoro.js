@@ -51,16 +51,16 @@ function Pomodoro({project}) {
 
   return (
     <header className="headerPage d-flex justify-content-between align-items-center p-3">
-   <div className="px-5"> 
+   <div className="px-3"> 
    <h2 className="headerPage-title darkBlue">Current Sprint</h2>  
    <h4> {project}</h4>
    </div>
-<div className="darkBlue d-flex justify-content-between align-items-center gap-2">
+<div className="darkBlue d-flex justify-content-between align-items-center gap-2 ">
    <p  style={{fontSize:"30px",fontWeight:"bold"}}>{formattedTime}</p>
    <span style={{fontSize:"15px",marginBottom:"20px"}}>PM</span>
-   {!isWorking ? ( <FaPlay className="toggle-icon mx-3" style={{marginBottom:"5px"}} onClick={toggleWorkingMode}  />): (<FaPause className="toggle-icon mx-3" style={{marginBottom:"5px"}} onClick={toggleWorkingMode} />)}
+   {!isWorking ? ( <FaPlay className="working-icon mx-3"   style={{marginBottom:"5px"}} onClick={toggleWorkingMode}  />): (<FaPause className="break-icon mx-3" style={{marginBottom:"5px"}} onClick={toggleWorkingMode} />)}
 </div>
-{!isWorking ? (<div><span className="darkBlue"> Work Time</span><p>{formatTime(timeInSeconds)}</p></div> ): (<div><span>Break Time</span><p></p></div>)}
+{!isWorking ? (<div style={{fontSize:"20px",fontWeight:"bold"}}><span className="working-status" > Work Time</span><p>{formatTime(timeInSeconds)}</p></div> ): (<div style={{fontSize:"20px",fontWeight:"bold"}}><span className="break-status" >Break Time</span><p></p></div>)}
 
               
            

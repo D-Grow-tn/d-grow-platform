@@ -9,40 +9,9 @@ import moment from 'moment';
 
 function Header({ isOpen }) {
   const navigate = useNavigate();
-  const [currentTime, setCurrentTime] = useState('');
-  const [isWorking, setIsWorking] = useState(false);
   const me = useSelector(state => state.auth.me)
 
-  useEffect(() => {
-    const interval = setInterval(() => {
-      const time = moment().format('HH:mm A');
-      setCurrentTime(time);
-    }, 1000);
 
-    return () => clearInterval(interval);
-  }, []);
-
-  const toggleWorkingMode = () => {
-    setIsWorking(!isWorking);
-  };
-
-  const renderWorkingStatus = () => {
-    if (isWorking) {
-      return (
-        <>
-          <span className="working-status">Working</span>
-          <FaPause className="working-icon" onClick={toggleWorkingMode} />
-        </>
-      );
-    } else {
-      return (
-        <>
-          <span className="break-status">Break</span>
-          <FaPlay className="break-icon" onClick={toggleWorkingMode} />
-        </>
-      );
-    }
-  };
 
   return (
     <div className="header" style={{ paddingLeft: isOpen ? 250 : 50 }}>
@@ -83,11 +52,7 @@ function Header({ isOpen }) {
           </div>
         </div>
 
-        <div className="time-and-status">
-          <p className="current-time">
-            {currentTime} {renderWorkingStatus()}
-          </p>
-        </div>
+        
       </div>
     </div>
   );
