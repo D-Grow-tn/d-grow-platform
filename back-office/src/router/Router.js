@@ -88,6 +88,9 @@ import InteractionSection from "../domains/project/components/InteractionSection
 import TeamSection from "../domains/project/components/TeamSection";
 import WeeklySprints from "../domains/project/views/WeeklySprints";
 import CurrentSprint from "../domains/project/views/CurrentSprint";
+import Contact from "../domains/contact/Contact";
+import ContactList from "../domains/contact/views/ContactList";
+import OneContact from "../domains/contact/views/OneContact";
 
 function Router() {
   const dispatch = useDispatch();
@@ -238,9 +241,10 @@ function Router() {
                 <Route path="create" element={<CreateTeam />} />
                 <Route path="one/:teamId" element={<OneTeam />} />
               </Route>
-              {/* <Route     element={<ChatRoom />}>
-                <Route index element={<ChatRoomList />} />
-              </Route> */}
+             <Route path="contact" element={<Contact />}>
+              <Route index element={<ContactList/>} />
+              <Route path="one/:contactId" element={<OneContact />} />
+             </Route>
             </Route>
           )}
           {!user && (
