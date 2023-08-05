@@ -60,7 +60,7 @@ function Pomodoro({project}) {
    <span style={{fontSize:"15px",marginBottom:"20px"}}>PM</span>
    {!isWorking ? ( <FaPlay className="toggle-icon mx-3" style={{marginBottom:"5px"}} onClick={toggleWorkingMode}  />): (<FaPause className="toggle-icon mx-3" style={{marginBottom:"5px"}} onClick={toggleWorkingMode} />)}
 </div>
-{!isWorking ? (<div><span> Work Time</span><p>{formatTime(timeInSeconds)}</p></div> ): (<div><span>Break Time</span><p></p></div>)}
+{!isWorking ? (<div><span className="darkBlue"> Work Time</span><p>{formatTime(timeInSeconds)}</p></div> ): (<div><span>Break Time</span><p></p></div>)}
 
               
            
