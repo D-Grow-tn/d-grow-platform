@@ -6,7 +6,6 @@ import { Media } from './../medias/entities/media.entity';
 import { HelpersService } from 'src/helpers/helpers.service';
 import { Prisma } from '@prisma/client';
 
-
 @Injectable()
 export class ProjectsService {
   constructor(
@@ -16,6 +15,10 @@ export class ProjectsService {
   async create(dto: CreateProjectDto) {
     const { projectTechnologyIds, ...rest } = dto;
     let data = rest;
+    const team = await this.prisma.team.findFirst({
+      where: { id: dto.teamId },
+      include: { teamMembership: true },
+    });
     if (projectTechnologyIds) {
       if (Array.isArray(projectTechnologyIds)) {
         data['projectTechnologies'] = {
@@ -51,7 +54,20 @@ export class ProjectsService {
       }
     }
     return this.prisma.project.create({
-      data,
+      data: {
+        ...data,
+        ChatRoom: {
+          create: {
+            title: dto.name,
+            type: 'project',
+            employeeChatRoom: {
+              create: team.teamMembership.map((elem) => ({
+                employeeId: elem.employeeId,
+              })),
+            },
+          },
+        },
+      },
       include: { projectTechnologies: { include: { technologies: true } } },
     });
   }
@@ -60,27 +76,32 @@ export class ProjectsService {
     return await this.prisma.project.findMany({
       include: {
         cover: true,
-        projectTechnologies: { include: { technologies: true } },
-      },
-    });
-  }
-
-  async findOne(id: string,prisma:Prisma.TransactionClient=this.prisma) {
-    return await this.prisma.project.findUnique({
-      where: { id },
-      include: {
-        team:{include:{teamMembership:{include:{employee:true}}}},
+        team: { include: { teamMembership: { include: { employee: true } } } },
         objective: { include: { subobjective: true, Stage: true } },
         projectManager: true,
         client: true,
         consultant: true,
         interaction: { include: { User: true } },
         contract: true,
+        ChatRoom: true,
         projectTechnologies: { include: { technologies: true } },
+      },
+    });
+  }
 
-
-
-
+  async findOne(id: string, prisma: Prisma.TransactionClient = this.prisma) {
+    return await this.prisma.project.findUnique({
+      where: { id },
+      include: {
+        team: { include: { teamMembership: { include: { employee: true } } } },
+        objective: { include: { subobjective: true, Stage: true } },
+        projectManager: true,
+        client: true,
+        consultant: true,
+        interaction: { include: { User: true } },
+        contract: true,
+        ChatRoom: true,
+        projectTechnologies: { include: { technologies: true } },
       },
     });
   }
@@ -94,42 +115,47 @@ export class ProjectsService {
   async findAllByPM(projectManagerId: string) {
     return await this.prisma.project.findMany({
       where: { projectManagerId },
-      include : 
-      {
+      include: {
         projectManager: true,
         consultant: true,
         client: true,
         projectTechnologies: { include: { technologies: true } },
-        team:true,
-        
-      }
-
-    
+        team: true,
+      },
     });
   }
 
-    async update(id: string, data: UpdateProjectDto) {
-    const { projectTechnologyIds,...rest } = data
-    return await this.prisma.$transaction(async (prisma)=>{
-      const project= await this.findOne(id,prisma)
-      project.projectTechnologies.forEach(async technology => {
-        if(!projectTechnologyIds.includes(technology.technologyId)){
-          await prisma.projectTechnology.delete({where:{
-            projectTechnology:{projectId:id,technologyId:technology.technologyId}
-          }})
+  async update(id: string, data: UpdateProjectDto) {
+    const { projectTechnologyIds, ...rest } = data;
+    return await this.prisma.$transaction(async (prisma) => {
+      const project = await this.findOne(id, prisma);
+      project.projectTechnologies.forEach(async (technology) => {
+        if (!projectTechnologyIds.includes(technology.technologyId)) {
+          await prisma.projectTechnology.delete({
+            where: {
+              projectTechnology: {
+                projectId: id,
+                technologyId: technology.technologyId,
+              },
+            },
+          });
         }
-      })
+      });
       return await this.prisma.project.update({
-        where: {id},
-        data: {...rest,
-        projectTechnologies:{
-          connectOrCreate : projectTechnologyIds.map((technology)=>({
-            create:{technologyId:technology},
-            where: {projectTechnology:{projectId:id,technologyId:technology}}
-          }))
-        }}
-      })
-    })
+        where: { id },
+        data: {
+          ...rest,
+          projectTechnologies: {
+            connectOrCreate: projectTechnologyIds.map((technology) => ({
+              create: { technologyId: technology },
+              where: {
+                projectTechnology: { projectId: id, technologyId: technology },
+              },
+            })),
+          },
+        },
+      });
+    });
     // return await this.prisma.project.update({
     //       where: {id},
     //       data:data
@@ -154,10 +180,10 @@ export class ProjectsService {
     return await this.prisma.$transaction(async (prisma) => {
       await prisma.projectTechnology.deleteMany({
         where: {
-          projectId: id, 
+          projectId: id,
         },
       });
-  
+
       return await prisma.project.delete({
         where: {
           id,
@@ -165,8 +191,4 @@ export class ProjectsService {
       });
     });
   }
-  
-   
- }
- 
-
+}

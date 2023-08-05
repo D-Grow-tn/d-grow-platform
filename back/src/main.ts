@@ -9,10 +9,14 @@ async function bootstrap() {
   app.enableCors({optionsSuccessStatus:200,credentials:true, });
   app.useStaticAssets('upload',{prefix:'/upload'})
   app.setGlobalPrefix('/api/v1');
+  
   const config = new DocumentBuilder()
     .setTitle('Median')
     .setDescription('The Median API description')
-    .addApiKey({ type: 'apiKey', name: 'Authorization', in: 'header' },'apiKey')
+    .addApiKey(
+      { type: 'apiKey', name: 'Authorization', in: 'header' },
+      'apiKey',
+    )
     .setVersion('0.1')
     .build();
 

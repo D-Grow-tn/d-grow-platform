@@ -2,6 +2,7 @@ import React from "react";
 import { Button, Modal, Nav } from "react-bootstrap";
 import { Outlet, useLocation, useNavigate, useParams } from "react-router-dom";
 import navData from "../../../constants/currentSprintData";
+import Pomodoro from "../../../components/Pomodoro"
 
 function CurrentSprint() {
   const { projectId } = useParams();
@@ -9,8 +10,7 @@ function CurrentSprint() {
   const path = useLocation().pathname;
   return (
     <div>
-      CurrentSprint
-      <div>name project and pomodoro</div>
+    <Pomodoro/>
       <div
         className="container py-4 "
         style={{ backgroundColor: "#fff", borderRadius: "20px" }}

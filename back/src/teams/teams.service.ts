@@ -21,7 +21,11 @@ export class TeamsService {
 
  async findOne(id: string) {
     return await this.prisma.team.findFirst({
-      where:{id,}
+      where:{id,},
+      include:{
+        teamMembership:{include:{employee:true}}
+      }
+
 
     });
   }

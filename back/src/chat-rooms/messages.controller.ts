@@ -2,6 +2,8 @@ import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/commo
 import { MessagesService } from './messages.service';
 import { CreateMessageDto } from './dto/create-message.dto';
 import { UpdateMessageDto } from './dto/update-message.dto';
+import { ApiTags } from '@nestjs/swagger';
+
 
 @Controller('messages')
 export class MessagesController {
@@ -17,7 +19,12 @@ export class MessagesController {
     return this.messagesService.findAll();
   }
 
-  @Get(':id')
+  @Get('by-chat-room/:chatRoomId')
+  findAllByChatRoom(@Param('chatRoomId') chatRoomId: string) {
+    return this.messagesService.findAllByChatRoom(chatRoomId);
+  }
+
+  @Get('one/:id')
   findOne(@Param('id') id: string) {
     return this.messagesService.findOne(id);
   }

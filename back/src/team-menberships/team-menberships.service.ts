@@ -7,6 +7,7 @@ import { PrismaService } from 'src/prisma/prisma.service';
 export class TeamMenbershipsService {
   constructor(private readonly prisma:PrismaService){}
   async create(createTeamMenbershipDto: CreateTeamMenbershipDto) {
+
     return this.prisma.teamMembership.create({
       data:createTeamMenbershipDto,
     });
@@ -18,7 +19,11 @@ export class TeamMenbershipsService {
 
  async findOne(teamId: string,employeeId:string) {
     return this.prisma.teamMembership.findFirst({
-      where:{teamId,employeeId,}
+      where:{teamId,employeeId,},
+      // include:{
+      //   teamMembership:true,
+ 
+      // }
     });
   }
 

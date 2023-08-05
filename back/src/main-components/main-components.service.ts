@@ -14,7 +14,7 @@ export class MainComponentsService {
 
  async findAll() {
     return await this.prisma.mainComponent.findMany({
-      include:{SubComponent:{include:{ContentSubComponent:{include:{previous:true}}}}}
+      include:{SubComponent:{include:{ContentSubComponent:{include:{nexts:true}}}}}
     });
   }
 

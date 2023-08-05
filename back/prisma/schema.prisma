@@ -106,6 +106,7 @@ model Project {
   coverId             String?
   Media               Media?              @relation(fields: [mediaId], references: [id])
   mediaId             String?
+  ChatRoom            ChatRoom[]
 }
 
 model Technology {
@@ -181,7 +182,7 @@ model Task {
   createdAt  DateTime @default(now())
   updatedAt  DateTime @updatedAt
   sprintId   String?
-  sprint     Sprint?   @relation(fields: [sprintId], references: [id])
+  sprint     Sprint?  @relation(fields: [sprintId], references: [id])
   stageId    String
   stage      Stage    @relation(fields: [stageId], references: [id])
   employeeId String
@@ -389,7 +390,10 @@ model Offices {
 
 model ChatRoom {
   id               String             @id @default(uuid())
-  content          String
+  title            String
+  type             ChatGroupType
+  priojectId       String?
+  project          Project?           @relation(fields: [priojectId], references: [id])
   createdAt        DateTime           @default(now())
   updatedAt        DateTime           @updatedAt
   employeeChatRoom EmployeeChatRoom[]
@@ -556,6 +560,12 @@ enum Status {
   reviewed
   refused
   accepted
+}
+
+enum ChatGroupType {
+  group
+  project
+  pair
 }
 
 enum TypeMainComponent {
