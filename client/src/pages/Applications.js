@@ -3,34 +3,41 @@ import { useNavigate, useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import CastomCard from "../components/CastomCard";
 import CastomContent from "../components/CastomContent";
-import { fetchProducType } from "../store/products";
+import { fetchProducType,fetchProduct } from "../store/products";
 
 function Applications() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const { id } = useParams();
   const productTypes = useSelector((state) => state.product.productTypes.items);
+  const services = useSelector((state) => state.product.products.items);
 
   useEffect(() => {
     dispatch(fetchProducType());
+    dispatch(fetchProduct());
   }, [dispatch]);
 
   const handleNavigate = (id) => {
     navigate(`/applicationDetails/${id}`);
   };
   const applicationData = productTypes.filter((productType) => productType.ProductId === id);
+  const service = services.filter((product) => product.id=== id);
+  console.log("servicesssss",service);
 
   return (
-    <div style={{ marginTop: "-35%" }}>
-      {applicationData.map((application) => (
+    <div>
+    <div className="d-flex  align-content-center justify-content-center">
+      {service.map((service) => (
         <CastomContent
-          key={application.id}
-          title={application.name}
+          key={service.id}
+          title={service.name}
           // image={application.image1}
-          ContentTitle={application.description}
+          ContentTitle={service.description}
+          title2="Our Applications"
         />
       ))}
-      <div className="d-flex flex-wrap m-5  gap-5 justify-content-center">
+      </div>
+      <div className="d-flex flex-wrap gap-5 justify-content-center">
         {applicationData.map((application) => (
           <CastomCard
             key={application.id}

@@ -1,2 +1,18 @@
 
+.current-time {
+    font-size: 20px;
+    color: #333;
+    font-weight: bold;
+    margin-left: 10px;
+  }
+  
+  .working-status {
+    color: green;
+    margin-left: 10px;
+  }
+  
+  .break-status {
+    color: red;
+    margin-left: 10px;
+  }
   

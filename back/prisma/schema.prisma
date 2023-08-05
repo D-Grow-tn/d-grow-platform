@@ -449,7 +449,8 @@ model Media {
 
   Product Product[] @relation("productCover")
 
-  MediaProductType MediaProductType[]
+  MediaProductType    MediaProductType[]
+  ContentSubComponent ContentSubComponent[]
 }
 
 model MediaUser {
@@ -506,6 +507,7 @@ model MediaProject {
   @@unique(fields: [mediaId, projectId], name: "projectMedia")
 }
 
+// page or header/footer
 model MainComponent {
   id           String            @id @default(uuid())
   title        String            @unique
@@ -516,6 +518,7 @@ model MainComponent {
   SubComponent SubComponent[]
 }
 
+//section or position
 model SubComponent {
   id                  String                @id @default(uuid())
   name                String?
@@ -527,17 +530,23 @@ model SubComponent {
   ContentSubComponent ContentSubComponent[]
 }
 
+// elements like buttons
 model ContentSubComponent {
-  id             String       @id @default(uuid())
-  title          String
-  navigateTo     String?
-  content        String
-  type           ContentType  @default(button)
-  subContent     Json?
-  subComponent   SubComponent @relation(fields: [subComponentId], references: [id])
-  subComponentId String
-  createdAt      DateTime     @default(now())
-  updatedAt      DateTime     @updatedAt
+  id                            String                @id @default(uuid())
+  title                         String
+  navigateTo                    String?
+  content                       String
+  type                          ContentType           @default(button)
+  subContent                    Json?
+  previousContentSubComponentId String?
+  previousContentSubComponent   ContentSubComponent?  @relation(fields: [previousContentSubComponentId], references: [id], name: "previous")
+  subComponent                  SubComponent          @relation(fields: [subComponentId], references: [id])
+  subComponentId                String
+  createdAt                     DateTime              @default(now())
+  updatedAt                     DateTime              @updatedAt
+  nexts                      ContentSubComponent[] @relation("previous")
+  mediaId                       String?
+  media                         Media  ?               @relation(fields: [mediaId], references: [id])
 }
 
 // join table
