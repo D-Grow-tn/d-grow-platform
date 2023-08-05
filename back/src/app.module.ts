@@ -26,7 +26,7 @@ import { MainComponentsModule } from './main-components/main-components.module';
 import { SubComponentsModule } from './sub-components/sub-components.module';
 import { ContentSubComponentsModule } from './content-sub-components/content-sub-components.module';
 import { ContactModule } from './contact/contact.module';
-import { WorkTimeModule } from './work-time/work-time.module';
+// import { WorkTimeModule } from './work-time/work-time.module';
 
 @Module({
   imports: [
@@ -53,7 +53,8 @@ import { WorkTimeModule } from './work-time/work-time.module';
     SubComponentsModule,
     ContentSubComponentsModule,
     ContactModule,
-    WorkTimeModule,
+    // WorkTimeModule,
+    
   ],
   controllers: [AppController],
   providers: [
