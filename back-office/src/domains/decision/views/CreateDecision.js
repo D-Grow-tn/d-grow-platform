@@ -47,134 +47,41 @@ function CreateDecision() {
       }
     });
   };
-  
-  
-
-
-  //   // Create the options for the Autocomplete component
-  //   const options = employees.map((employee) => ({
-  //     label: employee.name,
-  //     value: employee.id
-  //   }));
-  
-  //   // Find the default option based on the employeeId
-  //   const defaultOption = options.find((option) => option.value === employeeId);
-  //   console.log("🚀 ~ file: CreateDecision.js:65 ~ useEffect ~ defaultOption:", defaultOption)
-  
-  //   setInputs([
-  //     {
-  //       label: "Content",
-  //       placeholder: "Add content",
-  //       name: "content",
-  //       required: true,
-  //       width: 700,
-  //       height: 200
-  //     },
-  //     {
-  //       category: "select",
-  //       label: "Employee",
-  //       placeholder: "Select an employee",
-  //       name: "DecisionApply",
-  //       width: 500,
-  //       required: true,
-  //       valueLabel: "id",
-  //       optionLabel: "label",
-  //       options: options,
-  //       value: defaultOption ? defaultOption.value : "", // Set the default value based on the employeeId
-  //       onChange: (value) => {
-  //         setDecision((decision) => ({
-  //           ...decision,
-  //           decisionApplyIds: [value]
-  //         }));
-  //         console.log("id", id);
-  //       }
-  //     }
-  //   ]);
-  // }, [decisions, employees, employeeId]);
-  
- 
-//  useEffect(() => {
-
-//    const options = employees.map((employee) => {
-//     console.log("Employee ID:", employee.name)
-//     return { label: employee.name, value: employee.id };;
-//   });
-//   const employedd= employees.map((employee) => (employee.name ))
-//   console.log("🚀 ~ file: CreateDecision.js:103 ~ useEffect ~ employedd:", employedd)
-
-//    setInputs([
-//      {
-//         label: "Content",
-//         placeholder: "Add content",
-//         name: "content",
-//         required: true,
-//         width: 700,
-//         height:200
-//       },
-//       {
-//         category: "select",
-//         label: "Employee",
-//         placeholder: "Select an employee",
-//         name: "DecisionApply",
-//         width: 500,
-//         options:options,  
-//         required: true,
-//         valueLabel: "id",
-//         optionLabel: "label",
-//         value:employedd || "",
-//         // value:  employees.map((employee) => (value: employee.id )),
+  const id = decisions[0]?.DecisionApply[0].employeeId
+  console.log(decisions,"decisions")
+  useEffect(() => {
+    setInputs([
+      {
+        label: "Content",
+        placeholder: "Add content",
+        name: "content",
+        required: true,
+        width: 700,
+        height:200
+      },
+      {
+        category: "select",
+        label: "Employee",
+        placeholder: "Select an employee",
+        name: "DecisionApply",
+        width: 500,
+        multiple:true,
+        required: true,
+        valueLabel: "id",
+        optionLabel: "label",
+        options: employees.map((employee) => ({ label: employee.name, value: employee.id })),
+        value: (decisions[0]?.DecisionApply[0].employeeId) || "",
         
-        
-        
-//         onChange: (value) => {
+        onChange: (value) => {
           
           
        
-//           setDecision((Decision) => ({ ...Decision, decisionApplyIds: [employeeId] }));
-
-//         },
-//       },
-//     ])}, [decisions,employees,employeeId]);
-
-useEffect(() => {
-  const options = employees.map((employee) => ({
-    label: employee.name,
-    value: employee.id
-  }));
-
-  setInputs([
-    {
-      label: "Content",
-      placeholder: "Add content",
-      name: "content",
-      required: true,
-      width: 700,
-      height: 200
-    },
-    {
-      category: "select",
-      label: "Employee",
-      placeholder: "Select an employee",
-      name: "DecisionApply",
-      width: 500,
-      options: options,
-      required: true,
-      valueLabel: "value",
-      optionLabel: "label",
-      value: employeeId || "",
-      onChange: (value) => {
-        setEmployeeId(value);
-        setDecision((decision) => ({
-          ...decision,
-          decisionApplyIds: [value]
-        }));
-      }
-    }
-  ]);
-}, [decisions, employees, employeeId]);
-
-    // console.log(decisions[0]?.DecisionApply[0].employeeId,"value")
-
+          setDecision((Decision) => ({ ...Decision, decisionApplyIds: [id] }));
+          console.log("id",id);
+        },
+      },
+    ])}, [decisions]);
+  
   
   const buttons = [
     {

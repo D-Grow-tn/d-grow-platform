@@ -4,9 +4,6 @@ import config from "../configs";
 
 export const fetchProjects = createAsyncThunk("projects/projects", async () => {
   const response = await axios.get(`${config.API_ENDPOINT}/projects`);
-  console.log("====================================");
-  console.log(response.data, "wayou");
-  console.log("====================================");
   return response.data;
 });
 

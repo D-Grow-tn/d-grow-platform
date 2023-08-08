@@ -6,9 +6,12 @@ import { PrismaService } from 'src/prisma/prisma.service';
 @Injectable()
 export class ContentSubComponentsService {
   constructor(private readonly prisma :PrismaService) {}
-  async create(createContentSubComponentDto: CreateContentSubComponentDto) {
+  async create(dto: CreateContentSubComponentDto) {
+    const {previousContentSubComponent,...rest}=dto
+    let data={...rest}
+  
     return await this.prisma.contentSubComponent.create({
-      data:createContentSubComponentDto
+      data
     });
   }
 
@@ -22,10 +25,12 @@ export class ContentSubComponentsService {
     });
   }
 
- async update(id: string, updateContentSubComponentDto: UpdateContentSubComponentDto) {
+ async update(id: string, dto: UpdateContentSubComponentDto) {
+  const {previousContentSubComponent,...rest}=dto
+    let data={...rest}
     return await this.prisma.contentSubComponent.update({
       where:{id},
-      data:updateContentSubComponentDto
+      data
     });
   }
 
