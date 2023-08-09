@@ -91,6 +91,8 @@ import CurrentSprint from "../domains/project/views/CurrentSprint";
 import Contact from "../domains/contact/Contact";
 import ContactList from "../domains/contact/views/ContactList";
 import OneContact from "../domains/contact/views/OneContact";
+import Contract from "../domains/contract/Contract";
+import ContarctList from "../domains/contract/views/ContarctList";
 
 function Router() {
   const dispatch = useDispatch();
@@ -244,6 +246,10 @@ function Router() {
              <Route path="contact" element={<Contact />}>
               <Route index element={<ContactList/>} />
               <Route path="one/:contactId" element={<OneContact />} />
+             </Route>
+             <Route path="contract" element={<Contract />}>
+              <Route index element={<ContarctList/>} />
+              <Route path="one/:contractId" element={<OneContact />} />
              </Route>
             </Route>
           )}

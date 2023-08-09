@@ -1,8 +1,11 @@
 import React from 'react'
+import { Outlet } from 'react-router-dom';
 
 function Contract() {
   return (
-    <div>Contract</div>
+    <div>
+        <Outlet />
+    </div>
   )
 }
 

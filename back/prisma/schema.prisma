@@ -40,6 +40,7 @@ model Client {
   project        Project[]
   User           User[]
   MediaClient    MediaClient[]
+  contracts       Contract[] 
 }
 
 model Employee {
@@ -417,6 +418,7 @@ model Contact {
   subject   String
   message   String
   createdAt DateTime @default(now())
+
 }
 
 model EmployeeChatRoom {
@@ -451,6 +453,13 @@ model Media {
 
   MediaProductType    MediaProductType[]
   ContentSubComponent ContentSubComponent[]
+}
+
+model Contract {
+  id       String  @id @default(uuid())
+  price    String
+  clientId String?
+  client   Client? @relation(fields: [clientId], references: [id])
 }
 
 model MediaUser {
@@ -544,9 +553,9 @@ model ContentSubComponent {
   subComponentId                String
   createdAt                     DateTime              @default(now())
   updatedAt                     DateTime              @updatedAt
-  nexts                      ContentSubComponent[] @relation("previous")
+  nexts                         ContentSubComponent[] @relation("previous")
   mediaId                       String?
-  media                         Media  ?               @relation(fields: [mediaId], references: [id])
+  media                         Media?                @relation(fields: [mediaId], references: [id])
 }
 
 // join table
