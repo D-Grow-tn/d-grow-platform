@@ -108,12 +108,13 @@ function MainList() {
     []
   );
   return (
-    <div>
+    <div  className="p-3">
       <HeaderPage
         title="Main List"
         showButton={true}
         buttonFunction={() => navigate("create")}
         text="Create Main"
+        parent="WebSite Setting"
       />
       <Table columns={columns} rows={mains.length ? mains : []} />
       {isOpen && (

@@ -95,7 +95,7 @@ function CreateClient() {
 
   return (
     <div>
-      <HeaderPage title={"Create Client"} />
+      <HeaderPage title={"Create Client"} parent="CRM"/>
       <div className="py-3"></div>
       <div
         className=" rounded-5 p-3  "

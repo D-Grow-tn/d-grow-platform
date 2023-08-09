@@ -218,6 +218,7 @@ function EditProject() {
         showButton={readOnly ? true : false}
         buttonFunction={() => setReadOnly(false)}
         text={"Edit Project"}
+        parent="PMO"
       />
       <button onClick={()=>navigate("/chatroom")} >Chat Roum</button>
 
