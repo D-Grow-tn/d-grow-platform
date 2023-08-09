@@ -19,7 +19,7 @@ export class ChatGateway {
 
   @SubscribeMessage('connection')
   async connect(client: Socket, data: string) {
-    console.log('===============' + data + ' ==================');
+    // console.log('===============' + data + ' ==================');
     if (!this.users.includes(data)) this.users.push(data);
     setTimeout(() => {
      this.users=this.users.filter(elem=>elem!==data)

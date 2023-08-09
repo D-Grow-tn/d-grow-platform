@@ -86,6 +86,7 @@ import InteractionSection from "../domains/project/components/InteractionSection
 import TeamSection from "../domains/project/components/TeamSection";
 import WeeklySprints from "../domains/project/views/WeeklySprints";
 import CurrentSprint from "../domains/project/views/CurrentSprint";
+import Trello from "../domains/trello/Trello";
 
 function Router() {
   const dispatch = useDispatch();
@@ -201,6 +202,7 @@ function Router() {
                   element={<EditRequest />}
                 />
               </Route>
+              
               <Route path="technology" element={<Technology />}>
                 <Route index element={<TechnologiesList />} />
                 <Route path="create" element={<CreateTechnology />} />
@@ -232,6 +234,7 @@ function Router() {
                 <Route path="create" element={<CreateTeam />} />
                 <Route path="one/:teamId" element={<OneTeam />} />
               </Route>
+              <Route path="trello" element = {<Trello/>}/>
             </Route>
           )}
           {!user && (

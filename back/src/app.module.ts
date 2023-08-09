@@ -27,6 +27,7 @@ import { SubComponentsModule } from './sub-components/sub-components.module';
 import { ContentSubComponentsModule } from './content-sub-components/content-sub-components.module';
 import { ContactModule } from './contact/contact.module';
 
+
 @Module({
   imports: [
     UsersModule,
@@ -52,6 +53,7 @@ import { ContactModule } from './contact/contact.module';
     SubComponentsModule,
     ContentSubComponentsModule,
     ContactModule,
+    
   ],
   controllers: [AppController],
   providers: [

@@ -1,5 +1,5 @@
 -- CreateEnum
-CREATE TYPE "Status" AS ENUM ('pending', 'in_progress', 'completed', 'on_hold', 'cancelled', 'reviewed', 'refused', 'accepted');
+CREATE TYPE "Status" AS ENUM ('pending', 'to_do', 'in_progress', 'completed', 'on_hold', 'cancelled', 'reviewed', 'refused', 'accepted');
 
 -- CreateEnum
 CREATE TYPE "TypeMainComponent" AS ENUM ('footer', 'header', 'sidebar', 'page');
@@ -9,6 +9,9 @@ CREATE TYPE "PositionSubComponent" AS ENUM ('left', 'right', 'top', 'bottom', 'm
 
 -- CreateEnum
 CREATE TYPE "ContentType" AS ENUM ('button', 'paragraph', 'image', 'select');
+
+-- CreateEnum
+CREATE TYPE "taskposition" AS ENUM ('to_do', 'in_progress', 'completed');
 
 -- CreateTable
 CREATE TABLE "User" (
@@ -130,6 +133,8 @@ CREATE TABLE "Stage" (
     "porcentage" TEXT NOT NULL,
     "startAt" TIMESTAMP(3),
     "endAt" TIMESTAMP(3),
+    "startAtProd" TIMESTAMP(3),
+    "endAtProd" TIMESTAMP(3),
     "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
     "updatedAt" TIMESTAMP(3) NOT NULL,
     "objectiveId" TEXT NOT NULL,
@@ -146,13 +151,23 @@ CREATE TABLE "Task" (
     "name" TEXT NOT NULL,
     "duration" TEXT NOT NULL,
     "level" TEXT NOT NULL,
-    "status" "Status" NOT NULL DEFAULT 'pending',
+    "status" "Status" NOT NULL DEFAULT 'to_do',
     "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
     "updatedAt" TIMESTAMP(3) NOT NULL,
+    "sprintId" TEXT,
     "stageId" TEXT NOT NULL,
     "employeeId" TEXT NOT NULL,
 
     CONSTRAINT "Task_pkey" PRIMARY KEY ("id")
+);
+
+-- CreateTable
+CREATE TABLE "Sprint" (
+    "id" TEXT NOT NULL,
+    "startDate" TIMESTAMP(3) NOT NULL,
+    "endDate" TIMESTAMP(3) NOT NULL,
+
+    CONSTRAINT "Sprint_pkey" PRIMARY KEY ("id")
 );
 
 -- CreateTable
@@ -581,6 +596,9 @@ ALTER TABLE "Stage" ADD CONSTRAINT "Stage_objectiveId_fkey" FOREIGN KEY ("object
 
 -- AddForeignKey
 ALTER TABLE "Stage" ADD CONSTRAINT "Stage_previousStageId_fkey" FOREIGN KEY ("previousStageId") REFERENCES "Stage"("id") ON DELETE SET NULL ON UPDATE CASCADE;
+
+-- AddForeignKey
+ALTER TABLE "Task" ADD CONSTRAINT "Task_sprintId_fkey" FOREIGN KEY ("sprintId") REFERENCES "Sprint"("id") ON DELETE SET NULL ON UPDATE CASCADE;
 
 -- AddForeignKey
 ALTER TABLE "Task" ADD CONSTRAINT "Task_stageId_fkey" FOREIGN KEY ("stageId") REFERENCES "Stage"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
