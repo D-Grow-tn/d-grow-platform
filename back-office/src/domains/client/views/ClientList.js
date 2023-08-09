@@ -139,6 +139,7 @@ function ClientList() {
         showButton={true}
         buttonFunction={() => navigate("create")}
         text={"Create Client"}
+        parent="CRM"
       />
       <Table columns={columns} rows={clients.length ? clients : []} />
       {isOpen && (

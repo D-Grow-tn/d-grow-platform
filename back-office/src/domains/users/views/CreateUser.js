@@ -100,7 +100,7 @@ function CreateUser() {
   ];
   return (
     <div>
-  <HeaderPage title={'Create user'}/>
+  <HeaderPage title={'Create user'} parent="Admin Setting"/>
   <div className=" d-flex justify-content-center">
   <div
         className=" rounded-5 p-3 m-5  "

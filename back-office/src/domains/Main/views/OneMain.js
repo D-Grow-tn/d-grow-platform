@@ -88,8 +88,8 @@ function OneMain() {
   };
 
   return (
-    <div>
-      <HeaderPage title="Main Information" />
+    <div  className="p-3">
+      <HeaderPage title="Main Information" parent="WebSite Setting"/>
 
       <div
         className=" rounded-5  mt-3"

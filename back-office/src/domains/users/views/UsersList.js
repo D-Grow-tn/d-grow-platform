@@ -153,6 +153,7 @@ function UsersList() {
         
         buttonFunction={()=>navigate('create')}
         text={"Create User"}
+        parent="Admin Setting"
       />
 
       <Table columns={columns} rows={rows} />

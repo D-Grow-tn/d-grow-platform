@@ -213,7 +213,7 @@ export const websiteSettingsSeed = async (prisma: PrismaClient) => {
       path: '',
       type: 'paragraph',
       content:
-        ' Since having our new website built by D-Grow, we have seen a 200% increase in the number of online contact forms being filled out and returned to us. Matt and his team worked closely with us to provide a site that met all of the criteria that we were looking for. The end result was a website that is attractive, organized and effective. Thanks to D-Grow for all of your hard work and support! ',
+        ' Since having our new website built by Sfectoria, we have seen a 200% increase in the number of online contact forms being filled out and returned to us. Matt and his team worked closely with us to provide a site that met all of the criteria that we were looking for. The end result was a website that is attractive, organized and effective. Thanks to Sfectoria for all of your hard work and support! ',
       nexts: [
         {
           name: 'paragraph',
@@ -234,7 +234,7 @@ export const websiteSettingsSeed = async (prisma: PrismaClient) => {
       path: '',
       type: 'paragraph',
       content:
-        'It is a distinct pleasure for me to recommend D-Grow to any and  all interested parties. They have been professional,  comprehensive and competent throughout the process of our  working together. We feel that we have established a  relationship with them for years to come. The reaction to our  new web site has been overwhelmingly positive.',
+        'It is a distinct pleasure for me to recommend Sfectoria to any and  all interested parties. They have been professional,  comprehensive and competent throughout the process of our  working together. We feel that we have established a  relationship with them for years to come. The reaction to our  new web site has been overwhelmingly positive.',
       nexts: [
         {
           name: 'paragraph',
@@ -725,7 +725,7 @@ export const websiteSettingsSeed = async (prisma: PrismaClient) => {
     data: {
       title: 'logo',
       navigateTo: '/',
-      content: 'D-Grow',
+      content: 'Sfectoria',
       subComponentId: headerLeft.id,
     },
   });

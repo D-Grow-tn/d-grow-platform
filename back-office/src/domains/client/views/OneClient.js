@@ -134,7 +134,7 @@ function OneClient() {
 
   return (
     <div style={{}}>
-      <HeaderPage title="Client Information" />
+      <HeaderPage title="Client Information" parent="CRM"/>
 
       <div
         className=" rounded-5  mt-3"

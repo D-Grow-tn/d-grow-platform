@@ -4,7 +4,7 @@ import HeaderPage from '../../../components/HeaderPage'
 function QuizList() {
   return (
     <div>
-      <HeaderPage title="Quiz " />
+      <HeaderPage title="Quiz " parent="HR" />
     </div>
   )
 }

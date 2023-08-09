@@ -102,7 +102,7 @@ function CreateDecision() {
 
   return (
     <div>
-      <HeaderPage title="Create Decision" />
+      <HeaderPage title="Create Decision" parent="HR" />
       <div className="py-3"></div>
       <div
         className=" rounded-5 p-3  "

@@ -96,7 +96,7 @@ function OneTechnology() {
 
   return (
     <div style={{}}>
-      <HeaderPage title="Technology Information" />
+      <HeaderPage title="Technology Information" parent="PMO"/>
 
       <div
         className="rounded-5 mt-3"

@@ -76,7 +76,7 @@ const handleChange = (e) => {
 
   return (
     <div>
-       <HeaderPage title={'Create Technology'} />
+       <HeaderPage title={'Create Technology'}parent="PMO" />
        <div className="py-3"></div>
       <div
         className=" rounded-5 p-3  "
