@@ -15,6 +15,7 @@ import team from "./team"
 import interaction from "./interaction"
 import message from "./message";
 import contact from "./contact";
+import contract from "./contract";
 export const store = configureStore({
   reducer: {
     auth,
@@ -32,7 +33,8 @@ export const store = configureStore({
     contentsubcomponet,
     team,
     message,
-    contact
+    contact,
+    contract
   },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware({
