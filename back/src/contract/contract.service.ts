@@ -8,17 +8,36 @@ import { UpdateContractDto } from './dto/update-contract.dto';
 export class ContractService {
   constructor(private readonly prisma : PrismaService){}
   async create(createContractDto: CreateContractDto) {
-    return await this.prisma.contract.create({
-      data:createContractDto,
-    })
+    try {
+      const createdContract = await this.prisma.contract.create({
+        data: createContractDto,
+      });
+
+      return createdContract;
+    } catch (error) {
+      // Handle the error appropriately
+      throw new Error(`Error creating contract: ${error.message}`);
+    }
   }
 
   async findAll() {
-    return await this.prisma.contract.findMany({});
+    return await this.prisma.contract.findMany({
+      include:{
+        client:true,
+        project:true,
+      }
+    });
   }
 
   async findOne(id: string) {
-    return await this.prisma.contract.findUnique({where:{id}});
+    return await this.prisma.contract.findUnique({
+      where:{id},
+      include:{
+        client:true,
+         project:true,
+      }
+    
+    });
   }
 
  async  update(id: string, updateContractDto: UpdateContractDto) {

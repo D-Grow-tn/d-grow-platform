@@ -9,6 +9,7 @@ export const fetchContracts = createAsyncThunk("contract/contracts",async()=>{
 })
 export const fetchContract = createAsyncThunk("ontract/contract",async(id)=>{
   const response = await axios.get(`${config.API_ENDPOINT}/contract/${id}`)
+  console.log(response.data,"-------")
   return response.data
 })
 export const createContract = createAsyncThunk("contract/createContract",async(body)=>{
@@ -27,7 +28,7 @@ export const updateContract= createAsyncThunk("contract/upadateContract",async(b
 export const contractSlice = createSlice({
     name:"contarct",
     initialState:{
-        contarct:null,
+        contract:null,
         contracts:{
         items:[],
       },
@@ -43,7 +44,7 @@ export const contractSlice = createSlice({
         state.contracts.items = action.payload
       })
       builder.addCase(fetchContract.fulfilled,(state,action)=>{
-        state.contarct = action.payload
+        state.contract = action.payload
       })
 
     }
