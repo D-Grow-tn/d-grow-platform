@@ -16,6 +16,7 @@ import stage from "./stage"
 import interaction from "./interaction"
 import message from "./message";
 import objective from './objective'
+import worktime from "./worktime";
 export const store = configureStore({
   reducer: {
     auth,
@@ -34,7 +35,9 @@ export const store = configureStore({
     team,
     message,
     objective,
-    stage
+    stage,
+    worktime,
+    
   },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware({

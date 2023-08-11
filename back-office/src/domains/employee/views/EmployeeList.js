@@ -152,7 +152,7 @@ function EmployeeList() {
       <HeaderPage
         title="Employees List"
         showButton={true}
-        
+        parent="HR"
         buttonFunction={()=>navigate('create')}
         text={"Create Employee"}
       />

@@ -4,7 +4,7 @@ import HeaderPage from '../../../components/HeaderPage'
 function RoleList() {
   return (
     <div>
-      <HeaderPage title="Roles" />
+      <HeaderPage title="Roles" parent="Admin Setting" />
     </div>
   )
 }

@@ -84,7 +84,7 @@ function AboutUs() {
       });
     
   }, []);
-
+console.log("ghadaaaaa",section1p);
   console.log("section5",section5);
 
   // Listen for Click -----------------------------------------------------------

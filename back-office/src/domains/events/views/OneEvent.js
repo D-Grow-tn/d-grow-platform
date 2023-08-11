@@ -120,6 +120,7 @@ function OneEvent() {
         showButton={readOnly ? true : false}
         buttonFunction={() => setReadOnly(false)}
         text={"Edit Event"}
+        parent="HR"
       />
       <div className="d-flex justify-content-center" style={{display: "flex",
     flexWrap: "wrap",flexDirection:"row"}}>

@@ -123,12 +123,13 @@ function TeamList() {
         );
       }
   return (
-    <div> 
+    <div className="p-3"> 
     <HeaderPage
     title={"Team List"}
     showButton={true}
     buttonFunction={() => navigate("create")}
     text={"Create Team"}
+    parent="PMO"
   />
       <Table columns={columns} rows={teams.length ? teams : []} />
       {isOpen && (

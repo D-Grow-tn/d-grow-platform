@@ -122,6 +122,7 @@ function TechnologyList() {
         showButton={true}
         buttonFunction={() => navigate("create")}
         text={"Create Technology"}
+        parent="PMO"
       />
       <Table columns={columns} rows={technologies.length ? technologies : []} />
       {isOpen && (
