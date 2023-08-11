@@ -77,6 +77,16 @@ model Employee {
   Membership       Membership[]
   SenderReq        Request[]          @relation("senderRequest")
   ReceiverReq      Request[]          @relation("receiverRequest")
+  dailyWorkTimes  DailyWorkTime[]  
+}
+
+model DailyWorkTime {
+  id             String               @id @default(uuid())
+  employeeId     String
+  employee       Employee         @relation(fields: [employeeId], references: [id])
+  date           DateTime         @default(now())
+  totalWorkTime  Int              
+  totalBreakTime Int              
 }
 
 model Project {

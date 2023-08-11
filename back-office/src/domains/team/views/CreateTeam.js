@@ -62,8 +62,8 @@ function CreateTeam() {
   ];
 
   return (
-    <div>
-      <HeaderPage title={"Create Team"} />
+    <div  className="p-3">
+      <HeaderPage title={"Create Team"} parent="PMO"/>
       <div className="py-3"></div>
       <div
         className=" rounded-5 p-3  "

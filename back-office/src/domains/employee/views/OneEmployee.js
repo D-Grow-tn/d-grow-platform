@@ -140,7 +140,7 @@ function OneEmployee({setDepartment,department}) {
 
   return (
     <div style={{}}>
-    <HeaderPage title="Employee Information" />
+    <HeaderPage title="Employee Information" parent="HR" />
 
     <div
       className=" rounded-5  mt-3"
