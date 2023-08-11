@@ -119,7 +119,7 @@ function OneEmployee({setDepartment,department}) {
         required: true,
         value: auxEmployee?.bio,
         width:"600px",
-        height:"300"
+        height:"300px"
        
       },
     

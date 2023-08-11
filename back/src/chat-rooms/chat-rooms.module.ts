@@ -7,6 +7,7 @@ import { ChatRoomsController } from './chat-rooms.controller';
 import { PrismaService } from 'src/prisma/prisma.service';
 import { ChatGateway } from './chat.gateway';
 
+
 @Module({
   controllers: [ChatRoomsController,MessagesController],
   providers: [ChatRoomsService,PrismaService,ChatGateway,MessagesService]

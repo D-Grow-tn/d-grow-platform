@@ -10,9 +10,17 @@ async create(data: CreateObjectiveDto) {
     return await this.prisma.objective.create({data})
    }
 
-  findAll() {
-    return this.prisma.objective.findMany({});
+  // findAll() {
+  //   return this.prisma.objective.findMany({});
+  // }
+
+  async findAllByProjectId(projectId: string) {
+    return await this.prisma.objective.findMany({
+      where: {projectId},
+    
+    });
   }
+
 
   findOne(id: string) {
  return this.prisma.objective.findUnique({where:{id}});

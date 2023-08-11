@@ -65,12 +65,16 @@ function CreateEvents() {
         required: true,
       },
       {
+        multiline: true,
         label: "description",
         placeholder: "this is very important event ...",
         value: event.description,
         name: "description",
         required: true,
+        width:400,
+        height:200
       },
+      
       {
         label: "startAt",
         placeholder: "2023-06-17T17:50:20Z",
@@ -104,6 +108,7 @@ function CreateEvents() {
           setEvent((Event) => ({ ...Event, employeeId: value }));
         },
       },
+     
     ]);
   }, [employees]);
   // {

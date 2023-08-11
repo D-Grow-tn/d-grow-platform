@@ -9,14 +9,16 @@ import { ApiTags } from '@nestjs/swagger';
 export class StagesController {
   constructor(private readonly stagesService: StagesService) {}
 
-  @Post()
-  create(@Body() createStageDto: CreateStageDto) {
-    return this.stagesService.create(createStageDto);
+  @Post(':objectiveId')
+  createByObjectiveId(@Param('objectiveId') objectiveId: string, @Body() createStageDto: CreateStageDto) {
+    return this.stagesService.createByObjectiveId(objectiveId, createStageDto);
   }
+  
 
-  @Get()
-  findAll() {
-    return this.stagesService.findAll();
+
+  @Get('byObjectiveId/:id')
+  findAll(@Param('id') objectiveId:string) {
+    return this.stagesService.findAllByObjectiveId(objectiveId);
   }
 
   @Get(':id')

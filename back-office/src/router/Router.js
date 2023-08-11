@@ -88,6 +88,7 @@ import InteractionSection from "../domains/project/components/InteractionSection
 import TeamSection from "../domains/project/components/TeamSection";
 import WeeklySprints from "../domains/project/views/WeeklySprints";
 import CurrentSprint from "../domains/project/views/CurrentSprint";
+import ArchivedStages from "../domains/project/components/ArchivedStages";
 
 function Router() {
   const dispatch = useDispatch();
@@ -159,9 +160,11 @@ function Router() {
                 <Route path="create" element={<CreateProject />} />
                 <Route path="edit/:projectId" element={<EditProject />} />
                 <Route
-                  path="one/:projectId/weekly-sprints"
-                  element={<WeeklySprints />}
-                />
+                  path="one/:projectId/weekly-sprints/:objectiveId"
+                  element={<WeeklySprints />} 
+                >
+                 <Route path="archived-stages" element={<ArchivedStages />} />
+                 </Route>
                 <Route
                   path="one/:projectId/current-sprint"
                   element={<CurrentSprint />}

@@ -13,9 +13,13 @@ export class ObjectivesController {
     return this.objectivesService.create(createObjectiveDto);
   }
 
-  @Get()
-  findAll() {
-    return this.objectivesService.findAll();
+  // @Get('/')
+  // findAll() {
+  //   return this.objectivesService.findAll();
+  // }
+  @Get('byProjectId/:id')
+  findAll(@Param('id') projectId:string) {
+    return this.objectivesService.findAllByProjectId(projectId);
   }
 
   @Get(':id')

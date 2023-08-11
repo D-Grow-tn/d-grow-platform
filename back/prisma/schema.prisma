@@ -156,16 +156,16 @@ model SubObjective {
 model Stage {
   id              String    @id @default(uuid())
   name            String
-  porcentage      String
+  porcentage      String?
   startAt         DateTime?
   endAt           DateTime?
   startAtProd     DateTime?
   endAtProd       DateTime?
-  createdAt       DateTime  @default(now())
-  updatedAt       DateTime  @updatedAt
-  objectiveId     String
-  project         Objective @relation(fields: [objectiveId], references: [id])
-  status          Status    @default(pending)
+  createdAt       DateTime?  @default(now())
+  updatedAt       DateTime?  @updatedAt
+  objectiveId     String?
+  project         Objective? @relation(fields: [objectiveId], references: [id])
+  status          Status?    @default(pending)
   previousStageId String?
   previousStage   Stage?    @relation(name: "previousStage", fields: [previousStageId], references: [id])
   task            Task[]
@@ -184,7 +184,7 @@ model Task {
   sprintId   String?
   sprint     Sprint?  @relation(fields: [sprintId], references: [id])
   stageId    String
-  stage      Stage    @relation(fields: [stageId], references: [id])
+  stage      Stage    @relation(fields: [stageId], references: [id], onDelete: Cascade)
   employeeId String
   employee   Employee @relation(fields: [employeeId], references: [id])
 }

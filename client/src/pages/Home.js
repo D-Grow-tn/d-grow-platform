@@ -11,8 +11,10 @@ import axios from "axios";
 import config from "../configs";
 function Home() {
   const navigate = useNavigate();
-  const [section1p, setSection1p] = useState(null);
+  const [sectionp, setSectionp] = useState(null);
   const [section1I, setSection1I] = useState(null);
+  const [section1b, setSection1b] = useState(null);
+  const [section2, setSection2] = useState(null);
 
   const services = [
     {
@@ -41,17 +43,28 @@ function Home() {
     axios
     .get(`${config.API_ENDPOINT}/website-settings/by-title/HomePage`)
     .then((res) =>{
-      setSection1p(
-        // res.data?.SubComponent[0].ContentSubComponent.filter((elem) => elem.title === "paragraph")
+      setSectionp(
+         res.data?.SubComponent.filter((elem) => elem.title === "paragraph")
    
-        )
+        );
+    
       setSection1I(
-            //  res.data?.SubComponent[0].ContentSubComponent.filter((elem) => elem.title === "image")
-      )
+              res.data?.SubComponent[0].ContentSubComponent.filter((elem) => elem.title === "image")
+      );
+      
+      setSection1b(
+        res.data?.SubComponent[0].ContentSubComponent.filter((elem) => elem.title === "button")
+);
+      setSection2(
+        res.data?.SubComponent[1].ContentSubComponent.filter((elem) => elem.title === "section")
+
+      );
      
     })
+    console.log("section2",section2);
+    
   });
-  // console.log("paragraph", section1[0].content);
+  
   return (
     <div className="bg-light">
      {/* PART 1 */}
@@ -112,12 +125,13 @@ function Home() {
                 Transforming Businesses with Exquisite Websites and Powerful
                 Mobile Applications <br />{" "}
               </h4>
-              {section1p?.map((elem, i) => (
+              {sectionp?.map((elem, i) => (
               <p>
                  {elem?.content}
               </p>
               ))
             }
+            {section1b?.map((el,i) => ( 
               <button
                 type="button"
                 class="btn mt-5"
@@ -127,16 +141,19 @@ function Home() {
                   background: "#00ac9e",
                   color: "white",
                 }}
-                onClick={() => navigate("/about-us")}
+                onClick={() => navigate(el?.navigateTo)}
               >
-                Read more <i class="fa-solid fa-play fa-fade px-2"></i>
+                {el?.content}
+                 <i class="fa-solid fa-play fa-fade px-2"></i>
               </button>
+               ))} 
             </div>
 
-            <div className="col-lg-6 ">
-              
-              <DisplayLottie animationData={plan} style={{ width: "500px" }} />
-            </div>
+            {/* <div className="col-lg-6 ">
+            {section1I?.map((el, i) => (
+              <DisplayLottie animationData={el?.content} style={{ width: "500px" }} />
+              ))} 
+              </div> */}
           </div>
         </div>
       </section>
@@ -154,14 +171,19 @@ function Home() {
       
     }}> 
     Clients Reviews</h1>
+    {section2?.map((el,j) => (
+      <>
+    {console.log("sect2",el?.subContent)}
+    {el?.subContent.map((elem,i)=>(
 <Carousel variant="dark ">
+{console.log("elem",elem?.content2)}
         <Carousel.Item>
+   
           <Carousel.Caption  style={{ paddingBottom: "120px" }}>
             <h3
           className="dark-bleu"
             >
-            " Since having our new website built by D-Grow, we have seen a 200% increase in the number of online contact forms being filled out and returned to us. 
-             Matt and his team worked closely with us to provide a site that met all of the criteria that we were looking for. The end result was a website that is attractive, organized and effective. Thanks to D-Grow for all of your hard work and support! "
+            {elem?.content1}
             </h3>
             <p style={{ fontSize: "20px",fontWeight: "bold", }} className="dark-bleu">
               Mohamed.L{" "}
@@ -173,6 +195,7 @@ function Home() {
             alt="First slide"
             style={{ height: "500px" }}
           />
+       
         </Carousel.Item>
         <Carousel.Item>
           <img
@@ -187,9 +210,7 @@ function Home() {
           >  <h3
           className="dark-bleu"
             >
-            "It is a distinct pleasure for me to recommend D-Grow to any and all interested parties.
-             They have been professional, comprehensive and competent throughout the process of our working together. We feel that we have established a relationship with them for years to come. 
-             The reaction to our new web site has been overwhelmingly positive."
+             {elem?.content2}
             </h3>
              <p style={{ fontSize: "20px",fontWeight: "bold", }} className="dark-bleu">
               Majdi.G{" "}
@@ -209,15 +230,20 @@ function Home() {
           >  <h3
           className="dark-bleu"
             >
-            "Compared to the other companies we have used in the past, D-Grow has been far and above the best in every area. While building our new web site,
-             the customer service has been prompt and straightforward and the actual services are well documented and logical to our needs."
+             {elem?.content3}
             </h3>
              <p style={{ fontSize: "20px",fontWeight: "bold", }} className="dark-bleu">
              Salma.N{" "}
             </p>
           </Carousel.Caption>
+       
         </Carousel.Item>
+     
       </Carousel>
+      ))}
+      </>
+
+      ))}
 </section>
   {/* SERVICES */}
   <section className="mt-5 back2">

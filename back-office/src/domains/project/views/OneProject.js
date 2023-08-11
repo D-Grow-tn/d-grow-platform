@@ -5,27 +5,37 @@ import { Outlet, useLocation, useNavigate, useParams } from "react-router-dom";
 import { Button, Modal, Nav } from "react-bootstrap";
 import "../../../assets/styles/projectDetails.css";
 import { fetchProject } from "../../../store/projects";
+
 import { useSelector } from "react-redux";
 import { useDispatch } from "react-redux";
 import projectDetailData from "../../../constants/projectDetailData";
+import { fetchObjectives } from "../../../store/objective";
 
 function ProjectDetails() {
-  const { projectId } = useParams();
+  const { projectId} = useParams();
   const navigate = useNavigate();
   const me = useSelector((state) => state.auth.me);
   const dispatch = useDispatch();
   const path = useLocation().pathname;
+ 
   const projectStore = useSelector((state) => state.project);
   const { project } = projectStore;
-
+  const objective = useSelector((state) => state.objective.objectives.items);
+  console.log("from oneProject",objective)
   const [formattedCreatedAt, setFormattedCreatedAt] = useState("");
   const [formattedEndAt, setFormattedEndAt] = useState("");
   const [viewContractModal, setViewContractModal] = useState(false);
   const navData = projectDetailData;
 
+  
   useEffect(() => {
     dispatch(fetchProject(projectId));
   }, [dispatch, projectId]);
+
+  useEffect(() => {
+    dispatch(fetchObjectives(projectId));
+  }, [dispatch]);
+
 
   useEffect(() => {
     function formatDate(dateString) {
@@ -50,18 +60,23 @@ function ProjectDetails() {
     setFormattedEndAt(formattedEndAt);
   }, [project]);
 
+  
+
   return (
     <div>
       <div className="container d-flex justify-content-center align-items-center ">
         <div class="card  m-5 ">
-          <button
-            type="button"
-            class="btn"
-            onClick={() => navigate('weekly-sprints')}
-            style={{ backgroundColor: "#1a408c", color: "#fff" }}
-          >
-            Weekly Sprints
-          </button>
+   {objective?.map((objective,index)=>(
+        <button
+  type="button"
+  className="btn"
+
+  onClick={() =>  navigate(`weekly-sprints/${objective.id}`)}
+  style={{ backgroundColor: "#1a408c", color: "#fff" }}
+>
+  Weekly Sprints
+</button>
+))}
           <div class="card-header d-flex justify-content-center align-items-center ">
             Featured
           </div>

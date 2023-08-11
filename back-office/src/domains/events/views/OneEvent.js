@@ -34,12 +34,7 @@ function OneEvent() {
         required: true,
         value: auxEvent?.name,
       },
-      {
-        name: "description",
-        label: "Description",
-        required: true,
-        value: auxEvent?.description,
-      },
+   
       {
         name: "startAt",
         label: "Start At",
@@ -53,20 +48,27 @@ function OneEvent() {
         value: auxEvent?.endAt,
       },
       {
-        category:"select",
+        category: "select",
         label: "Employee",
         name: "employeeId",
         required: true,
         options: employees,
         optionLabel: "name",
         valueLabel: "id",
-        
-        value: auxEvent?.employee ,
-        onChange: (value) => {
-         setAuxEvent((Event) => ({ ...Event, employeeId: value }));
-        },
 
-      }
+        value: auxEvent?.employee,
+        onChange: (value) => {
+          setAuxEvent((Event) => ({ ...Event, employeeId: value }));
+        },
+      },
+      {
+        name: "description",
+        label: "Description",
+        required: true,
+        value: auxEvent?.description,
+        width:400,
+        height:200
+      },
     ]);
   }, [auxEvent]);
 
@@ -76,23 +78,22 @@ function OneEvent() {
       ...prevState,
       [name]: value,
     }));
-   
   };
 
   const onSubmit = (e) => {
     e.preventDefault();
     console.log(auxEvent);
-    const { name, description, startAt, endAt,employeeId } = auxEvent;
-    dispatch(updateEvent({ name, description, startAt, endAt,employeeId, eventId })).then(
-      (result) => {
-        if (!result.error) {
-          showSuccessToast("Event has been updated");
-          setReadOnly(true);
-        } else {
-          showErrorToast(result.error.message);
-        }
+    const { name, description, startAt, endAt, employeeId } = auxEvent;
+    dispatch(
+      updateEvent({ name, description, startAt, endAt, employeeId, eventId })
+    ).then((result) => {
+      if (!result.error) {
+        showSuccessToast("Event has been updated");
+        setReadOnly(true);
+      } else {
+        showErrorToast(result.error.message);
       }
-    );
+    });
   };
 
   const buttons = [
@@ -113,39 +114,51 @@ function OneEvent() {
   ];
 
   return (
-    <div style={{}}>
+    <div>
       <HeaderPage
         title="Event Information"
         showButton={readOnly ? true : false}
         buttonFunction={() => setReadOnly(false)}
         text={"Edit Event"}
       />
-     
-      <div className="d-flex   align-items-center  justify-content-center flex-wrap gap-3">
-        <img
-          src={event?.MediaEvent[0]?.media?.path}
-          style={{
-            width: "600px",
-            height: "400px",
-            borderRadius: "40px",
-            paddingTop: "20px",
-          }}
-          alt="Image"
-        />
+      <div className="d-flex justify-content-center" style={{display: "flex",
+    flexWrap: "wrap",flexDirection:"row"}}>
+        <div  style={{
+              width: "350px",
+              height: "250px",
+              
+              marginTop: "100px",
+              
+            }}>
+          <img
+            src={event?.MediaEvent[0]?.media?.path}
+            style={{
+              width: "350px",
+              height: "250px",
+               borderRadius: "10px",
+           
+            }}
+            alt="Image"
+          />
+        </div>
+        <div  style={{
+              width: "800px",
+              height: "500px",
+             
+            }}>
+          <Form
+            onSubmit={onSubmit}
+            inputs={inputs}
+            inputsClassName="d-flex flex-wrap justify-content-center px-3 gap-5"
+            inputsStyle={{ rowGap: 20 }}
+            numberInputPerRow={2}
+            readOnly={readOnly}
+            onChange={handleInputChange}
+            buttonsClassName="d-flex justify-content-end gap-3"
+            buttons={!readOnly ? buttons : []}
+          />
+        </div>
       </div>
-
-      <Form
-        onSubmit={onSubmit}
-        inputs={inputs}
-        inputsClassName="d-flex flex-wrap justify-content-center px-3 gap-5"
-        inputsStyle={{ rowGap: 20 }}
-        numberInputPerRow={2}
-        readOnly={readOnly}
-        onChange={handleInputChange}
-        buttonsClassName="d-flex justify-content-end gap-3"
-        buttons={!readOnly ? buttons : []}
-      />
-      {/* </div> */}
     </div>
   );
 }

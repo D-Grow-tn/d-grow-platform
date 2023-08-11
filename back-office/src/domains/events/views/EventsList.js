@@ -64,17 +64,17 @@ function EventList() {
 
   const columns = useMemo(
     () => [
-      {
-        field: "MediaEvent",
-        headerName: "Image",
-        headerClassName: "header-blue",
-        width: 100,
+      // {
+      //   field: "MediaEvent",
+      //   headerName: "Image",
+      //   headerClassName: "header-blue",
+      //   width: 100,
 
-        renderCell: (params) => <Image src={params.row.MediaEvent[0]?.media?.path} />,
+      //   renderCell: (params) => <Image src={params.row.MediaEvent[0]?.media?.path} />,
 
-        sortable: false,
-        filterable: false,
-      },
+      //   sortable: false,
+      //   filterable: false,
+      // },
       {
         field: "name",
         headerName: "Name",

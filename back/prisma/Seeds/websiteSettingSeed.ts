@@ -623,4 +623,39 @@ let data4 = await prisma.contentSubComponent.create({
     ];
     
 
-};
+
+  // create content sub component homePageSection2
+  let data5 = [
+    
+    {
+      type: 'paragraph',
+      name: '',
+      path: '',
+      subContent: [
+        { content1: "It is a distinct pleasure for me to recommend D-Grow to any and all interested parties.They have been professional, comprehensive and competent throughout the process of our working together. We feel that we have established a relationship with them for years to come. The reaction to our new web site has been overwhelmingly positive." },
+        { content2: "Compared to the other companies we have used in the past, D-Grow has been far and above the best in every area. While building our new web site,the customer service has been prompt and straightforward and the actual services are well documented and logical to our needs." },
+        { content3: "Since having our new website built by D-Grow, we have seen a 200% increase in the number of online contact forms being filled out and returned to us.Matt and his team worked closely with us to provide a site that met all of the criteria that we were looking for. The end result was a website that is attractive, organized and effective. Thanks to D-Grow for all of your hard work and support! " },
+        
+      ],
+    },
+  ];
+  
+  await Promise.all(
+    data5.map(async (e) => {
+      let data = {
+        title: 'section',
+        type: e.type as ContentType,
+        navigateTo: e.path,
+        content: e.name,
+        subComponentId: homePageSection2.id,
+      };
+      if (e.type === 'paragraph') {
+        data['subContent'] = e.subContent as Prisma.JsonArray;
+      }
+      await prisma.contentSubComponent.create({
+        data
+      });
+    })
+  );
+  
+ };
