@@ -14,6 +14,8 @@ import contentsubcomponet from "./contentsubcomponet";
 import team from "./team"
 import interaction from "./interaction"
 import message from "./message";
+import contact from "./contact";
+import contract from "./contract";
 import worktime from "./worktime";
 export const store = configureStore({
   reducer: {
@@ -32,6 +34,8 @@ export const store = configureStore({
     contentsubcomponet,
     team,
     message,
+    contact,
+    contract,
     worktime,
     
   },
