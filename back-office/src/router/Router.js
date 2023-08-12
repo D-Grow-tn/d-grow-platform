@@ -249,9 +249,7 @@ function Router() {
                 <Route path="create" element={<CreateTeam />} />
                 <Route path="one/:teamId" element={<OneTeam />} />
               </Route>
-<<<<<<< HEAD
-              <Route path="trello" element = {<Trello/>}/>
-=======
+              {/* <Route path="trello" element = {<Trello/>}/> */}
              <Route path="contact" element={<Contact />}>
               <Route index element={<ContactList/>} />
               <Route path="one/:contactId" element={<OneContact />} />
@@ -263,7 +261,6 @@ function Router() {
               <Route path="create" element={<CreateContract />} />
 
              </Route>
->>>>>>> f968961f73e7cfffa4b669b4965dbf62c971c705
             </Route>
           )}
           {!user && (
