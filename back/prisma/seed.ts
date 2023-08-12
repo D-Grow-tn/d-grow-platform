@@ -335,7 +335,7 @@ async function main() {
       startAt: new Date('01/05/2023'),
       endAt: new Date('01/07/2023'),
       status: 'pending',
-      contractId: contract.id,
+      // contractId: contract.id,
       coverId: cover1.id,
       teamId: team1.id,
       ChatRoom: {

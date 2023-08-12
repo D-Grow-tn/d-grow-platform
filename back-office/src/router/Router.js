@@ -88,6 +88,14 @@ import InteractionSection from "../domains/project/components/InteractionSection
 import TeamSection from "../domains/project/components/TeamSection";
 import WeeklySprints from "../domains/project/views/WeeklySprints";
 import CurrentSprint from "../domains/project/views/CurrentSprint";
+import Contact from "../domains/contact/Contact";
+import ContactList from "../domains/contact/views/ContactList";
+import OneContact from "../domains/contact/views/OneContact";
+import Contract from "../domains/contract/Contract";
+import ContarctList from "../domains/contract/views/ContarctList";
+import CreateContract from "../domains/contract/views/CreateContract";
+import OneContract from "../domains/contract/views/OneContract";
+import ContractView from "../domains/contract/views/ContractView";
 
 function Router() {
   const dispatch = useDispatch();
@@ -158,12 +166,16 @@ function Router() {
                 <Route index element={<ProjectList />} />
                 <Route path="create" element={<CreateProject />} />
                 <Route path="edit/:projectId" element={<EditProject />} />
-                <Route
-                  path="one/:projectId/weekly-sprints"
+               
+                <Route path="one/:projectId" element={<OneProject />}>
+
+                  <Route index element={<Objectives />} />
+                  <Route
+                  path="weekly-sprints"
                   element={<WeeklySprints />}
                 />
                 <Route
-                  path="one/:projectId/current-sprint"
+                  path="current-sprint"
                   element={<CurrentSprint />}
                 >
                   <Route index element={<Objectives />} />
@@ -173,8 +185,6 @@ function Router() {
 
                   </Route>
                 </Route>
-                <Route path="one/:projectId" element={<OneProject />}>
-                  <Route index element={<Objectives />} />
                   <Route path="team-section" element={<TeamSection />} />
                   <Route path="interaction" element={<InteractionSection />} />
                   <Route path="gantt" element={<GanttSection />} />
@@ -238,9 +248,17 @@ function Router() {
                 <Route path="create" element={<CreateTeam />} />
                 <Route path="one/:teamId" element={<OneTeam />} />
               </Route>
-              {/* <Route     element={<ChatRoom />}>
-                <Route index element={<ChatRoomList />} />
-              </Route> */}
+             <Route path="contact" element={<Contact />}>
+              <Route index element={<ContactList/>} />
+              <Route path="one/:contactId" element={<OneContact />} />
+             </Route>
+             <Route path="contract" element={<Contract />}>
+              <Route index element={<ContarctList/>} />
+              <Route path="one/:contractId" element={<OneContract />} />
+              <Route path="contractView/:contractId" element={<ContractView />} />
+              <Route path="create" element={<CreateContract />} />
+
+             </Route>
             </Route>
           )}
           {!user && (

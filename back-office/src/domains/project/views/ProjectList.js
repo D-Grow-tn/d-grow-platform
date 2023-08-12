@@ -178,6 +178,7 @@ function ProjectList() {
         showButton={true}
         buttonFunction={() => navigate("create")}
         text={"Create Project"}
+        parent="PMO"
       />
 
       <Table columns={columns} rows={rows} />

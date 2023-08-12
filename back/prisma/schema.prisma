@@ -40,6 +40,9 @@ model Client {
   project        Project[]
   User           User[]
   MediaClient    MediaClient[]
+  contracts      Contract[]
+  devis          Devis[]
+  ClientDevis    ClientDevis[]
 }
 
 model Employee {
@@ -76,6 +79,16 @@ model Employee {
   Membership       Membership[]
   SenderReq        Request[]          @relation("senderRequest")
   ReceiverReq      Request[]          @relation("receiverRequest")
+  dailyWorkTimes   DailyWorkTime[]
+}
+
+model DailyWorkTime {
+  id             String   @id @default(uuid())
+  employeeId     String
+  employee       Employee @relation(fields: [employeeId], references: [id])
+  date           DateTime @default(now())
+  totalWorkTime  Int
+  totalBreakTime Int
 }
 
 model Project {
@@ -96,8 +109,8 @@ model Project {
   projectManager      Employee?           @relation(fields: [projectManagerId], references: [id], name: "projectManager")
   consultantId        String?
   consultant          Employee?           @relation(fields: [consultantId], references: [id], name: "consultant")
-  contract            Media?              @relation(fields: [contractId], references: [id], name: "contractRelation")
-  contractId          String?
+  // contract            Media?              @relation(fields: [contractId], references: [id], name: "contractRelation")
+  // contractId          String?
   interaction         Interaction[]
   objective           Objective[]
   projectTechnologies ProjectTechnology[]
@@ -107,6 +120,8 @@ model Project {
   Media               Media?              @relation(fields: [mediaId], references: [id])
   mediaId             String?
   ChatRoom            ChatRoom[]
+
+  contract Contract?
 }
 
 model Technology {
@@ -444,13 +459,41 @@ model Media {
   MediaProject   MediaProject[]
   Client         Client[]
   cover          Project[]       @relation("coverRelation")
-  contract       Project[]       @relation("contractRelation")
+  // contract       Project[]       @relation("contractRelation")
   Project        Project[]
 
   Product Product[] @relation("productCover")
 
   MediaProductType    MediaProductType[]
   ContentSubComponent ContentSubComponent[]
+}
+
+model Contract {
+  id             String   @id @default(uuid())
+  contractNumber Int      @default(autoincrement())
+  price          String
+  clientId       String?
+  client         Client?  @relation(fields: [clientId], references: [id])
+  projectId      String?  @unique
+  project        Project? @relation(fields: [projectId], references: [id])
+}
+
+model Devis {
+  id          String        @id @default(uuid())
+  devisNumber Int           @default(autoincrement())
+  price       String
+  discreption String
+  client      Client[]
+  ClientDevis ClientDevis[]
+}
+
+model ClientDevis {
+  clientId String
+  client   Client @relation(fields: [clientId], references: [id])
+  devisId  String
+  devis    Devis  @relation(fields: [devisId], references: [id])
+
+  @@id([clientId, devisId])
 }
 
 model MediaUser {
@@ -544,9 +587,9 @@ model ContentSubComponent {
   subComponentId                String
   createdAt                     DateTime              @default(now())
   updatedAt                     DateTime              @updatedAt
-  nexts                      ContentSubComponent[] @relation("previous")
+  nexts                         ContentSubComponent[] @relation("previous")
   mediaId                       String?
-  media                         Media  ?               @relation(fields: [mediaId], references: [id])
+  media                         Media?                @relation(fields: [mediaId], references: [id])
 }
 
 // join table

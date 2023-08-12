@@ -121,8 +121,8 @@ function OneTeam() {
     ];
   
     return (
-      <div style={{}}>
-        <HeaderPage title="Team Information" />
+      <div  className="p-3">
+        <HeaderPage title="Team Information" parent="PMO" />
   
         <div
           className="rounded-5 mt-3"

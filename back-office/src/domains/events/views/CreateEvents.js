@@ -169,7 +169,7 @@ function CreateEvents() {
   ];
   return (
     <div>
-      <HeaderPage title="Create Event" />
+      <HeaderPage title="Create Event" parent="HR" />
       <div className="d-flex flex-wrap align-items-center justify-content-center px-3 pt-5 ">
         <div className="py-5  rounded-5  ">
           <div class="d-flex justify-content-center  mb-4">

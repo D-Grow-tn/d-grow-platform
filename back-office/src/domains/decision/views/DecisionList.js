@@ -143,6 +143,7 @@ function DecisionList() {
         showButton={true}
         buttonFunction={() => navigate("create")}
         text={"Create Decision"}
+        parent="HR"
       />
 
       <Table columns={columns} rows={rows} />

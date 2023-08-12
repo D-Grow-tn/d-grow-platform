@@ -248,7 +248,7 @@ function CreateProject() {
 
   return (
     <div>
-      <HeaderPage title="Create Project" />
+      <HeaderPage title="Create Project" parent="PMO"/>
       <div className="d-flex flex-wrap align-items-center justify-content-center px-3 pt-5 ">
         <div className="py-5  rounded-5  ">
           <div class="d-flex justify-content-center  mb-4">
