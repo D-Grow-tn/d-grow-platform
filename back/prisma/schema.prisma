@@ -28,18 +28,22 @@ model User {
 }
 
 model Client {
-  id             String        @id @default(uuid())
-  name           String
-  email          String
-  phone          String
-  address        String
-  createdAt      DateTime      @default(now())
-  updatedAt      DateTime      @updatedAt
-  avatarClientId String?
-  avatar         Media?        @relation(fields: [avatarClientId], references: [id])
-  project        Project[]
-  User           User[]
-  MediaClient    MediaClient[]
+  id                String            @id @default(uuid())
+  clientType        ClientType        @default(COMPANY)
+  name              String
+  email             String
+  phone             String
+  address           String
+  businessSector    BusinessSector    @default(OTHER)
+  jobTitle          String
+  createdAt         DateTime          @default(now())
+  updatedAt         DateTime          @updatedAt
+  avatarClientId    String?
+  avatar            Media?            @relation(fields: [avatarClientId], references: [id])
+  project           Project[]
+  User              User[]
+  MediaClient       MediaClient[]
+  contactPreference ContactPreference @default(Email)
 }
 
 model Employee {
@@ -76,16 +80,16 @@ model Employee {
   Membership       Membership[]
   SenderReq        Request[]          @relation("senderRequest")
   ReceiverReq      Request[]          @relation("receiverRequest")
-  dailyWorkTimes  DailyWorkTime[]  
+  dailyWorkTimes   DailyWorkTime[]
 }
 
 model DailyWorkTime {
-  id             String               @id @default(uuid())
+  id             String   @id @default(uuid())
   employeeId     String
-  employee       Employee         @relation(fields: [employeeId], references: [id])
-  date           DateTime         @default(now())
-  totalWorkTime  Int              
-  totalBreakTime Int              
+  employee       Employee @relation(fields: [employeeId], references: [id])
+  date           DateTime @default(now())
+  totalWorkTime  Int
+  totalBreakTime Int
 }
 
 model Project {
@@ -554,9 +558,9 @@ model ContentSubComponent {
   subComponentId                String
   createdAt                     DateTime              @default(now())
   updatedAt                     DateTime              @updatedAt
-  nexts                      ContentSubComponent[] @relation("previous")
+  nexts                         ContentSubComponent[] @relation("previous")
   mediaId                       String?
-  media                         Media  ?               @relation(fields: [mediaId], references: [id])
+  media                         Media?                @relation(fields: [mediaId], references: [id])
 }
 
 // join table
@@ -599,4 +603,35 @@ enum ContentType {
   paragraph
   image
   select
+}
+
+enum ClientType {
+  INDIVIDUAL
+  COMPANY
+}
+
+enum BusinessSector {
+  TECHNOLOGY
+  FINANCE
+  HEALTHCARE
+  RETAIL
+  MANUFACTURING
+  ENTERTAINMENT
+  EDUCATION
+  FOOD_AND_BEVERAGE
+  REAL_ESTATE
+  ENERGY
+  TRANSPORTATION
+  MEDIA
+  AUTOMOTIVE
+  TELECOMMUNICATIONS
+  TRAVEL_AND_TOURISM
+  SPORTS
+  OTHER
+}
+
+enum ContactPreference {
+  Email
+  Mobile
+  Web_Site
 }

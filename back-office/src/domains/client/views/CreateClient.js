@@ -7,10 +7,12 @@ import Form from "../../../components/Form";
 import { createClient, fetchClients } from "../../../store/client";
 import axios from "axios";
 import config from "../../../configs";
+import { BusinessSector, ClientType, ContactPreference } from "./SelectValue";
+
 function CreateClient() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const [client, setClient] = useState(null);
+  const [client, setClient] = useState({});
   const [avatar, setAvatar] = useState(null);
   const [inputs, setInputs] = useState([]);
   const clients = useSelector((state) => state.client.clients.items);
@@ -19,12 +21,50 @@ function CreateClient() {
     dispatch(fetchClients());
   }, [dispatch]);
 
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setClient((Client) => ({ ...Client, [name]: value }));
+  };
   useEffect(() => {
     setInputs([
       {
         label: "Name",
         placeholder: "Name",
         name: "name",
+        required: true,
+        width: 300,
+      },
+      {
+        label: "ClientType",
+        placeholder: "Type",
+        value: client?.clientType,
+        name: "clientType",
+        required: true,
+        width: 300,
+        category: "select",
+        options: Object.values(ClientType),
+        onChange: (value) => {
+          setClient((client) => ({ ...client, clientType: value }));
+        },
+      },
+      {
+        label: "BusinessSector",
+        placeholder: "Type",
+        value: client?.businessSector,
+        name: "businessSector",
+        required: true,
+        width: 300,
+        category: "select",
+        options: Object.values(BusinessSector),
+        onChange: (value) => {
+          setClient((client) => ({ ...client, businessSector: value }));
+        },
+      },
+
+      {
+        label: "Job Title",
+        placeholder: "Your Job",
+        name: "jobTitle",
         required: true,
         width: 300,
       },
@@ -49,8 +89,21 @@ function CreateClient() {
         width: 300,
         required: true,
       },
+      {
+        label: "Contact Preference",
+        placeholder: "Type",
+        value: client?.clientType,
+        name: "contactPreference",
+        width: 300,
+        required: true,
+        category: "select",
+        options: Object.values(ContactPreference),
+        onChange: (value) => {
+          setClient((client) => ({ ...client, contactPreference: value }));
+        },
+      },
     ]);
-  }, [clients]);
+  }, [clients, client]);
 
   const onSubmit = async (e) => {
     e.preventDefault();
@@ -71,11 +124,8 @@ function CreateClient() {
       }
     });
   };
+  console.log("clieeeeeeeeeeeeent", client);
 
-  const handleChange = (e) => {
-    const { name, value } = e.target;
-    setClient((Client) => ({ ...Client, [name]: value }));
-  };
   const buttons = [
     {
       category: "cancel",
@@ -95,7 +145,7 @@ function CreateClient() {
 
   return (
     <div>
-      <HeaderPage title={"Create Client"} parent="CRM"/>
+      <HeaderPage title={"Create Client"} parent="CRM" />
       <div className="py-3"></div>
       <div
         className=" rounded-5 p-3  "
@@ -141,7 +191,7 @@ function CreateClient() {
             columnGap: 100,
             // border: "1px solid black",
           }}
-          numberInputPerRow={1}
+          numberInputPerRow={2}
           inputs={inputs}
           buttons={buttons}
           buttonsClassName="mt-5 d-flex justify-content-center gap-3"

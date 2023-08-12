@@ -73,6 +73,7 @@ async function main() {
   let client1 = await prisma.client.create({
     data: {
       name: 'd-grow1',
+      jobTitle:'Professeur',
       email: 'd-grow1@gmail.com',
       phone: '44444444',
       address: 'tunis',
@@ -80,8 +81,10 @@ async function main() {
     },
   });
   let client2 = await prisma.client.create({
+    
     data: {
       name: 'd-grow2',
+      jobTitle:'Professeur',
       email: 'd-grow2@gmail.com',
       phone: '44444444',
       address: 'tunis',
@@ -92,6 +95,7 @@ async function main() {
   let client3 = await prisma.client.create({
     data: {
       name: 'd-grow3',
+      jobTitle:'Professeur',
       email: 'd-grow3@gmail.com',
       phone: '44444444',
       address: 'tunis',
@@ -102,6 +106,7 @@ async function main() {
   let client4 = await prisma.client.create({
     data: {
       name: 'd-grow4',
+      jobTitle:'Professeur',
       email: 'inesdebichi1995@gmail.com',
       phone: '44444444',
       address: 'tunis',

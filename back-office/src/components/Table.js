@@ -35,6 +35,7 @@ function Table({ columns, rows }) {
             bgcolor: '#daeaf088',
           },
         }}
+        
       />
       <TablePagination
         component="div"

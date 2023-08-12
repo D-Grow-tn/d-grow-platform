@@ -13,6 +13,15 @@ CREATE TYPE "PositionSubComponent" AS ENUM ('left', 'right', 'top', 'bottom', 'm
 -- CreateEnum
 CREATE TYPE "ContentType" AS ENUM ('button', 'paragraph', 'image', 'select');
 
+-- CreateEnum
+CREATE TYPE "ClientType" AS ENUM ('INDIVIDUAL', 'COMPANY');
+
+-- CreateEnum
+CREATE TYPE "BusinessSector" AS ENUM ('TECHNOLOGY', 'FINANCE', 'HEALTHCARE', 'RETAIL', 'MANUFACTURING', 'ENTERTAINMENT', 'EDUCATION', 'FOOD_AND_BEVERAGE', 'REAL_ESTATE', 'ENERGY', 'TRANSPORTATION', 'MEDIA', 'AUTOMOTIVE', 'TELECOMMUNICATIONS', 'TRAVEL_AND_TOURISM', 'SPORTS', 'OTHER');
+
+-- CreateEnum
+CREATE TYPE "ContactPreference" AS ENUM ('Email', 'Mobile', 'Web_Site');
+
 -- CreateTable
 CREATE TABLE "User" (
     "id" TEXT NOT NULL,
@@ -31,13 +40,17 @@ CREATE TABLE "User" (
 -- CreateTable
 CREATE TABLE "Client" (
     "id" TEXT NOT NULL,
+    "clientType" "ClientType" NOT NULL DEFAULT 'COMPANY',
     "name" TEXT NOT NULL,
     "email" TEXT NOT NULL,
     "phone" TEXT NOT NULL,
     "address" TEXT NOT NULL,
+    "businessSector" "BusinessSector" NOT NULL DEFAULT 'OTHER',
+    "jobTitle" TEXT NOT NULL,
     "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
     "updatedAt" TIMESTAMP(3) NOT NULL,
     "avatarClientId" TEXT,
+    "contactPreference" "ContactPreference" NOT NULL DEFAULT 'Email',
 
     CONSTRAINT "Client_pkey" PRIMARY KEY ("id")
 );
@@ -57,6 +70,17 @@ CREATE TABLE "Employee" (
     "directManegerId" TEXT,
 
     CONSTRAINT "Employee_pkey" PRIMARY KEY ("id")
+);
+
+-- CreateTable
+CREATE TABLE "DailyWorkTime" (
+    "id" TEXT NOT NULL,
+    "employeeId" TEXT NOT NULL,
+    "date" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    "totalWorkTime" INTEGER NOT NULL,
+    "totalBreakTime" INTEGER NOT NULL,
+
+    CONSTRAINT "DailyWorkTime_pkey" PRIMARY KEY ("id")
 );
 
 -- CreateTable
@@ -484,9 +508,11 @@ CREATE TABLE "ContentSubComponent" (
     "content" TEXT NOT NULL,
     "type" "ContentType" NOT NULL DEFAULT 'button',
     "subContent" JSONB,
+    "previousContentSubComponentId" TEXT,
     "subComponentId" TEXT NOT NULL,
     "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
     "updatedAt" TIMESTAMP(3) NOT NULL,
+    "mediaId" TEXT,
 
     CONSTRAINT "ContentSubComponent_pkey" PRIMARY KEY ("id")
 );
@@ -559,6 +585,9 @@ ALTER TABLE "Employee" ADD CONSTRAINT "Employee_departmentId_fkey" FOREIGN KEY (
 
 -- AddForeignKey
 ALTER TABLE "Employee" ADD CONSTRAINT "Employee_directManegerId_fkey" FOREIGN KEY ("directManegerId") REFERENCES "Employee"("id") ON DELETE SET NULL ON UPDATE CASCADE;
+
+-- AddForeignKey
+ALTER TABLE "DailyWorkTime" ADD CONSTRAINT "DailyWorkTime_employeeId_fkey" FOREIGN KEY ("employeeId") REFERENCES "Employee"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
 
 -- AddForeignKey
 ALTER TABLE "Project" ADD CONSTRAINT "Project_clientId_fkey" FOREIGN KEY ("clientId") REFERENCES "Client"("id") ON DELETE SET NULL ON UPDATE CASCADE;
@@ -732,4 +761,10 @@ ALTER TABLE "MediaProject" ADD CONSTRAINT "MediaProject_projectId_fkey" FOREIGN 
 ALTER TABLE "SubComponent" ADD CONSTRAINT "SubComponent_mainId_fkey" FOREIGN KEY ("mainId") REFERENCES "MainComponent"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
 
 -- AddForeignKey
+ALTER TABLE "ContentSubComponent" ADD CONSTRAINT "ContentSubComponent_previousContentSubComponentId_fkey" FOREIGN KEY ("previousContentSubComponentId") REFERENCES "ContentSubComponent"("id") ON DELETE SET NULL ON UPDATE CASCADE;
+
+-- AddForeignKey
 ALTER TABLE "ContentSubComponent" ADD CONSTRAINT "ContentSubComponent_subComponentId_fkey" FOREIGN KEY ("subComponentId") REFERENCES "SubComponent"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
+
+-- AddForeignKey
+ALTER TABLE "ContentSubComponent" ADD CONSTRAINT "ContentSubComponent_mediaId_fkey" FOREIGN KEY ("mediaId") REFERENCES "Media"("id") ON DELETE SET NULL ON UPDATE CASCADE;

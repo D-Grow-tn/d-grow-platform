@@ -86,7 +86,7 @@ function CreateRequest() {
 
   return (
     <div className="">
-      <HeaderPage title="Create request" />
+      <HeaderPage title="Create request" parent="Administration"/>
       <div className="py-5"></div>
 
       <div className="d-flex justify-content-center">

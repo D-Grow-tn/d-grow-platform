@@ -108,6 +108,7 @@ function EditRequest() {
       showButton={readOnly ? true : false}
       buttonFunction={() => setReadOnly(false)}
       text={"Edit request"}
+      parent="Administration"
     />
     </div>
     
