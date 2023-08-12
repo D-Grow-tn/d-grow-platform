@@ -63,17 +63,6 @@ CREATE TABLE "Employee" (
 );
 
 -- CreateTable
-CREATE TABLE "DailyWorkTime" (
-    "id" TEXT NOT NULL,
-    "employeeId" TEXT NOT NULL,
-    "date" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
-    "totalWorkTime" INTEGER NOT NULL,
-    "totalBreakTime" INTEGER NOT NULL,
-
-    CONSTRAINT "DailyWorkTime_pkey" PRIMARY KEY ("id")
-);
-
--- CreateTable
 CREATE TABLE "Project" (
     "id" TEXT NOT NULL,
     "name" TEXT NOT NULL,
@@ -88,6 +77,7 @@ CREATE TABLE "Project" (
     "status" "Status" NOT NULL DEFAULT 'pending',
     "projectManagerId" TEXT,
     "consultantId" TEXT,
+    "contractId" TEXT,
     "coverId" TEXT,
     "mediaId" TEXT,
 
@@ -430,17 +420,6 @@ CREATE TABLE "Media" (
 );
 
 -- CreateTable
-CREATE TABLE "Contract" (
-    "id" TEXT NOT NULL,
-    "contractNumber" SERIAL NOT NULL,
-    "price" TEXT NOT NULL,
-    "clientId" TEXT,
-    "projectId" TEXT,
-
-    CONSTRAINT "Contract_pkey" PRIMARY KEY ("id")
-);
-
--- CreateTable
 CREATE TABLE "MediaUser" (
     "mediaId" TEXT NOT NULL,
     "userId" TEXT NOT NULL
@@ -508,11 +487,9 @@ CREATE TABLE "ContentSubComponent" (
     "content" TEXT NOT NULL,
     "type" "ContentType" NOT NULL DEFAULT 'button',
     "subContent" JSONB,
-    "previousContentSubComponentId" TEXT,
     "subComponentId" TEXT NOT NULL,
     "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
     "updatedAt" TIMESTAMP(3) NOT NULL,
-    "mediaId" TEXT,
 
     CONSTRAINT "ContentSubComponent_pkey" PRIMARY KEY ("id")
 );
@@ -540,9 +517,6 @@ CREATE UNIQUE INDEX "DecisionApply_decisionId_employeeId_key" ON "DecisionApply"
 
 -- CreateIndex
 CREATE UNIQUE INDEX "MediaProductType_mediaId_productTypeId_key" ON "MediaProductType"("mediaId", "productTypeId");
-
--- CreateIndex
-CREATE UNIQUE INDEX "Contract_projectId_key" ON "Contract"("projectId");
 
 -- CreateIndex
 CREATE UNIQUE INDEX "MediaUser_mediaId_userId_key" ON "MediaUser"("mediaId", "userId");
@@ -590,9 +564,6 @@ ALTER TABLE "Employee" ADD CONSTRAINT "Employee_departmentId_fkey" FOREIGN KEY (
 ALTER TABLE "Employee" ADD CONSTRAINT "Employee_directManegerId_fkey" FOREIGN KEY ("directManegerId") REFERENCES "Employee"("id") ON DELETE SET NULL ON UPDATE CASCADE;
 
 -- AddForeignKey
-ALTER TABLE "DailyWorkTime" ADD CONSTRAINT "DailyWorkTime_employeeId_fkey" FOREIGN KEY ("employeeId") REFERENCES "Employee"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
-
--- AddForeignKey
 ALTER TABLE "Project" ADD CONSTRAINT "Project_clientId_fkey" FOREIGN KEY ("clientId") REFERENCES "Client"("id") ON DELETE SET NULL ON UPDATE CASCADE;
 
 -- AddForeignKey
@@ -603,6 +574,9 @@ ALTER TABLE "Project" ADD CONSTRAINT "Project_projectManagerId_fkey" FOREIGN KEY
 
 -- AddForeignKey
 ALTER TABLE "Project" ADD CONSTRAINT "Project_consultantId_fkey" FOREIGN KEY ("consultantId") REFERENCES "Employee"("id") ON DELETE SET NULL ON UPDATE CASCADE;
+
+-- AddForeignKey
+ALTER TABLE "Project" ADD CONSTRAINT "Project_contractId_fkey" FOREIGN KEY ("contractId") REFERENCES "Media"("id") ON DELETE SET NULL ON UPDATE CASCADE;
 
 -- AddForeignKey
 ALTER TABLE "Project" ADD CONSTRAINT "Project_coverId_fkey" FOREIGN KEY ("coverId") REFERENCES "Media"("id") ON DELETE SET NULL ON UPDATE CASCADE;
@@ -722,12 +696,6 @@ ALTER TABLE "EmployeeChatRoom" ADD CONSTRAINT "EmployeeChatRoom_chatRoomId_fkey"
 ALTER TABLE "EmployeeChatRoom" ADD CONSTRAINT "EmployeeChatRoom_employeeId_fkey" FOREIGN KEY ("employeeId") REFERENCES "Employee"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
 
 -- AddForeignKey
-ALTER TABLE "Contract" ADD CONSTRAINT "Contract_clientId_fkey" FOREIGN KEY ("clientId") REFERENCES "Client"("id") ON DELETE SET NULL ON UPDATE CASCADE;
-
--- AddForeignKey
-ALTER TABLE "Contract" ADD CONSTRAINT "Contract_projectId_fkey" FOREIGN KEY ("projectId") REFERENCES "Project"("id") ON DELETE SET NULL ON UPDATE CASCADE;
-
--- AddForeignKey
 ALTER TABLE "MediaUser" ADD CONSTRAINT "MediaUser_mediaId_fkey" FOREIGN KEY ("mediaId") REFERENCES "Media"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
 
 -- AddForeignKey
@@ -767,10 +735,4 @@ ALTER TABLE "MediaProject" ADD CONSTRAINT "MediaProject_projectId_fkey" FOREIGN 
 ALTER TABLE "SubComponent" ADD CONSTRAINT "SubComponent_mainId_fkey" FOREIGN KEY ("mainId") REFERENCES "MainComponent"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
 
 -- AddForeignKey
-ALTER TABLE "ContentSubComponent" ADD CONSTRAINT "ContentSubComponent_previousContentSubComponentId_fkey" FOREIGN KEY ("previousContentSubComponentId") REFERENCES "ContentSubComponent"("id") ON DELETE SET NULL ON UPDATE CASCADE;
-
--- AddForeignKey
 ALTER TABLE "ContentSubComponent" ADD CONSTRAINT "ContentSubComponent_subComponentId_fkey" FOREIGN KEY ("subComponentId") REFERENCES "SubComponent"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
-
--- AddForeignKey
-ALTER TABLE "ContentSubComponent" ADD CONSTRAINT "ContentSubComponent_mediaId_fkey" FOREIGN KEY ("mediaId") REFERENCES "Media"("id") ON DELETE SET NULL ON UPDATE CASCADE;

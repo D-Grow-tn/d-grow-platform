@@ -189,11 +189,11 @@ model Stage {
 
 model Task {
   id         String   @id @default(uuid())
-  points     Int
+  points     Int?
   name       String
-  duration   String
-  level      String
-  status     Status   @default(pending)
+  duration   String?
+  level      String?
+  status     Status?   @default(to_do)
   createdAt  DateTime @default(now())
   updatedAt  DateTime @updatedAt
   sprintId   String?
@@ -372,6 +372,7 @@ model MediaProductType {
 
   @@unique(fields: [mediaId, productTypeId], name: "productTypeMedia")
 }
+
 
 model Branches {
   id          String    @id @default(uuid())
@@ -596,6 +597,7 @@ model ContentSubComponent {
 
 enum Status {
   pending
+  to_do
   in_progress
   completed
   on_hold
@@ -632,4 +634,10 @@ enum ContentType {
   paragraph
   image
   select
+}
+enum taskposition {
+  to_do 
+  in_progress
+  completed
+
 }

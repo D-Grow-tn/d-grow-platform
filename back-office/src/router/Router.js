@@ -217,6 +217,7 @@ function Router() {
                   element={<EditRequest />}
                 />
               </Route>
+              
               <Route path="technology" element={<Technology />}>
                 <Route index element={<TechnologiesList />} />
                 <Route path="create" element={<CreateTechnology />} />
@@ -248,6 +249,7 @@ function Router() {
                 <Route path="create" element={<CreateTeam />} />
                 <Route path="one/:teamId" element={<OneTeam />} />
               </Route>
+              {/* <Route path="trello" element = {<Trello/>}/> */}
              <Route path="contact" element={<Contact />}>
               <Route index element={<ContactList/>} />
               <Route path="one/:contactId" element={<OneContact />} />
