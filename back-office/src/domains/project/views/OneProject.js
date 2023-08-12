@@ -68,8 +68,7 @@ function ProjectDetails() {
           <div class="card-body d-flex flex-column flex-md-row align-items-center d-flex justify-content-around gap-5">
             <div style={{ maxWidth: "400px", width: "100%" }}>
               <img
-                // src={project.cover}
-                src="https://www.pole-emploi.fr/files/live/sites/PE/files/actualites/vignetteideee62655.jpg"
+                src={project?.cover?.path}
                 alt="Project Cover"
                 style={{ width: "100%", height: "auto", borderRadius: "10px" }}
               />

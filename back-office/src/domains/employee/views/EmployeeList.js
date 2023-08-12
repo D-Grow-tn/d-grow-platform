@@ -2,7 +2,7 @@ import React from "react";
 import HeaderPage from "../../../components/HeaderPage";
 import Table from "../../../components/Table";
 import { useMemo, useEffect, useState } from "react";
-import { Avatar, IconButton } from "@mui/material";
+import { Avatar, IconButton} from "@mui/material";
 import moment from "moment";
 import DeleteIcon from "@mui/icons-material/Delete";
 import RemoveRedEyeIcon from "@mui/icons-material/RemoveRedEye";
@@ -25,7 +25,7 @@ function EmployeeList() {
   const [rows, setRows] = useState([]);
   const [selected, setSelected] = useState(null);
 
-  console.log("from client component", Employees);
+  console.log("from employees component", Employees);
 
   useEffect(() => {
     dispatch(fetchEmployees());
@@ -62,10 +62,10 @@ function EmployeeList() {
     () => [
       {
         field: "photoURL",
-        headerName: "Avatar",
+        headerName: "avatar",
         headerClassName: "header-blue",
         width: 100,
-        renderCell: (params) => <Avatar src={params.row.photoURL} />,
+        renderCell: (params) => <Avatar src={params.row.avatar?.path} />,
         sortable: false,
         filterable: false,
       },

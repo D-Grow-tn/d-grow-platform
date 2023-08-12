@@ -131,7 +131,9 @@ function OneClient() {
       format: (value) => value.toFixed(2),
     },
   ];
-
+    console.log('====================================');
+    console.log(client);
+    console.log('====================================');
   return (
     <div style={{}}>
       <HeaderPage title="Client Information" />

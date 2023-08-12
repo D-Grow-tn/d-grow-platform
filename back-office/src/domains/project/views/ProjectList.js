@@ -50,7 +50,7 @@ function ProjectList() {
 
   const handleDelete = () => {
     dispatch(removeProject(selected.id)).then((result) => {
-      console.log(selected.id, "selected");
+      // console.log(selected.id, "selected");
       if (!result.error) {
         showSuccessToast("Project has been deleted");
         setIsOpen(false);
@@ -111,7 +111,7 @@ function ProjectList() {
         headerClassName: "header-blue",
         width: 200,
         renderCell: (params) =>{ 
-          console.log(params.row,"paramsteam");
+          // console.log(params.row,"paramsteam");
         return <div>{params.row.team?.name}</div>},
       },
       {
@@ -127,7 +127,7 @@ function ProjectList() {
         headerClassName: "header-blue",
         width: 200,
         renderCell: (params) => {
-          console.log(params.row,"params")
+         // console.log(params.row,"params")
           return <div>{params.row.projectTechnologies.map((e)=>e.technologies?.name).join(" | ")}</div>;
         },
       },
