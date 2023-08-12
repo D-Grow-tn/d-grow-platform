@@ -19,6 +19,7 @@ function Home() {
   const displayservices = services.slice(0, 3);
   const [section1, setSection1] = useState({});
   const [section2, setSection2] = useState({});
+  const [pgrSection1, setPrgSection1] = useState([]);
   const [section2Animation, setSection2Animation] = useState(null);
   const [titleSection2, setTitleSection2] = useState([]);
   const [pgrSection2, setPrgSection2] = useState([]);
@@ -60,6 +61,11 @@ function Home() {
         setSection1(
           res.data?.SubComponent?.find((elem) => elem.name === "section1")
         );
+        setPrgSection2(
+          res.data?.SubComponent[0]?.ContentSubComponent.filter(
+            (elem) => elem.title === "paragraph"
+          ) 
+          )
         setSection2(
           res.data?.SubComponent?.find((elem) => elem.name === "section2")
         );
@@ -114,7 +120,7 @@ function Home() {
   //     ?.navigateTo,
   //   "loggg"
   // );
-  console.log("enaaaaaaaaaaaa",titleSection5[0]?.content);
+  console.log("enaaaaaaaaaaaa",pgrSection1);
  
   // 
   return (
@@ -142,7 +148,17 @@ function Home() {
             <dd>
               Unleash your potential with our empowering digital services !
             </dd>
-            <dt>2</dt>
+            {pgrSection1.map((e, i) => (  
+              <div key={i}>
+            <dt  > {e?.content}</dt> 
+            <dd>{e?.nexts?.find((el) => el.title === "paragraph")?.content}
+              
+            </dd></div>))}
+            
+          
+         
+         
+            {/* <dt>2</dt>
             <dd>
               Ignite your success with captivating websites and apps that engage
               and convert!
@@ -181,7 +197,7 @@ function Home() {
             <dd>
               Stay ahead of the curve with cutting-edge technologies that
               future-proof your business!
-            </dd>
+            </dd> */}
           </dl>
         </div>
       </div>

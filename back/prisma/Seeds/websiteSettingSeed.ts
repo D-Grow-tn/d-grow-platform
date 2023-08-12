@@ -300,6 +300,25 @@ var content=[  {
 },
 
 ]
+await Promise.all(
+  content.map(async (el) => {
+  if (el.name === 'paragraph') {
+      var data = {
+       ...data, 
+        title: 'paragraph',
+        type: el.type as ContentType,
+        navigateTo: el.path,
+        content: el.content,
+        subComponentId: homePageSection1.id,
+      };
+    }
+  
+
+    await prisma.contentSubComponent.create({
+      data,
+    });
+  }),
+);
   //create content sub component homePageSection2
 
   var content1 = [

@@ -44,6 +44,7 @@ model Client {
   User              User[]
   MediaClient       MediaClient[]
   contactPreference ContactPreference @default(Email)
+  Contract          Contract[]
 }
 
 model Employee {
@@ -110,8 +111,8 @@ model Project {
   projectManager      Employee?           @relation(fields: [projectManagerId], references: [id], name: "projectManager")
   consultantId        String?
   consultant          Employee?           @relation(fields: [consultantId], references: [id], name: "consultant")
-  contract            Media?              @relation(fields: [contractId], references: [id], name: "contractRelation")
-  contractId          String?
+  // contract            Media?              @relation(fields: [contractId], references: [id], name: "contractRelation")
+  // contractId          String?
   interaction         Interaction[]
   objective           Objective[]
   projectTechnologies ProjectTechnology[]
@@ -121,6 +122,8 @@ model Project {
   Media               Media?              @relation(fields: [mediaId], references: [id])
   mediaId             String?
   ChatRoom            ChatRoom[]
+
+  contract Contract?
 }
 
 model Technology {
@@ -458,13 +461,22 @@ model Media {
   MediaProject   MediaProject[]
   Client         Client[]
   cover          Project[]       @relation("coverRelation")
-  contract       Project[]       @relation("contractRelation")
+  // contract       Project[]       @relation("contractRelation")
   Project        Project[]
 
   Product Product[] @relation("productCover")
 
   MediaProductType    MediaProductType[]
   ContentSubComponent ContentSubComponent[]
+}
+
+model Contract {
+  id        String   @id @default(uuid())
+  price     String
+  clientId  String?
+  client    Client?  @relation(fields: [clientId], references: [id])
+  projectId String?  @unique
+  project   Project? @relation(fields: [projectId], references: [id])
 }
 
 model MediaUser {
