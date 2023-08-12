@@ -143,32 +143,7 @@ function OneSubComponet() {
         </div>
 
         <div style={{ marginTop: "80px" }}>
-          <div className="d-flex  justify-content-between align-items-center my-5 py-4  flex-wrap headerProfile">
-            <h1 className="darkBlue">Content Sub componet</h1>
-
-            <div>
-              <button
-                type="button"
-                class="btn"
-                style={{
-                  height: "40px",
-                  background: "#2351AD",
-                  color: "white",
-                  borderRadius: "8px",
-                  marginRight: "50px",
-                }}
-                onClick={() => {
-                  setShow(!show);
-                }}
-              >
-                {subComponet?.ContentSubComponent.length} {countProjects()}
-                <i class="fa-solid fa-play fa-fade px-2"></i>
-              </button>
-            </div>
-          </div>
-          {subComponet?.ContentSubComponent.length !== 0 && show && (
-            <ContentSubComponentList subcomponetID={subcomponetId} />
-          )}
+          <ContentSubComponentList subcomponetID={subcomponetId} />
         </div>
       </div>
     </div>

@@ -88,8 +88,8 @@ function OneMain() {
   };
 
   return (
-    <div  className="p-3">
-      <HeaderPage title="Main Information" parent="WebSite Setting"/>
+    <div className="p-3">
+      <HeaderPage title="Main Information" parent="WebSite Setting" />
 
       <div
         className=" rounded-5  mt-3"
@@ -146,33 +146,7 @@ function OneMain() {
         </div>
 
         <div style={{ marginTop: "80px" }}>
-          <div className="d-flex  justify-content-between align-items-center my-5 py-4  flex-wrap headerProfile">
-            <h1 className="darkBlue">Sub componet</h1>
-
-            <div>
-              <button
-                type="button"
-                class="btn"
-                style={{
-                  height: "40px",
-                  background: "#2351AD",
-                  color: "white",
-                  borderRadius: "8px",
-                  marginRight: "50px",
-                }}
-                onClick={() => {
-                  setShow(!show);
-                }}
-              >
-                {main?.SubComponent?.length} {countProjects()}
-                <i class="fa-solid fa-play fa-fade px-2"></i>
-              </button>
-            </div>
-          </div>
-
-          {main?.SubComponent?.length !== 0 && show && (
-            <SubComponetList mainID={mainId} />
-          )}
+          <SubComponetList mainID={mainId} />
         </div>
       </div>
     </div>
