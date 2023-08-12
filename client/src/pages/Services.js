@@ -5,14 +5,19 @@ import { fetchProduct } from "../store/products";
 import { useDispatch, useSelector } from "react-redux";
 import DisplayLottie from "../constants/DisplayLottie";
 import service from "../constants/service.json"
-// import imgabout from "../constants/imgabout.json";
 import CastomContent from "../components/CastomContent";
+import config from "../configs";
+import axios from "axios";
 
 
 function Services() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const services = useSelector((state) => state.product.products.items);
+  const [titleSection1, setTitleSection1] = useState(null);
+  const [pgrSection1, setPrgSection1] = useState(null);
+  const [titleSection2, setTitleSection2] = useState(null);
+  const [pgrSection2, setPrgSection2] = useState(null);
   const handleNavigate = (id) => {
     navigate(`/applications/${id}`);
   };
@@ -26,22 +31,47 @@ function Services() {
   }, [dispatch]);
 
 
-  
+  useEffect(() => {
+    axios
+      .get(`${config.API_ENDPOINT}/website-settings/by-title/ServicesPage`)
+      .then((res) => {
+        setTitleSection1(
+          res.data?.SubComponent[0]?.ContentSubComponent.filter(
+            (elem) => elem.title === "title"
+          )
+       
+        );
+        setPrgSection1(
+          res.data?.SubComponent[0]?.ContentSubComponent.filter(
+            (elem) => elem.title === "paragraph"
+          )
+       
+        );
+        setTitleSection2(
+          res.data?.SubComponent[1]?.ContentSubComponent.filter(
+            (elem) => elem.title === "title"
+          )
+       
+        );
+        setPrgSection2(
+          res.data?.SubComponent[1]?.ContentSubComponent.filter(
+            (elem) => elem.title === "paragraph"
+          )
+       
+        );
+        console.log("section1111111111111",res.data);
+      })}, []);
+      
   return (
     <div>
 
       <CastomContent
-        title="Our Services"
-        ContentTitle="Our Services, refers to the specific range of professional offerings or solutions provided by a development company or organization. 
-         These services are focused on the creation, improvement, or maintenance of software applications, 
-          websites, or other digital products. The development services provided aim to meet the specific needs and requirements of clients, 
-          often involving various stages of the software development life cycle. Here are a few examples of how "
+        title={titleSection1?.map((e)=>(e?.content))}
+        ContentTitle={pgrSection1?.map((e)=>(e?.content))}
           image={<DisplayLottie animationData={service}  />}
        
-        title2="Custom Software Development"
-        ContentTitle2=" Our Services in Development encompass the creation of tailor-made software solutions to address the unique requirements of businesses or individuals.
-        We work closely with clients to understand their objectives and develop custom software applications from scratch. Our development team utilizes the latest technologies and methodologies to design, code,
-        test, and deploy software that meets specific functionalities, user experience, and scalability needs."
+        title2={titleSection2?.map((e)=>(e?.content))}
+        ContentTitle2={pgrSection2?.map((e)=>(e?.content))}
       />
 
       <div className="d-flex flex-wrap m-5  gap-5 justify-content-center">

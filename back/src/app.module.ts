@@ -13,7 +13,7 @@ import { ClientsModule } from './clients/clients.module';
 import { AuthModule } from './auth/auth.module';
 import { AuthService } from './auth/auth.service';
 import { UsersService } from './users/users.service';
-import { JwtService } from '@nestjs/jwt';
+ import { JwtService } from '@nestjs/jwt';
 import { MailModule } from './mail/mail.module';
 import { QuizsModule } from './quizs/quizs.module';
 import { TeamsModule } from './teams/teams.module';
@@ -26,6 +26,9 @@ import { MainComponentsModule } from './main-components/main-components.module';
 import { SubComponentsModule } from './sub-components/sub-components.module';
 import { ContentSubComponentsModule } from './content-sub-components/content-sub-components.module';
 import { ContactModule } from './contact/contact.module';
+// import { WorkTimeModule } from './work-time/work-time.module';
+import { ContractModule } from './contract/contract.module';
+
 
 
 @Module({
@@ -53,6 +56,13 @@ import { ContactModule } from './contact/contact.module';
     SubComponentsModule,
     ContentSubComponentsModule,
     ContactModule,
+<<<<<<< HEAD
+=======
+    ContractModule,
+    // WorkTimeModule,
+  
+   
+>>>>>>> f968961f73e7cfffa4b669b4965dbf62c971c705
     
   ],
   controllers: [AppController],

@@ -101,7 +101,7 @@ function OneUser() {
 
   return (
     <div style={{}}>
-      <HeaderPage title="User Information" />
+      <HeaderPage title="User Information" parent="Admin Setting"/>
 
       <div
         className=" rounded-5  mt-3"

@@ -156,7 +156,7 @@ function EventList() {
       <HeaderPage
         title="Events List"
         showButton={true}
-        
+        parent="HR"
         buttonFunction={()=>navigate('create')}
         text={"Create Event"}
       />

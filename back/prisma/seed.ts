@@ -270,6 +270,26 @@ async function main() {
       // mediaId   :  media.id,
     },
   });
+  let user9 = await prisma.user.create({
+    data: {
+      name: 'Aymen',
+      email: 'aymen@gmail.com',
+      employeeId: employee5.id,
+      password: await bcrypt.hash('1234', salt),
+      isClient: false,
+      // mediaId   :  media.id,
+    },
+  });
+  let user10 = await prisma.user.create({
+    data: {
+      name: 'Ahmed',
+      email: 'ahmed@gmail.com',
+      employeeId: employee7.id,
+      password: await bcrypt.hash('1234', salt),
+      isClient: false,
+      // mediaId   :  media.id,
+    },
+  });
   let contract = await prisma.media.create({
     data: {
       path: 'https://www.africau.edu/images/default/sample.pdf',
@@ -278,6 +298,32 @@ async function main() {
     },
   });
   //create project
+  let team1 = await prisma.team.create({
+    data: {
+      name: 'Eagles',
+      teamMembership: {
+        create: [
+          { employeeId: employee1.id },
+          { employeeId: employee5.id },
+          { employeeId: employee7.id },
+        ],
+      },
+    },
+    include: { teamMembership: true },
+  });
+  let team2 = await prisma.team.create({
+    data: {
+      name: 'butterflies',
+      teamMembership: {
+        create: [
+          { employeeId: employee2.id },
+          { employeeId: employee3.id },
+          { employeeId: employee4.id },
+        ],
+      },
+    },
+    include: { teamMembership: true },
+  });
   let project1 = await prisma.project.create({
     data: {
       name: 'E-commerce Website Development',
@@ -289,8 +335,20 @@ async function main() {
       startAt: new Date('01/05/2023'),
       endAt: new Date('01/07/2023'),
       status: 'pending',
-      contractId: contract.id,
+      // contractId: contract.id,
       coverId: cover1.id,
+      teamId: team1.id,
+      ChatRoom: {
+        create: {
+          title: 'E-commerce Website Development',
+          type: 'project',
+          employeeChatRoom: {
+            create: team1.teamMembership.map((elem) => ({
+              employeeId: elem.employeeId,
+            })),
+          },
+        },
+      },
     },
   });
 
@@ -306,6 +364,18 @@ async function main() {
       endAt: new Date('01/07/2023'),
       status: 'in_progress',
       coverId: cover2.id,
+      teamId: team2.id,
+      ChatRoom: {
+        create: {
+          title: 'Corporate Website Redesign',
+          type: 'project',
+          employeeChatRoom: {
+            create: team2.teamMembership.map((elem) => ({
+              employeeId: elem.employeeId,
+            })),
+          },
+        },
+      },
     },
   });
   let project3 = await prisma.project.create({
@@ -320,10 +390,22 @@ async function main() {
       endAt: new Date('01/07/2023'),
       status: 'completed',
       coverId: cover3.id,
+      teamId: team2.id,
+      ChatRoom: {
+        create: {
+          title: 'Mobile App Development',
+          type: 'project',
+          employeeChatRoom: {
+            create: team2.teamMembership.map((elem) => ({
+              employeeId: elem.employeeId,
+            })),
+          },
+        },
+      },
     },
   });
- 
-  // create technology 
+
+  // create technology
   let technolgy1 = await prisma.technology.create({
     data: {
       name: 'NestJS',
@@ -629,99 +711,107 @@ async function main() {
       MediaEvent: { create: [{ mediaId: mediaEvent1.id }] },
     },
   });
-//Create services
-let productcover1 = await prisma.media.create({
-  data: {
-    path: 'https://fr.yeeply.com/wp-content/uploads/2017/01/webapp.jpg',
-    type: 'cover',
-    extension: 'png',
-  },
-});
-let productcover2 = await prisma.media.create({
-  data: {
-    path: 'https://blog.flytagger.com/wp-content/uploads/2018/02/Application-mobile.jpg',
-    type: 'cover',
-    extension: 'png',
-  },
-});
-let productcover3 = await prisma.media.create({
-  data: {
-    path: 'https://fr.yeeply.com/wp-content/uploads/2017/01/webapp.jpg',
-    type: 'cover',
-    extension: 'png',
-  },
-});
-let mediaProductType1 = await prisma.media.create({
-  data: {
-    path: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRqT2JqbKydMKkGdvNu6pqIof8IO-9p15sKMA&usqp=CAU',
-    type: 'cover',
-    extension: 'png',
-  },
-});
-let mediaProductType2 = await prisma.media.create({
-  data: {
-    path: 'https://cdn.antaranews.com/cache/730x487/2022/06/08/instagram-pin.jpg',
-    type: 'cover',
-    extension: 'png',
-  },
-});
-let mediaProductType3 = await prisma.media.create({
-  data: {
-    path: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTF2DuU-UK6owVNABE9THPsA3eBy2uOyzi-jw&usqp=CAU',
-    type: 'cover',
-    extension: 'png',
-  },
-});
+  //Create services
+  let productcover1 = await prisma.media.create({
+    data: {
+      path: 'https://fr.yeeply.com/wp-content/uploads/2017/01/webapp.jpg',
+      type: 'cover',
+      extension: 'png',
+    },
+  });
+  let productcover2 = await prisma.media.create({
+    data: {
+      path: 'https://blog.flytagger.com/wp-content/uploads/2018/02/Application-mobile.jpg',
+      type: 'cover',
+      extension: 'png',
+    },
+  });
+  let productcover3 = await prisma.media.create({
+    data: {
+      path: 'https://fr.yeeply.com/wp-content/uploads/2017/01/webapp.jpg',
+      type: 'cover',
+      extension: 'png',
+    },
+  });
+  let mediaProductType1 = await prisma.media.create({
+    data: {
+      path: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRqT2JqbKydMKkGdvNu6pqIof8IO-9p15sKMA&usqp=CAU',
+      type: 'cover',
+      extension: 'png',
+    },
+  });
+  let mediaProductType2 = await prisma.media.create({
+    data: {
+      path: 'https://cdn.antaranews.com/cache/730x487/2022/06/08/instagram-pin.jpg',
+      type: 'cover',
+      extension: 'png',
+    },
+  });
+  let mediaProductType3 = await prisma.media.create({
+    data: {
+      path: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTF2DuU-UK6owVNABE9THPsA3eBy2uOyzi-jw&usqp=CAU',
+      type: 'cover',
+      extension: 'png',
+    },
+  });
   let product1 = await prisma.product.create({
     data: {
       name: 'Web Front-End SOLUTIONS',
-      description: 'Our web application development service is designed to provide you with tailored solutions to meet your unique business requirements. We specialize in developing high-quality, scalable, and user-friendly web applications using the latest technologies and best practices.',
-      type:'web site application',
-      productCoverId:productcover1.id,
+      description:
+        'Our web application development service is designed to provide you with tailored solutions to meet your unique business requirements. We specialize in developing high-quality, scalable, and user-friendly web applications using the latest technologies and best practices.',
+      type: 'web site application',
+      productCoverId: productcover1.id,
     },
   });
   let product2 = await prisma.product.create({
     data: {
       name: 'UX/UI WEBsite AND MOBILE app',
-      description : 'Our mobile app development service offers end-to-end solutions for creating robust and user-friendly applications for iOS and Android platforms. We combine creativity, technical expertise, and industry best practices to deliver mobile apps that engage users and drive business growth.',
-      type:'mobile application',
-        productCoverId:productcover2.id,
+      description:
+        'Our mobile app development service offers end-to-end solutions for creating robust and user-friendly applications for iOS and Android platforms. We combine creativity, technical expertise, and industry best practices to deliver mobile apps that engage users and drive business growth.',
+      type: 'mobile application',
+      productCoverId: productcover2.id,
     },
   });
   let product3 = await prisma.product.create({
     data: {
       name: 'BRANDING AND CORPORATE DESIGN',
       description: 'description Event Number one',
-      type:'design application',
-        productCoverId:productcover3.id,
+      type: 'design application',
+      productCoverId: productcover3.id,
     },
   });
   let product4 = await prisma.product.create({
     data: {
       name: 'BRANDING AND CORPORATE DESIGN',
       description: 'description Brand',
-      type:'design application',
-        productCoverId:productcover3.id,
+      type: 'design application',
+      productCoverId: productcover3.id,
     },
   });
-//create produtTye
-let productype1 = await prisma.productType.create({
-  data: {
-    name: 'BRANDING AND CORPORATE DESIGN',
-    description: 'description Event Number one',
- ProductId:product1.id,
- MediaProductType:{ create: [{ mediaId: mediaProductType3.id }] },
-  },
-});
-let productype2 = await prisma.productType.create({
-  data: {
-    name: 'Instagram',
-    description: 'A popular social media app that allows users to share photos and videos, apply filters and effects, and engage with others by following, liking, and commenting on posts. ',
- ProductId:product2.id,
- MediaProductType:{ create: [{ mediaId: mediaProductType1.id  },{ mediaId: mediaProductType2.id}] },
-  },
-});
- await websiteSettingsSeed(prisma);
+  //create produtTye
+  let productype1 = await prisma.productType.create({
+    data: {
+      name: 'BRANDING AND CORPORATE DESIGN',
+      description: 'description Event Number one',
+      ProductId: product1.id,
+      MediaProductType: { create: [{ mediaId: mediaProductType3.id }] },
+    },
+  });
+  let productype2 = await prisma.productType.create({
+    data: {
+      name: 'Instagram',
+      description:
+        'A popular social media app that allows users to share photos and videos, apply filters and effects, and engage with others by following, liking, and commenting on posts. ',
+      ProductId: product2.id,
+      MediaProductType: {
+        create: [
+          { mediaId: mediaProductType1.id },
+          { mediaId: mediaProductType2.id },
+        ],
+      },
+    },
+  });
+  await websiteSettingsSeed(prisma);
 }
 
 main()

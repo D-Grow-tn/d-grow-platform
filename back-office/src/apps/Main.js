@@ -14,7 +14,7 @@ function Main() {
 
   // useEffect(() => {
   //   if (me) {
-  //     // console.log(me);
+  //     console.log(me);
   //     socket.emit("connection", me.id);
   //   }
   // }, [me]);

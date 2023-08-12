@@ -40,6 +40,7 @@ model Client {
   project        Project[]
   User           User[]
   MediaClient    MediaClient[]
+  contracts      Contract[]
 }
 
 model Employee {
@@ -76,6 +77,16 @@ model Employee {
   Membership       Membership[]
   SenderReq        Request[]          @relation("senderRequest")
   ReceiverReq      Request[]          @relation("receiverRequest")
+  dailyWorkTimes  DailyWorkTime[]  
+}
+
+model DailyWorkTime {
+  id             String               @id @default(uuid())
+  employeeId     String
+  employee       Employee         @relation(fields: [employeeId], references: [id])
+  date           DateTime         @default(now())
+  totalWorkTime  Int              
+  totalBreakTime Int              
 }
 
 model Project {
@@ -96,8 +107,8 @@ model Project {
   projectManager      Employee?           @relation(fields: [projectManagerId], references: [id], name: "projectManager")
   consultantId        String?
   consultant          Employee?           @relation(fields: [consultantId], references: [id], name: "consultant")
-  contract            Media?              @relation(fields: [contractId], references: [id], name: "contractRelation")
-  contractId          String?
+  // contract            Media?              @relation(fields: [contractId], references: [id], name: "contractRelation")
+  // contractId          String?
   interaction         Interaction[]
   objective           Objective[]
   projectTechnologies ProjectTechnology[]
@@ -106,6 +117,9 @@ model Project {
   coverId             String?
   Media               Media?              @relation(fields: [mediaId], references: [id])
   mediaId             String?
+  ChatRoom            ChatRoom[]
+  
+  contract            Contract?
 }
 
 model Technology {
@@ -181,11 +195,11 @@ model Task {
   createdAt  DateTime @default(now())
   updatedAt  DateTime @updatedAt
   sprintId   String?
-  sprint     Sprint?   @relation(fields: [sprintId], references: [id])
-  stageId    String?
-  stage      Stage?    @relation(fields: [stageId], references: [id])
-  employeeId String?
-  employee   Employee? @relation(fields: [employeeId], references: [id])
+  sprint     Sprint?  @relation(fields: [sprintId], references: [id])
+  stageId    String
+  stage      Stage    @relation(fields: [stageId], references: [id])
+  employeeId String
+  employee   Employee @relation(fields: [employeeId], references: [id])
 }
 
 model Sprint {
@@ -390,7 +404,10 @@ model Offices {
 
 model ChatRoom {
   id               String             @id @default(uuid())
-  content          String
+  title            String
+  type             ChatGroupType
+  priojectId       String?
+  project          Project?           @relation(fields: [priojectId], references: [id])
   createdAt        DateTime           @default(now())
   updatedAt        DateTime           @updatedAt
   employeeChatRoom EmployeeChatRoom[]
@@ -441,12 +458,22 @@ model Media {
   MediaProject   MediaProject[]
   Client         Client[]
   cover          Project[]       @relation("coverRelation")
-  contract       Project[]       @relation("contractRelation")
+  // contract       Project[]       @relation("contractRelation")
   Project        Project[]
 
   Product Product[] @relation("productCover")
 
-  MediaProductType MediaProductType[]
+  MediaProductType    MediaProductType[]
+  ContentSubComponent ContentSubComponent[]
+}
+
+model Contract {
+  id        String   @id @default(uuid())
+  price     String
+  clientId  String?
+  client    Client?  @relation(fields: [clientId], references: [id])
+  projectId String?  @unique
+  project   Project? @relation(fields: [projectId], references: [id])
 }
 
 model MediaUser {
@@ -503,6 +530,7 @@ model MediaProject {
   @@unique(fields: [mediaId, projectId], name: "projectMedia")
 }
 
+// page or header/footer
 model MainComponent {
   id           String            @id @default(uuid())
   title        String            @unique
@@ -513,6 +541,7 @@ model MainComponent {
   SubComponent SubComponent[]
 }
 
+//section or position
 model SubComponent {
   id                  String                @id @default(uuid())
   name                String?
@@ -524,17 +553,23 @@ model SubComponent {
   ContentSubComponent ContentSubComponent[]
 }
 
+// elements like buttons
 model ContentSubComponent {
-  id             String       @id @default(uuid())
-  title          String
-  navigateTo     String?
-  content        String
-  type           ContentType  @default(button)
-  subContent     Json?
-  subComponent   SubComponent @relation(fields: [subComponentId], references: [id])
-  subComponentId String
-  createdAt      DateTime     @default(now())
-  updatedAt      DateTime     @updatedAt
+  id                            String                @id @default(uuid())
+  title                         String
+  navigateTo                    String?
+  content                       String
+  type                          ContentType           @default(button)
+  subContent                    Json?
+  previousContentSubComponentId String?
+  previousContentSubComponent   ContentSubComponent?  @relation(fields: [previousContentSubComponentId], references: [id], name: "previous")
+  subComponent                  SubComponent          @relation(fields: [subComponentId], references: [id])
+  subComponentId                String
+  createdAt                     DateTime              @default(now())
+  updatedAt                     DateTime              @updatedAt
+  nexts                         ContentSubComponent[] @relation("previous")
+  mediaId                       String?
+  media                         Media?                @relation(fields: [mediaId], references: [id])
 }
 
 // join table
@@ -549,6 +584,12 @@ enum Status {
   reviewed
   refused
   accepted
+}
+
+enum ChatGroupType {
+  group
+  project
+  pair
 }
 
 enum TypeMainComponent {

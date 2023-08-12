@@ -109,7 +109,7 @@ function OneDecision() {
 
   return (
      <div style={{}}>
-      <HeaderPage title="Decision Information" />
+      <HeaderPage title="Decision Information" parent="HR" />
 
 <div
   className=" rounded-5  mt-3"

@@ -75,8 +75,8 @@ function CreateMain() {
   ];
 
   return (
-    <div>
-      <HeaderPage title="Create Main" />
+    <div  className="p-3">
+      <HeaderPage title="Create Main" parent="WebSite Setting"/>
       <div className="py-3"></div>
       <div
         className=" rounded-5 p-3  "

@@ -182,7 +182,7 @@ function EditProject() {
         projectId,
         projectTechnologyIds,
         teamId,
-        // projectTechnologyIds:data,
+
       })
     ).then((result) => {
       if (!result.error) {
@@ -218,7 +218,9 @@ function EditProject() {
         showButton={readOnly ? true : false}
         buttonFunction={() => setReadOnly(false)}
         text={"Edit Project"}
+        parent="PMO"
       />
+      <button onClick={()=>navigate("/chatroom")} >Chat Roum</button>
 
       <div className="d-flex   align-items-center  justify-content-center flex-wrap gap-3"></div>
 

@@ -16,7 +16,7 @@ function SideBar({ toggle, isOpen }) {
     <div style={{ width: isOpen ? "250px" : "50px" }} className="sidebar">
       <div className="top_section">
         <h1 style={{ display: isOpen ? "block" : "none" }} className="logo">
-          D-Grow
+          Sfectoria
         </h1>
         <div style={{ marginLeft: isOpen ? "80px" : "0px" }} className="bars">
           <FaBars onClick={toggle} />
@@ -37,6 +37,7 @@ function SideBar({ toggle, isOpen }) {
                 <div
                   style={{ display: isOpen ? "block" : "none" }}
                   className="linkText "
+                  
                 >
                   {item.name}
                 </div>
