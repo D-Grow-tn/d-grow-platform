@@ -137,7 +137,9 @@ function OneEmployee({setDepartment,department}) {
       onSubmit,
     },
   ];
-
+  console.log('====================================');
+  console.log(employee);
+  console.log('====================================');
   return (
     <div style={{}}>
     <HeaderPage title="Employee Information" parent="HR" />

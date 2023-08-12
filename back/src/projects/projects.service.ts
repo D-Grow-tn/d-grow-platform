@@ -48,7 +48,7 @@ export class ProjectsService {
         };
       } else {
         throw new HttpException(
-          'projecTechnologyIds must be an array',
+          'project TechnologyIds must be an array',
           HttpStatus.BAD_REQUEST,
         );
       }
@@ -102,6 +102,7 @@ export class ProjectsService {
         contract: true,
         ChatRoom: true,
         projectTechnologies: { include: { technologies: true } },
+        cover:true,
       },
     });
   }

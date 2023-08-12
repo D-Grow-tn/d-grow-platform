@@ -69,6 +69,12 @@ function ContarctList() {
           headerClassName: "header-blue",
           width: 170,
         },
+        {
+          field: "contractNumber",
+          headerName: "ContractNumber",
+          headerClassName: "header-blue",
+          width: 170,
+        },
 
         {
           field: "createdAt",
@@ -126,7 +132,7 @@ function ContarctList() {
     //   },
     // ];
     return (
-      <div>
+      <div className='p-3' >
         <HeaderPage
           title={"Contract List"}
           showButton={true}

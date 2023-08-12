@@ -41,6 +41,8 @@ model Client {
   User           User[]
   MediaClient    MediaClient[]
   contracts      Contract[]
+  devis          Devis[]
+  ClientDevis    ClientDevis[]
 }
 
 model Employee {
@@ -77,16 +79,16 @@ model Employee {
   Membership       Membership[]
   SenderReq        Request[]          @relation("senderRequest")
   ReceiverReq      Request[]          @relation("receiverRequest")
-  dailyWorkTimes  DailyWorkTime[]  
+  dailyWorkTimes   DailyWorkTime[]
 }
 
 model DailyWorkTime {
-  id             String               @id @default(uuid())
+  id             String   @id @default(uuid())
   employeeId     String
-  employee       Employee         @relation(fields: [employeeId], references: [id])
-  date           DateTime         @default(now())
-  totalWorkTime  Int              
-  totalBreakTime Int              
+  employee       Employee @relation(fields: [employeeId], references: [id])
+  date           DateTime @default(now())
+  totalWorkTime  Int
+  totalBreakTime Int
 }
 
 model Project {
@@ -118,8 +120,8 @@ model Project {
   Media               Media?              @relation(fields: [mediaId], references: [id])
   mediaId             String?
   ChatRoom            ChatRoom[]
-  
-  contract            Contract?
+
+  contract Contract?
 }
 
 model Technology {
@@ -468,12 +470,31 @@ model Media {
 }
 
 model Contract {
-  id        String   @id @default(uuid())
-  price     String
-  clientId  String?
-  client    Client?  @relation(fields: [clientId], references: [id])
-  projectId String?  @unique
-  project   Project? @relation(fields: [projectId], references: [id])
+  id             String   @id @default(uuid())
+  contractNumber Int      @default(autoincrement())
+  price          String
+  clientId       String?
+  client         Client?  @relation(fields: [clientId], references: [id])
+  projectId      String?  @unique
+  project        Project? @relation(fields: [projectId], references: [id])
+}
+
+model Devis {
+  id          String        @id @default(uuid())
+  devisNumber Int           @default(autoincrement())
+  price       String
+  discreption String
+  client      Client[]
+  ClientDevis ClientDevis[]
+}
+
+model ClientDevis {
+  clientId String
+  client   Client @relation(fields: [clientId], references: [id])
+  devisId  String
+  devis    Devis  @relation(fields: [devisId], references: [id])
+
+  @@id([clientId, devisId])
 }
 
 model MediaUser {

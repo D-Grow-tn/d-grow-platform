@@ -166,12 +166,16 @@ function Router() {
                 <Route index element={<ProjectList />} />
                 <Route path="create" element={<CreateProject />} />
                 <Route path="edit/:projectId" element={<EditProject />} />
-                <Route
-                  path="one/:projectId/weekly-sprints"
+               
+                <Route path="one/:projectId" element={<OneProject />}>
+
+                  <Route index element={<Objectives />} />
+                  <Route
+                  path="weekly-sprints"
                   element={<WeeklySprints />}
                 />
                 <Route
-                  path="one/:projectId/current-sprint"
+                  path="current-sprint"
                   element={<CurrentSprint />}
                 >
                   <Route index element={<Objectives />} />
@@ -181,8 +185,6 @@ function Router() {
 
                   </Route>
                 </Route>
-                <Route path="one/:projectId" element={<OneProject />}>
-                  <Route index element={<Objectives />} />
                   <Route path="team-section" element={<TeamSection />} />
                   <Route path="interaction" element={<InteractionSection />} />
                   <Route path="gantt" element={<GanttSection />} />
