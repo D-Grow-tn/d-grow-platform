@@ -100,6 +100,7 @@ import Devis from "../domains/devis/Devis";
 import DevisList from "../domains/devis/views/DevisList";
 import CreateDevis from "../domains/devis/views/CreateDevis";
 import EditDevis from "../domains/devis/views/EditDevis";
+import OneDevis from "../domains/devis/views/OneDevis";
 
 function Router() {
   const dispatch = useDispatch();
@@ -264,10 +265,10 @@ function Router() {
               <Route path="contractView/:contractId" element={<ContractView />} />
               <Route path="create" element={<CreateContract />} />
              </Route>
-             <Route path="devis" element={<Devis />}>
+             <Route path="quotation" element={<Devis />}>
               <Route index element={<DevisList/>} />
-              <Route path="edit/:devisId" element={<EditDevis />} />
-              {/* <Route path="contractView/:contractId" element={<ContractView />} /> */}
+              <Route path="edit/:quotationId" element={<EditDevis />} />
+              <Route path="one/:quotationId" element={<OneDevis />} />
               <Route path="create" element={<CreateDevis />} />
              </Route>
             </Route>

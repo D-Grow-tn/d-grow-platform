@@ -101,8 +101,8 @@ export const menuItem = [
         icon:<FaUserAlt />,
       },
       {
-        name: "devis",
-        path:"/devis",
+        name: "quotation",
+        path:"/quotation",
         icon:<FaUserAlt />,
       }
     ],

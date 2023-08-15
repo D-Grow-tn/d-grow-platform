@@ -5,4 +5,6 @@ export class CreateDeviDto {
 discreption:string
 @ApiProperty()
 price : string 
+// @ApiProperty() // This specifies an array of client IDs
+// client: string[];
 }

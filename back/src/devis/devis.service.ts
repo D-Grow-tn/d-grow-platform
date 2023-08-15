@@ -9,7 +9,8 @@ export class DevisService {
  async create(createDeviDto: CreateDeviDto) {
   try{
     return await this.prisma.devis.create({
-      data:createDeviDto,
+      data: createDeviDto,
+      
     });
   }catch(error){
     throw new Error (`Error creating devis: ${error.message}`)
@@ -18,7 +19,11 @@ export class DevisService {
 
  async findAll() {
   try{
-    return await this.prisma.devis.findMany({});
+    return await this.prisma.devis.findMany({
+      include:{
+        client:true
+      }
+    });
   }catch(error){
     throw new Error (`Error getingAll devis: ${error.message}`)
   }
@@ -27,7 +32,10 @@ export class DevisService {
   async findOne(id: string) {
     try{
       return await this.prisma.devis.findUnique({
-        where:{id}
+        where:{id},
+        include:{
+          client:true
+        }
       });
     }catch(error){
       throw new Error (`Error getingOne devis: ${error.message}`)
