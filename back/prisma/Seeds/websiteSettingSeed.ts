@@ -842,44 +842,44 @@ export const websiteSettingsSeed = async (prisma: PrismaClient) => {
   );
 
      //create contentSubComponent servicePageSection2
-     let serviceContent2 = [
-      { name: 'title', path: '', type: 'paragraph' },
-      { name: 'paragraph', path: '', type: 'paragraph' }
+    //  let serviceContent2 = [
+    //   { name: 'title', path: '', type: 'paragraph' },
+    //   { name: 'paragraph', path: '', type: 'paragraph' }
   
-    ];
-    await Promise.all(
-      serviceContent2.map(async (el) => {
-        if (el.name === 'title') {
-          var data = {
-            title: 'title',
-            type: el.type as ContentType,
-            navigateTo: el.path,
-            content:'Custom Software Development',
-             subComponentId: servicePageSection2.id,
-          };
-        } 
-       else  {
-          var data = {
-            title: 'paragraph',
-            type: el.type as ContentType,
-            navigateTo: el.path,
-            content:'Our Services in Development encompass the creation of tailor-made software solutions to address the unique requirements of businesses or individuals. We work closely with clients to understand their objectives and develop custom software applications from scratch. Our development team utilizes the latest technologies and methodologies to design, code, test, and deploy software that meets specific functionalities, user experience, and scalability needs.',
-             subComponentId: servicePageSection2.id,
-          };
-        } 
-        await prisma.contentSubComponent.create({
-          data,
-        });
-      }),
-    );
+    // ];
+    // await Promise.all(
+    //   serviceContent2.map(async (el) => {
+    //     if (el.name === 'title') {
+    //       var data = {
+    //         title: 'title',
+    //         type: el.type as ContentType,
+    //         navigateTo: el.path,
+    //         content:'Custom Software Development',
+    //          subComponentId: servicePageSection2.id,
+    //       };
+    //     } 
+    //    else  {
+    //       var data = {
+    //         title: 'paragraph',
+    //         type: el.type as ContentType,
+    //         navigateTo: el.path,
+    //         content:'Our Services in Development encompass the creation of tailor-made software solutions to address the unique requirements of businesses or individuals. We work closely with clients to understand their objectives and develop custom software applications from scratch. Our development team utilizes the latest technologies and methodologies to design, code, test, and deploy software that meets specific functionalities, user experience, and scalability needs.',
+    //          subComponentId: servicePageSection2.id,
+    //       };
+    //     } 
+    //     await prisma.contentSubComponent.create({
+    //       data,
+    //     });
+    //   }),
+    // );
      //create contentSubComponent servicePageSection3
-     let serviceContent3 = [
-      { name: 'title', path: '', type: 'paragraph' },
-      { name: 'paragraph', path: '', type: 'paragraph' },
-      { name: 'image', path: '', type: 'image' },
-     { name: 'See More', path: '#aboutus', type: 'button' }
+    //  let serviceContent3 = [
+    //   { name: 'title', path: '', type: 'paragraph' },
+    //   { name: 'paragraph', path: '', type: 'paragraph' },
+    //   { name: 'image', path: '', type: 'image' },
+    //  { name: 'See More', path: '#aboutus', type: 'button' }
   
-    ];
+    // ];
     
 
 
@@ -917,7 +917,7 @@ export const websiteSettingsSeed = async (prisma: PrismaClient) => {
     })
   );
   
- };
+
   //create contentSubComponent servicePageSection2
   let serviceContent2 = [
     { name: 'title', path: '', type: 'paragraph' },

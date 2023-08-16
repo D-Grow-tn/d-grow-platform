@@ -68,37 +68,7 @@ function OneEmployee({setDepartment,department}) {
           setAuxEmployee((Employee) => ({ ...Employee, directManagerId: value }));
         },
       },
-      // {
-      //   category: "select",
-      //   label: "Direct Manager",
-      //   placeholder: "Select Employee",
-      //   name: "directManegerId",
-      //   width: 250,
-      //   required: true,
-      //   options: employees,
-      //   optionLabel: "name",
-      //   valueLabel: "id",
-      //   value:  auxEmployee?.employee ,
-      //   onChange: (value) => {
-      //     setAuxEmployee
-      //     ((Employee) => ({ ...Employee, directManegerId: value }));
-      //   },
-      // },
-      // {
-      //   category:"select",
-      //   label: "Employee",
-      //   name: "employeeId",
-      //   required: true,
-      //   options: employees,
-      //   optionLabel: "name",
-      //   valueLabel: "id",
-        
-      //   value: auxEvent?.employee ,
-      //   onChange: (value) => {
-      //    setAuxEvent((Event) => ({ ...Event, employeeId: value }));
-      //   },
-
-      // },
+    
       {
         category: "select",
         label: "Department",
@@ -167,7 +137,9 @@ function OneEmployee({setDepartment,department}) {
       onSubmit,
     },
   ];
-
+  console.log('====================================');
+  console.log(employee);
+  console.log('====================================');
   return (
     <div style={{}}>
     <HeaderPage title="Employee Information" parent="HR" />

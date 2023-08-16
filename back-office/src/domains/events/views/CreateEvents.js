@@ -7,6 +7,8 @@ import Form from "../../../components/Form";
 import { createEvent } from "../../../store/event";
 import { showErrorToast } from "../../../utils/toast";
 import { fetchEmployees } from "../../../store/employees";
+import axios from "axios";
+import config from "../../../configs";
 
 function CreateEvents() {
   const dispatch = useDispatch();
@@ -16,46 +18,78 @@ function CreateEvents() {
   const [employee, setEmployee] = useState(null);
   const [inputs, setInputs] = useState([]);
   const [droppedFiles, setDroppedFiles] = useState([]);
-  const [media ,setMedia] = useState(null)
+  const [imageWidth, setImageWidth] = useState(0);
+  const [imageHeight, setImageHeight] = useState(0);
 
   useEffect(() => {
     dispatch(fetchEmployees());
   }, [dispatch]);
-  const handleChange = (e) => {
-    const { name, value } = e.target;
-    setEvent((Event) => ({ ...Event, [name]: value }));
-    console.log("Event", event);
-  };
-
-  const onSubmit = (e) => {
-    e.preventDefault();
-    console.log("ev", event);
-
-    let aux = Object.assign({}, event);
-    console.log('====================================');
-    console.log(aux,"aux");
-    console.log('====================================');
-
-    dispatch(createEvent(aux)).then((res) => {
-      if (!res.error) {
-        navigate(`/events`);
-      } else {
-        console.log(res);
-        showErrorToast(res.error.message);
-      }
-    });
-  };
 
   const onDrop = useCallback((acceptedFiles) => {
-    setDroppedFiles(acceptedFiles.map((file) => URL.createObjectURL(file)));
+    setDroppedFiles(acceptedFiles);
+    const image = new Image();
+    image.src = URL.createObjectURL(acceptedFiles[0]);
+    image.onload = () => {
+      const maxWidth = 250;
+      const maxHeight = 250;
 
+      let newWidth = image.width;
+      let newHeight = image.height;
+
+      if (image.width > maxWidth) {
+        newWidth = maxWidth;
+        newHeight = (image.height * maxWidth) / image.width;
+      }
+
+      if (newHeight > maxHeight) {
+        newHeight = maxHeight;
+        newWidth = (newWidth * maxHeight) / newHeight;
+      }
+
+      setImageWidth(newWidth);
+      setImageHeight(newHeight);
+    };
   }, []);
 
   const { getRootProps, getInputProps, isDragActive } = useDropzone({ onDrop });
 
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setEvent((Event) => ({ ...Event, [name]: value }));
+  };
+
+  const onSubmit = async (e) => {
+    e.preventDefault();
+
+    const formData = new FormData();
+    formData.append("files", droppedFiles[0]);
+
+    try {
+      const response = await axios.post(
+        `${config.API_ENDPOINT}/uploads`,
+        formData
+      );
+
+      console.log(response.data);
+      const eventWithMedia = {
+        ...event,
+        mediaIds: response.data.map((media) => media.id),
+      };
+      console.log(eventWithMedia, "mediaids");
+      dispatch(createEvent(eventWithMedia)).then((res) => {
+        if (!res.error) {
+          navigate(`/events`);
+        } else {
+          showErrorToast(res.error.message);
+        }
+      });
+    } catch (error) {
+      console.error("Error uploading media:", error);
+    }
+  };
+
   useEffect(() => {
     setInputs([
-
       {
         label: "name",
         placeholder: "fistival",
@@ -76,6 +110,7 @@ function CreateEvents() {
       },
       
       {
+        category: "date",
         label: "startAt",
         placeholder: "2023-06-17T17:50:20Z",
 
@@ -147,8 +182,7 @@ function CreateEvents() {
               {...getRootProps()}
               className={`dropzone ${isDragActive ? "active" : ""}`}
             >
-              
-              <Form {...getInputProps()}   onChange={onDrop}/>
+              <Form {...getInputProps()} onChange={onDrop} />
 
               {isDragActive ? (
                 <p>Drop the files here...</p>
@@ -160,14 +194,30 @@ function CreateEvents() {
               {droppedFiles.length > 0 && (
                 <div>
                   <h3>Dropped Images:</h3>
-                  <div className="image-preview-container ">
+                  <div
+                    className="image-preview-container "
+                    style={{
+                      width: imageWidth + "px",
+                      height: imageHeight + "px",
+                      overflow: "hidden",
+                      position: "relative"
+                    }}
+                  >
                     {droppedFiles.map((imageUrl, index) => (
                       <img
                         key={index}
-                        src={imageUrl}
+                        src={URL.createObjectURL(imageUrl)}
                         alt={`Dropped Image ${index + 1}`}
                         className="container"
-                      
+                        onChange={(e) => setDroppedFiles(e.target.files[0])}
+                        style={{
+                          width: "100%",
+                          height: "100%",
+                          objectFit: "cover", // Set objectFit to "cover" to ensure the image covers the container
+        position: "absolute", // Add this to position the image within the container
+        top: 0, // Add this to position the image at the top
+        left: 0, // Add this to position the image at the left
+                        }}
                       />
                     ))}
                   </div>

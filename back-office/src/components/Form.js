@@ -14,6 +14,7 @@ import DeleteButton from "./button/DeleteButton";
 import EditButton from "./button/EditButton";
 import AutoSelect from "./AutoSelect";
 
+
 function Form({
   className,
   style,
@@ -34,6 +35,7 @@ function Form({
   setData
 
 }) {
+  
   const renderInput = (category, rest) => {
     switch (category) {
       case "select":
@@ -63,6 +65,7 @@ function Form({
               return renderInput(category, rest);
             }
           }
+          
 
           // input.type === "radio" ? (
           //   <RadioInput />

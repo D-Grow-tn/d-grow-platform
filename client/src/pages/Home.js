@@ -17,7 +17,7 @@ function Home() {
   const [sectionp, setSectionp] = useState(null);
   const [section1I, setSection1I] = useState(null);
   const [section1b, setSection1b] = useState(null);
-  const [section2, setSection2] = useState(null);
+
   const dispatch = useDispatch();
   const services = useSelector((state) => state.product.products.items);
   const displayservices = services.slice(0, 3);
@@ -78,32 +78,6 @@ function Home() {
 
   useEffect(() => {
     axios
-<<<<<<< HEAD
-    .get(`${config.API_ENDPOINT}/website-settings/by-title/HomePage`)
-    .then((res) =>{
-      setSectionp(
-         res.data?.SubComponent.filter((elem) => elem.title === "paragraph")
-   
-        );
-    
-      setSection1I(
-              res.data?.SubComponent[0].ContentSubComponent.filter((elem) => elem.title === "image")
-      );
-      
-      setSection1b(
-        res.data?.SubComponent[0].ContentSubComponent.filter((elem) => elem.title === "button")
-);
-      setSection2(
-        res.data?.SubComponent[1].ContentSubComponent.filter((elem) => elem.title === "section")
-
-      );
-     
-    })
-    console.log("section2",section2);
-    
-  });
-  
-=======
       .get(`${config.API_ENDPOINT}/website-settings/by-title/HomePage`)
       .then((res) => {
         setSection1(
@@ -159,7 +133,6 @@ function Home() {
       ?.navigateTo,
     "loggg"
   );
->>>>>>> 9e0dca34549af530aa367b7d8e3438bf4f6c619c
   return (
     <div className="bg-light">
       {/* PART 1 */}
@@ -257,44 +230,12 @@ function Home() {
               <h4>
                 {pgrSection2?.map((e) => e?.content)} <br />{" "}
               </h4>
-<<<<<<< HEAD
-              {sectionp?.map((elem, i) => (
-=======
-
->>>>>>> 9e0dca34549af530aa367b7d8e3438bf4f6c619c
               <p>
                 {" "}
                 we pride ourselves on delivering high-quality solutions that
                 combine cutting-edge technology, aesthetic design, and
                 user-centric functionality.
               </p>
-<<<<<<< HEAD
-              ))
-            }
-            {section1b?.map((el,i) => ( 
-              <button
-                type="button"
-                class="btn mt-5"
-                style={{
-                  width: "150px",
-                  height: "40px",
-                  background: "#00ac9e",
-                  color: "white",
-                }}
-                onClick={() => navigate(el?.navigateTo)}
-              >
-                {el?.content}
-                 <i class="fa-solid fa-play fa-fade px-2"></i>
-              </button>
-               ))} 
-            </div>
-
-            {/* <div className="col-lg-6 ">
-            {section1I?.map((el, i) => (
-              <DisplayLottie animationData={el?.content} style={{ width: "500px" }} />
-              ))} 
-              </div> */}
-=======
               {buttonSection2?.map((el, i) => (
                 <a
                   type={el?.type}
@@ -320,103 +261,10 @@ function Home() {
                 />
               )}
             </div>
->>>>>>> 9e0dca34549af530aa367b7d8e3438bf4f6c619c
           </div>
         </div>
       </section>
 
-<<<<<<< HEAD
-          {/* CLIENTS REVIEWS */}
-          <section  className="back" >
-  <h1 
-  // className="dark-bleu"
-    style={{
-      fontSize:"45px",
-      fontWeight: "bold",
-      paddingTop: "40px",
-      textAlign: "center",
-      color:"#00ac9e"
-      
-    }}> 
-    Clients Reviews</h1>
-    {section2?.map((el,j) => (
-      <>
-    {console.log("sect2",el?.subContent)}
-    {el?.subContent.map((elem,i)=>(
-<Carousel variant="dark ">
-{console.log("elem",elem?.content2)}
-        <Carousel.Item>
-   
-          <Carousel.Caption  style={{ paddingBottom: "120px" }}>
-            <h3
-          className="dark-bleu"
-            >
-            {elem?.content1}
-            </h3>
-            <p style={{ fontSize: "20px",fontWeight: "bold", }} className="dark-bleu">
-              Mohamed.L{" "}
-            </p>
-          </Carousel.Caption>
-          <img
-            className="d-block w-100 "
-            src={back1}
-            alt="First slide"
-            style={{ height: "500px" }}
-          />
-       
-        </Carousel.Item>
-        <Carousel.Item>
-          <img
-            className="d-block w-100"
-            src={back1}
-            alt="Second slide"
-            style={{ height: "500px" }}
-          />
-
-          <Carousel.Caption
-            style={{ paddingBottom: "130px" }}
-          >  <h3
-          className="dark-bleu"
-            >
-             {elem?.content2}
-            </h3>
-             <p style={{ fontSize: "20px",fontWeight: "bold", }} className="dark-bleu">
-              Majdi.G{" "}
-            </p>
-          </Carousel.Caption>
-        </Carousel.Item>
-        <Carousel.Item>
-          <img
-            className="d-block w-100"
-            src={back1}
-            alt="Second slide"
-            style={{ height: "500px" }}
-          />
-
-          <Carousel.Caption
-            style={{ paddingBottom: "130px" }}
-          >  <h3
-          className="dark-bleu"
-            >
-             {elem?.content3}
-            </h3>
-             <p style={{ fontSize: "20px",fontWeight: "bold", }} className="dark-bleu">
-             Salma.N{" "}
-            </p>
-          </Carousel.Caption>
-       
-        </Carousel.Item>
-     
-      </Carousel>
-      ))}
-      </>
-
-      ))}
-</section>
-  {/* SERVICES */}
-  <section className="mt-5 back2">
-    <div style={{ color: "#1a408c",
-=======
       {/* CLIENTS REVIEWS */}
       <section className="back">
         <h1
@@ -425,7 +273,6 @@ function Home() {
             fontSize: "45px",
             fontWeight: "bold",
             paddingTop: "40px",
->>>>>>> 9e0dca34549af530aa367b7d8e3438bf4f6c619c
             textAlign: "center",
             color: "#00ac9e",
           }}

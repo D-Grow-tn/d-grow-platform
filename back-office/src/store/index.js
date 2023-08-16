@@ -14,9 +14,13 @@ import contentsubcomponet from "./contentsubcomponet";
 import team from "./team"
 import stage from "./stage"
 import interaction from "./interaction"
+import task from "./task";
 import message from "./message";
 import objective from './objective'
+import contact from "./contact";
+import contract from "./contract";
 import worktime from "./worktime";
+import devis from "./devis";
 export const store = configureStore({
   reducer: {
     auth,
@@ -33,11 +37,14 @@ export const store = configureStore({
     subComponet,
     contentsubcomponet,
     team,
+    task,
     message,
     objective,
     stage,
+    contact,
+    contract,
     worktime,
-    
+    devis
   },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware({

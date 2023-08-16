@@ -90,6 +90,21 @@ export const menuItem = [
         path: "/client",
         icon: <FaUserAlt />,
       },
+      {
+        name: "contact",
+        path:"/contact",
+        icon:<FaUserAlt />,
+      },
+      {
+        name: "contract",
+        path:"/contract",
+        icon:<FaUserAlt />,
+      },
+      {
+        name: "quotation",
+        path:"/quotation",
+        icon:<FaUserAlt />,
+      }
     ],
   },
   {

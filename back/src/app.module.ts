@@ -26,6 +26,11 @@ import { MainComponentsModule } from './main-components/main-components.module';
 import { SubComponentsModule } from './sub-components/sub-components.module';
 import { ContentSubComponentsModule } from './content-sub-components/content-sub-components.module';
 import { ContactModule } from './contact/contact.module';
+// import { WorkTimeModule } from './work-time/work-time.module';
+import { ContractModule } from './contract/contract.module';
+import { DevisModule } from './devis/devis.module';
+
+
 
 @Module({
   imports: [
@@ -52,6 +57,9 @@ import { ContactModule } from './contact/contact.module';
     SubComponentsModule,
     ContentSubComponentsModule,
     ContactModule,
+    ContractModule,
+    DevisModule,
+    // WorkTimeModule,
   
    
     
