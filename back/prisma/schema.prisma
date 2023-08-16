@@ -561,7 +561,7 @@ model ContentSubComponent {
   id                            String                @id @default(uuid())
   title                         String
   navigateTo                    String?
-  content                       String
+  content                       String?
   type                          ContentType           @default(button)
   subContent                    Json?
   previousContentSubComponentId String?

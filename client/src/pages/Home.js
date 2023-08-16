@@ -19,6 +19,7 @@ function Home() {
   const displayservices = services.slice(0, 3);
   const [section1, setSection1] = useState({});
   const [section2, setSection2] = useState({});
+  const [section5, setSection5] = useState({});
   const [pgrSection1, setPrgSection1] = useState([]);
   const [section2Animation, setSection2Animation] = useState(null);
   const [titleSection2, setTitleSection2] = useState([]);
@@ -32,6 +33,8 @@ function Home() {
   const [titleSection5, setTitleSection5] = useState([]);
   const [pgrSection5, setPrgSection5] = useState([]);
   const [buttonSection5, setbuttonSection5] = useState(null);
+  const [section5Animation, setSection5Animation] = useState(null);
+
   useEffect(() => {
     dispatch(fetchProduct());
   }, [dispatch]);
@@ -47,9 +50,18 @@ function Home() {
         setSection2Animation(res.data);
       });
     }
+    let dev = section5?.ContentSubComponent?.find(
+      (elem) => elem.type === "image"
+    )?.media?.path;
+    if (dev) {
+      axios.get(dev).then((res) => {
+        console.log(res);
+        setSection5Animation(res.data);
+      });
+    }
   }, [
     section2?.ContentSubComponent?.find((elem) => elem.type === "image")?.media
-      ?.path,
+      ?.path
   ]);
 
 
@@ -61,6 +73,12 @@ function Home() {
         setSection1(
           res.data?.SubComponent?.find((elem) => elem.name === "section1")
         );
+
+        setPrgSection1(
+          res.data?.SubComponent[0]?.ContentSubComponent.filter(
+            (elem) => elem.title === "paragraph"
+          ) 
+          )
         setPrgSection2(
           res.data?.SubComponent[0]?.ContentSubComponent.filter(
             (elem) => elem.title === "paragraph"
@@ -97,10 +115,13 @@ function Home() {
           )
         );
         console.log("dataaaa",res.data.SubComponent);
-        (
+       setTitleSection5 (
           res.data?.SubComponent[4]?.ContentSubComponent.filter(
             (elem) => elem.title === "title"
           )
+        );
+        setSection5(
+          res.data?.SubComponent?.find((elem) => elem.name === "section5")
         );
         setPrgSection5(
           res.data?.SubComponent[4]?.ContentSubComponent.filter(
@@ -120,7 +141,7 @@ function Home() {
   //     ?.navigateTo,
   //   "loggg"
   // );
-  console.log("enaaaaaaaaaaaa",pgrSection1);
+  console.log("section1",pgrSection1);
  
   // 
   return (
@@ -133,7 +154,7 @@ function Home() {
           height: "500px",
           backgroundImage: `url(${
             section1?.ContentSubComponent?.find(
-              (elem) => elem.title === "background"
+              (elem) => elem.title === "image"
             )?.media?.path
           })`,
           backgroundSize: "100%",
@@ -143,17 +164,44 @@ function Home() {
         }}
       >
         <div id="container">
-          <dl>
-            <dt>1</dt>
+         <dl>
+            <dt>{pgrSection1[0]?.content}</dt>
             <dd>
-              Unleash your potential with our empowering digital services !
+            {pgrSection1[0]?.content.nexts}
             </dd>
-            {pgrSection1.map((e, i) => (  
-              <div key={i}>
-            <dt  > {e?.content}</dt> 
-            <dd>{e?.nexts?.find((el) => el.title === "paragraph")?.content}
-              
-            </dd></div>))}
+            <dt>{pgrSection1[1]?.content}</dt>
+            <dd>
+            {pgrSection1[1]?.content.nexts}
+            </dd>
+            <dt>{pgrSection1[2]?.content}</dt>
+            <dd>
+            {pgrSection1[2]?.content.nexts}
+            </dd>
+            <dt>{pgrSection1[3]?.content}</dt>
+            <dd>
+            {pgrSection1[3]?.content.nexts}
+            </dd>
+            <dt>{pgrSection1[4]?.content}</dt>
+            <dd>
+            {pgrSection1[4]?.content.nexts}
+            </dd>
+            <dt>{pgrSection1[5]?.content}</dt>
+            <dd>
+            {pgrSection1[5]?.content.nexts}
+            </dd>
+            <dt>{pgrSection1[6]?.content}</dt>
+            <dd>
+            {pgrSection1[6]?.content.nexts}
+            </dd>
+            <dt>{pgrSection1[7]?.content}</dt>
+            <dd>
+            {pgrSection1[7]?.content.nexts}
+            </dd>
+            <dt>{pgrSection1[8]?.content}</dt>
+            <dd>
+            {pgrSection1[8]?.content.nexts}
+            </dd>
+          </dl>
             
           
          
@@ -198,7 +246,7 @@ function Home() {
               Stay ahead of the curve with cutting-edge technologies that
               future-proof your business!
             </dd> */}
-          </dl>
+       
         </div>
       </div>
 
@@ -376,7 +424,7 @@ function Home() {
         <div className="container">
           <div className="row content ">
             <div className="col-lg-5 ">
-              <DisplayLottie animationData={dev} />
+              <DisplayLottie animationData={section5Animation} />
             </div>
             <div
               className="col-lg-6 p-5 mt-5  dark-bleu"
@@ -389,8 +437,8 @@ function Home() {
                   }}
                 >
                   {titleSection5[0]?.content}
-                  Elevate your{" "}
-                  <spann style={{ color: "#00ac9e" }}>Digital</spann> Presence
+                  
+                  <spann style={{ color: "#00ac9e" }}> {titleSection5[1]?.content}</spann>  {titleSection5[2]?.content}
                 </h2>
 
                 <p style={{ paddingTop: "20px" }}>
