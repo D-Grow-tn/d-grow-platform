@@ -160,11 +160,11 @@ CREATE TABLE "Stage" (
 -- CreateTable
 CREATE TABLE "Task" (
     "id" TEXT NOT NULL,
-    "points" INTEGER NOT NULL,
+    "points" INTEGER,
     "name" TEXT NOT NULL,
-    "duration" TEXT NOT NULL,
-    "level" TEXT NOT NULL,
-    "status" "Status" NOT NULL DEFAULT 'to_do',
+    "duration" TEXT,
+    "level" TEXT,
+    "status" "Status" DEFAULT 'to_do',
     "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
     "updatedAt" TIMESTAMP(3) NOT NULL,
     "sprintId" TEXT,
@@ -441,6 +441,24 @@ CREATE TABLE "Contract" (
 );
 
 -- CreateTable
+CREATE TABLE "Devis" (
+    "id" TEXT NOT NULL,
+    "devisNumber" SERIAL NOT NULL,
+    "price" TEXT NOT NULL,
+    "discreption" TEXT NOT NULL,
+
+    CONSTRAINT "Devis_pkey" PRIMARY KEY ("id")
+);
+
+-- CreateTable
+CREATE TABLE "ClientDevis" (
+    "clientId" TEXT NOT NULL,
+    "devisId" TEXT NOT NULL,
+
+    CONSTRAINT "ClientDevis_pkey" PRIMARY KEY ("clientId","devisId")
+);
+
+-- CreateTable
 CREATE TABLE "MediaUser" (
     "mediaId" TEXT NOT NULL,
     "userId" TEXT NOT NULL
@@ -517,6 +535,12 @@ CREATE TABLE "ContentSubComponent" (
     CONSTRAINT "ContentSubComponent_pkey" PRIMARY KEY ("id")
 );
 
+-- CreateTable
+CREATE TABLE "_ClientToDevis" (
+    "A" TEXT NOT NULL,
+    "B" TEXT NOT NULL
+);
+
 -- CreateIndex
 CREATE UNIQUE INDEX "User_email_key" ON "User"("email");
 
@@ -567,6 +591,12 @@ CREATE UNIQUE INDEX "MainComponent_title_key" ON "MainComponent"("title");
 
 -- CreateIndex
 CREATE UNIQUE INDEX "MainComponent_path_key" ON "MainComponent"("path");
+
+-- CreateIndex
+CREATE UNIQUE INDEX "_ClientToDevis_AB_unique" ON "_ClientToDevis"("A", "B");
+
+-- CreateIndex
+CREATE INDEX "_ClientToDevis_B_index" ON "_ClientToDevis"("B");
 
 -- AddForeignKey
 ALTER TABLE "User" ADD CONSTRAINT "User_clientId_fkey" FOREIGN KEY ("clientId") REFERENCES "Client"("id") ON DELETE SET NULL ON UPDATE CASCADE;
@@ -728,6 +758,12 @@ ALTER TABLE "Contract" ADD CONSTRAINT "Contract_clientId_fkey" FOREIGN KEY ("cli
 ALTER TABLE "Contract" ADD CONSTRAINT "Contract_projectId_fkey" FOREIGN KEY ("projectId") REFERENCES "Project"("id") ON DELETE SET NULL ON UPDATE CASCADE;
 
 -- AddForeignKey
+ALTER TABLE "ClientDevis" ADD CONSTRAINT "ClientDevis_clientId_fkey" FOREIGN KEY ("clientId") REFERENCES "Client"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
+
+-- AddForeignKey
+ALTER TABLE "ClientDevis" ADD CONSTRAINT "ClientDevis_devisId_fkey" FOREIGN KEY ("devisId") REFERENCES "Devis"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
+
+-- AddForeignKey
 ALTER TABLE "MediaUser" ADD CONSTRAINT "MediaUser_mediaId_fkey" FOREIGN KEY ("mediaId") REFERENCES "Media"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
 
 -- AddForeignKey
@@ -774,3 +810,9 @@ ALTER TABLE "ContentSubComponent" ADD CONSTRAINT "ContentSubComponent_subCompone
 
 -- AddForeignKey
 ALTER TABLE "ContentSubComponent" ADD CONSTRAINT "ContentSubComponent_mediaId_fkey" FOREIGN KEY ("mediaId") REFERENCES "Media"("id") ON DELETE SET NULL ON UPDATE CASCADE;
+
+-- AddForeignKey
+ALTER TABLE "_ClientToDevis" ADD CONSTRAINT "_ClientToDevis_A_fkey" FOREIGN KEY ("A") REFERENCES "Client"("id") ON DELETE CASCADE ON UPDATE CASCADE;
+
+-- AddForeignKey
+ALTER TABLE "_ClientToDevis" ADD CONSTRAINT "_ClientToDevis_B_fkey" FOREIGN KEY ("B") REFERENCES "Devis"("id") ON DELETE CASCADE ON UPDATE CASCADE;

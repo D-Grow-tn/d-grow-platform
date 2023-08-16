@@ -57,14 +57,11 @@ import { DevisModule } from './devis/devis.module';
     SubComponentsModule,
     ContentSubComponentsModule,
     ContactModule,
-<<<<<<< HEAD
-=======
     ContractModule,
     DevisModule,
     // WorkTimeModule,
   
    
->>>>>>> f968961f73e7cfffa4b669b4965dbf62c971c705
     
   ],
   controllers: [AppController],
