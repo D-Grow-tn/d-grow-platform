@@ -62,11 +62,27 @@ function ClientList() {
         headerClassName: "header-blue",
         width: 170,
       },
+      
       {
         field: "email",
         headerName: "Email",
         headerClassName: "header-blue",
         width: 200,
+      },
+     
+      {
+        field: "clientType",
+        headerName: "Client Type ",
+        headerClassName: "header-blue",
+        width: 200,
+ 
+      },
+      {
+        field: "businessSector",
+        headerName: "Business Sector",
+        headerClassName: "header-blue",
+        width: 200,
+ 
       },
       {
         field: "active",
@@ -84,14 +100,7 @@ function ClientList() {
         renderCell: (params) =>
           moment(params.row.createdAt).format("YYYY-MM-DD HH:MM:SS"),
       },
-      {
-        field: "UpdatedAt",
-        headerName: "Updated At",
-        headerClassName: "header-blue",
-        width: 200,
-        renderCell: (params) =>
-          moment(params.row.createdAt).format("YYYY-MM-DD HH:MM:SS"),
-      },
+     
 
       {
         field: "actions",

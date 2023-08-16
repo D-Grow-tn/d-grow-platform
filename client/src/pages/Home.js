@@ -19,6 +19,8 @@ function Home() {
   const displayservices = services.slice(0, 3);
   const [section1, setSection1] = useState({});
   const [section2, setSection2] = useState({});
+  const [section5, setSection5] = useState({});
+  const [pgrSection1, setPrgSection1] = useState([]);
   const [section2Animation, setSection2Animation] = useState(null);
   const [titleSection2, setTitleSection2] = useState([]);
   const [pgrSection2, setPrgSection2] = useState([]);
@@ -31,6 +33,8 @@ function Home() {
   const [titleSection5, setTitleSection5] = useState([]);
   const [pgrSection5, setPrgSection5] = useState([]);
   const [buttonSection5, setbuttonSection5] = useState(null);
+  const [section5Animation, setSection5Animation] = useState(null);
+
   useEffect(() => {
     dispatch(fetchProduct());
   }, [dispatch]);
@@ -46,39 +50,40 @@ function Home() {
         setSection2Animation(res.data);
       });
     }
+    let dev = section5?.ContentSubComponent?.find(
+      (elem) => elem.type === "image"
+    )?.media?.path;
+    if (dev) {
+      axios.get(dev).then((res) => {
+        console.log(res);
+        setSection5Animation(res.data);
+      });
+    }
   }, [
     section2?.ContentSubComponent?.find((elem) => elem.type === "image")?.media
-      ?.path,
+      ?.path
   ]);
 
-  // const services = [
-  //   {
-  //     image:
-  //       "https://i.pinimg.com/564x/c9/6a/fe/c96afee943781f42644179c9eca4e3c5.jpg",
-  //     serv: "             Web Front-End SOLUTIONS       ",
-  //     descp:"How design is implemented on the web."
-  //   },
-  //   {
-  //     image:
-  //       "https://i.pinimg.com/564x/e8/2e/4f/e82e4f8aea93a0d318395a8a872b72fe.jpg",
-  //     serv: "          UX/UI       WEBsite AND   MOBILE app       ",
-  //     descp:"User Interface and User Experience Design."
-  //   },
-  //   {
-  //     image:
-  //       "https://www.newsanyway.com/wp-content/uploads/2020/04/mobile-app-development-company-1024x918-1.png",
-  //     serv: "       BRANDING       AND CORPORATE     DESIGN          ",
-  //     descp:"Visual communication and problem-solving"
-  //   },
-  // ];
 
-  useEffect(() => {
-    axios
+  useEffect( () => {
+   axios
       .get(`${config.API_ENDPOINT}/website-settings/by-title/HomePage`)
       .then((res) => {
+
         setSection1(
           res.data?.SubComponent?.find((elem) => elem.name === "section1")
         );
+
+        setPrgSection1(
+          res.data?.SubComponent[0]?.ContentSubComponent.filter(
+            (elem) => elem.title === "paragraph"
+          ) 
+          )
+        setPrgSection2(
+          res.data?.SubComponent[0]?.ContentSubComponent.filter(
+            (elem) => elem.title === "paragraph"
+          ) 
+          )
         setSection2(
           res.data?.SubComponent?.find((elem) => elem.name === "section2")
         );
@@ -90,8 +95,10 @@ function Home() {
         setPrgSection2(
           res.data?.SubComponent[1]?.ContentSubComponent.filter(
             (elem) => elem.title === "paragraph"
+          ) 
           )
-        );
+          
+        ;
         setbuttonSection2(
           res.data?.SubComponent[1]?.ContentSubComponent.filter(
             (elem) => elem.title === "button"
@@ -107,10 +114,14 @@ function Home() {
             (elem) => elem.title === "paragraph" && elem.nexts?.length
           )
         );
-        setTitleSection5(
+        console.log("dataaaa",res.data.SubComponent);
+       setTitleSection5 (
           res.data?.SubComponent[4]?.ContentSubComponent.filter(
             (elem) => elem.title === "title"
           )
+        );
+        setSection5(
+          res.data?.SubComponent?.find((elem) => elem.name === "section5")
         );
         setPrgSection5(
           res.data?.SubComponent[4]?.ContentSubComponent.filter(
@@ -122,13 +133,17 @@ function Home() {
             (elem) => elem.title === "button"
           )
         );
-      });
+        
+      }).catch(error => (console.log(error)))
   }, []);
-  console.log(
-    section1?.ContentSubComponent?.find((elem) => elem.title === "background")
-      ?.navigateTo,
-    "loggg"
-  );
+  // console.log(
+  //   section1?.ContentSubComponent?.find((elem) => elem.title === "background")
+  //     ?.navigateTo,
+  //   "loggg"
+  // );
+  console.log("section1",pgrSection1);
+ 
+  // 
   return (
     <div className="bg-light">
       {/* PART 1 */}
@@ -139,7 +154,7 @@ function Home() {
           height: "500px",
           backgroundImage: `url(${
             section1?.ContentSubComponent?.find(
-              (elem) => elem.title === "background"
+              (elem) => elem.title === "image"
             )?.media?.path
           })`,
           backgroundSize: "100%",
@@ -149,12 +164,49 @@ function Home() {
         }}
       >
         <div id="container">
-          <dl>
-            <dt>1</dt>
+         <dl>
+            <dt>{pgrSection1[0]?.content}</dt>
             <dd>
-              Unleash your potential with our empowering digital services !
+            {pgrSection1[0]?.content.nexts}
             </dd>
-            <dt>2</dt>
+            <dt>{pgrSection1[1]?.content}</dt>
+            <dd>
+            {pgrSection1[1]?.content.nexts}
+            </dd>
+            <dt>{pgrSection1[2]?.content}</dt>
+            <dd>
+            {pgrSection1[2]?.content.nexts}
+            </dd>
+            <dt>{pgrSection1[3]?.content}</dt>
+            <dd>
+            {pgrSection1[3]?.content.nexts}
+            </dd>
+            <dt>{pgrSection1[4]?.content}</dt>
+            <dd>
+            {pgrSection1[4]?.content.nexts}
+            </dd>
+            <dt>{pgrSection1[5]?.content}</dt>
+            <dd>
+            {pgrSection1[5]?.content.nexts}
+            </dd>
+            <dt>{pgrSection1[6]?.content}</dt>
+            <dd>
+            {pgrSection1[6]?.content.nexts}
+            </dd>
+            <dt>{pgrSection1[7]?.content}</dt>
+            <dd>
+            {pgrSection1[7]?.content.nexts}
+            </dd>
+            <dt>{pgrSection1[8]?.content}</dt>
+            <dd>
+            {pgrSection1[8]?.content.nexts}
+            </dd>
+          </dl>
+            
+          
+         
+         
+            {/* <dt>2</dt>
             <dd>
               Ignite your success with captivating websites and apps that engage
               and convert!
@@ -193,8 +245,8 @@ function Home() {
             <dd>
               Stay ahead of the curve with cutting-edge technologies that
               future-proof your business!
-            </dd>
-          </dl>
+            </dd> */}
+       
         </div>
       </div>
 
@@ -211,27 +263,27 @@ function Home() {
               style={{ textAlign: "center" }}
             >
               <h2
+
+
                 style={{
                   fontWeight: "bold",
                   paddingBottom: "30px",
                 }}
               >
-                {titleSection2?.map((e) => e?.content[0])}{" "}
+                {titleSection2[0]?.content}{" "}
                 <spann style={{ color: "#00ac9e" }}>
-                  {titleSection2?.map((e) => e?.content[2])}
+                {titleSection2[1]?.content}
                 </spann>{" "}
-                {titleSection2?.map((e) => e?.content[2])}
+                {titleSection2[2]?.content}
               </h2>
 
               <h4>
-                {pgrSection2?.map((e) => e?.content)} <br />{" "}
+                {pgrSection2[0]?.content}<br />{" "}
               </h4>
 
               <p>
                 {" "}
-                we pride ourselves on delivering high-quality solutions that
-                combine cutting-edge technology, aesthetic design, and
-                user-centric functionality.
+                {pgrSection2[1]?.content}
               </p>
               {buttonSection2?.map((el, i) => (
                 <a
@@ -288,65 +340,10 @@ function Home() {
                   {e?.nexts?.find((el) => el.title === "paragraph")?.content}
                 </p>
               </Carousel.Caption>
-              {/* <img
-              className="d-block w-100 "
-              src={back1}
-              alt="First slide"
-              style={{ height: "500px" }}
-            /> */}
+             
             </Carousel.Item>
           ))}
-          {/* <Carousel.Item>
-            <img
-              className="d-block w-100"
-              src={back1}
-              alt="Second slide"
-              style={{ height: "500px" }}
-            />
-
-            <Carousel.Caption style={{ paddingBottom: "130px" }}>
-              {" "}
-              <h3 className="dark-bleu">
-                "It is a distinct pleasure for me to recommend D-Grow to any and
-                all interested parties. They have been professional,
-                comprehensive and competent throughout the process of our
-                working together. We feel that we have established a
-                relationship with them for years to come. The reaction to our
-                new web site has been overwhelmingly positive."
-              </h3>
-              <p
-                style={{ fontSize: "20px", fontWeight: "bold" }}
-                className="dark-bleu"
-              >
-                Majdi.G{" "}
-              </p>
-            </Carousel.Caption>
-          </Carousel.Item>
-          <Carousel.Item>
-            <img
-              className="d-block w-100"
-              src={back1}
-              alt="Second slide"
-              style={{ height: "500px" }}
-            />
-
-            <Carousel.Caption style={{ paddingBottom: "130px" }}>
-              {" "}
-              <h3 className="dark-bleu">
-                "Compared to the other companies we have used in the past,
-                D-Grow has been far and above the best in every area. While
-                building our new web site, the customer service has been prompt
-                and straightforward and the actual services are well documented
-                and logical to our needs."
-              </h3>
-              <p
-                style={{ fontSize: "20px", fontWeight: "bold" }}
-                className="dark-bleu"
-              >
-                Salma.N{" "}
-              </p>
-            </Carousel.Caption>
-          </Carousel.Item> */}
+        
         </Carousel>
       </section>
       {/* SERVICES */}
@@ -427,7 +424,7 @@ function Home() {
         <div className="container">
           <div className="row content ">
             <div className="col-lg-5 ">
-              <DisplayLottie animationData={dev} />
+              <DisplayLottie animationData={section5Animation} />
             </div>
             <div
               className="col-lg-6 p-5 mt-5  dark-bleu"
@@ -439,9 +436,9 @@ function Home() {
                     fontWeight: "bold",
                   }}
                 >
-                  {titleSection5?.map((e) => e?.content)}
-                  Elevate your{" "}
-                  <spann style={{ color: "#00ac9e" }}>Digital</spann> Presence
+                  {titleSection5[0]?.content}
+                  
+                  <spann style={{ color: "#00ac9e" }}> {titleSection5[1]?.content}</spann>  {titleSection5[2]?.content}
                 </h2>
 
                 <p style={{ paddingTop: "20px" }}>

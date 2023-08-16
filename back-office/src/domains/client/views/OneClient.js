@@ -7,6 +7,7 @@ import { fetchClient, updateClient } from "../../../store/client";
 
 import ProjectTable from "../../../components/ProjectTable";
 import { showErrorToast, showSuccessToast } from "../../../utils/toast";
+import { BusinessSector, ClientType, ContactPreference } from "./SelectValue";
 
 function OneClient() {
   const dispatch = useDispatch();
@@ -35,6 +36,36 @@ function OneClient() {
         value: auxClient?.name,
       },
       {
+        label: "ClientType",
+        placeholder: "Type",
+        value: client?.clientType,
+        name: "clientType",
+        required: true,
+        category: "select",
+        options: Object.values(ClientType),
+        onChange: (value) => {
+          setAuxClient((client) => ({ ...client, clientType: value }));
+        },
+      },
+      {
+        label: "BusinessSector",
+        placeholder: "Type",
+        value: client?.businessSector,
+        name: "businessSector",
+        required: true,
+        category: "select",
+        options: Object.values(BusinessSector),
+        onChange: (value) => {
+          setAuxClient((client) => ({ ...client, businessSector: value }));
+        },
+      },
+      {
+        name: "jobTitle",
+        label: "Job Title",
+        required: true,
+        value: auxClient?.jobTitle,
+      },
+      {
         name: "email",
         label: "Email",
         required: true,
@@ -52,6 +83,18 @@ function OneClient() {
         required: true,
         value: auxClient?.address,
       },
+      {
+        label: "Preference de Contact",
+        placeholder: "Type",
+        value: client?.clientType,
+        name: "contactPreference",
+        required: true,
+        category: "select",
+        options: Object.values(ContactPreference),
+        onChange: (value) => {
+          setAuxClient((client) => ({ ...client, contactPreference: value }));
+        },
+      },
     ]);
   }, [auxClient]);
 
@@ -61,23 +104,41 @@ function OneClient() {
       ...prevState,
       [name]: value,
     }));
-   
   };
 
   const onSubmit = (e) => {
     e.preventDefault();
     console.log(auxClient);
-    const { name, email, phone, address } = auxClient;
-    dispatch(updateClient({ name, phone, address, email, clientId })).then(
-      (result) => {
-        if (!result.error) {
-          showSuccessToast("Client has been updated");
-          setReadOnly(true);
-        } else {
-          showErrorToast(result.error.message);
-        }
+    const {
+      name,
+      email,
+      phone,
+      address,
+      jobTitle,
+      businessSector,
+      clientType,
+      contactPreference,
+    } = auxClient;
+    dispatch(
+      updateClient({
+        name,
+        phone,
+        address,
+        email,
+        jobTitle,
+        businessSector,
+        clientType,
+        contactPreference,
+        clientId,
+      })
+    ).then((result) => {
+      if (!result.error) {
+        showSuccessToast("Client has been updated");
+        setReadOnly(true);
+      } else {
+        showErrorToast(result.error.message);
       }
-    );
+    });
   };
 
   const countProjects = () => {
@@ -92,7 +153,6 @@ function OneClient() {
       category: "save",
       name: "Save",
       onSubmit,
-
     },
     {
       category: "cancel",
@@ -101,7 +161,6 @@ function OneClient() {
       onClick: () => {
         setAuxClient(client);
         setReadOnly(true);
-       
       },
     },
   ];
@@ -136,7 +195,7 @@ function OneClient() {
     console.log('====================================');
   return (
     <div style={{}}>
-      <HeaderPage title="Client Information" parent="CRM"/>
+      <HeaderPage title="Client Information" parent="CRM" />
 
       <div
         className=" rounded-5  mt-3"
@@ -181,7 +240,6 @@ function OneClient() {
               }}
               onClick={() => {
                 setReadOnly(false);
-               
               }}
             >
               Edit Client <i class="fa-solid fa-play fa-fade px-2"></i>
@@ -193,15 +251,13 @@ function OneClient() {
             onSubmit={onSubmit}
             inputs={inputs}
             inputsClassName="d-flex flex-wrap justify-content-center mt-5"
-            inputsStyle={{ rowGap: 20 ,columnGap: 100}}
+            inputsStyle={{ rowGap: 20, columnGap: 100 }}
             numberInputPerRow={2}
             readOnly={readOnly}
             onChange={handleInputChange}
             buttonsClassName="mt-5 d-flex justify-content-center gap-3"
             buttons={!readOnly ? buttons : []}
           />
-
-        
         </div>
 
         <div style={{ marginTop: "80px" }}>

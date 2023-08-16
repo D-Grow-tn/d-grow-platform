@@ -4,7 +4,7 @@ import HeaderPage from '../../components/HeaderPage'
 function ProviderList() {
   return (
     <div>
-        <HeaderPage title={'Providers List'}/>
+        <HeaderPage title={'Providers List'} parent="Administration"/>
     </div>
   )
 }
