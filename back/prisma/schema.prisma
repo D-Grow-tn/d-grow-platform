@@ -45,6 +45,8 @@ model Client {
   MediaClient       MediaClient[]
   contactPreference ContactPreference @default(Email)
   Contract          Contract[]
+  devis          Devis[]
+  ClientDevis    ClientDevis[]
 }
 
 model Employee {
@@ -191,11 +193,11 @@ model Stage {
 
 model Task {
   id         String   @id @default(uuid())
-  points     Int
+  points     Int?
   name       String
-  duration   String
-  level      String
-  status     Status   @default(pending)
+  duration   String?
+  level      String?
+  status     Status?   @default(to_do)
   createdAt  DateTime @default(now())
   updatedAt  DateTime @updatedAt
   sprintId   String?
@@ -375,6 +377,7 @@ model MediaProductType {
   @@unique(fields: [mediaId, productTypeId], name: "productTypeMedia")
 }
 
+
 model Branches {
   id          String    @id @default(uuid())
   name        String
@@ -471,12 +474,31 @@ model Media {
 }
 
 model Contract {
-  id        String   @id @default(uuid())
-  price     String
-  clientId  String?
-  client    Client?  @relation(fields: [clientId], references: [id])
-  projectId String?  @unique
-  project   Project? @relation(fields: [projectId], references: [id])
+  id             String   @id @default(uuid())
+  contractNumber Int      @default(autoincrement())
+  price          String
+  clientId       String?
+  client         Client?  @relation(fields: [clientId], references: [id])
+  projectId      String?  @unique
+  project        Project? @relation(fields: [projectId], references: [id])
+}
+
+model Devis {
+  id          String        @id @default(uuid())
+  devisNumber Int           @default(autoincrement())
+  price       String
+  discreption String
+  client      Client[]
+  ClientDevis ClientDevis[]
+}
+
+model ClientDevis {
+  clientId String
+  client   Client @relation(fields: [clientId], references: [id])
+  devisId  String
+  devis    Devis  @relation(fields: [devisId], references: [id])
+
+  @@id([clientId, devisId])
 }
 
 model MediaUser {
@@ -579,6 +601,7 @@ model ContentSubComponent {
 
 enum Status {
   pending
+  to_do
   in_progress
   completed
   on_hold
@@ -646,4 +669,10 @@ enum ContactPreference {
   Email
   Mobile
   Web_Site
+}
+enum taskposition {
+  to_do 
+  in_progress
+  completed
+
 }

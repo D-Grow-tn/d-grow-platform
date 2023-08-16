@@ -71,6 +71,7 @@ export class EmployeesService {
             decision: true,
           },
         },
+        avatar:true
       },
     });
   }

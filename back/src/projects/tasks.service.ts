@@ -13,7 +13,9 @@ export class TasksService {
   }
 
   async findAll() {
-    return await this.prisma.task.findMany({}) ;
+    return await this.prisma.task.findMany({
+      include : {employee:true}
+    }) ;
   }
 
   async findOne(id: string) {

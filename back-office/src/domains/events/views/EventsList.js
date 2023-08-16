@@ -88,7 +88,7 @@ function EventList() {
         width: 200,
         renderCell: (params) =>(<div>{params.row.employee.name}
         {
-        console.log(params.row,"this")
+        
         }</div>)
       },
       {

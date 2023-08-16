@@ -1,16 +1,16 @@
 import { ApiProperty } from "@nestjs/swagger";
 
 export class CreateTaskDto {
-  @ApiProperty({ required: true })
+  @ApiProperty({ required: false })
   points: number;
   @ApiProperty({ required: true })
   name: string;
-  @ApiProperty({ required: true })
+  @ApiProperty({ required: false })
   duration: string;
-  @ApiProperty({ required: true })
+  @ApiProperty({ required: false })
   level: string;
-  @ApiProperty({ required: true })
+  @ApiProperty({ required: false })
   stageId: string;
-  @ApiProperty({ required: true })
+  @ApiProperty({ required: false })
   employeeId: string;
 }

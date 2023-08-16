@@ -99,6 +99,11 @@ export const menuItem = [
         name: "contract",
         path:"/contract",
         icon:<FaUserAlt />,
+      },
+      {
+        name: "quotation",
+        path:"/quotation",
+        icon:<FaUserAlt />,
       }
     ],
   },

@@ -96,6 +96,11 @@ import ContarctList from "../domains/contract/views/ContarctList";
 import CreateContract from "../domains/contract/views/CreateContract";
 import OneContract from "../domains/contract/views/OneContract";
 import ContractView from "../domains/contract/views/ContractView";
+import Devis from "../domains/devis/Devis";
+import DevisList from "../domains/devis/views/DevisList";
+import CreateDevis from "../domains/devis/views/CreateDevis";
+import EditDevis from "../domains/devis/views/EditDevis";
+import OneDevis from "../domains/devis/views/OneDevis";
 
 function Router() {
   const dispatch = useDispatch();
@@ -166,12 +171,16 @@ function Router() {
                 <Route index element={<ProjectList />} />
                 <Route path="create" element={<CreateProject />} />
                 <Route path="edit/:projectId" element={<EditProject />} />
-                <Route
-                  path="one/:projectId/weekly-sprints"
+               
+                <Route path="one/:projectId" element={<OneProject />}>
+
+                  <Route index element={<Objectives />} />
+                  <Route
+                  path="weekly-sprints"
                   element={<WeeklySprints />}
                 />
                 <Route
-                  path="one/:projectId/current-sprint"
+                  path="current-sprint"
                   element={<CurrentSprint />}
                 >
                   <Route index element={<Objectives />} />
@@ -181,8 +190,6 @@ function Router() {
 
                   </Route>
                 </Route>
-                <Route path="one/:projectId" element={<OneProject />}>
-                  <Route index element={<Objectives />} />
                   <Route path="team-section" element={<TeamSection />} />
                   <Route path="interaction" element={<InteractionSection />} />
                   <Route path="gantt" element={<GanttSection />} />
@@ -215,6 +222,7 @@ function Router() {
                   element={<EditRequest />}
                 />
               </Route>
+              
               <Route path="technology" element={<Technology />}>
                 <Route index element={<TechnologiesList />} />
                 <Route path="create" element={<CreateTechnology />} />
@@ -246,6 +254,7 @@ function Router() {
                 <Route path="create" element={<CreateTeam />} />
                 <Route path="one/:teamId" element={<OneTeam />} />
               </Route>
+              {/* <Route path="trello" element = {<Trello/>}/> */}
              <Route path="contact" element={<Contact />}>
               <Route index element={<ContactList/>} />
               <Route path="one/:contactId" element={<OneContact />} />
@@ -255,7 +264,12 @@ function Router() {
               <Route path="one/:contractId" element={<OneContract />} />
               <Route path="contractView/:contractId" element={<ContractView />} />
               <Route path="create" element={<CreateContract />} />
-
+             </Route>
+             <Route path="quotation" element={<Devis />}>
+              <Route index element={<DevisList/>} />
+              <Route path="edit/:quotationId" element={<EditDevis />} />
+              <Route path="one/:quotationId" element={<OneDevis />} />
+              <Route path="create" element={<CreateDevis />} />
              </Route>
             </Route>
           )}
