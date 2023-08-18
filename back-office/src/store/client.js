@@ -25,7 +25,6 @@ export const createClient = createAsyncThunk(
       body
     );
     dispatch(fetchClients())
-    console.log("create datazaaaaaaaaa",response.data);
     return response.data
   }
 );
