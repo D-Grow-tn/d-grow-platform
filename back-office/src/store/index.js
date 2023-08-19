@@ -19,6 +19,8 @@ import contact from "./contact";
 import contract from "./contract";
 import worktime from "./worktime";
 import provides from "./provides";
+import devis from "./devis";
+import quiz from "./quiz";
 export const store = configureStore({
   reducer: {
     auth,
@@ -40,8 +42,9 @@ export const store = configureStore({
     contact,
     contract,
     worktime,
-    provides
-    
+    provides,
+    devis,
+    quiz
   },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware({
