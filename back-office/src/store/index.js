@@ -18,6 +18,7 @@ import message from "./message";
 import contact from "./contact";
 import contract from "./contract";
 import worktime from "./worktime";
+import provides from "./provides";
 import devis from "./devis";
 import quiz from "./quiz";
 export const store = configureStore({
@@ -41,6 +42,7 @@ export const store = configureStore({
     contact,
     contract,
     worktime,
+    provides,
     devis,
     quiz
   },

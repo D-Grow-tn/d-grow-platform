@@ -197,7 +197,7 @@ model Task {
   name       String
   duration   String?
   level      String?
-  status     Status?   @default(to_do)
+  status     Status?  @default(to_do)
   createdAt  DateTime @default(now())
   updatedAt  DateTime @updatedAt
   sprintId   String?
@@ -345,6 +345,14 @@ model DecisionApply {
   @@unique(fields: [decisionId, employeeId], name: "decisionApply")
 }
 
+model Provides {
+  id          String @id @default(uuid())
+  name        String
+  description String
+  email       String
+  phone       String
+}
+
 model Product {
   id             String        @id @default(uuid())
   name           String
@@ -376,7 +384,6 @@ model MediaProductType {
 
   @@unique(fields: [mediaId, productTypeId], name: "productTypeMedia")
 }
-
 
 model Branches {
   id          String    @id @default(uuid())
@@ -671,8 +678,7 @@ enum ContactPreference {
   Web_Site
 }
 enum taskposition {
-  to_do 
+  to_do
   in_progress
   completed
-
 }
