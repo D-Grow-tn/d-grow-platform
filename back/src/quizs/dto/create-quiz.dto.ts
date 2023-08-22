@@ -5,4 +5,7 @@ export class CreateQuizDto {
   content: string;
   @ApiProperty({ required: true })
   score: number;
+  @ApiProperty()
+  EmployeeQuizIds: string[]
+
 }

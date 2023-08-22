@@ -180,6 +180,7 @@ console.log('====================================');
         showButton={true}
         buttonFunction={() => navigate("create")}
         text={"create a request"}
+        parent="Administration"
       />
       <TabContext value={selectedTab}>
         <Box sx={{ borderBottom: 1, borderColor: "divider" }}>

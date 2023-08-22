@@ -4,7 +4,7 @@ import HeaderPage from '../../../components/HeaderPage'
 function InvoicesList() {
   return (
     <div>
-    <HeaderPage title={'Invoices '}/>
+    <HeaderPage title={'Invoices '} parent="Administration"/>
     </div>
   )
 }

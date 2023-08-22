@@ -28,19 +28,23 @@ model User {
 }
 
 model Client {
-  id             String        @id @default(uuid())
-  name           String
-  email          String
-  phone          String
-  address        String
-  createdAt      DateTime      @default(now())
-  updatedAt      DateTime      @updatedAt
-  avatarClientId String?
-  avatar         Media?        @relation(fields: [avatarClientId], references: [id])
-  project        Project[]
-  User           User[]
-  MediaClient    MediaClient[]
-  contracts      Contract[]
+  id                String            @id @default(uuid())
+  clientType        ClientType        @default(COMPANY)
+  name              String
+  email             String
+  phone             String
+  address           String
+  businessSector    BusinessSector    @default(OTHER)
+  jobTitle          String
+  createdAt         DateTime          @default(now())
+  updatedAt         DateTime          @updatedAt
+  avatarClientId    String?
+  avatar            Media?            @relation(fields: [avatarClientId], references: [id])
+  project           Project[]
+  User              User[]
+  MediaClient       MediaClient[]
+  contactPreference ContactPreference @default(Email)
+  Contract          Contract[]
   devis          Devis[]
   ClientDevis    ClientDevis[]
 }
@@ -193,7 +197,7 @@ model Task {
   name       String
   duration   String?
   level      String?
-  status     Status?   @default(to_do)
+  status     Status?  @default(to_do)
   createdAt  DateTime @default(now())
   updatedAt  DateTime @updatedAt
   sprintId   String?
@@ -341,6 +345,14 @@ model DecisionApply {
   @@unique(fields: [decisionId, employeeId], name: "decisionApply")
 }
 
+model Provides {
+  id          String @id @default(uuid())
+  name        String
+  description String
+  email       String
+  phone       String
+}
+
 model Product {
   id             String        @id @default(uuid())
   name           String
@@ -372,7 +384,6 @@ model MediaProductType {
 
   @@unique(fields: [mediaId, productTypeId], name: "productTypeMedia")
 }
-
 
 model Branches {
   id          String    @id @default(uuid())
@@ -579,7 +590,7 @@ model ContentSubComponent {
   id                            String                @id @default(uuid())
   title                         String
   navigateTo                    String?
-  content                       String
+  content                       String?
   type                          ContentType           @default(button)
   subContent                    Json?
   previousContentSubComponentId String?
@@ -635,9 +646,39 @@ enum ContentType {
   image
   select
 }
+
+enum ClientType {
+  INDIVIDUAL
+  COMPANY
+}
+
+enum BusinessSector {
+  TECHNOLOGY
+  FINANCE
+  HEALTHCARE
+  RETAIL
+  MANUFACTURING
+  ENTERTAINMENT
+  EDUCATION
+  FOOD_AND_BEVERAGE
+  REAL_ESTATE
+  ENERGY
+  TRANSPORTATION
+  MEDIA
+  AUTOMOTIVE
+  TELECOMMUNICATIONS
+  TRAVEL_AND_TOURISM
+  SPORTS
+  OTHER
+}
+
+enum ContactPreference {
+  Email
+  Mobile
+  Web_Site
+}
 enum taskposition {
-  to_do 
+  to_do
   in_progress
   completed
-
 }
