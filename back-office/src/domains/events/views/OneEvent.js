@@ -6,17 +6,19 @@ import { useParams, useNavigate } from "react-router-dom";
 import { fetchEvent, updateEvent } from "../../../store/event";
 import { showErrorToast, showSuccessToast } from "../../../utils/toast";
 import { fetchEmployees } from "../../../store/employees";
-
+import image from "../../../assets/images/EditImage.png";
 function OneEvent() {
   const { eventId } = useParams();
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const event = useSelector((state) => state.event.event);
+  console.log("🚀 ~ file: OneEvent.js:15 ~ OneEvent ~ event:", event)
   const employees = useSelector((state) => state.employee.employees.items);
   const [readOnly, setReadOnly] = useState(true);
   const [auxEvent, setAuxEvent] = useState(null);
   const [inputs, setInputs] = useState([]);
-
+  const [formattedCreatedAt, setFormattedCreatedAt] = useState("");
+  const [formattedEndAt, setFormattedEndAt] = useState("");
   useEffect(() => {
     dispatch(fetchEvent(eventId));
     dispatch(fetchEmployees());
@@ -94,6 +96,28 @@ function OneEvent() {
       }
     );
   };
+  useEffect(() => {
+    function formatDate(dateString) {
+      const date = new Date(dateString);
+
+      if (isNaN(date.getTime())) {
+        return "Invalid Date";
+      }
+      const day = date.getDate();
+      const month = date.getMonth() + 1; // Adding 1 because months are zero-based
+      const year = date.getFullYear();
+
+      return `${day}-${month}-${year}`;
+    }
+    const createdAt = event?.startAt;
+    const endAt = event?.endAt;
+
+    const formattedCreatedAt = formatDate(createdAt);
+    const formattedEndAt = formatDate(endAt);
+
+    setFormattedCreatedAt(formattedCreatedAt);
+    setFormattedEndAt(formattedEndAt);
+  }, [event]);
 
   const buttons = [
     {
@@ -116,13 +140,13 @@ function OneEvent() {
     <div style={{}}>
       <HeaderPage
         title="Event Information"
-        showButton={readOnly ? true : false}
-        buttonFunction={() => setReadOnly(false)}
-        text={"Edit Event"}
+        // showButton={readOnly ? true : false}
+        // buttonFunction={() => setReadOnly(false)}
+        // text={"Edit Event"}
         parent="HR"
       />
      
-      <div className="d-flex   align-items-center  justify-content-center flex-wrap gap-3">
+      {/* <div className="d-flex   align-items-center  justify-content-center flex-wrap gap-3">
         <img
           src={event?.MediaEvent[0]?.media?.path}
           style={{
@@ -133,11 +157,80 @@ function OneEvent() {
           }}
           alt="Image"
         />
+      </div> */}
+  <div className="container d-flex justify-content-center align-items-center ">
+        {readOnly && (
+          <div class="card  m-5 ">
+            <div class="card-header d-flex justify-content-between align-items-center ">
+              <h1 className="text-center flex-grow-1">
+                {" "}
+                {event?.name}
+              </h1>
+              {"       "}
+              <img
+                src={image}
+                height="35"
+                width="35"
+                alt=""
+                onClick={() => {
+                  setReadOnly(false);
+                }}
+              />
+            </div>
+            <div
+              class="card-body d-flex flex-column flex-md-row align-items-center d-flex justify-content-around gap-5"
+              style={{
+                minWidth: "600px",
+                minHeight: "300px",
+                marginTop: "-40px",
+              }}
+            >
+              <div className=" ">
+                <p class="card-text m-0 mt-5">
+                  <h3 class="text-primary  d-inline">Name: </h3>{" "}
+                  <h4 className="custom-paragraph text-dark font-weight-bold d-inline">
+                    {" "}
+                    {event?.name}
+                  </h4>{" "}
+                </p>
+                <p class="card-text m-0 mt-5">
+                  <h3 class="text-primary d-inline">Description: </h3>{" "}
+                  <h4 className="custom-paragraph text-dark font-weight-bold d-inline">
+                    {" "}
+                    {event?.description}
+                  </h4>{" "}
+                </p>
+                <p class="card-text m-0 mt-5">
+                  <h3 class="text-primary d-inline">Employee: </h3>{" "}
+                  <h4 className="custom-paragraph text-dark font-weight-bold d-inline">
+                    {" "}
+                    {event?.employee?.name}
+                  </h4>{" "}
+                </p>
+                {/* <p class="card-text m-0 mt-5">
+                  <h3 class="text-primary d-inline">NavigateTo: </h3>{" "}
+                  <h4 className="custom-paragraph text-dark font-weight-bold d-inline">
+                    {" "}
+                    "{contentsubcomponet?.navigateTo}"
+                  </h4>{" "}
+                </p> */}
+              </div>
+            </div>
+            <div
+              class="card-footer text-dark d-flex justify-content-center align-items-center "
+              id="dateDiv"
+            >
+              <h5>
+                {" "}
+                {`startAt: ${formattedCreatedAt}   endAt: ${formattedEndAt}`}
+              </h5>
+            </div>
+          </div>
+        )}
       </div>
-
       <Form
         onSubmit={onSubmit}
-        inputs={inputs}
+        inputs={!readOnly ? inputs : []}
         inputsClassName="d-flex flex-wrap justify-content-center px-3 gap-5"
         inputsStyle={{ rowGap: 20 }}
         numberInputPerRow={2}

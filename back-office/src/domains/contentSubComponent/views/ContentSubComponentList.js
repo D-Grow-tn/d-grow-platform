@@ -18,8 +18,10 @@ function ContentSubComponentList({subcomponetID}) {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const contentsubcomponet = useSelector(
-    (state) => state?.contentsubcomponet?.contentsubcomponets?.items.filter(
-      (contentsubcomponet) => contentsubcomponet.subcomponetId === subcomponetID
+    (state) => state?.contentsubcomponet?.contentsubcomponets?.items
+    .filter(
+      (contentsubcomponet) =>{
+        return  contentsubcomponet.subComponentId === subcomponetID}
     )
   );
   const [isOpen, setIsOpen] = useState(false);
