@@ -311,7 +311,6 @@ export const websiteSettingsSeed = async (prisma: PrismaClient) => {
         },
       ],
     },
-
   ];
   await Promise.all(
     content.map(async (el) => {
@@ -324,7 +323,7 @@ export const websiteSettingsSeed = async (prisma: PrismaClient) => {
           content: el.content,
           subComponentId: homePageSection1.id,
         };
-      }else {
+      } else {
         var data = {
           ...data,
           title: 'image',
@@ -332,17 +331,18 @@ export const websiteSettingsSeed = async (prisma: PrismaClient) => {
           navigateTo: el.path,
           content: 'cover backgound',
           subComponentId: homePageSection1.id,
-        };}
-        if (el.type === 'image') {
-          const media = await prisma.media.create({
-            data: {
-              path: el.path,
-              extension: 'jpg',
-              type: 'image',
-            },
-          });
-          data['mediaId'] = media.id;
-        }
+        };
+      }
+      if (el.type === 'image') {
+        const media = await prisma.media.create({
+          data: {
+            path: el.path,
+            extension: 'jpg',
+            type: 'image',
+          },
+        });
+        data['mediaId'] = media.id;
+      }
       await prisma.contentSubComponent.create({
         data,
       });
@@ -610,7 +610,11 @@ export const websiteSettingsSeed = async (prisma: PrismaClient) => {
     { name: 'title', path: '', type: 'paragraph', content: 'Digital' },
     { name: 'title', path: '', type: 'paragraph', content: 'Presence' },
     { name: 'paragraph', path: '', type: 'paragraph' },
-    { name: 'image', path: `${process.env.API_CONFIG}upload/dev.json` , type: 'image' },
+    {
+      name: 'image',
+      path: `${process.env.API_CONFIG}upload/dev.json`,
+      type: 'image',
+    },
     { name: 'Contact-Us', path: '/contact', type: 'button' },
   ];
 
@@ -666,6 +670,80 @@ export const websiteSettingsSeed = async (prisma: PrismaClient) => {
       });
     }),
   );
+  //create content sub component homePageSection6
+  let content6 = [
+    {
+      name: 'title',
+      path: '',
+      type: 'paragraph',
+      content: 'We have established strong',
+    },
+    { name: 'title', path: '', type: 'paragraph', content: ' Partnerships' },
+    {
+      name: 'title',
+      path: '',
+      type: 'paragraph',
+      content: ' with renowned global brands, earning their trust.',
+    },
+
+    {
+      name: 'image',
+      type: 'image',
+      path: `${process.env.API_CONFIG}upload/im1.png`,
+    },
+    {
+      name: 'image',
+      type: 'image',
+      path: `${process.env.API_CONFIG}upload/im2.png`,
+    },
+    {
+      name: 'image',
+      type: 'image',
+      path: `${process.env.API_CONFIG}upload/im3.png`,
+    }, 
+    {
+      name: 'image',
+      type: 'image',
+      path: `${process.env.API_CONFIG}upload/im4.png`,
+    },
+  ];
+
+  await Promise.all(
+    content6.map(async (el) => {
+      if (el.name === 'title') {
+        var data = {
+          title: 'title',
+          type: el.type as ContentType,
+          navigateTo: el.path,
+          content: el.content,
+          subComponentId: homePageSection6.id,
+        };
+      } else {
+        var data = {
+          ...data,
+          title: 'image',
+          type: el.type as ContentType,
+          navigateTo: el.path,
+          content: 'cover backgound',
+          subComponentId: homePageSection6.id,
+        };
+      }
+      if (el.type === 'image') {
+        const media = await prisma.media.create({
+          data: {
+            path: el.path,
+            extension: 'jpg',
+            type: 'image',
+          },
+        });
+        data['mediaId'] = media.id;
+      }
+      await prisma.contentSubComponent.create({
+        data,
+      });
+    }),
+  );
+
   //AboutUs Page
   //create subComponent pageabout Us
   let aboutPageSection1 = await prisma.subComponent.create({
