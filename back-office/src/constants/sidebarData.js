@@ -131,18 +131,19 @@ export const menuItem = [
   {
     name: "WebSite Setting",
     icon: <FaTools />,
-    children: [
-      {
-        name: "Main",
-        path: "/mains",
-        icon: <FaHome />,
-      },
+    path: "/website-settings",
+    // children: [
+    //   {
+    //     name: "Main",
+    //     path: "/mains",
+    //     icon: <FaHome />,
+    //   },
       // {
       //   name: "About us",
       //   path: "/*",
       //   icon: <FaInfoCircle />,
       // },
-    ],
+    // ],
   },
   {
     name: "Admin Setting",

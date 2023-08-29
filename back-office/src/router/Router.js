@@ -228,7 +228,7 @@ function Router() {
                 <Route path="create" element={<CreateTechnology />} />
                 <Route path="one/:technologyId" element={<OneTechnology />} />
               </Route>
-              <Route path="mains" element={<Mains />}>
+              <Route path="website-settings" element={<Mains />}>
                 <Route index element={<MainList />} />
                 <Route path="create" element={<CreateMain />} />
                 <Route path="one/:mainId" element={<OneMain />} />

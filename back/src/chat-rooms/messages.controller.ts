@@ -22,6 +22,7 @@ export class MessagesController {
   @Get('by-chat-room/:chatRoomId')
   findAllByChatRoom(@Param('chatRoomId') chatRoomId: string) {
     return this.messagesService.findAllByChatRoom(chatRoomId);
+    
   }
 
   @Get('one/:id')
