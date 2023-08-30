@@ -5,38 +5,42 @@ import { PrismaService } from 'src/prisma/prisma.service';
 
 @Injectable()
 export class ContentSubComponentsService {
-  constructor(private readonly prisma :PrismaService) {}
+  constructor(private readonly prisma: PrismaService) {}
   async create(dto: CreateContentSubComponentDto) {
-    const {previousContentSubComponent,...rest}=dto
-    let data={...rest}
-  
+    const { previousContentSubComponent, ...rest } = dto;
+    let data = { ...rest };
+
     return await this.prisma.contentSubComponent.create({
-      data
+      data,
     });
   }
 
-  async findAll() {
-    return await this.prisma.contentSubComponent.findMany({});
+  async findAll(subComponentId: string) {
+    return await this.prisma.contentSubComponent.findMany({
+      where: {
+        subComponentId,
+      },
+    });
   }
 
   async findOne(id: string) {
     return await this.prisma.contentSubComponent.findFirst({
-      where:{id}
+      where: { id },
     });
   }
 
- async update(id: string, dto: UpdateContentSubComponentDto) {
-  const {previousContentSubComponent,...rest}=dto
-    let data={...rest}
+  async update(id: string, dto: UpdateContentSubComponentDto) {
+    const { previousContentSubComponent, ...rest } = dto;
+    let data = { ...rest };
     return await this.prisma.contentSubComponent.update({
-      where:{id},
-      data
+      where: { id },
+      data,
     });
   }
 
   async remove(id: string) {
     return await this.prisma.contentSubComponent.delete({
-      where:{id}
+      where: { id },
     });
   }
 }

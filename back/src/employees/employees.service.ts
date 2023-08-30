@@ -37,18 +37,18 @@ export class EmployeesService {
     // 1- find me and my direct manager
     let me = await this.prisma.employee.findUniqueOrThrow({
       where: { id: myId },
-      include: { directManeger: true },
+      include: { directManager: true },
     });
-    if (me.directManegerId) {
-      result.push(me.directManeger);
+    if (me.directManagerId) {
+      result.push(me.directManager);
     }
     // 2- find siblings
     let siblings = await this.prisma.employee.findMany({
-      where: { directManegerId: me.directManegerId, id: { not: myId } },
+      where: { directManagerId: me.directManagerId, id: { not: myId } },
     });
     // 3- find my children andd their children
     let children = await this.prisma.employee.findMany({
-      where: { directManegerId: myId },
+      where: { directManagerId: myId },
     });
     result = [...result, ...siblings, ...children];
     await this.childrenOfChild(children, result);
@@ -66,6 +66,7 @@ export class EmployeesService {
             event: true,
           },
         },
+        directManager:true,
         DecisionApply: {
           include: {
             decision: true,
@@ -103,7 +104,7 @@ export class EmployeesService {
     await Promise.all(
       children.map(async (child) => {
         let childrenOfChild = await this.prisma.employee.findMany({
-          where: { directManegerId: child.id },
+          where: { directManagerId: child.id },
         });
         result = [...result, ...childrenOfChild];
         if (childrenOfChild.length === 0) {

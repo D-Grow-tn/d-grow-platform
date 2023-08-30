@@ -3,12 +3,13 @@ import axios from "axios"
 import config from "../configs";
 
 
-export const fetchContentSubComponets = createAsyncThunk("content-sub-components/content-sub-components",async()=>{
-    const response = await axios.get(`${config.API_ENDPOINT}/content-sub-components`)
+
+export const fetchContentSubComponets = createAsyncThunk("content-sub-components/content-sub-components",async(subComponetId)=>{
+    const response = await axios.get(`${config.API_ENDPOINT}/content-sub-components/by-sub-component/${subComponetId}`)
     return response.data
 })
 export const fetchContentSubComponet = createAsyncThunk("content-sub-components/content-sub-component",async(id)=>{
-  const response = await axios.get(`${config.API_ENDPOINT}/content-sub-components/${id}`)
+  const response = await axios.get(`${config.API_ENDPOINT}/content-sub-components/one/${id}`)
   return response.data
 })
 export const createContentSubComponet = createAsyncThunk("content-sub-components/addcontent-sub-component",async(body)=>{

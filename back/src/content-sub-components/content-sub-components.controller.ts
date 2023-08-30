@@ -12,12 +12,14 @@ export class ContentSubComponentsController {
     return this.contentSubComponentsService.create(createContentSubComponentDto);
   }
 
-  @Get()
-  findAll() {
-    return this.contentSubComponentsService.findAll();
+  @Get('by-sub-component/:subComponentId')
+  findAll(
+    @Param('subComponentId') subComponentId:string
+  ) {
+    return this.contentSubComponentsService.findAll(subComponentId);
   }
 
-  @Get(':id')
+  @Get('one/:id')
   findOne(@Param('id') id: string) {
     return this.contentSubComponentsService.findOne(id);
   }

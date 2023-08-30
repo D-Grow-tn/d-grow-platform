@@ -1,6 +1,7 @@
 import { ContentType, Prisma, PrismaClient } from '@prisma/client';
 import { CreateContentSubComponentDto } from 'src/content-sub-components/dto/create-content-sub-component.dto';
 import { ContentSubComponent } from 'src/content-sub-components/entities/content-sub-component.entity';
+import { traningsPageSeed } from './trainingsPageSeed';
 // import images from "../../src/assets/img/images";
 
 // const { jalyss1, jalyss2, jalyss3, jalyss4, jalyss5 } = images;
@@ -58,6 +59,14 @@ export const websiteSettingsSeed = async (prisma: PrismaClient) => {
       type: 'page',
     },
   });
+  let traningsPage = await prisma.mainComponent.create({
+    data: {
+      title: 'TrainingsPage',
+      path: '/trainings',
+      type: 'page',
+    },
+  });
+  traningsPageSeed(prisma,traningsPage)
   //create subcomponent header
   let headerLeft = await prisma.subComponent.create({
     data: {
@@ -170,11 +179,11 @@ export const websiteSettingsSeed = async (prisma: PrismaClient) => {
     },
   });
   // create content subComponent homePageSection1
-  var content = [
+  var HomepageSection1Content = [
     {
       name: 'image',
       type: 'image',
-      path: 'https://i.pinimg.com/564x/f1/2a/22/f12a222abac962182c5c0b9999a88fa2.jpg',
+      path: `${process.env.API_CONFIG}upload/DSC_3719.jpg`,
     },
     {
       name: 'paragraph',
@@ -313,7 +322,7 @@ export const websiteSettingsSeed = async (prisma: PrismaClient) => {
     },
   ];
   await Promise.all(
-    content.map(async (el) => {
+    HomepageSection1Content.map(async (el) => {
       if (el.name === 'paragraph') {
         var data = {
           ...data,
@@ -700,7 +709,7 @@ export const websiteSettingsSeed = async (prisma: PrismaClient) => {
       name: 'image',
       type: 'image',
       path: `${process.env.API_CONFIG}upload/im3.png`,
-    }, 
+    },
     {
       name: 'image',
       type: 'image',
@@ -1049,10 +1058,10 @@ export const websiteSettingsSeed = async (prisma: PrismaClient) => {
   //create content sub component Middle Header
   let contents = [
     { name: 'Home', path: '/', type: 'button' },
-    { name: 'About', path: '/about-us', type: 'button' },
-    { name: 'Contact', path: '/contact', type: 'button' },
+    { name: 'Training', path: '/trainings', type: 'button' },
+    // { name: 'Contact', path: '/contact', type: 'button' },
     {
-      type: 'select',
+      type: 'button',
       name: 'Services',
       path: '/services',
       subContent: [
@@ -1092,6 +1101,13 @@ export const websiteSettingsSeed = async (prisma: PrismaClient) => {
 
   //Services Page
   //create subcomponent services
+  let servicePageSection0 = await prisma.subComponent.create({
+    data: {
+      name: 'section0',
+      mainId: servicesPage.id,
+      position: 'section',
+    },
+  });
   let servicePageSection1 = await prisma.subComponent.create({
     data: {
       name: 'section1',
@@ -1116,6 +1132,49 @@ export const websiteSettingsSeed = async (prisma: PrismaClient) => {
 
   //create contentSubComponent servicesPage
   //servicePageSection1
+  let servicePageSection0Content = [
+    {
+      name: 'image',
+      type: 'image',
+      path: `${process.env.API_CONFIG}upload/DSC_3719.jpg`,
+    },
+  ];
+  await Promise.all(
+    servicePageSection0Content.map(async (el) => {
+      if (el.name === 'paragraph') {
+        var data = {
+          ...data,
+          title: 'paragraph',
+          type: el.type as ContentType,
+          navigateTo: el.path,
+          // content: el.content,
+          subComponentId: servicePageSection0.id,
+        };
+      } else {
+        var data = {
+          ...data,
+          title: 'image',
+          type: el.type as ContentType,
+          navigateTo: el.path,
+          content: 'cover backgound',
+          subComponentId: servicePageSection0.id,
+        };
+      }
+      if (el.type === 'image') {
+        const media = await prisma.media.create({
+          data: {
+            path: el.path,
+            extension: 'jpg',
+            type: 'image',
+          },
+        });
+        data['mediaId'] = media.id;
+      }
+      await prisma.contentSubComponent.create({
+        data,
+      });
+    }),
+  );
   let serviceContent1 = [
     { name: 'title', path: '', type: 'paragraph' },
     { name: 'paragraph', path: '', type: 'paragraph' },
@@ -1146,8 +1205,7 @@ export const websiteSettingsSeed = async (prisma: PrismaClient) => {
           title: 'image',
           type: el.type as ContentType,
           navigateTo: el.path,
-          content:
-            'C:/Users/user/Desktop/d-grow-platform/client/src/constants/imgabout.json',
+          content: '',
           subComponentId: servicePageSection1.id,
         };
       }

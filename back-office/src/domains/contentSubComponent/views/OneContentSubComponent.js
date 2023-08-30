@@ -36,6 +36,20 @@ function OneContentSubComponent() {
         value: aux?.title,
       },
       {
+        name: "type",
+        label: "Type",
+        required: true,
+        value: aux?.type,
+        category:'select',
+        options: ['image','paragraph'],
+        // freeSolo:true,
+        // optionLabel: "name",
+        valueLabel: "id",
+        onChange: (value) => {
+          setAux((Aux) => ({ ...Aux, type: value }));
+        },
+      },
+      {
         name: "content",
         label: "Content",
         required: true,

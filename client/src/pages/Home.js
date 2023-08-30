@@ -149,26 +149,27 @@ function Home() {
 
   //
   return (
-    <div className="bg-light">
+    <div className="bg-light page">
       {/* PART 1 */}
 
       <div
         style={{
           width: "100%",
-          height: "500px",
+          height: "700px",
           backgroundImage: `url(${
             section1?.ContentSubComponent?.find(
               (elem) => elem.title === "image"
             )?.media?.path
           })`,
-          backgroundSize: "100%",
+          backgroundSize:"cover",
           backgroundRepeat: "no-repeat",
-          backgroundPosition: "top center",
+          backgroundPosition: "center center",
           position: "relative",
         }}
       >
+        <div style={{height:'100%',width:'100%',position:'absolute',opacity:0.8,borderBottom:'5px solid #42b1bb'}} className='bg-darkbleu'/>
         <div id="container">
-          <dl>
+          {/* <dl>
             <dt>{pgrSection1[0]?.content}</dt>
             <dd>{pgrSection1[0]?.content.nexts}</dd>
             <dt>{pgrSection1[1]?.content}</dt>
@@ -187,7 +188,7 @@ function Home() {
             <dd>{pgrSection1[7]?.content.nexts}</dd>
             <dt>{pgrSection1[8]?.content}</dt>
             <dd>{pgrSection1[8]?.content.nexts}</dd>
-          </dl>
+          </dl> */}
 
           {/* <dt>2</dt>
             <dd>

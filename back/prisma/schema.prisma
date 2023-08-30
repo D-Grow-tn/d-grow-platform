@@ -62,8 +62,8 @@ model Employee {
   avatar           Media?             @relation(fields: [avatarId], references: [id])
   departmentId     String?
   department       Department?        @relation(fields: [departmentId], references: [id], name: "department")
-  directManegerId  String?
-  directManeger    Employee?          @relation(fields: [directManegerId], references: [id], name: "directManeger")
+  directManagerId  String?
+  directManager    Employee?          @relation(fields: [directManagerId], references: [id], name: "directManeger")
   User             User[]
   task             Task[]
   employeeTest     EmployeeTest[]

@@ -143,7 +143,7 @@ function OneSubComponet() {
         </div>
 
         <div style={{ marginTop: "80px" }}>
-          <ContentSubComponentList subcomponetID={subcomponetId} />
+          <ContentSubComponentList subcomponetId={subcomponetId} />
         </div>
       </div>
     </div>

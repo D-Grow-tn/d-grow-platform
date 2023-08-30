@@ -14,18 +14,16 @@ import HeaderPage from "../../../components/HeaderPage";
 import Table from "../../../components/Table";
 import DeleteModal from "../../../components/DeleteModal";
 
-function ContentSubComponentList({subcomponetID}) {
+function ContentSubComponentList({ subcomponetId }) {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const contentsubcomponet = useSelector(
-    (state) => state?.contentsubcomponet?.contentsubcomponets?.items.filter(
-      (contentsubcomponet) => contentsubcomponet.subcomponetId === subcomponetID
-    )
+    (state) => state?.contentsubcomponet?.contentsubcomponets?.items
   );
   const [isOpen, setIsOpen] = useState(false);
   const [selected, setSelected] = useState(null);
   useEffect(() => {
-    dispatch(fetchContentSubComponets());
+    dispatch(fetchContentSubComponets(subcomponetId));
   }, []);
   const openPopup = (select) => {
     setSelected(select);

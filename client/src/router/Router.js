@@ -2,15 +2,13 @@ import React, { useEffect, useState } from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { me } from "../store/auth";
-// import Objectives from "../components/Objectives";
-// import TeamSection from "../components/TeamSection";
-// import InteractionSection from "../components/InteractionSection";
-// import Gantt from "../components/GanttSection";
+
 import Applications from "../pages/Applications";
 import ApplicationDetails from "../pages/ApplicationDetails";
-// import Signup from "../pages/Signup"
+
 import LoadComponent from "./LoadComponent";
-import Services from "../pages/Services";
+
+
 const Client = React.lazy(() => import("./../apps/Client"));
 
 const ComingSoon = React.lazy(() => import("../pages/ComingSoon"));
@@ -21,7 +19,9 @@ const AboutUs = React.lazy(() => import("../pages/AboutUs"));
 
 const Contact = React.lazy(() => import("./../pages/Contact"));
 
-// const Services = React.lazy(() => import("./../pages/Services"));
+const Services = React.lazy(() => import("./../pages/Services"));
+
+const Tranings  = React.lazy(() => import("../pages/Tranings"));
 
 const Auth = React.lazy(() => import("../pages/auth/Auth"));
 const LoginPage = React.lazy(() => import("../pages/auth/LoginPage"));
@@ -78,6 +78,10 @@ function Router() {
             <Route
               path="contact"
               element={<LoadComponent Component={Contact} />}
+            />
+            <Route
+              path="trainings"
+              element={<LoadComponent Component={Tranings} />}
             />
 
             <Route

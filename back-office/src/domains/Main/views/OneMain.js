@@ -137,7 +137,7 @@ function OneMain() {
             inputs={inputs}
             inputsClassName="d-flex flex-wrap justify-content-center mt-5"
             inputsStyle={{ rowGap: 20, columnGap: 100 }}
-            numberInputPerRow={2}
+            // numberInputPerRow={2}
             readOnly={readOnly}
             onChange={handleInputChange}
             buttonsClassName="mt-5 d-flex justify-content-center gap-3"

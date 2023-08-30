@@ -132,7 +132,7 @@ async function main() {
       phone: 'String',
       address: 'string',
       avatarId: avatarClient4.id,
-      directManegerId: employee1.id,
+      directManagerId: employee1.id,
     },
   });
   let employee3 = await prisma.employee.create({
@@ -143,7 +143,7 @@ async function main() {
       phone: 'String',
       address: 'string',
       avatarId: avatarClient4.id,
-      directManegerId: employee1.id,
+      directManagerId: employee1.id,
     },
   });
   let employee4 = await prisma.employee.create({
@@ -154,7 +154,7 @@ async function main() {
       phone: 'String',
       address: 'string',
       avatarId: avatarClient4.id,
-      directManegerId: employee2.id,
+      directManagerId: employee2.id,
     },
   });
   let employee5 = await prisma.employee.create({
@@ -165,7 +165,7 @@ async function main() {
       phone: 'String',
       address: 'string',
       avatarId: avatarClient4.id,
-      directManegerId: employee2.id,
+      directManagerId: employee2.id,
     },
   });
   let employee6 = await prisma.employee.create({
@@ -176,7 +176,7 @@ async function main() {
       phone: 'String',
       address: 'string',
       avatarId: avatarClient4.id,
-      directManegerId: employee2.id,
+      directManagerId: employee2.id,
     },
   });
   let employee7 = await prisma.employee.create({
@@ -187,7 +187,7 @@ async function main() {
       phone: 'String',
       address: 'string',
       avatarId: avatarClient4.id,
-      directManegerId: employee2.id,
+      directManagerId: employee2.id,
     },
   });
   // create users

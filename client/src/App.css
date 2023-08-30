@@ -56,6 +56,7 @@
 @import url("https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Raleway:300,300i,400,400i,600,600i,700,700i");
 
 @import url("./assets/css/hover.css");
+@import url("./assets/css/pagesAndViewsStyles.css");
 
 @import url("./assets/css/projectDetails.css");
 @import url("./assets/css/mediaScreenStyles.css");
@@ -63,13 +64,7 @@
 nav {
   box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.2);
 }
-#logo {
-  font-weight: bolder;
-  padding: 5px;
-  font-size: 30px;
-  /* margin-right: 180px; */
-  color: #1a408c;
-}
+
 .hover-bleu {
   font-size: 20px !important;
 }
@@ -127,13 +122,13 @@ nav {
   /* background: rgba(255, 255, 255, 0.8) !important; */
 }
 .bg-darkbleu {
-  background-color: #1a408c;
+  background-color: #20374e;
 }
 .bg-lightbleu {
   background-color: rgb(218 234 240);
 }
 .dark-bleu {
-  color: #1a408c;
+  color: #20374e;
 }
 
 .dropbtn {
