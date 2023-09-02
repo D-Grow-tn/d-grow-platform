@@ -36,7 +36,7 @@ function Header({ isOpen }) {
               </Dropdown.Toggle>
 
               <Dropdown.Menu>
-                <Dropdown.Item>Profile</Dropdown.Item>
+                <Dropdown.Item onClick={() => navigate(`/employee/one/:${me?.employee.id}`)}>Profile</Dropdown.Item>
                 <Dropdown.Item>Setting</Dropdown.Item>
                 <Dropdown.Item
                   onClick={() => {

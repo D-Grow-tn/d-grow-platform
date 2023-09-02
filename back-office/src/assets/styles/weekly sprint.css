@@ -10,6 +10,7 @@
     border-radius: 5px;
     background-color: #f9f9f9;
     padding: 10px;
+width: 272px;
   }
   
   .list h3 {
@@ -22,6 +23,7 @@
   .add-task-container {
     display: flex;
     margin-top: 10px;
+height: 30px;
   }
   
   .add-task-container input[type='text'] {
@@ -39,6 +41,7 @@
     border: none;
     border-radius: 5px;
     cursor: pointer;
+width: 50px;
   }
   
   .card {
@@ -66,3 +69,30 @@
     margin-left: 5px;
   }
   
+  
+  .linkstage {
+    background-color: #fff;
+    color:#000;
+  }
+
+.linkstage:hover{
+  background-color:#F1F2F4;
+}
+
+.typTitle{
+  padding-bottom: 10px;
+}
+.StageCard{
+   width: 272px;
+    margin-top: 5px;
+    margin-left:10px;
+    border:1px solid #ccc;
+  
+}
+
+.EditStage{
+  color:#ffffff02;
+}
+.EditStage:hover{
+  color: #000;
+}

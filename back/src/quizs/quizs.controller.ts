@@ -2,7 +2,9 @@ import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/commo
 import { QuizsService } from './quizs.service';
 import { CreateQuizDto } from './dto/create-quiz.dto';
 import { UpdateQuizDto } from './dto/update-quiz.dto';
+import { ApiTags } from '@nestjs/swagger';
 
+@ApiTags('quizs')
 @Controller('quizs')
 export class QuizsController {
   constructor(private readonly quizsService: QuizsService) {}

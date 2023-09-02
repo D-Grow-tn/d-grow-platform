@@ -1,4 +1,4 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
+import { Controller, Get, Post, Body, Patch, Param, Delete, Query } from '@nestjs/common';
 import { StagesService } from './stages.service';
 import { CreateStageDto } from './dto/create-stage.dto';
 import { UpdateStageDto } from './dto/update-stage.dto';
@@ -9,17 +9,40 @@ import { ApiTags } from '@nestjs/swagger';
 export class StagesController {
   constructor(private readonly stagesService: StagesService) {}
 
-  @Post(':objectiveId')
-  createByObjectiveId(@Param('objectiveId') objectiveId: string, @Body() createStageDto: CreateStageDto) {
-    return this.stagesService.createByObjectiveId(objectiveId, createStageDto);
+  
+  @Post('/byWeek')
+  async createStageByWeek(@Body() data: CreateStageDto) {
+    try {
+      if (!data.name || !data.startAt || !data.endAt) {
+        throw new Error('Name, startAt, and endAt are required.');
+      }
+  
+      const createdStage = await this.stagesService.createStage(data);
+  
+      return createdStage;
+    } catch (error) {
+      console.error('Error creating stage by week:', error);
+      throw new Error('An error occurred while creating a stage.');
+    }
   }
   
-
-
-  @Get('byObjectiveId/:id')
-  findAll(@Param('id') objectiveId:string) {
-    return this.stagesService.findAllByObjectiveId(objectiveId);
+@Get('/byWeek/')
+  async findStagesByCurrentWeek() {
+    try {
+     
+let stages=this.stagesService.findStagesByWeek()
+  return stages;
+    } catch (error) {
+      console.error('Error retrieving stages by current week:', error);
+      throw new Error('An error occurred while retrieving stages.');
+    }
   }
+
+  
+  
+  
+  
+  
 
   @Get(':id')
   findOne(@Param('id') id: string) {
@@ -30,6 +53,7 @@ export class StagesController {
   update(@Param('id') id: string, @Body() updateStageDto: UpdateStageDto) {
     return this.stagesService.update(id, updateStageDto);
   }
+
 
   @Delete(':id')
   remove(@Param('id') id: string) {

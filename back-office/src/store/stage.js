@@ -3,10 +3,14 @@ import axios from "axios";
 import config from "../configs";
 
 
-export const fetchStages = createAsyncThunk("stages/stages", async (id) => {
-  const response = await axios.get(`${config.API_ENDPOINT}/stages/byObjectiveId/${id}`);
-  console.log("stages from store",response.data);
-  return response.data;
+export const fetchStages = createAsyncThunk('stages/fetchStages', async () => {
+  try {
+  const response = await axios.get(`${config.API_ENDPOINT}/stages/byWeek`);
+console.log("stage week", response.data);
+    return response.data;
+} catch (error) {
+    throw error;
+  }
 });
 
 
@@ -19,9 +23,9 @@ export const fetchStages = createAsyncThunk("stages/stages", async (id) => {
   
   export const createStage = createAsyncThunk(
     "stages/createStage",
-    async ({id,body}, { dispatch }) => {
+    async (body) => {
       console.log("aaaaa",body);
-      const response = await axios.post(`${config.API_ENDPOINT}/stages/${id}`, body);
+      const response = await axios.post(`${config.API_ENDPOINT}/stages/byWeek`, body);
       // dispatch(fetchStages(response.data));
       console.log("from storestagecreate", response.data);
       return response.data;
@@ -30,7 +34,7 @@ export const fetchStages = createAsyncThunk("stages/stages", async (id) => {
   
   export const updateStage = createAsyncThunk(
     "stages/updateStage",
-    async ({id,body} ) => {
+    async (id,body) => {
       const response = await axios.patch(
         `${config.API_ENDPOINT}/stages/${id}`, body);
       // dispatch(fetchStages());

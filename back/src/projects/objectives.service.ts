@@ -17,6 +17,7 @@ async create(data: CreateObjectiveDto) {
   async findAllByProjectId(projectId: string) {
     return await this.prisma.objective.findMany({
       where: {projectId},
+      include:{Stage:true}
     
     });
   }

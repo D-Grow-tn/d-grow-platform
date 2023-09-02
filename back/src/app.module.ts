@@ -31,6 +31,12 @@ import { ContractModule } from './contract/contract.module';
 import { DevisModule } from './devis/devis.module';
 import { ProvidesModule } from './provides/provides.module';
 
+import { QuestionsModule } from './questions/questions.module';
+import { OptionsModule } from './options/options.module';
+
+
+
+
 
 
 @Module({
@@ -43,9 +49,9 @@ import { ProvidesModule } from './provides/provides.module';
     ProductsModule,
     ClientsModule,
     AuthModule,
-  
     MailModule,
     QuizsModule,
+   
     TeamsModule,
     DepartmentsModule,
     ChatRoomsModule,
@@ -61,6 +67,10 @@ import { ProvidesModule } from './provides/provides.module';
     ContractModule,
     DevisModule,
     ProvidesModule,
+    QuestionsModule,
+    OptionsModule,
+   
+    
     // WorkTimeModule,
   
    

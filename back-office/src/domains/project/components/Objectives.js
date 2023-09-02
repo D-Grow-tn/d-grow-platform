@@ -22,7 +22,7 @@ function Objectives() {
               collapseId={`collapse${index}`}
               headerTitle={
                 <div className="d-flex align-items-center gap-3">
-                  <div>{objective.name} <button onClick={()=>navigate(`weekly-sprints/${objective.id}`)}>WeeklySprints</button></div>
+                  <div>{objective.name} </div>
                  
                   <div>
                     {objective.status === "in_progress" ? (

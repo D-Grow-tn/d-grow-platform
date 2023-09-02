@@ -5,7 +5,7 @@ import config from "../configs";
 
 export const fetchQuizs = createAsyncThunk("quizs/quizs",async(id)=>{
     const response = await axios.get(`${config.API_ENDPOINT}/quizs`)
-
+console.log("quiz from store",response.data);
     return response.data
 })
 export const fetchQuiz = createAsyncThunk("quizs/quiz",async(id)=>{
