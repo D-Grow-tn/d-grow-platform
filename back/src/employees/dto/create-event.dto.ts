@@ -14,6 +14,7 @@ export class CreateEventDto {
   @IsNotEmpty()
   employeeId: string;
   @ApiProperty()
+  @IsEmpty()
   membershipIds:string[]
   @ApiProperty()
 

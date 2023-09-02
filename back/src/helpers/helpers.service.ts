@@ -84,7 +84,8 @@ export class HelpersService {
               where: {
                 [unique]: {
                   mediaId,
-                  requestId: id,
+                  // requestId: id,
+                  eventId: id,
                 },
               },
               create: { mediaId },

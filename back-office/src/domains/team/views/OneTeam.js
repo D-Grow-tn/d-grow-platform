@@ -14,6 +14,7 @@ function OneTeam() {
     const team = useSelector((state) => state.team.team);
     const [readOnly, setReadOnly] = useState(true);
     const [data,setData] = useState(null)
+    console.log("🚀 ~ file: OneTeam.js:17 ~ OneTeam ~ data:", data)
     const [auxTeam, setAuxTeam] = useState(null);
     console.log("🚀 ~ file: OneTeam.js:18 ~ OneTeam ~ auxTeam:", auxTeam)
     const [inputs, setInputs] = useState([]);
