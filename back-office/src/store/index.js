@@ -23,7 +23,7 @@ import worktime from "./worktime";
 import provides from "./provides";
 import devis from "./devis";
 import quiz from "./quiz";
-
+import question from "./question";
 export const store = configureStore({
   reducer: {
     auth,
@@ -50,6 +50,7 @@ export const store = configureStore({
     provides,
     devis,
     quiz,
+    question,
   
   },
   middleware: (getDefaultMiddleware) =>
