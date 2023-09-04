@@ -1,4 +1,3 @@
-
 import React from 'react';
 import HeaderPage from '../../../components/HeaderPage';
 import Form from "../../../components/Form";
@@ -12,6 +11,8 @@ import { fetchEmployees } from "../../../store/employees";
 function CreateDecision() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const [data, setData] = useState();
+  console.log("data",data);
   const decisions = useSelector((state) => state.decision.decisions.items);
   const employees = useSelector((state) => state.employee.employees.items);
   const [decision, setDecision] = useState(null);
@@ -39,6 +40,7 @@ function CreateDecision() {
     console.log('====================================');
 
     dispatch(createDecision(aux)).then((res) => {
+
       if (!res.error) {
         navigate(`/decision`);
       } else {
@@ -48,6 +50,7 @@ function CreateDecision() {
     });
   };
   const id = decisions[0]?.DecisionApply[0].employeeId
+ 
   console.log(decisions,"decisions")
   useEffect(() => {
     setInputs([
@@ -69,18 +72,23 @@ function CreateDecision() {
         required: true,
         valueLabel: "id",
         optionLabel: "label",
-        options: employees.map((employee) => ({ label: employee.name, value: employee.id })),
-        value: (decisions[0]?.DecisionApply[0].employeeId) || "",
+        options: employees.map((employee) => {
+          console.log("empID",employee.id);
+          return{ label: employee.name, value: employee.id 
+        
+      }}),
+      
+        value: id || "",
         
         onChange: (value) => {
           
           
        
           setDecision((Decision) => ({ ...Decision, decisionApplyIds: [id] }));
-          console.log("id",id);
+          
         },
       },
-    ])}, [decisions]);
+    ])}, [decisions,employees]);
   
   
   const buttons = [
@@ -124,6 +132,7 @@ function CreateDecision() {
           buttonsClassName="mt-5 d-flex justify-content-center gap-3"
           onSubmit={onSubmit}
           onChange={handleChange}
+          setData={setData}
         />
     </div>
     </div>

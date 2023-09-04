@@ -10,6 +10,10 @@ import { useDispatch, useSelector } from "react-redux";
 
 function Home() {
   const navigate = useNavigate();
+  const [sectionp, setSectionp] = useState(null);
+  const [section1I, setSection1I] = useState(null);
+  const [section1b, setSection1b] = useState(null);
+
   const dispatch = useDispatch();
   const services = useSelector((state) => state.product.products.items);
   const displayservices = services.slice(0, 3);

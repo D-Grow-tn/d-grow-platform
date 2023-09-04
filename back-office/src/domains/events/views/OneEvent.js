@@ -44,12 +44,7 @@ function OneEvent() {
         required: true,
         value: auxEvent?.name,
       },
-      {
-        name: "description",
-        label: "Description",
-        required: true,
-        value: auxEvent?.description,
-      },
+   
       {
         name: "startAt",
         label: "Start At",

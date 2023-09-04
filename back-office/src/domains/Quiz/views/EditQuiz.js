@@ -47,21 +47,21 @@ function EditQuiz() {
       {
         category: "select",
         name: "employee",
-        label: "Emplyee",
+        label: "Employee",
         required: true,
-        value:employees.map((elem)=>elem.id),
         options: employees,
         optionLabel: "name",
         valueLabel: "id",
+        value: (auxQuiz?.EmployeeQuiz[0].employee.name),
 
         onChange: (value) => {
-          auxQuiz((Quiz) => ({ ...Quiz, EmployeeQuizIds: data }));
+          auxQuiz((Quiz) => ({ ...Quiz, EmployeeQuizIds: [value] }));
         },
         multiple: true,
 
       },
     ]);
-  }, [auxQuiz,employees]);
+  }, [auxQuiz]);
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -79,8 +79,9 @@ function EditQuiz() {
       (result) => {
         if (!result.error) {
           showSuccessToast("Quiz has been updated");
-          navigate("/quiz");
           setReadOnly(true);
+          navigate("/quiz");
+         
         } else {
           showErrorToast(result.error.message);
         }
@@ -112,7 +113,7 @@ function EditQuiz() {
     buttonFunction={() => setReadOnly(false)}
        text='Edit Quiz'
        />
-       <div
+    <div
         className=" rounded-5  mt-3"
         style={{
           boxShadow: "0px 0px 8px #9E9E9E",

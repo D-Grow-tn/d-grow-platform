@@ -1,0 +1,98 @@
+.board {
+    display: flex;
+    flex-wrap: wrap;
+  }
+  
+  .list {
+    flex: 1 1 300px;
+    margin: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    background-color: #f9f9f9;
+    padding: 10px;
+width: 272px;
+  }
+  
+  .list h3 {
+    font-size: 18px;
+    margin: 0;
+    padding-bottom: 10px;
+    border-bottom: 1px solid #ccc;
+  }
+  
+  .add-task-container {
+    display: flex;
+    margin-top: 10px;
+height: 30px;
+  }
+  
+  .add-task-container input[type='text'] {
+    flex: 1;
+    padding: 5px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    margin-right: 5px;
+  }
+  
+  .add-task-container button {
+    padding: 5px 10px;
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+width: 50px;
+  }
+  
+  .card {
+    background-color: #fff;
+    margin: 5px 0;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+  }
+  
+  .card p {
+    font-size: 14px;
+    margin: 5px 0;
+  }
+  
+  .card button {
+    padding: 3px 6px;
+    background-color: #dc3545;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 12px;
+    margin-top: 5px;
+    margin-left: 5px;
+  }
+  
+  
+  .linkstage {
+    background-color: #fff;
+    color:#000;
+  }
+
+.linkstage:hover{
+  background-color:#F1F2F4;
+}
+
+.typTitle{
+  padding-bottom: 10px;
+}
+.StageCard{
+   width: 272px;
+    margin-top: 5px;
+    margin-left:10px;
+    border:1px solid #ccc;
+  
+}
+
+.EditStage{
+  color:#ffffff02;
+}
+.EditStage:hover{
+  color: #000;
+}

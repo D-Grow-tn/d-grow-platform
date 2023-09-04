@@ -10,6 +10,13 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
+model Post {
+  id        String      @id @default(uuid())
+  title     String   // title of post
+  content   String?  // content of post (optional)
+
+}
+
 model User {
   id          String        @id @default(uuid())
   name        String
@@ -45,8 +52,8 @@ model Client {
   MediaClient       MediaClient[]
   contactPreference ContactPreference @default(Email)
   Contract          Contract[]
-  devis          Devis[]
-  ClientDevis    ClientDevis[]
+  devis             Devis[]
+  ClientDevis       ClientDevis[]
 }
 
 model Employee {
@@ -173,22 +180,22 @@ model SubObjective {
 }
 
 model Stage {
-  id              String    @id @default(uuid())
+  id              String     @id @default(uuid())
   name            String
-  porcentage      String
-  startAt         DateTime?
-  endAt           DateTime?
+  porcentage      String?
+  startAt         DateTime
+  endAt           DateTime
   startAtProd     DateTime?
   endAtProd       DateTime?
-  createdAt       DateTime  @default(now())
-  updatedAt       DateTime  @updatedAt
+  createdAt       DateTime?  @default(now())
+  updatedAt       DateTime?  @updatedAt
   objectiveId     String
-  project         Objective @relation(fields: [objectiveId], references: [id])
-  status          Status    @default(pending)
+  project         Objective? @relation(fields: [objectiveId], references: [id])
+  status          Status?    @default(pending)
   previousStageId String?
-  previousStage   Stage?    @relation(name: "previousStage", fields: [previousStageId], references: [id])
+  previousStage   Stage?     @relation(name: "previousStage", fields: [previousStageId], references: [id])
   task            Task[]
-  Stage           Stage[]   @relation("previousStage")
+  Stage           Stage[]    @relation("previousStage")
 }
 
 model Task {
@@ -203,7 +210,7 @@ model Task {
   sprintId   String?
   sprint     Sprint?  @relation(fields: [sprintId], references: [id])
   stageId    String
-  stage      Stage    @relation(fields: [stageId], references: [id])
+  stage      Stage    @relation(fields: [stageId], references: [id], onDelete: Cascade)
   employeeId String
   employee   Employee @relation(fields: [employeeId], references: [id])
 }
@@ -262,13 +269,48 @@ model EmployeeTest {
 }
 
 model Quiz {
-  id           String         @id @default(uuid())
-  content      String
-  score        Int
+  id      String @id @default(uuid())
+  content String
+  score   Int
   EmployeeQuiz EmployeeQuiz[]
+  QuestionQuiz QuestionQuiz[]
+}
+
+model Question {
+  id   String @id @default(uuid())
+  text String
+  QuestionQuiz   QuestionQuiz[]
+  OptionQuestion OptionQuestion[]
+}
+
+model QuestionQuiz {
+  questionId String
+  question   Question @relation(fields: [questionId], references: [id])
+  quizId     String
+  quiz       Quiz     @relation(fields: [quizId], references: [id],onDelete: Cascade)
+  score Int
+
+  @@unique(fields: [questionId, quizId],name: "questionQuiz")
+}
+
+model Option {
+  id            String  @id @default(uuid())
+  content       String
+  correctOption Boolean
+  OptionQuestion OptionQuestion[]
+}
+
+model OptionQuestion {
+  questionId String
+  question   Question @relation(fields: [questionId], references: [id])
+  optionId   String
+  option     Option   @relation(fields: [optionId], references: [id])
+
+  @@unique(fields: [questionId, optionId],name: "optionQuestion")
 }
 
 model EmployeeQuiz {
+  id         String   @id @default(uuid())
   employeeId String
   employee   Employee @relation(fields: [employeeId], references: [id])
   quizId     String
@@ -677,6 +719,7 @@ enum ContactPreference {
   Mobile
   Web_Site
 }
+
 enum taskposition {
   to_do
   in_progress

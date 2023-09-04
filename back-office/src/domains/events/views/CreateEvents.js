@@ -99,12 +99,16 @@ function CreateEvents() {
         required: true,
       },
       {
+        multiline: true,
         label: "description",
         placeholder: "this is very important event ...",
         value: event.description,
         name: "description",
         required: true,
+        width:400,
+        height:200
       },
+      
       {
         category: "date",
         label: "startAt",
@@ -139,6 +143,7 @@ function CreateEvents() {
           setEvent((Event) => ({ ...Event, employeeId: value }));
         },
       },
+     
     ]);
   }, [employees]);
   // {

@@ -1,13 +1,17 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
-// import config from "../configs";
+ import config from "../configs";
 
-export const fetchTests= createAsyncThunk("tests/tests", async () => {
-    const response = await axios.get("http://localhost:3001/api/v1/tests/alltest");
+export const fetchTests = createAsyncThunk("tests/tests", async () => {
+    const response = await axios.get(`${config.API_ENDPOINT}/tests/alltest`);
     console.log("from the store",response.data);
     return response.data;
   });
 
+  export const removeTests = createAsyncThunk("test/test",async(id)=>{
+    const response = await axios.delete(`${config.API_ENDPOINT}/tests/${id}`)
+    return response.data
+  })
 //   export const fetchTest = createAsyncThunk("clients/client", async (id) => {
 //     const response = await axios.get(`http://localhost:3001/api/v1/tests/${id}`);
 //     return response.data;
