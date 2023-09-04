@@ -160,7 +160,7 @@ function CreateEvents() {
     {
       category: "cancel",
       name: "Cancel",
-      onClick: () => navigate - 1,
+      onClick: () => navigate (-1),
       className: "",
       style: { width: 100 },
     },

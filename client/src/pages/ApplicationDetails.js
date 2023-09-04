@@ -29,10 +29,8 @@ function ApplicationDetails() {
       </h1>
 
       <div className="d-flex justify-content-center m-5 ">
-        {/* {product?.MediaProductType?.map((img,i)=><div key={i}>
-<img src={img?.media?.path} />
-          </div>)} */}
-        <Carousel variant="dark ">
+      
+        <Carousel variant="dark " >
           {product?.MediaProductType?.map((img, i) => (
             <Carousel.Item key={i} >
               <img

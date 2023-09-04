@@ -1,8 +1,8 @@
-import React from "react";    
-import HeaderPage from "../../../components/HeaderPage";    
+import React from "react";
+import HeaderPage from "../../../components/HeaderPage";
 import Table from "../../../components/Table";
 import { useMemo, useEffect, useState } from "react";
-import {Avatar ,IconButton } from "@mui/material";
+import { Avatar, IconButton } from "@mui/material";
 import moment from "moment";
 import DeleteIcon from "@mui/icons-material/Delete";
 import RemoveRedEyeIcon from "@mui/icons-material/RemoveRedEye";
@@ -10,15 +10,17 @@ import { useDispatch, useSelector } from "react-redux";
 import DisplayLottie from "../../../constants/DisplayLottie";
 import loading from "../../../constants/loading.json";
 import { fetchEvents, removeEvent } from "../../../store/event";
-// import EditEvent from "./OneEvent"; 
 import { useNavigate } from "react-router-dom";
-import { Image } from 'mui-image'
+import { Image } from "mui-image";
 import DeleteModal from "../../../components/DeleteModal";
 import { showErrorToast, showSuccessToast } from "../../../utils/toast";
+import CastomCard from "../../../components/CastomCard";
+import Carousel from "react-bootstrap/Carousel";
 
 function EventList() {
   const dispatch = useDispatch();
   const Events = useSelector((state) => state.event.events.items);
+  console.log("🚀 ~ file: EventsList.js:23 ~ EventList ~ Events:", Events);
   const navigate = useNavigate();
   const [isOpen, setIsOpen] = useState(false);
   const [rows, setRows] = useState([]);
@@ -43,106 +45,23 @@ function EventList() {
     }
   }, [Events]);
 
- const openPopup = (select) => {
+  const openPopup = (select) => {
     setSelected(select);
     setIsOpen(true);
-    console.log(isOpen);
+    console.log(select);
   };
 
-  const handleDelete = () => {
-    dispatch(removeEvent(selected.id)).then((result) => {
+  const handleDelete = (id) => {
+    console.log(id,"id");
+    dispatch(removeEvent(id)).then((result) => {
       if (!result.error) {
         showSuccessToast("Event has been deleted");
-        setIsOpen(false)
+        setIsOpen(false);
       } else {
         showErrorToast(result.error.message);
       }
     });
   };
-
-
-
-  const columns = useMemo(
-    () => [
-      // {
-      //   field: "MediaEvent",
-      //   headerName: "Image",
-      //   headerClassName: "header-blue",
-      //   width: 100,
-
-      //   renderCell: (params) => <Image src={params.row.MediaEvent[0]?.media?.path} />,
-
-      //   sortable: false,
-      //   filterable: false,
-      // },
-      {
-        field: "name",
-        headerName: "Name",
-        headerClassName: "header-blue",
-        width: 170,
-      },
-      {
-        field: "employeeId",
-        headerName: "Orgniser",
-        headerClassName: "header-blue",
-        width: 200,
-        renderCell: (params) =>(<div>{params.row.employee.name}
-        {
-        
-        }</div>)
-      },
-      {
-        field: "active",
-        headerClassName: "header-blue",
-        headerName: "Active",
-        width: 110,
-        type: "boolean",
-        editable: true,
-      },
-      {
-        field: "Start At",
-        headerName: "Start At",
-        headerClassName: "header-blue",
-        width: 200,
-        renderCell: (params) =>
-          moment(params.row.startAt).format("YYYY-MM-DD HH:MM:SS"),
-      },
-      {
-        field: "End At",
-        headerName: "End At",
-        headerClassName: "header-blue",
-        width: 200,
-        renderCell: (params) =>
-          moment(params.row.endAt).format("YYYY-MM-DD HH:MM:SS"),
-      },
-
-      {
-        field: "actions",
-        headerName: "Actions",
-        headerClassName: "header-blue",
-        width: 120,
-        sortable: false,
-        filterable: false,
-        renderCell: (params) => (
-          <div>
-            <IconButton onClick={()=>handleUpdate(params.row.id)} color="primary" aria-label="update">
-              <RemoveRedEyeIcon />
-            </IconButton>
-
-            <IconButton
-              onClick={() => openPopup(params.row)}
-              color="error"
-              aria-label="delete"
-            >
-              <DeleteIcon />
-            </IconButton>
-          </div>
-        ),
-      },
-    ],
-    []
-  );
-
   if (!Events) {
     return (
       <div>
@@ -157,21 +76,56 @@ function EventList() {
         title="Events List"
         showButton={true}
         parent="HR"
-        buttonFunction={()=>navigate('create')}
+        buttonFunction={() => navigate("create")}
         text={"Create Event"}
       />
-
-      <Table columns={columns} rows={rows} />
-      {/* {isOpen && <EditEvent EditEvent={Events} />} */}
+      <div className="d-flex justify-content-center align-items-center mt-3">
+        <Carousel
+          variant="dark "
+          style={{
+            width: "650px",
+            height: "370px",
+            borderRadius: "30px",
+            overflow: "hidden",
+          }}
+        >
+          {Events?.map((img, i) => (
+            <Carousel.Item key={i}>
+              <img
+                // className="d-block w-100 "
+                src={img?.MediaEvent.map((item) => item.media.path)}
+                alt={`Slide ${i + 1}`}
+                style={{
+                  borderRadius: "10px",
+                  objectFit: "cover",
+                  height: "100%",
+                  width: "100%",
+                }}
+              />
+            </Carousel.Item>
+          ))}
+        </Carousel>
+      </div>
       {isOpen && (
         <DeleteModal
           close={() => setIsOpen(false)}
-          title={selected.name}
+          title={selected?.name}
           width={300}
           height={250}
-          fnDelete={handleDelete}
+          fnDelete={() => handleDelete(selected)}
         />
       )}
+      <div className="d-flex flex-wrap m-5  gap-5 justify-content-center">
+        {Events.map((elem) => (
+          <CastomCard
+            image={elem.MediaEvent[0]?.media?.path}
+            name={elem.name}
+            description={elem.description}
+            onClick={() => handleUpdate(elem.id)}
+            deleteFunction={() => openPopup(elem.id)}
+          />
+        ))}
+      </div>
     </div>
   );
 }
