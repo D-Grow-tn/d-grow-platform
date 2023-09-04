@@ -9,7 +9,7 @@ import { showErrorToast, showSuccessToast } from "../../../utils/toast";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams, useNavigate } from "react-router-dom";
 import ContentSubComponentList from "../../contentSubComponent/views/ContentSubComponentList";
-
+import image from "../../../assets/images/EditImage.png";
 function OneSubComponet() {
   const dispatch = useDispatch();
   const { subcomponetId } = useParams();
@@ -18,7 +18,8 @@ function OneSubComponet() {
   const [show, setShow] = useState(false);
   const [readOnly, setReadOnly] = useState(true);
   const [aux, setAux] = useState(null);
-
+  const [formattedCreatedAt, setFormattedCreatedAt] = useState("");
+  const [formattedEndAt, setFormattedEndAt] = useState("");
   useEffect(() => {
     dispatch(fetchSubComponet(subcomponetId));
   }, [dispatch]);
@@ -62,6 +63,28 @@ function OneSubComponet() {
       }
     );
   };
+  useEffect(() => {
+    function formatDate(dateString) {
+      const date = new Date(dateString);
+
+      if (isNaN(date.getTime())) {
+        return "Invalid Date";
+      }
+      const day = date.getDate();
+      const month = date.getMonth() + 1; // Adding 1 because months are zero-based
+      const year = date.getFullYear();
+
+      return `${day}-${month}-${year}`;
+    }
+    const createdAt = subComponet?.createdAt;
+    const endAt = subComponet?.updatedAt;
+
+    const formattedCreatedAt = formatDate(createdAt);
+    const formattedEndAt = formatDate(endAt);
+
+    setFormattedCreatedAt(formattedCreatedAt);
+    setFormattedEndAt(formattedEndAt);
+  }, [subComponet]);
   const buttons = [
     {
       category: "save",
@@ -87,65 +110,77 @@ function OneSubComponet() {
   return (
     <div style={{}}>
       <HeaderPage title="SubComponet Information" />
-
-      <div
-        className=" rounded-5  mt-3"
-        style={{
-          boxShadow: "0px 0px 8px #9E9E9E",
-          padding: "50px",
-        }}
-      >
-        <div className="d-flex  justify-content-between align-items-center px-3 flex-wrap headerProfile">
-          <div className="d-flex  align-items-center  gap-3 pb-3 ">
-            <h1
-              className="darkBlue"
+      <div className="container d-flex justify-content-center align-items-center ">
+        {readOnly && (
+          <div class="card  m-5 ">
+            <div class="card-header d-flex justify-content-between align-items-center ">
+              <h1 className="text-center flex-grow-1"> {subComponet?.name}</h1>
+              {"       "}
+              <img
+                src={image}
+                height="35"
+                width="35"
+                alt=""
+                onClick={() => {
+                  setReadOnly(false);
+                }}
+              />
+            </div>
+            <div
+              class="card-body d-flex flex-column flex-md-row align-items-center d-flex justify-content-around gap-5"
               style={{
-                fontSize: "45px",
+                minWidth: "600px",
+                minHeight: "300px",
+                marginTop: "-40px",
               }}
             >
-              {subComponet?.name}
-            </h1>
+              <div className=" ">
+                <p class="card-text m-0 mt-5">
+                  <h3 class="text-primary  d-inline">Name: </h3>{" "}
+                  <h4 className="custom-paragraph text-dark font-weight-bold d-inline">
+                    {" "}
+                    {subComponet?.name}
+                  </h4>{" "}
+                </p>
+                <p class="card-text m-0 mt-5">
+                  <h3 class="text-primary d-inline">Position: </h3>{" "}
+                  <h4 className="custom-paragraph text-dark font-weight-bold d-inline">
+                    {" "}
+                    {subComponet?.position}
+                  </h4>{" "}
+                </p>
+              </div>
+            </div>
+            <div
+              class="card-footer text-dark d-flex justify-content-center align-items-center "
+              id="dateDiv"
+            >
+              <h5>
+                {" "}
+                {`CreatedAt: ${formattedCreatedAt}   UpdatedAt: ${formattedEndAt}`}
+              </h5>
+            </div>
           </div>
-
-          {readOnly && (
-            <button
-              type="button"
-              class="btn"
-              style={{
-                height: "40px",
-                background: "#2351AD",
-                color: "white",
-                borderRadius: "8px",
-                marginRight: "50px",
-              }}
-              onClick={() => {
-                setReadOnly(false);
-              }}
-            >
-              Edit {subComponet?.name}
-              <i class="fa-solid fa-play fa-fade px-2"></i>
-            </button>
-          )}
-        </div>
-
-        <div className="d-flex justify-content-center mt-5 ">
-          <Form
-            onSubmit={onSubmit}
-            inputs={inputs}
-            inputsClassName="d-flex flex-wrap justify-content-center mt-5"
-            inputsStyle={{ rowGap: 20, columnGap: 100 }}
-            numberInputPerRow={2}
-            readOnly={readOnly}
-            onChange={handleInputChange}
-            buttonsClassName="mt-5 d-flex justify-content-center gap-3"
-            buttons={!readOnly ? buttons : []}
-          />
-        </div>
-
-        <div style={{ marginTop: "80px" }}>
+        )}
+      </div>
+      <div className="d-flex justify-content-center mt-5 ">
+        <Form
+          onSubmit={onSubmit}
+          inputs={ !readOnly ? inputs : []}
+          inputsClassName="d-flex flex-wrap justify-content-center mt-5"
+          inputsStyle={{ rowGap: 20, columnGap: 100 }}
+          numberInputPerRow={2}
+          readOnly={readOnly}
+          onChange={handleInputChange}
+          buttonsClassName="mt-5 d-flex justify-content-center gap-3"
+          buttons={!readOnly ? buttons : []}
+        />
+      </div>
+      {readOnly && (
+        <div>
           <ContentSubComponentList subcomponetID={subcomponetId} />
         </div>
-      </div>
+      )}
     </div>
   );
 }

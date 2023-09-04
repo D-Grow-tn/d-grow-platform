@@ -14,6 +14,15 @@ CREATE TYPE "PositionSubComponent" AS ENUM ('left', 'right', 'top', 'bottom', 'm
 CREATE TYPE "ContentType" AS ENUM ('button', 'paragraph', 'image', 'select');
 
 -- CreateEnum
+CREATE TYPE "ClientType" AS ENUM ('INDIVIDUAL', 'COMPANY');
+
+-- CreateEnum
+CREATE TYPE "BusinessSector" AS ENUM ('TECHNOLOGY', 'FINANCE', 'HEALTHCARE', 'RETAIL', 'MANUFACTURING', 'ENTERTAINMENT', 'EDUCATION', 'FOOD_AND_BEVERAGE', 'REAL_ESTATE', 'ENERGY', 'TRANSPORTATION', 'MEDIA', 'AUTOMOTIVE', 'TELECOMMUNICATIONS', 'TRAVEL_AND_TOURISM', 'SPORTS', 'OTHER');
+
+-- CreateEnum
+CREATE TYPE "ContactPreference" AS ENUM ('Email', 'Mobile', 'Web_Site');
+
+-- CreateEnum
 CREATE TYPE "taskposition" AS ENUM ('to_do', 'in_progress', 'completed');
 
 -- CreateTable
@@ -34,13 +43,17 @@ CREATE TABLE "User" (
 -- CreateTable
 CREATE TABLE "Client" (
     "id" TEXT NOT NULL,
+    "clientType" "ClientType" NOT NULL DEFAULT 'COMPANY',
     "name" TEXT NOT NULL,
     "email" TEXT NOT NULL,
     "phone" TEXT NOT NULL,
     "address" TEXT NOT NULL,
+    "businessSector" "BusinessSector" NOT NULL DEFAULT 'OTHER',
+    "jobTitle" TEXT NOT NULL,
     "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
     "updatedAt" TIMESTAMP(3) NOT NULL,
     "avatarClientId" TEXT,
+    "contactPreference" "ContactPreference" NOT NULL DEFAULT 'Email',
 
     CONSTRAINT "Client_pkey" PRIMARY KEY ("id")
 );
@@ -534,7 +547,7 @@ CREATE TABLE "ContentSubComponent" (
     "id" TEXT NOT NULL,
     "title" TEXT NOT NULL,
     "navigateTo" TEXT,
-    "content" TEXT NOT NULL,
+    "content" TEXT,
     "type" "ContentType" NOT NULL DEFAULT 'button',
     "subContent" JSONB,
     "previousContentSubComponentId" TEXT,

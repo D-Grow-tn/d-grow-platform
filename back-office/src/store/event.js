@@ -28,6 +28,7 @@ export const createEvent = createAsyncThunk(
 export const updateEvent = createAsyncThunk(
   "events/updateEvent",
   async ({ eventId, ...body }, { dispatch }) => {
+    console.log(body,"body")
     const response = await axios.patch(
       `${config.API_ENDPOINT}/events/${eventId}`,
       body
