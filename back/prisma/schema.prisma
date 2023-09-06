@@ -45,8 +45,9 @@ model Client {
   MediaClient       MediaClient[]
   contactPreference ContactPreference @default(Email)
   Contract          Contract[]
-  devis          Devis[]
-  ClientDevis    ClientDevis[]
+  devis             Devis[]
+  ClientDevis       ClientDevis[]
+  invoices          Invoice[]
 }
 
 model Employee {
@@ -499,6 +500,25 @@ model Devis {
   ClientDevis ClientDevis[]
 }
 
+model Invoice {
+  id            String  @id @default(uuid())
+  invoiceNumber Int     @default(autoincrement())
+  total         String
+  Client        Client? @relation(fields: [clientId], references: [id])
+  clientId      String?
+  item          Item[]
+}
+
+model Item {
+  id          String   @id @default(uuid())
+  name        String
+  description String
+  tax         String
+  amount      String
+  invoice     Invoice? @relation(fields: [invoiceId], references: [id])
+  invoiceId   String?
+}
+
 model ClientDevis {
   clientId String
   client   Client @relation(fields: [clientId], references: [id])
@@ -677,6 +697,7 @@ enum ContactPreference {
   Mobile
   Web_Site
 }
+
 enum taskposition {
   to_do
   in_progress

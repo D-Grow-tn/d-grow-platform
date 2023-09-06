@@ -30,6 +30,8 @@ import { ContactModule } from './contact/contact.module';
 import { ContractModule } from './contract/contract.module';
 import { DevisModule } from './devis/devis.module';
 import { ProvidesModule } from './provides/provides.module';
+import { InvoiceModule } from './invoice/invoice.module';
+import { ItemModule } from './item/item.module';
 
 
 
@@ -61,6 +63,8 @@ import { ProvidesModule } from './provides/provides.module';
     ContractModule,
     DevisModule,
     ProvidesModule,
+    InvoiceModule,
+    ItemModule,
     // WorkTimeModule,
   
    
