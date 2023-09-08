@@ -10,7 +10,7 @@ console.log("quiz from store",response.data);
 })
 export const fetchQuiz = createAsyncThunk("quizs/quiz",async(id)=>{
   const response = await axios.get(`${config.API_ENDPOINT}/quizs/${id}`)
-  console.log("🚀 ~ file: quiz.js:9 ~ fetchQuizs ~ response:", response)
+  console.log("🚀 quiz response:", response)
   return response.data
 })
 export const createQuiz = createAsyncThunk("quizs/quiz",async(body)=>{

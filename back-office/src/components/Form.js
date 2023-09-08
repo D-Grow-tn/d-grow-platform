@@ -32,7 +32,8 @@ function Form({
   buttonsStyle,
   link,
   readOnly,
-  setData
+  setData,
+  backgroundColor,
 
 }) {
   
