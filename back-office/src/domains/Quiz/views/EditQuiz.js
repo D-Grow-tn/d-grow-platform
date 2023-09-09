@@ -114,18 +114,18 @@ function EditQuiz() {
     },
   ];
 
-  const cheking = (e) => {
-    console.log("checked");
-    quiz?.QuestionQuiz.map((elm)=>{
-      
-     elm.question?.OptionQuestion?.map((el)=>{
-        if( el.option. correctOption===true)(
-         setScoreq(scoreq+10)
-        )
-        else
-        setScoreq(scoreq)
-       })
-    })
+  const cheking = (questionIndex, optionIndex) => {
+    // Create a copy of the quiz to avoid mutating state directly
+    const updatedQuiz = { ...quiz };
+  
+    // Find the current question and option
+    const currentQuestion = updatedQuiz.QuestionQuiz[questionIndex];
+    const selectedOption = currentQuestion.question.OptionQuestion[optionIndex];
+  
+    if (selectedOption.option.correctOption) {
+      // If the selected option is correct, add 10 to the scoreq
+      setScoreq(scoreq + 10);
+    }
   
   };
   const handleNextClick = () => {
@@ -204,7 +204,7 @@ function EditQuiz() {
                       <input
                         class="form-check-input"
                         type="checkbox"
-                        onClick={cheking}
+                        onClick={() => cheking(questionIndex, optionIndex)}
                         id={`flexCheckDefault${optionIndex}`}
                         style={{marginTop: "10px"}}
                       />
