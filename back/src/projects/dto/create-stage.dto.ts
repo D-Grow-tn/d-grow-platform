@@ -1,7 +1,12 @@
+import { ApiProperty } from "@nestjs/swagger";
+
 export class CreateStageDto {
+  @ApiProperty({ required: true })
   name: string;
-  porcentage: string;
-  objectiveId: string;
-  startAt: Date;
-  endAt: Date;
+  @ApiProperty({ required: true })
+  objectiveId : string;
+  @ApiProperty({ required: true })
+  startAt : Date;
+  @ApiProperty({ required: true })
+  endAt : Date;
 }

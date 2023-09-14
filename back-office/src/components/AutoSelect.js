@@ -103,7 +103,7 @@ function AutoSelect({
           placeholder={placeholder}
           onChange={(e, value) => {
             const selectedValues = value.map((value) => value[valueLabel]);
-            console.log(selectedValues,'--')
+            console.log(selectedValues,'from AutoSelect')
             setData(selectedValues)
           }}
         />

@@ -1,10 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import dev from "../constants/dev.json";
-import plan from "../constants/plan.json";
-import { back1 } from "../assets/img/images";
 import Marquee from "react-fast-marquee";
-import sliderPartners from "../components/aboutsliderdata.js";
 import DisplayLottie from "../constants/DisplayLottie";
 import Carousel from "react-bootstrap/Carousel";
 import axios from "axios";
@@ -14,6 +10,10 @@ import { useDispatch, useSelector } from "react-redux";
 
 function Home() {
   const navigate = useNavigate();
+  const [sectionp, setSectionp] = useState(null);
+  const [section1I, setSection1I] = useState(null);
+  const [section1b, setSection1b] = useState(null);
+
   const dispatch = useDispatch();
   const services = useSelector((state) => state.product.products.items);
   const displayservices = services.slice(0, 3);
@@ -34,7 +34,8 @@ function Home() {
   const [pgrSection5, setPrgSection5] = useState([]);
   const [buttonSection5, setbuttonSection5] = useState(null);
   const [section5Animation, setSection5Animation] = useState(null);
-
+  const [titleSection6, setTitleSection6] = useState([]);
+  const [SliderSection6, setSliderSection6] = useState([]);
   useEffect(() => {
     dispatch(fetchProduct());
   }, [dispatch]);
@@ -61,15 +62,13 @@ function Home() {
     }
   }, [
     section2?.ContentSubComponent?.find((elem) => elem.type === "image")?.media
-      ?.path
+      ?.path,
   ]);
 
-
-  useEffect( () => {
-   axios
+  useEffect(() => {
+    axios
       .get(`${config.API_ENDPOINT}/website-settings/by-title/HomePage`)
       .then((res) => {
-
         setSection1(
           res.data?.SubComponent?.find((elem) => elem.name === "section1")
         );
@@ -77,13 +76,13 @@ function Home() {
         setPrgSection1(
           res.data?.SubComponent[0]?.ContentSubComponent.filter(
             (elem) => elem.title === "paragraph"
-          ) 
           )
+        );
         setPrgSection2(
           res.data?.SubComponent[0]?.ContentSubComponent.filter(
             (elem) => elem.title === "paragraph"
-          ) 
           )
+        );
         setSection2(
           res.data?.SubComponent?.find((elem) => elem.name === "section2")
         );
@@ -95,10 +94,8 @@ function Home() {
         setPrgSection2(
           res.data?.SubComponent[1]?.ContentSubComponent.filter(
             (elem) => elem.title === "paragraph"
-          ) 
           )
-          
-        ;
+        );
         setbuttonSection2(
           res.data?.SubComponent[1]?.ContentSubComponent.filter(
             (elem) => elem.title === "button"
@@ -114,8 +111,8 @@ function Home() {
             (elem) => elem.title === "paragraph" && elem.nexts?.length
           )
         );
-        console.log("dataaaa",res.data.SubComponent);
-       setTitleSection5 (
+        console.log("dataaaa", res.data.SubComponent);
+        setTitleSection5(
           res.data?.SubComponent[4]?.ContentSubComponent.filter(
             (elem) => elem.title === "title"
           )
@@ -133,17 +130,28 @@ function Home() {
             (elem) => elem.title === "button"
           )
         );
-        
-      }).catch(error => (console.log(error)))
+        setTitleSection6(
+          res.data?.SubComponent[5]?.ContentSubComponent.filter(
+            (elem) => elem.title === "title"
+          )
+        );
+        setSliderSection6(
+          res.data?.SubComponent[5]?.ContentSubComponent.filter(
+            (elem) => elem.title === "image"
+          )
+        );
+      })
+      .catch((error) => console.log(error));
   }, []);
   // console.log(
   //   section1?.ContentSubComponent?.find((elem) => elem.title === "background")
   //     ?.navigateTo,
   //   "loggg"
   // );
-  console.log("section1",pgrSection1);
- 
-  // 
+  console.log("section6", titleSection6[0]?.content);
+  console.log("imageeeeeesection6", SliderSection6);
+
+  //
   return (
     <div className="bg-light">
       {/* PART 1 */}
@@ -164,49 +172,28 @@ function Home() {
         }}
       >
         <div id="container">
-         <dl>
+          <dl>
             <dt>{pgrSection1[0]?.content}</dt>
-            <dd>
-            {pgrSection1[0]?.content.nexts}
-            </dd>
+            <dd>{pgrSection1[0]?.content.nexts}</dd>
             <dt>{pgrSection1[1]?.content}</dt>
-            <dd>
-            {pgrSection1[1]?.content.nexts}
-            </dd>
+            <dd>{pgrSection1[1]?.content.nexts}</dd>
             <dt>{pgrSection1[2]?.content}</dt>
-            <dd>
-            {pgrSection1[2]?.content.nexts}
-            </dd>
+            <dd>{pgrSection1[2]?.content.nexts}</dd>
             <dt>{pgrSection1[3]?.content}</dt>
-            <dd>
-            {pgrSection1[3]?.content.nexts}
-            </dd>
+            <dd>{pgrSection1[3]?.content.nexts}</dd>
             <dt>{pgrSection1[4]?.content}</dt>
-            <dd>
-            {pgrSection1[4]?.content.nexts}
-            </dd>
+            <dd>{pgrSection1[4]?.content.nexts}</dd>
             <dt>{pgrSection1[5]?.content}</dt>
-            <dd>
-            {pgrSection1[5]?.content.nexts}
-            </dd>
+            <dd>{pgrSection1[5]?.content.nexts}</dd>
             <dt>{pgrSection1[6]?.content}</dt>
-            <dd>
-            {pgrSection1[6]?.content.nexts}
-            </dd>
+            <dd>{pgrSection1[6]?.content.nexts}</dd>
             <dt>{pgrSection1[7]?.content}</dt>
-            <dd>
-            {pgrSection1[7]?.content.nexts}
-            </dd>
+            <dd>{pgrSection1[7]?.content.nexts}</dd>
             <dt>{pgrSection1[8]?.content}</dt>
-            <dd>
-            {pgrSection1[8]?.content.nexts}
-            </dd>
+            <dd>{pgrSection1[8]?.content.nexts}</dd>
           </dl>
-            
-          
-         
-         
-            {/* <dt>2</dt>
+
+          {/* <dt>2</dt>
             <dd>
               Ignite your success with captivating websites and apps that engage
               and convert!
@@ -246,7 +233,6 @@ function Home() {
               Stay ahead of the curve with cutting-edge technologies that
               future-proof your business!
             </dd> */}
-       
         </div>
       </div>
 
@@ -263,8 +249,6 @@ function Home() {
               style={{ textAlign: "center" }}
             >
               <h2
-
-
                 style={{
                   fontWeight: "bold",
                   paddingBottom: "30px",
@@ -272,19 +256,17 @@ function Home() {
               >
                 {titleSection2[0]?.content}{" "}
                 <spann style={{ color: "#00ac9e" }}>
-                {titleSection2[1]?.content}
+                  {titleSection2[1]?.content}
                 </spann>{" "}
                 {titleSection2[2]?.content}
               </h2>
 
               <h4>
-                {pgrSection2[0]?.content}<br />{" "}
+                {pgrSection2[0]?.content}
+                <br />{" "}
               </h4>
 
-              <p>
-                {" "}
-                {pgrSection2[1]?.content}
-              </p>
+              <p> {pgrSection2[1]?.content}</p>
               {buttonSection2?.map((el, i) => (
                 <a
                   type={el?.type}
@@ -340,10 +322,8 @@ function Home() {
                   {e?.nexts?.find((el) => el.title === "paragraph")?.content}
                 </p>
               </Carousel.Caption>
-             
             </Carousel.Item>
           ))}
-        
         </Carousel>
       </section>
       {/* SERVICES */}
@@ -437,8 +417,11 @@ function Home() {
                   }}
                 >
                   {titleSection5[0]?.content}
-                  
-                  <spann style={{ color: "#00ac9e" }}> {titleSection5[1]?.content}</spann>  {titleSection5[2]?.content}
+                  <spann style={{ color: "#00ac9e" }}>
+                    {" "}
+                    {titleSection5[1]?.content}
+                  </spann>{" "}
+                  {titleSection5[2]?.content}
                 </h2>
 
                 <p style={{ paddingTop: "20px" }}>
@@ -479,20 +462,20 @@ function Home() {
             paddingTop: "20px",
           }}
         >
-          {" "}
-          We have established strong{" "}
-          <span style={{ color: "#00ac9e" }}>Partnerships</span> with renowned
-          global brands, earning their trust.
+          {titleSection6[0]?.content}
+          <span style={{ color: "#00ac9e" }}>{titleSection6[1]?.content}</span>
+          {titleSection6[2]?.content}
         </h3>
-        <Marquee autoFill={true}>
+
+        <Marquee direction="right" autoFill="true">
           <section>
             <div className="container-marquee">
               <ul className="grid-list d-flex">
-                {sliderPartners[0].map((image, index) => (
+                {SliderSection6?.map((image, index) => (
                   <div key={index} className="cardy category-card">
                     <div className="card-icon">
                       <img
-                        src={image}
+                        src={image?.navigateTo}
                         width="150px"
                         height="230px"
                         loading="lazy"
@@ -505,29 +488,6 @@ function Home() {
             </div>
           </section>
         </Marquee>
-        <div style={{ marginTop: "-90px" }}>
-          <Marquee direction="right" autoFill="true">
-            <section>
-              <div className="container-marquee">
-                <ul className="grid-list d-flex">
-                  {sliderPartners[1].map((image, index) => (
-                    <div key={index} className="cardy category-card">
-                      <div className="card-icon">
-                        <img
-                          src={image}
-                          width="150px"
-                          height="230px"
-                          loading="lazy"
-                          alt=""
-                        />
-                      </div>
-                    </div>
-                  ))}
-                </ul>
-              </div>
-            </section>
-          </Marquee>
-        </div>
       </section>
     </div>
   );

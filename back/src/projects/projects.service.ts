@@ -77,7 +77,7 @@ export class ProjectsService {
       include: {
         cover: true,
         team: { include: { teamMembership: { include: { employee: true } } } },
-        objective: { include: { subobjective: true, Stage: true } },
+        objective: { include: { subobjective: true, Stage:{include:{task:true}} } },
         projectManager: true,
         client: true,
         consultant: true,
@@ -94,7 +94,7 @@ export class ProjectsService {
       where: { id },
       include: {
         team: { include: { teamMembership: { include: { employee: true } } } },
-        objective: { include: { subobjective: true, Stage: true } },
+        objective: { include: { subobjective: true,Stage:{include:{task:true}}} },
         projectManager: true,
         client: true,
         consultant: true,

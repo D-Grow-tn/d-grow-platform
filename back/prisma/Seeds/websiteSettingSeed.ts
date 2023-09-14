@@ -311,7 +311,6 @@ export const websiteSettingsSeed = async (prisma: PrismaClient) => {
         },
       ],
     },
-
   ];
   await Promise.all(
     content.map(async (el) => {
@@ -324,7 +323,7 @@ export const websiteSettingsSeed = async (prisma: PrismaClient) => {
           content: el.content,
           subComponentId: homePageSection1.id,
         };
-      }else {
+      } else {
         var data = {
           ...data,
           title: 'image',
@@ -332,17 +331,18 @@ export const websiteSettingsSeed = async (prisma: PrismaClient) => {
           navigateTo: el.path,
           content: 'cover backgound',
           subComponentId: homePageSection1.id,
-        };}
-        if (el.type === 'image') {
-          const media = await prisma.media.create({
-            data: {
-              path: el.path,
-              extension: 'jpg',
-              type: 'image',
-            },
-          });
-          data['mediaId'] = media.id;
-        }
+        };
+      }
+      if (el.type === 'image') {
+        const media = await prisma.media.create({
+          data: {
+            path: el.path,
+            extension: 'jpg',
+            type: 'image',
+          },
+        });
+        data['mediaId'] = media.id;
+      }
       await prisma.contentSubComponent.create({
         data,
       });
@@ -610,7 +610,11 @@ export const websiteSettingsSeed = async (prisma: PrismaClient) => {
     { name: 'title', path: '', type: 'paragraph', content: 'Digital' },
     { name: 'title', path: '', type: 'paragraph', content: 'Presence' },
     { name: 'paragraph', path: '', type: 'paragraph' },
-    { name: 'image', path: `${process.env.API_CONFIG}upload/dev.json` , type: 'image' },
+    {
+      name: 'image',
+      path: `${process.env.API_CONFIG}upload/dev.json`,
+      type: 'image',
+    },
     { name: 'Contact-Us', path: '/contact', type: 'button' },
   ];
 
@@ -666,6 +670,80 @@ export const websiteSettingsSeed = async (prisma: PrismaClient) => {
       });
     }),
   );
+  //create content sub component homePageSection6
+  let content6 = [
+    {
+      name: 'title',
+      path: '',
+      type: 'paragraph',
+      content: 'We have established strong',
+    },
+    { name: 'title', path: '', type: 'paragraph', content: ' Partnerships' },
+    {
+      name: 'title',
+      path: '',
+      type: 'paragraph',
+      content: ' with renowned global brands, earning their trust.',
+    },
+
+    {
+      name: 'image',
+      type: 'image',
+      path: `${process.env.API_CONFIG}upload/im1.png`,
+    },
+    {
+      name: 'image',
+      type: 'image',
+      path: `${process.env.API_CONFIG}upload/im2.png`,
+    },
+    {
+      name: 'image',
+      type: 'image',
+      path: `${process.env.API_CONFIG}upload/im3.png`,
+    }, 
+    {
+      name: 'image',
+      type: 'image',
+      path: `${process.env.API_CONFIG}upload/im4.png`,
+    },
+  ];
+
+  await Promise.all(
+    content6.map(async (el) => {
+      if (el.name === 'title') {
+        var data = {
+          title: 'title',
+          type: el.type as ContentType,
+          navigateTo: el.path,
+          content: el.content,
+          subComponentId: homePageSection6.id,
+        };
+      } else {
+        var data = {
+          ...data,
+          title: 'image',
+          type: el.type as ContentType,
+          navigateTo: el.path,
+          content: 'cover backgound',
+          subComponentId: homePageSection6.id,
+        };
+      }
+      if (el.type === 'image') {
+        const media = await prisma.media.create({
+          data: {
+            path: el.path,
+            extension: 'jpg',
+            type: 'image',
+          },
+        });
+        data['mediaId'] = media.id;
+      }
+      await prisma.contentSubComponent.create({
+        data,
+      });
+    }),
+  );
+
   //AboutUs Page
   //create subComponent pageabout Us
   let aboutPageSection1 = await prisma.subComponent.create({
@@ -1079,41 +1157,118 @@ export const websiteSettingsSeed = async (prisma: PrismaClient) => {
     }),
   );
 
-  //create contentSubComponent servicePageSection2
-  let serviceContent2 = [
-    { name: 'title', path: '', type: 'paragraph' },
-    { name: 'paragraph', path: '', type: 'paragraph' },
+     //create contentSubComponent servicePageSection2
+     let serviceContent2 = [
+      { name: 'title', path: '', type: 'paragraph' },
+      { name: 'paragraph', path: '', type: 'paragraph' }
+  
+    ];
+    await Promise.all(
+      serviceContent2.map(async (el) => {
+        if (el.name === 'title') {
+          var data = {
+            title: 'title',
+            type: el.type as ContentType,
+            navigateTo: el.path,
+            content:'Custom Software Development',
+             subComponentId: servicePageSection2.id,
+          };
+        } 
+       else  {
+          var data = {
+            title: 'paragraph',
+            type: el.type as ContentType,
+            navigateTo: el.path,
+            content:'Our Services in Development encompass the creation of tailor-made software solutions to address the unique requirements of businesses or individuals. We work closely with clients to understand their objectives and develop custom software applications from scratch. Our development team utilizes the latest technologies and methodologies to design, code, test, and deploy software that meets specific functionalities, user experience, and scalability needs.',
+             subComponentId: servicePageSection2.id,
+          };
+        } 
+        await prisma.contentSubComponent.create({
+          data,
+        });
+      }),
+    );
+     //create contentSubComponent servicePageSection3
+     let serviceContent3 = [
+      { name: 'title', path: '', type: 'paragraph' },
+      { name: 'paragraph', path: '', type: 'paragraph' },
+      { name: 'image', path: '', type: 'image' },
+     { name: 'See More', path: '#aboutus', type: 'button' }
+  
+    ];
+    
+
+
+  // create content sub component homePageSection2
+  let data5 = [
+    
+    {
+      type: 'paragraph',
+      name: '',
+      path: '',
+      subContent: [
+        { content1: "It is a distinct pleasure for me to recommend D-Grow to any and all interested parties.They have been professional, comprehensive and competent throughout the process of our working together. We feel that we have established a relationship with them for years to come. The reaction to our new web site has been overwhelmingly positive." },
+        { content2: "Compared to the other companies we have used in the past, D-Grow has been far and above the best in every area. While building our new web site,the customer service has been prompt and straightforward and the actual services are well documented and logical to our needs." },
+        { content3: "Since having our new website built by D-Grow, we have seen a 200% increase in the number of online contact forms being filled out and returned to us.Matt and his team worked closely with us to provide a site that met all of the criteria that we were looking for. The end result was a website that is attractive, organized and effective. Thanks to D-Grow for all of your hard work and support! " },
+        
+      ],
+    },
   ];
+  
   await Promise.all(
-    serviceContent2.map(async (el) => {
-      if (el.name === 'title') {
-        var data = {
-          title: 'title',
-          type: el.type as ContentType,
-          navigateTo: el.path,
-          content: 'Custom Software Development',
-          subComponentId: servicePageSection2.id,
-        };
-      } else {
-        var data = {
-          title: 'paragraph',
-          type: el.type as ContentType,
-          navigateTo: el.path,
-          content:
-            'Our Services in Development encompass the creation of tailor-made software solutions to address the unique requirements of businesses or individuals. We work closely with clients to understand their objectives and develop custom software applications from scratch. Our development team utilizes the latest technologies and methodologies to design, code, test, and deploy software that meets specific functionalities, user experience, and scalability needs.',
-          subComponentId: servicePageSection2.id,
-        };
+    data5.map(async (e) => {
+      let data = {
+        title: 'section',
+        type: e.type as ContentType,
+        navigateTo: e.path,
+        content: e.name,
+        subComponentId: homePageSection2.id,
+      };
+      if (e.type === 'paragraph') {
+        data['subContent'] = e.subContent as Prisma.JsonArray;
       }
       await prisma.contentSubComponent.create({
-        data,
+        data
       });
-    }),
+    })
   );
-  //create contentSubComponent servicePageSection3
-  let serviceContent3 = [
-    { name: 'title', path: '', type: 'paragraph' },
-    { name: 'paragraph', path: '', type: 'paragraph' },
-    { name: 'image', path: '', type: 'image' },
-    { name: 'See More', path: '#aboutus', type: 'button' },
-  ];
+  
+
+  //create contentSubComponent servicePageSection2
+  // let serviceContent2 = [
+  //   { name: 'title', path: '', type: 'paragraph' },
+  //   { name: 'paragraph', path: '', type: 'paragraph' },
+  // ];
+  // await Promise.all(
+  //   serviceContent2.map(async (el) => {
+  //     if (el.name === 'title') {
+  //       var data = {
+  //         title: 'title',
+  //         type: el.type as ContentType,
+  //         navigateTo: el.path,
+  //         content: 'Custom Software Development',
+  //         subComponentId: servicePageSection2.id,
+  //       };
+  //     } else {
+  //       var data = {
+  //         title: 'paragraph',
+  //         type: el.type as ContentType,
+  //         navigateTo: el.path,
+  //         content:
+  //           'Our Services in Development encompass the creation of tailor-made software solutions to address the unique requirements of businesses or individuals. We work closely with clients to understand their objectives and develop custom software applications from scratch. Our development team utilizes the latest technologies and methodologies to design, code, test, and deploy software that meets specific functionalities, user experience, and scalability needs.',
+  //         subComponentId: servicePageSection2.id,
+  //       };
+  //     }
+  //     await prisma.contentSubComponent.create({
+  //       data,
+  //     });
+  //   }),
+  // );
+  // //create contentSubComponent servicePageSection3
+  // let serviceContent3 = [
+  //   { name: 'title', path: '', type: 'paragraph' },
+  //   { name: 'paragraph', path: '', type: 'paragraph' },
+  //   { name: 'image', path: '', type: 'image' },
+  //   { name: 'See More', path: '#aboutus', type: 'button' },
+  // ];
 };

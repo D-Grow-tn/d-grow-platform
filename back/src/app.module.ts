@@ -33,6 +33,12 @@ import { ProvidesModule } from './provides/provides.module';
 import { InvoiceModule } from './invoice/invoice.module';
 import { ItemModule } from './item/item.module';
 
+import { QuestionsModule } from './questions/questions.module';
+import { OptionsModule } from './options/options.module';
+
+
+
+
 
 
 @Module({
@@ -45,9 +51,9 @@ import { ItemModule } from './item/item.module';
     ProductsModule,
     ClientsModule,
     AuthModule,
-  
     MailModule,
     QuizsModule,
+   
     TeamsModule,
     DepartmentsModule,
     ChatRoomsModule,
@@ -63,8 +69,15 @@ import { ItemModule } from './item/item.module';
     ContractModule,
     DevisModule,
     ProvidesModule,
+<<<<<<< HEAD
     InvoiceModule,
     ItemModule,
+=======
+    QuestionsModule,
+    OptionsModule,
+   
+    
+>>>>>>> 23fdb3f2fc3487cc5665df887f48aaea342525fc
     // WorkTimeModule,
   
    
