@@ -1,11 +1,11 @@
 import { ApiProperty } from '@nestjs/swagger';
 export class CreateItemDto {
  @ApiProperty()
-   name : string
+   name: string
  @ApiProperty()
- description : string
+ description: string
  @ApiProperty()
-  tax :string
+  tax:string
  @ApiProperty()
  amount:string
 

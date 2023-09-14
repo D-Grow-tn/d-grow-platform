@@ -3,7 +3,7 @@ import { ApiProperty } from "@nestjs/swagger";
 
 export class CreateInvoiceDto {
 @ApiProperty()
-   total : string
+   total: string
    @ApiProperty({ type: [CreateItemDto] }) // Include items as an array of CreateItemDto
    item: CreateItemDto[];
    

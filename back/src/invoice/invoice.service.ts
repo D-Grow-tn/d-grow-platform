@@ -7,29 +7,58 @@ import { UpdateInvoiceDto } from './dto/update-invoice.dto';
 export class InvoiceService {
   constructor(private readonly prisma: PrismaService) {}
 
+  // async create(createInvoiceDto: CreateInvoiceDto) {
+  //   try {
+  //     const createdInvoice = await this.prisma.invoice.create({
+  //       data: {
+  //         ...createInvoiceDto,
+  //         total: createInvoiceDto.total,
+  //         item: {
+  //           // Create items within the invoice
+  //           create: createInvoiceDto.item.map((itemDto) => ({
+  //             name: itemDto.name,
+  //             description: itemDto.description,
+  //             tax: itemDto.tax,
+  //             amount: itemDto.amount,
+  //           })),
+  //         },
+  //       },
+  //     });
+
+  
+  //     return createdInvoice;
+  //   } catch (error) {
+  //     throw new Error(`Error creating Invoice: ${error.message}`);
+  //   }
+  // }
   async create(createInvoiceDto: CreateInvoiceDto) {
     try {
+      const invoiceData = {
+        ...createInvoiceDto,
+        total: createInvoiceDto.total || null, // Use null or provide a default value as needed
+      };
+  
+      if (createInvoiceDto.item) {
+        invoiceData.item = {
+          create: createInvoiceDto.item.map((itemDto) => ({
+            name: itemDto.name,
+            description: itemDto.description,
+            tax: itemDto.tax,
+            amount: itemDto.amount,
+          })),
+        };
+      }
+  
       const createdInvoice = await this.prisma.invoice.create({
-        data: {
-          ...createInvoiceDto,
-          total: createInvoiceDto.total,
-          item: {
-            // Create items within the invoice
-            create: createInvoiceDto.item.map((itemDto) => ({
-              name: itemDto.name,
-              description: itemDto.description,
-              tax: itemDto.tax,
-              amount: itemDto.amount,
-            })),
-          },
-        },
+        data: invoiceData,
       });
-
+  
       return createdInvoice;
     } catch (error) {
       throw new Error(`Error creating Invoice: ${error.message}`);
     }
   }
+  
 
   async findAll() {
     try {
@@ -61,7 +90,6 @@ export class InvoiceService {
   }
 
   async update(id: string, updateInvoiceDto: UpdateInvoiceDto) {
-    console.log(updateInvoiceDto, "=======");
   
     try {
 //       const oneInvoice = await this.findOne(id)
