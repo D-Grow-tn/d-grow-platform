@@ -16,6 +16,7 @@ export const fetchQuiz = createAsyncThunk("quizs/quiz",async(id)=>{
 export const createQuiz = createAsyncThunk("quizs/quiz",async(body)=>{
     console.log(body)
     const response = await axios.post(`${config.API_ENDPOINT}/quizs`,body)
+    console.log("create quiz from store", response)
     return response.data
 })
 export const removeQuiz = createAsyncThunk("quiz/quiz",async(id)=>{

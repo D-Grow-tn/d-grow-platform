@@ -27,7 +27,7 @@ function Header({ isOpen }) {
             <Dropdown>
               <Dropdown.Toggle variant="secondary" id="dropdownMenu2">
                 <img
-                  src={avatar}
+                  src={me?.employee?.avatar?.path}
                   className="rounded-circle"
                   style={{ width: "40px", marginRight: "10px" }}
                   alt="Avatar"

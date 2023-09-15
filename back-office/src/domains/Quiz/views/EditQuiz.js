@@ -59,7 +59,7 @@ function EditQuiz() {
         label: "Question",
         required: true,
 
-        value: auxQuiz?.QuestionQuiz.map((quest) => quest.question.text),
+        value: auxQuiz?.QuestionQuizIds,
 
         onChange: (value) => {
           auxQuiz((Quiz) => ({ ...Quiz, QuestionQuizIds: [value] }));
@@ -115,21 +115,20 @@ function EditQuiz() {
   ];
 
   const cheking = (questionIndex, optionIndex) => {
-    // Create a copy of the quiz to avoid mutating state directly
+   
     const updatedQuiz = { ...quiz };
   
-    // Find the current question and option
     const currentQuestion = updatedQuiz.QuestionQuiz[questionIndex];
     const selectedOption = currentQuestion.question.OptionQuestion[optionIndex];
   
     if (selectedOption.option.correctOption) {
-      // If the selected option is correct, add 10 to the scoreq
+    
       setScoreq(scoreq + 10);
     }
   
   };
   const handleNextClick = () => {
-    // Move to the next question if there is one
+  
     if (questionIndex < quiz.QuestionQuiz.length - 1) {
       setQuestionIndex(questionIndex + 1);
     }
