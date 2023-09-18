@@ -8,7 +8,7 @@ import { showErrorToast, showSuccessToast } from "../../../utils/toast";
 import Form from "../../../components/Form";
 import { fetchEmployees } from "../../../store/employees";
 import { fetchQuestions } from "../../../store/question";
-
+import "../../../assets/styles/EditQuiz.css";
 function CreateQuiz() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -125,7 +125,7 @@ function CreateQuiz() {
       name: "Save",
       onSubmit,
       className: "",
-      style: { width: 100 },
+      style: { width: 100,position:"relative",top:"400px" },
     },
     {
       category: "Add",
@@ -141,15 +141,23 @@ function CreateQuiz() {
       <HeaderPage title="Quiz " parent="HR" />
       <div className="d-flex flex-wrap align-items-center justify-content-center px-3 pt-5 ">
         <div className="py-5  rounded-5  ">
-          <div class="d-flex justify-content-center  mb-4">
-            <Form
-              className=" rounded-5 d-flex flex-wrap  justify-content-center align-items-center  "
-              style={{
+          <div class="d-flex flex-wrap justify-content-center  mb-4"   style={{
                 boxShadow: "0px 0px 8px #9E9E9E",
                 width: "593px",
                 height: "500px",
                 marginLeft: "50px",
-              }}
+                border: "10px solid #224790",
+                borderRadius:"40px",
+                borderLeft: "20px solid transparent",
+                borderRight: "20px solid transparent",
+                borderTop: "10px solid  rgb(34,71,144)",
+                borderBottom: "10px solid  rgb(34,71,144)",
+              }}>
+               
+            <Form
+            
+              className=" rounded-5 d-flex flex-wrap  justify-content-center align-items-center  "
+            
               inputsClassName="d-flex justify-content-around  gap-3 flex-wrap"
               inputs={inputs}
               numberInputPerRow={2}
@@ -159,25 +167,26 @@ function CreateQuiz() {
               buttonsClassName=" d-flex justify-content-end gap-3"
               setData={setData}
               data={data}
+              width="200px"
+              height="200px"
             />
-             <Form
-              className=" rounded-5 d-flex flex-wrap  justify-content-center align-items-center  "
-              style={{
-                boxShadow: "0px 0px 8px #9E9E9E",
-                width: "593px",
-                height: "500px",
-                marginLeft: "50px",
-              }}
-              inputsClassName="d-flex justify-content-around  gap-3 flex-wrap"
-              inputs={inputss}
-              numberInputPerRow={2}
-              onSubmit={onSubmit}
-              onChange={handleChange}
-              buttons={buttons}
-              buttonsClassName=" d-flex justify-content-end gap-3"
-              setData={setDataa}
-              data={dataa}
-            />
+              <Form
+       
+             
+       inputsClassName="d-flex justify-content-around  gap-3 flex-wrap"
+       inputs={inputss}
+       numberInputPerRow={2}
+       onSubmit={onSubmit}
+       onChange={handleChange}
+       width="200px"
+       height="200px"
+
+       // buttons={buttons}
+       // buttonsClassName=" d-flex justify-content-end gap-3"
+       setData={setDataa}
+       data={dataa}
+     />
+            
           </div>
         </div>
       </div>
