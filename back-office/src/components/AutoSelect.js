@@ -18,6 +18,7 @@ function AutoSelect({
   onChange,
   freeSolo,
   multiple,
+  data,
   setData
 }) {
   const style = {
@@ -103,8 +104,10 @@ function AutoSelect({
           placeholder={placeholder}
           onChange={(e, value) => {
             const selectedValues = value.map((value) => value[valueLabel]);
-            console.log(selectedValues,'from AutoSelect')
-            setData(selectedValues)
+            console.log(data,"befor")
+            console.log(selectedValues,'from AutoSelect hhh')
+            setData([...selectedValues])
+            console.log(data,"after");
           }}
         />
       ) : (

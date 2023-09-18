@@ -18,13 +18,18 @@ function TextInput({
   value,
   onChange,
   multiline,
+  backgroundColor,
   rows
-}) {
-  const [showPassword, setShowPassword] = useState(false);
+}) 
 
+
+{
+  const [showPassword, setShowPassword] = useState(false);
+   
   const handleClickShowPassword = () => setShowPassword((show) => !show);
   const handleMouseDownPassword = (event) => {
     event.preventDefault();
+
   };
   return (
     <>
@@ -34,6 +39,7 @@ function TextInput({
           hiddenLabel
           multiline={multiline}
           rows={rows}
+        
           className="textInput"
           id="filled-hidden-label-normal"
           placeholder={placeholder}
@@ -41,7 +47,7 @@ function TextInput({
           InputProps={{
             className:"textInput",
             style: {
-              backgroundColor: "#daeaf088",
+              backgroundColor: backgroundColor ? backgroundColor : "#daeaf088",
               borderRadius: "8px",
               width: width ? width : 250,
               height,
@@ -68,7 +74,7 @@ function TextInput({
           readOnly
         />
       ) : (
-        <TextView value={value} label={label} width={width}  />
+        <TextView value={value} label={label} width={width}  backgroundColor={backgroundColor} />
       )}
     </>
   );

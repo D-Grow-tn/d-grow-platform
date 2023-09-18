@@ -32,14 +32,16 @@ function Form({
   buttonsStyle,
   link,
   readOnly,
-  setData
+  data,
+  setData,
+  backgroundColor,
 
 }) {
   
   const renderInput = (category, rest) => {
     switch (category) {
       case "select":
-        return <AutoSelect {...rest}  readOnly={readOnly} setData={setData}/>;
+        return <AutoSelect {...rest}  readOnly={readOnly} setData={setData} data={data}/>;
     }
     return <TextInput {...rest} onChange={onChange} readOnly={readOnly} />;
   };
