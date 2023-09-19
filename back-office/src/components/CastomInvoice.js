@@ -1,6 +1,16 @@
-import React from "react";
+import React, { useState } from "react";
 import "../assets/styles/invoiceTemplate.css";
-function CastomInvoice() {
+import { useDispatch, useSelector } from "react-redux";
+
+function CastomInvoice({invoice}) {
+  const dispatch = useDispatch()
+  const [open,setOpen]=useState(false)
+  const [form,setForm]=useState([])
+  console.log("🚀 ~ file: CastomInvoice.js:6 ~ CastomInvoice ~ form:", form)
+  const handleChange = (e)=>{
+    const {name,value}= e.target
+    setForm((form)=>({...form,[name]:value}))
+  }
   const invoiceData = {
     invoiceNumber: "INV-001",
     date: "2023-09-11",
@@ -12,50 +22,64 @@ function CastomInvoice() {
     taxRate: 0.08,
   };
 
-  const subtotal = invoiceData.items.reduce(
-    (acc, item) => acc + item.quantity * item.price,
+  const subtotal = invoice?.item.reduce(
+    (acc, item) => acc + item.tax * item.amount,
     0
   );
   const tax = subtotal * invoiceData.taxRate;
   const total = subtotal + tax;
+  const handleSubmit =async()=>{
+     dispatch(createI)
+  }
   return (
     <div className="invoice">
       <h1>Invoice</h1>
       <div className="invoice-details">
-        <div>Invoice Number: {invoiceData.invoiceNumber}</div>
-        <div>Date: {invoiceData.date}</div>
+        <div>Invoice Number: {invoice?.invoiceNumber}</div>
+        <div>Date: {invoice?.createdAt}</div>
         <div>Due Date: {invoiceData.dueDate}</div>
       </div>
       <div className="invoice-items">
         <table>
           <thead>
             <tr>
+            <th>Name</th>
               <th>Description</th>
-              <th>Quantity</th>
-              <th>Price</th>
+              <th>Tax</th>
+              <th>Amount</th>
               <th>Total</th>
             </tr>
           </thead>
           <tbody>
-            {invoiceData.items.map((item, index) => (
+            {invoice?.item.map((item, index) => (
               <tr key={index}>
-                <td>{item.description}</td>
-                <td>{item.quantity}</td>
-                <td>${item.price}</td>
-                <td>${item.quantity * item.price}</td>
+                <td>{item?.name}</td>
+                <td>{item?.description}</td>
+                <td>{item?.tax}</td>
+                <td>${item?.amount}</td>
+                <td>${item?.tax * item?.amount}</td>
               </tr>
             ))}
+         
           </tbody>
+        
+
         </table>
+        {open && 
+          <div className="d-flex align-items-center input-container">
+          <form> 
+          <input placeholder="Name" className="input-field" type="text" name="name"onChange={handleChange} />
+          <input placeholder="Discreption" className="input-field" type="text"name="description" onChange={handleChange}/>
+          <input placeholder="Tax" className="input-field" type="number" name="tax"onChange={handleChange}/>
+          <input placeholder="Amount" className="input-field" type="number" name="amount"onChange={handleChange}/>
+          </form>
+          <button onClick={()=>setOpen(true)}>confirm</button>
+          </div>
+          }
+         {open === false && <button onClick={()=>setOpen(true)}>Add</button>}
+
       </div>
       <div className="invoice-summary">
-        <div>
-          <strong>Subtotal:</strong> ${subtotal}
-        </div>
-        <div>
-          <strong>Tax ({(invoiceData.taxRate * 100).toFixed(2)}%):</strong> $
-          {tax}
-        </div>
         <div>
           <strong>Total:</strong> ${total}
         </div>

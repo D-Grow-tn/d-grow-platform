@@ -71,4 +71,17 @@
     font-size: 18px;
     font-weight: bold;
   }
+  /* Add these styles to your CSS file */
+.input-container {
+  display: flex;
+  align-items: center;
+  margin-top: 10px; /* Adjust the margin as needed */
+}
+
+.input-field {
+  border: 1px solid #ccc;
+  padding: 5px;
+  margin-right: 10px; /* Adjust the margin as needed */
+}
+
   

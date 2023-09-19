@@ -103,6 +103,7 @@ import EditDevis from "../domains/devis/views/EditDevis";
 import OneDevis from "../domains/devis/views/OneDevis";
 import OneProject from "../domains/project/views/OneProject";
 import Trello from "../domains/trello/Trello"
+import OneInvoice from "../domains/invoices/views/OneInvoice";
 
 function Router() {
   const dispatch = useDispatch();
@@ -156,6 +157,8 @@ function Router() {
                 <Route index element={<InvoicesList />} />
                 <Route path="create" element={<CreateInvoice />} />
                 <Route path="edit/:invoiceId" element={<EditInvoice />} />
+                <Route path="one/:invoiceId" element={<OneInvoice />} />
+
               </Route>
               <Route path="role" element={<Role />}>
                 <Route index element={<RoleList />} />

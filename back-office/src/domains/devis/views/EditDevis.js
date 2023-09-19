@@ -13,7 +13,6 @@ function EditDevis() {
   const navigate = useNavigate();
   const [readOnly, setReadOnly] = useState(true);
   const [auxDevis, setAuxDevis] = useState(null);
-  console.log("🚀 ~ file: EditDevis.js:16 ~ EditDevis ~ auxDevis:", auxDevis)
   const [inputs, setInputs] = useState([]);
   const clients = useSelector((state) => state.client.clients.items);
   const devis = useSelector((state) => state.devis.devis);
