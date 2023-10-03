@@ -1,4 +1,8 @@
+
+
+
 /* Styles for the entire invoice */
+
 .invoice {
     font-family: Arial, sans-serif;
     padding: 20px;
@@ -83,5 +87,64 @@
   padding: 5px;
   margin-right: 10px; /* Adjust the margin as needed */
 }
+/* Style for the table container */
+.table-responsive {
+  max-width: 100%;
+  overflow-x: auto;
+}
 
-  
+/* Style for the table */
+.table {
+  width: 100%;
+  border-collapse: collapse;
+  border-spacing: 0;
+}
+
+/* Style for table header */
+.table thead th {
+  background-color: #f2f2f2;
+  border-bottom: 2px solid #ccc;
+}
+
+/* Style for table body rows */
+.table tbody td {
+  border-bottom: 1px solid #ccc;
+  padding: 8px;
+}
+
+/* Style for table actions buttons */
+/* .table tbody td button {
+  margin-right: 5px;
+  padding: 5px 10px;
+  background-color: #007bff;
+  color: #fff;
+  border: none;
+  cursor: pointer;
+  border-radius: 15%;
+}
+
+/* Style for table actions buttons on hover */
+/* .table tbody td button:hover {
+  background-color: #0056b3;
+}  */
+
+/* Style for table total row (if applicable) */
+.table tbody .total-row td {
+  font-weight: bold;
+  background-color: #ddd;
+}
+
+
+@media (max-width: 768px) {
+  /* Adjust styles for smaller screens here */
+  .invoice {
+    width: 100%;
+    padding: 10px;
+  }
+
+  .header h1 {
+    font-size: 20px;
+  }
+
+  /* You can continue to adjust other styles for smaller screens as needed */
+}

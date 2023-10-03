@@ -45,7 +45,7 @@ export class QuizsService {
       where: { id },
       include: {
         EmployeeQuiz: { include: { employee: true } },
-        QuestionQuiz: { include: { question: true } },
+        QuestionQuiz:{include:{question:{include:{OptionQuestion:{include:{option:true}}}}}} ,
       },
     });
   }

@@ -26,7 +26,7 @@ export const createInvoice = createAsyncThunk(
 export const updateInvoice = createAsyncThunk(
   "invoices/updateinvoice",
   async ({ invoiceId, ...body }, { dispatch }) => {
-    console.log(body,"body")
+    console.log(body,"<<<<<<<<<<<<<<<<<<body")
     const response = await axios.patch(
       `${config.API_ENDPOINT}/invoice/${invoiceId}`,
       body

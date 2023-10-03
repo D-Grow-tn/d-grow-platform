@@ -8,25 +8,28 @@ export class InvoiceService {
   constructor(private readonly prisma: PrismaService) {}
 
   async create(createInvoiceDto: CreateInvoiceDto) {
+    console.log(createInvoiceDto,'createInvoiceDto')
     try {
       const createdInvoice = await this.prisma.invoice.create({
         data: {
-          ...createInvoiceDto,
+          // ...createInvoiceDto,
+          clientId: createInvoiceDto.clientId,
           total: createInvoiceDto.total,
-          item: {
-            // Create items within the invoice
-            create: createInvoiceDto.item.map((itemDto) => ({
-              name: itemDto.name,
-              description: itemDto.description,
-              tax: itemDto.tax,
-              amount: itemDto.amount,
-            })),
-          },
+          // item: {
+          //   // Create items within the invoice
+          //   create: createInvoiceDto.item.map((itemDto) => ({
+          //     name: itemDto.name,
+          //     description: itemDto.description,
+          //     tax: itemDto.tax,
+          //     amount: itemDto.amount,
+          //   }
+          //   )),
+          // },
         },
       });
 
-  
       return createdInvoice;
+  
     } catch (error) {
       throw new Error(`Error creating Invoice: ${error.message}`);
     }
@@ -90,32 +93,14 @@ export class InvoiceService {
   }
 
   async update(id: string, updateInvoiceDto: UpdateInvoiceDto) {
-  
+  console.log(updateInvoiceDto,'updateInvoiceDto')
     try {
-//       const oneInvoice = await this.findOne(id)
-//       console.log(oneInvoice,"oneInvoice");
-//       // const itemId= oneInvoice.item.forEach((elem)=>elem.id)
-//       let itemId;
-
-// for (const item of oneInvoice.item) {
-//   itemId = item.id;
-//   // break; // Break out of the loop after getting the first item's ID
-// }      
+     
       const updateInvoice = await this.prisma.invoice.update({
         where: { id },
         data: {
-          total: updateInvoiceDto.total,
-          // item: {
-          //   updateMany: updateInvoiceDto.item.map((elem) => ({
-          //     where: { id: itemId }, // Assuming each item has an ID
-          //     data: {
-          //       name: elem.name,
-          //       description: elem.description,
-          //       tax: elem.tax,
-          //       amount: elem.amount,
-          //     },
-          //   })),
-          // },
+          clientId: updateInvoiceDto.clientId,
+          total:updateInvoiceDto.total?.toString(),
         },
       });
       return updateInvoice;

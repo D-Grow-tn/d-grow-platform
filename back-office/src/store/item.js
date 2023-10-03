@@ -23,10 +23,10 @@ export const createItem = createAsyncThunk(
 
 export const updateItem = createAsyncThunk(
   "items/updateItem",
-  async ({ ItemId, ...body }, { dispatch }) => {
+  async ({ id, ...body }, { dispatch }) => {
     console.log(body, "body");
     const response = await axios.patch(
-      `${config.API_ENDPOINT}/item/${ItemId}`,
+      `${config.API_ENDPOINT}/item/${id}`,
       body
     );
     dispatch(fetchItem(response.data.id));

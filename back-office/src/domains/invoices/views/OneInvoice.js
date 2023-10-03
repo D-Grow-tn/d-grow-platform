@@ -15,7 +15,7 @@ useEffect(()=>{
 
   return (
     <div>
-        <CastomInvoice  invoice={invoice}/>
+        <CastomInvoice  invoice={invoice} />
     </div>
   )
 }

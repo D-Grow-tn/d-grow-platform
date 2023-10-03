@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 
-function TextView({ value, label, width }) {
+function TextView({ value, label, width,backgroundColor }) {
   const [widthlabel, setWidthlabel] = useState(50);
   useEffect(() => {
     let aux = document.getElementById("label")?.offsetWidth;
@@ -16,6 +16,7 @@ function TextView({ value, label, width }) {
         width: width ? width : 250,
         border: "1px solid #b2b9bc",
         borderRadius: 8,
+        backgroundColor: backgroundColor,
       }}
       className="bgLightBlue align-items-center d-flex px-3 position-relative textView"
     >

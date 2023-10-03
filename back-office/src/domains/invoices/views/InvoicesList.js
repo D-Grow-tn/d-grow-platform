@@ -58,10 +58,14 @@ function InvoicesList() {
     () => [
      
       {
-        field: "client",
+        field: "Client",
         headerName: "client",
         headerClassName: "header-blue",
         width: 170,
+        renderCell: (params) => {
+          // console.log(params.row.client,"params")
+          return <div>{params.row?.Client?.name}</div>;
+        },
       },
       {
         field: "total",
@@ -136,7 +140,10 @@ function InvoicesList() {
   }
   return (
     <div>
-    <HeaderPage title={'Invoices '} parent="Administration"/>
+    <HeaderPage title={'Invoices '} parent="Administration"
+     showButton={true}
+     buttonFunction={() => navigate("create")}
+     text={"Create Invoice"}/>
     <Table columns={columns} rows={rows} />
      
      {isOpen && (
