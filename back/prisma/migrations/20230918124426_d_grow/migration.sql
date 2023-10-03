@@ -2,8 +2,10 @@
 CREATE TABLE "Invoice" (
     "id" TEXT NOT NULL,
     "invoiceNumber" SERIAL NOT NULL,
-    "total" TEXT NOT NULL,
+    "total" TEXT,
     "clientId" TEXT,
+    "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    "updatedAt" TIMESTAMP(3) NOT NULL,
 
     CONSTRAINT "Invoice_pkey" PRIMARY KEY ("id")
 );
@@ -16,6 +18,8 @@ CREATE TABLE "Item" (
     "tax" TEXT NOT NULL,
     "amount" TEXT NOT NULL,
     "invoiceId" TEXT,
+    "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    "updatedAt" TIMESTAMP(3) NOT NULL,
 
     CONSTRAINT "Item_pkey" PRIMARY KEY ("id")
 );

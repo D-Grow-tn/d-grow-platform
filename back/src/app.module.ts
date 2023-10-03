@@ -69,15 +69,13 @@ import { OptionsModule } from './options/options.module';
     ContractModule,
     DevisModule,
     ProvidesModule,
-<<<<<<< HEAD
+
     InvoiceModule,
     ItemModule,
-=======
     QuestionsModule,
     OptionsModule,
    
     
->>>>>>> 23fdb3f2fc3487cc5665df887f48aaea342525fc
     // WorkTimeModule,
   
    

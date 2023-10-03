@@ -5,7 +5,6 @@
     "react-bootstrap": "^2.7.4"
   },
   "name": "@jalyss-platform/root",
-  
   "private": true,
   "workspaces": [
     "back",
@@ -41,5 +40,10 @@
     "os": false,
     "stream": false,
     "tls": false
-  }
+  },
+  "version": "1.0.0",
+  "main": "index.js",
+  "repository": "https://github.com/D-Grow-tn/d-grow-platform.git",
+  "author": "Ahmed henchiri <ahmedhenchiri00@gmail.com>",
+  "license": "MIT"
 }

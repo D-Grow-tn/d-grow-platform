@@ -28,7 +28,7 @@ function CreateInvoice() {
     dispatch(createInvoice(invoice)).then((res) => {
       showSuccessToast("Create Invoice succsesfuly ");
       if (!res.error) {
-        navigate(`/invoice`);
+        navigate(`/invoices`);
       } else {
         showErrorToast(res.error.message);
       }
