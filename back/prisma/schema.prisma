@@ -247,9 +247,9 @@ model Test {
   id           String         @id @default(uuid())
   title        String
   content      String
-  correction   String
   score        Int
   employeeTest EmployeeTest[]
+  QuestionnTest QuestionnTest[]
 }
 
 model EmployeeTest {
@@ -259,15 +259,45 @@ model EmployeeTest {
   test       Test     @relation(fields: [testId], references: [id])
   score      Int
 
-  @@unique([employeeId, testId])
+  @@unique(fields:[employeeId, testId], name: "employeeTest")
+}
+model Questionn {
+  id          String            @id @default(uuid())
+  text        String
+  QuestionnTest QuestionnTest[]
+  QuestionnAnswer QuestionnAnswer []
+}
+model QuestionnTest {
+  questionnId String
+  questionn Questionn @relation(fields:[questionnId],references:[id])
+  testId    String
+  test      Test @relation(fields: [testId], references: [id])
+  score     Int
+@@unique(fields:[questionnId,testId], name: "questionnTest")
 }
 
+model Answer {
+  id              String             @id @default(uuid())
+  text            String
+  correctAnswer   Boolean
+  QuestionnAnswer QuestionnAnswer []
+
+}
+
+model QuestionnAnswer{
+  answerId String
+  answer Answer@relation (fields :[answerId] , references : [id])
+  questionnId String
+  Questionn Questionn @relation ( fields : [questionnId ] , references : [id ])
+  @@unique(fields: [questionnId,answerId], name:"questionnAnswer")
+}
 model Quiz {
   id           String         @id @default(uuid())
   content      String
   score        Int
   EmployeeQuiz EmployeeQuiz[]
-}
+  QuestionQuiz QuestionQuiz[]
+  }
 
 model EmployeeQuiz {
   employeeId String
@@ -278,6 +308,38 @@ model EmployeeQuiz {
 
   @@unique([employeeId, quizId], name: "employeeQuiz")
 }
+
+model Question {
+  id          String            @id @default(uuid())
+  text        String
+  QuestionQuiz QuestionQuiz[]
+  OptionQuestion OptionQuestion []
+}
+
+model QuestionQuiz {
+  questionId String
+  question   Question			@relation( fields:[questionId],references:[id])
+  quizId 		String
+  quiz 		  Quiz				@relation( fields:[quizId] ,references:[id])
+  score     Int
+  @@unique(fields: [questionId, quizId], name: "questionQuiz")
+}
+
+model Option {
+  id 				    String 				@id @default(uuid())
+  content       String
+  correctionOption Boolean 
+  OptionQuestion OptionQuestion []
+}
+
+model OptionQuestion{
+  optionId	  String
+  option		  Option					@relation (fields :[optionId], references:[id])
+  questionId  String
+  question	  Question				@relation (fields :[questionId], references:[id])
+  @@unique(fields: [optionId,questionId], name:"optionQuestion")
+}
+
 
 model Request {
   id           String         @id @default(uuid())

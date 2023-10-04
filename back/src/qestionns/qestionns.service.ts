@@ -7,12 +7,12 @@ import { Prisma, PrismaClient } from '@prisma/client';
 export class QestionnsService {
   constructor(private readonly prisma: PrismaService) {}
  async create(data: CreateQestionnDto) {
-    const {AnswerQuestionnIds, ...rest} = data
+    const {QuestionnAnswerIds, ...rest} = data
     return await this.prisma.questionn.create({
      data :{
       ...rest ,
-      AnswerQuestionn:{
-        create: AnswerQuestionnIds.map((answerId)=>{
+      QuestionnAnswer:{
+        create: QuestionnAnswerIds.map((answerId)=>{
           return {
             answer: {connect: {id: answerId } },
           }
@@ -25,26 +25,26 @@ export class QestionnsService {
 
  async findAll() {
     return await this.prisma.questionn.findMany({
-      include :{ AnswerQuestionn: { include:{answer:true}}},
+      include :{ QuestionnAnswer: { include:{answer:true}}},
     });
   }
 
  async  findOne(id: string, prisma: Prisma.TransactionClient = this.prisma) {
     return await this.prisma.questionn.findFirst({
       where: { id},
-      include: { AnswerQuestionn: { include: { answer: true } } },
+      include: { QuestionnAnswer: { include: { answer: true } } },
     });
   }
 
  async update(id: string, data: UpdateQestionnDto) {
-    const { AnswerQuestionnIds, ...rest} =data
+    const { QuestionnAnswerIds, ...rest} =data
     return await this.prisma.$transaction(async (prisma) => {
       const questionn = await this.findOne(id,prisma);
-      questionn.AnswerQuestionn.forEach(async (answer) => {
-        if (!AnswerQuestionnIds.includes(answer.answerId)){
-          await prisma.answerQuestionn.delete({
+      questionn.QuestionnAnswer.forEach(async (answer) => {
+        if (!QuestionnAnswerIds.includes(answer.answerId)){
+          await prisma.questionnAnswer.delete({
             where:{
-              AnswerQuestionn: {answerId:answer.answerId,questionnId:id},
+              questionnAnswer: {answerId:answer.answerId,questionnId:id},
          } })
         }
       })
@@ -52,10 +52,10 @@ export class QestionnsService {
         where: { id },
         data:{
           ...rest ,         
-           AnswerQuestionn:{
-            connectOrCreate:AnswerQuestionnIds.map((answer)=>({
+          QuestionnAnswer:{
+            connectOrCreate: QuestionnAnswerIds.map((answer)=>({
               create:{answerId: answer},
-              where:{AnswerQuestionn:{answerId:answer,questionnId:id}},
+              where:{questionnAnswer:{answerId:answer,questionnId:id}},
             })),
         },
       },
@@ -68,8 +68,8 @@ export class QestionnsService {
       const questionn = await this.findOne(id,prisma );
 
    await Promise.all(
-    questionn.AnswerQuestionn.map(async (elem)=>{
-      await prisma.answerQuestionn.deleteMany({
+    questionn.QuestionnAnswer.map(async (elem)=>{
+      await prisma.questionnAnswer.deleteMany({
         where:{
           questionnId:id,
           answerId:elem?.answer?.id,

@@ -7,39 +7,39 @@ import { PrismaService } from 'src/prisma/prisma.service';
 export class AnswerQuestionnsService {
   constructor(private readonly prisma:PrismaService){}
  async create(data: CreateAnswerQuestionnDto) {
-    return await this.prisma.answerQuestionn.create({
+    return await this.prisma.questionnAnswer.create({
       data,
     });
   }
 
  async findAll() {
-    return await this.prisma.answerQuestionn.findMany({});
+    return await this.prisma.questionnAnswer.findMany({});
   }
 
   async findAllByAnswer(id: string) {
-    return await this.prisma.answerQuestionn.findMany({
+    return await this.prisma.questionnAnswer.findMany({
       where:{
         answerId:id,
       },
-      include:{questionn:true}
+      include:{Questionn:true}
     })
   }
 
  async findOne(questionnId:string,answerId:string) {
-    return await this.prisma.answerQuestionn.findFirst({
+    return await this.prisma.questionnAnswer.findFirst({
       where:{questionnId,answerId}
     });
   }
 
   async update(questionnId:string,answerId:string, updateAnswerQuestionnDto: UpdateAnswerQuestionnDto) {
-    return await this.prisma.answerQuestionn.updateMany({
+    return await this.prisma.questionnAnswer.updateMany({
       where :{ questionnId , answerId},
       data  : updateAnswerQuestionnDto ,
     });
   }
 
  async remove(questionnId:string,answerId:string) {
-    return await this.prisma.answerQuestionn.deleteMany({
+    return await this.prisma.questionnAnswer.deleteMany({
       where:{questionnId,answerId},
     });
   }

@@ -2,7 +2,6 @@ import { Injectable } from '@nestjs/common';
 import { CreateTestisDto } from './dto/create-testis.dto';
 import { UpdateTestisDto } from './dto/update-testis.dto';
 import { PrismaService } from 'src/prisma/prisma.service';
-import passport from 'passport';
 import { Prisma } from '@prisma/client';
 
 @Injectable()
@@ -38,7 +37,7 @@ export class TestesService {
 
  async findAll() {
     return await this.prisma.test.findMany({
-      include:  {employeeTest:{include:{employee:true}},QuestionnTest:{include:{questionn:{include:{AnswerQuestionn:{include:{answer:true}}}}}}
+      include:  {employeeTest:{include:{employee:true}},QuestionnTest:{include:{questionn:{include:{QuestionnAnswer:{include:{answer:true}}}}}}
   }
  });
   }
@@ -48,7 +47,7 @@ export class TestesService {
       where: {id},
       include:{
         employeeTest:{include:{employee:true}},
-        QuestionnTest:{include:{questionn:{include:{AnswerQuestionn:{include:{answer:true}}}}}
+        QuestionnTest:{include:{questionn:{include:{QuestionnAnswer:{include:{answer:true}}}}}
       }
     }
     });
@@ -59,11 +58,12 @@ export class TestesService {
     return await this.prisma.$transaction(async (prisma) => {
       const test = await this.findOne(id, prisma);
 
+
       test.employeeTest.forEach(async (empl) => {
         if (!EmployeeTestIds.includes(empl.employeeId)) {
           await prisma.employeeTest.delete({
             where: {
-              employeeTest: { employeeId: empl.employeeId, testId: id },
+              employeeTest:{ employeeId: empl.employeeId, testId: id },
             },
           });
         }
@@ -72,7 +72,7 @@ export class TestesService {
         if (!QuestionnTestIds.includes(elem.questionnId)) {
           await prisma.questionnTest.delete({
             where: {
-              questionnTest: { questionnId: elem.questionnId, testId: id },
+              questionnTest:{ questionnId: elem.questionnId, testId: id },
             },
           });
         }

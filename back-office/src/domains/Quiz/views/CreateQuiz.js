@@ -22,7 +22,7 @@ function CreateQuiz() {
   const [questionQuizIds, setQuestionQuizIds] = useState([]);
   const employees = useSelector((state) => state.employee.employees.items);
   const questions = useSelector((state) => state.question.questions.items);
-
+   console.log("question",questions);
   const handleChange = (e) => {
     const { name, value } = e.target;
     setQuiz((prevQuiz) => ({ ...prevQuiz, [name]: value }));

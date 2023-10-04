@@ -4,5 +4,6 @@ export class CreateAnswerDto {
     @ApiProperty({required:true})
     text :string
     @ApiProperty({required:true})
-    CorrectAnswer:boolean
+    correctAnswer:boolean
+
 }
