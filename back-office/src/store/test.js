@@ -2,20 +2,20 @@ import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
  import config from "../configs";
 
-export const fetchTests = createAsyncThunk("tests/tests", async () => {
-    const response = await axios.get(`${config.API_ENDPOINT}/tests/alltest`);
-    console.log("from the store",response.data);
+export const fetchTests = createAsyncThunk("test/testes", async () => {
+    const response = await axios.get(`${config.API_ENDPOINT}/testes`);
+    console.log("tests store",response.data);
     return response.data;
   });
 
   export const removeTests = createAsyncThunk("test/test",async(id)=>{
-    const response = await axios.delete(`${config.API_ENDPOINT}/tests/${id}`)
+    const response = await axios.delete(`${config.API_ENDPOINT}/testes/${id}`)
     return response.data
   })
-//   export const fetchTest = createAsyncThunk("clients/client", async (id) => {
-//     const response = await axios.get(`http://localhost:3001/api/v1/tests/${id}`);
-//     return response.data;
-//   });
+  export const fetchTest = createAsyncThunk("test/test", async (id) => {
+    const response = await axios.get(`${config.API_ENDPOINT}/testes/${id}`);
+    return response.data;
+  });
 
 // export const fetchProject = createAsyncThunk("projects/oneProject", async (id) => {
 //   const response = await axios.get(`${config.API_ENDPOINT}/projects/${id}`);
@@ -50,12 +50,12 @@ export const fetchTests = createAsyncThunk("tests/tests", async () => {
      
       builder.addCase(fetchTests.fulfilled, (state, action) => {
         state.tests.items = action.payload;
-      
+       console.log(state.tests.items,"state.tests.items");
       });
 
-    //   builder.addCase(fetchTest.fulfilled, (state, action) => {
-    //     state.test = action.payload;
-    //   });
+      builder.addCase(fetchTest.fulfilled, (state, action) => {
+        state.test = action.payload;
+      });
     },
   });
   export default testSlice.reducer;

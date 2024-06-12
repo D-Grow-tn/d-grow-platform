@@ -36,6 +36,10 @@ import { ItemModule } from './item/item.module';
 import { QuestionsModule } from './questions/questions.module';
 import { OptionsModule } from './options/options.module';
 
+import { AnswersModule } from './answers/answers.module';
+import { QestionnsModule } from './qestionns/qestionns.module';
+import { TestesModule } from './testes/testes.module';
+
 
 
 
@@ -69,15 +73,15 @@ import { OptionsModule } from './options/options.module';
     ContractModule,
     DevisModule,
     ProvidesModule,
-<<<<<<< HEAD
     InvoiceModule,
     ItemModule,
-=======
     QuestionsModule,
     OptionsModule,
-   
+    AnswersModule,
+    QestionnsModule,
+    TestesModule,
     
->>>>>>> 23fdb3f2fc3487cc5665df887f48aaea342525fc
+    
     // WorkTimeModule,
   
    

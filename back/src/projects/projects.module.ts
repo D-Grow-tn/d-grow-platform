@@ -1,8 +1,8 @@
 import { Module } from '@nestjs/common';
 import { ProjectsService } from './projects.service';
 import { ProjectsController } from './projects.controller';
-import { StagesController } from './stages.controller';
-import { StagesService } from './stages.service';
+// import { StagesController } from './stages.controller';
+// import { StagesService } from './stages.service';
 import { PrismaService } from 'src/prisma/prisma.service';
 import { ObjectivesController } from './objectives.controller';
 import { ObjectivesService } from './objectives.service';
@@ -20,7 +20,7 @@ import { HelpersService } from 'src/helpers/helpers.service';
 @Module({
   controllers: [
     ProjectsController,
-    StagesController,
+    // StagesController,
     ObjectivesController,
     SubObjectivesController,
     InteractionController,
@@ -29,7 +29,7 @@ import { HelpersService } from 'src/helpers/helpers.service';
   ],
   providers: [
     ProjectsService,
-    StagesService,
+    // StagesService,
     PrismaService,
     ObjectivesService,
     SubObjectivesService,

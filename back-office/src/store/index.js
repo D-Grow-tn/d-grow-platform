@@ -23,11 +23,9 @@ import worktime from "./worktime";
 import provides from "./provides";
 import devis from "./devis";
 import quiz from "./quiz";
-<<<<<<< HEAD
-import invoice from "./invoice";
-=======
 import question from "./question";
->>>>>>> 23fdb3f2fc3487cc5665df887f48aaea342525fc
+import invoice from "./invoice";
+import test  from "./test";
 export const store = configureStore({
   reducer: {
     auth,
@@ -54,12 +52,9 @@ export const store = configureStore({
     provides,
     devis,
     quiz,
-<<<<<<< HEAD
-    invoice
-=======
+    invoice,
     question,
-  
->>>>>>> 23fdb3f2fc3487cc5665df887f48aaea342525fc
+    test
   },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware({
